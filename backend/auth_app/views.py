@@ -1,10 +1,10 @@
 
 from django.contrib.auth.models import User
-from rest_framework.authtoken.models import Token
-from django.shortcuts import redirect
+from rest_framework.authtoken.models import Token # type: ignore
+from django.shortcuts import redirect 
 from django.http import HttpResponseBadRequest
 from urllib.parse import urlencode
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions # type: ignore
 from .serializers import TaskSerializer ,MatchSerializer
 import requests 
 import secrets
@@ -15,7 +15,7 @@ from .forms import CustomUserForm
 from .models import *
 from .forms import CustomUserForm
 from .models import CustomUser ,all_Match
-from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.models import Token # type: ignore
 from django.http import JsonResponse
 
 state = secrets.token_urlsafe(16)
@@ -83,7 +83,6 @@ def store_data_in_database(request,access_token):
     response = requests.get('https://api.intra.42.fr/v2/me', headers=headers)
     if response.status_code == 200:
         user_data = response.json()
-        """ checking if user already exists in database"""
         login = user_data['login']
         try:
             user = CustomUser.objects.get(username=login)
@@ -102,12 +101,14 @@ def store_data_in_database(request,access_token):
             profile_picture_url = user_data['image']['link']
             response = requests.get(profile_picture_url)
             if response.status_code == 200:
+                """ extract the filename from the url"""
                 filename = os.path.basename(profile_picture_url)
+                """ make a path to save the image in the media folder"""
                 save_path = os.path.join(settings.MEDIA_ROOT, 'User_profile', filename)
 
                 with open(save_path, 'wb') as f:
                     f.write(response.content)
-                user.profile_picture = os.path.join('User_profile', filename)
+                user.photo_profile = f'User_profile/{filename}'
                 user.save()
             user.save()
 
