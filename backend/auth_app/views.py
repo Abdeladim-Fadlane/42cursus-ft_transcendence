@@ -77,7 +77,7 @@ def exchange_code_for_token(code):
         return response_data['access_token']
     else:
         return None
-
+from django.conf import settings
 def store_data_in_database(request,access_token):
     headers = {'Authorization': f'Bearer {access_token}'}
     response = requests.get('https://api.intra.42.fr/v2/me', headers=headers)
@@ -98,7 +98,20 @@ def store_data_in_database(request,access_token):
             user.first_name = user_data['displayname'].split(' ')[0]
             user.last_name = user_data['displayname'].split(' ')[1]
             user.unigue_id = user_data['id']
+         
+            profile_picture_url = user_data['image']['link']
+            response = requests.get(profile_picture_url)
+            if response.status_code == 200:
+                filename = os.path.basename(profile_picture_url)
+                save_path = os.path.join(settings.MEDIA_ROOT, 'User_profile', filename)
+
+                with open(save_path, 'wb') as f:
+                    f.write(response.content)
+                user.profile_picture = os.path.join('User_profile', filename)
+                user.save()
             user.save()
+
+
         token,_,= Token.objects.get_or_create(user=user)
         request.session['user_id'] = user.id
         request.session['token'] = token.key
