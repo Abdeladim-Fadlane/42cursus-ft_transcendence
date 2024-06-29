@@ -60,7 +60,7 @@ def calculate_ranking(user):
     return 0
 
 def leadrboard(request):
-    all_users = CustomUser.objects.all()
+    all_users = CustomUser.objects.all().exclude(username='root')
     all_users = sorted(all_users, key=lambda x: x.score, reverse=True)
     data = []
     for user in all_users:

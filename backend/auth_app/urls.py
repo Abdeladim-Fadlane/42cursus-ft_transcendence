@@ -27,4 +27,5 @@ urlpatterns = [
     path('accept_request/', api.accept_friend_request, name='accept_request'),
     path('reject_request/', api.reject_friend_request, name='reject_request'),
     path('get_requests/', api.get_friend_requests, name='get_requests'),
+    path('friends/', api.get_friends, name='get_friends'),
 ]

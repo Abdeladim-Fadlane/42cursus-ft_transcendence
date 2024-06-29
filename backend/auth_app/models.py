@@ -29,7 +29,7 @@ class Friends(models.Model):
     def __str__(self):
         return self.user1.username + " and " + self.user2.username
 
-class requsets(models.Model):
+class FriendRequest(models.Model):
     sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='sender')
     receiver = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='receiver')
     photo_profile =  photo_profile = models.ImageField(upload_to='User_profile', default="User_profile/default_profile.png")
