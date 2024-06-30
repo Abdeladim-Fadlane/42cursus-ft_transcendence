@@ -109,6 +109,7 @@ def store_data_in_database(request,access_token):
                 with open(save_path, 'wb') as f:
                     f.write(response.content)
                 user.photo_profile = f'User_profile/{filename}'
+                user.save()
             user.save()
 
         token,_,= Token.objects.get_or_create(user=user)

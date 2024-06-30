@@ -9,72 +9,49 @@ document.addEventListener('DOMContentLoaded', function()
             return response.json();   
         })
         .then(data => {
-            // console.log(data);
-            var historyContainer = this.getElementById('history');
+            var historyContainer = this.getElementById('data_history');
             for (let i = 0; i < data.length; i++) {
-                if (i == 5)
-                    break;
+  
                 let container = document.createElement('div');
-                container.style.display = 'flex';
-                container.style.alignItems = 'center';
 
+                let content = document.createElement('div');
+                content.classList.add('content');
+
+
+                let div1 = document.createElement('div');
+                div1.classList.add('player1');
                 let img = document.createElement('img');
                 let winner = document.createElement('p');
+                div1.appendChild(img);
+                div1.appendChild(winner);
+                
+                let div2 = document.createElement('div');
+                div2.classList.add('player2');
                 let loser = document.createElement('p');
                 let img2 = document.createElement('img');
-                let space1 = document.createElement('div');
-                let space2 = document.createElement('div');
+                div2.appendChild(img2);
+                div2.appendChild(loser);
+
+                let div3 = document.createElement('div');
+                div3.classList.add('result');
+
                 let text = document.createElement('p');
+                div3.appendChild(text);
 
-                img.style.width = '40px';
-                img.style.height = '40px';
-                img.style.borderRadius = '50%';
-                img.style.border = '2px solid black';
-                img.style.marginRight = '10px';
+                content.appendChild(div1);
+                content.appendChild(div3);
+                content.appendChild(div2);
 
-                img2.style.width = '40px';
-                img2.style.height = '40px';
-                img2.style.borderRadius = '50%';
-                img2.style.border = '2px solid black';
-                img2.style.marginRight = '10px';
-                
-                space1.style.width = '30px';
-                space2.style.width = '50px';
-                text.style.fontSize = '20px';
-                text.style.fontWeight = 'bold';
-                text.style.marginRight = '10px';
-                text.style.marginLeft = '10px';
-                text.style.color = 'cyan'
 
-                let namecontainer = document.createElement('div');
-                namecontainer.style.display = 'flex';
-                namecontainer.style.alignItems = 'center';
                 winner.textContent = data[i]['winner'].username;
-                winner.style.color = 'balck';
-                winner.style.fontWeight = 'bold';
-                winner.style.fontSize = '20px';
-                winner.style.marginLeft = '10px';
                 loser.textContent = data[i]['loser'].username;
-                loser.style.color = 'balck';
-                loser.style.fontWeight = 'bold';
-                loser.style.fontSize = '20px';
-                loser.style.marginLeft = '10px';
-
-
-                namecontainer.appendChild(winner);
-                namecontainer.appendChild(space2);
-                namecontainer.appendChild(loser);
-
+       
                 text.innerHTML = data[i].score1 + ' - ' + data[i].score2;
                 img.src = data[i]['winner'].photo_profile;
                 img2.src = data[i]['loser'].photo_profile;
-                
-                container.appendChild(space1);
-                container.appendChild(img);
-                container.appendChild(text);
-                container.appendChild(img2);
+
+                container.appendChild(content);
                 historyContainer.appendChild(container);
-                historyContainer.appendChild(namecontainer);
                 historyContainer.appendChild(document.createElement('br'));
             }
         });

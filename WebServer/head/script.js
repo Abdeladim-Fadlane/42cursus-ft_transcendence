@@ -61,18 +61,7 @@
 
 // });
 
-function ft_sign_in() {
-    const modal1 = document.getElementById('sign-up-form');
-    modal1.style.display = 'none';
-    const modal = document.getElementById('login-form');
-    modal.style.display = 'flex';
-}
-function ft_sign_up() {
-    const modal1 = document.getElementById('login-form');
-    modal1.style.display = 'none';
-    const modal = document.getElementById('sign-up-form');
-    modal.style.display = 'flex';
-}
+
   
 function already_logged() {
     fetch('/api/already_logged/')
@@ -119,7 +108,32 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('messages').style.color = 'red';
         });
 });
+
+function ft_sign_up() {
     
+    const modal1 = document.getElementById('login-form');
+    modal1.style.display = 'none';
+    const modal = document.getElementById('sign-up-form');
+    modal.style.display = 'flex';
+    
+  }
+
+
+function ft_sign_in() {
+console.log('hello2');
+
+const modal1 = document.getElementById('sign-up-form');
+modal1.style.display = 'none';
+const modal = document.getElementById('login-form');
+modal.style.display = 'flex';
+}
+  function closeLogoutModal() {
+    console.log('hello3');
+    const modal1 = document.getElementById('sign-up-form');
+    modal1.style.display = 'none';
+    const modal = document.getElementById('login-form');
+    modal.style.display = 'none';
+  }
 document.addEventListener('DOMContentLoaded', function() {
     fetch('/api/csrf-token/')
         .then(response => response.json())
@@ -141,7 +155,12 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.status === true) {
-                window.location.href = "/";
+
+                // window.location.href = "/";
+                const modal1 = document.getElementById('sign-up-form');
+                modal1.style.display = 'none';
+                const modal = document.getElementById('login-form');
+                modal.style.display = 'flex';
             } 
             else
             {

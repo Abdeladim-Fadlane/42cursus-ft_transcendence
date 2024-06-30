@@ -3,42 +3,44 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => {
             if (!response.ok) {
                 window.location.href = "/";
+                throw new Error('Network response was not ok');
             }
             return response.json();
         })
         .then(data => {
             const userData = JSON.parse(JSON.stringify(data));
-            document.getElementById('login').textContent =  userData.username;
-            document.getElementById('content_scor').textContent =  userData.score;
-            document.getElementById('content_scor').style.color = "cyan";
-            document.getElementById('content_scor').style.fontWeight = "bold";
-            document.getElementById('content_scor').style.fontSize = "20px";
-            document.getElementById('content_scor').style.marginLeft = "10px";
-            document.getElementById('nameprofile').textContent =  userData.username;
+            
+            // Update user information in the DOM
+            document.getElementById('login').textContent = userData.username;
+            document.getElementById('content_scor').textContent = userData.score;
+            document.getElementById('nameprofile').textContent = userData.username;
             document.getElementById('content_rank').textContent = userData.ranking;
-  
-            var settingsform = document.getElementById('settings-form');
-            var img3 = document.createElement('img');
-            img3.src = userData.photo_profile;
-            img3.style.borderRadius = "50%";
-            img3.style.border = "2px solid black";
-            settingsform.prepend(img3);
-            /*  */
-            var imgpro= document.getElementById('profileid');
-            var img2 = document.createElement('img');
-            img2.style.borderRadius = "50%";
-            img2.style.border = "2px solid cyan";
-            img2.src = userData.photo_profile;
+            
+            // Add user profile picture to settings form
+            const settingsForm = document.getElementById('settings-form');
+            const img3 = createProfileImage(userData.photo_profile, "2px solid black");
+            settingsForm.prepend(img3);
+            
+            // Add user profile picture to profileid
+            const imgpro = document.getElementById('profileid');
+            const img2 = createProfileImage(userData.photo_profile, "2px solid cyan");
             imgpro.appendChild(img2);
-            // profileid.appendChild(img);
-            var profiles = document.getElementById('imageprofile');
-            var img = document.createElement('img');
-            img.style.borderRadius = "50%";
-            img.style.border = "2px solid black";
-            img.src = userData.photo_profile;
+            
+            // Add user profile picture to imageprofile
+            const profiles = document.getElementById('imageprofile');
+            const img = createProfileImage(userData.photo_profile, "2px solid black");
             profiles.appendChild(img);
         })
         .catch(error => {
             console.error('Error:', error);
         });
 });
+
+// Helper function to create profile image
+function createProfileImage(src, border) {
+    const img = document.createElement('img');
+    img.src = src;
+    img.style.borderRadius = "50%";
+    img.style.border = border;
+    return img;
+}

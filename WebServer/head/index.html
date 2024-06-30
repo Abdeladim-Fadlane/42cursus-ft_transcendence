@@ -21,13 +21,16 @@
     <div class="ball"></div>
     <div class="ball2"></div>
     <div class="container">
+        <div class="slider">
+            <video src="./resrc/vid.mp4" autoplay muted loop></video>
+            </div>
         <div class="home">
             <div class="h_home">
                 <h1>
                     welcome to my <span class="highlight">game</span>!
                 </h1>
                     <p>
-                        Lorem, ipsum dolor sit amet consectetur  nemo cumque magnam dicta atque quas autem, cum temporibus repellat?
+                        Welcome to our online ping pong game! Enjoy realistic physics and stunning graphics as you challenge players worldwide. Join tournaments, climb the leaderboards, and become a ping pong champion today!
                     </p>
                     <div class="Join_now">
                             <button class="Join" ><a href="/redirect/">login with intra 42</a></button>
@@ -49,9 +52,7 @@
                 <h1>
                     HOW to USING THE <span class="highlight">game</span>
                 </h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    Distinctio magnam sint expedita porro enim, neque eaque blanditiis 
-                    odio dicta iste ullam ratione obcaecati quo impedit dolor dolorum maiores sit sequi.
+                <p>Create an account or log in to start playing. Customize your avatar, choose your paddle, and select a match type. Use your keyboard. Compete globally, earn points, and climb the leaderboards to become a ping pong champion!
                 </p>
             </div>
             </div>
@@ -121,9 +122,14 @@
         </div>
         </div>
     </div>
-    <div  id="sign-up-form" class="sign-up-form">
+    <div  id="sign-up-form" class="sign-up-form" >
+        
         <form method="post" id="login-form-id2" action="/registeruser/" enctype="multipart/form-data">
+            <div class="close_container">
+                <span class="close" onclick="closeLogoutModal()">&times;</span>
+            </div>
             <input type="hidden" name="csrfmiddlewaretoken" id="csrfToken">
+            <h2>Register</h2>
             <input type="text" id="username" name="username" placeholder="Username" required><br>
             <div id="messageusername"></div>
             <input type="text" id="first_name" name="first_name" placeholder="First Name"required><br>
@@ -133,22 +139,25 @@
             <div id="messagepassword"></div>
             <input type="password" id="password2" name="password2" placeholder="Confirm Password" required><br>
             <div id="messagepassword2"></div>
-            <button type="submit">Register</button>
-            <a class="a_to_sign_up" onclick="ft_sign_up()">Back to Login</a>
+            <button type="submit" >Register</button>
+            <a class="a_to_sign_up" onclick="ft_sign_in()">Back to Login</a>
         </form>
     </div>
     <div id="login-form" class="login-form">
         <form id="login-form-id" method="post" action="/loginuser/">
+            <div class="close_container">
+                <span class="close" onclick="closeLogoutModal()">&times;</span>
+            </div>
             <input type="hidden" name="csrfmiddlewaretoken" id="csrfToken1"/>
             <h2>Login</h2>
             <input name="username" type="text" placeholder="Username" required/>
             <input name="password" type="password" placeholder="Password" required/>
             <div id="messages"></div>
             <button type="submit">Login</button>
-            <a onclick="ft_sign_in()">Create an account</a><br>
-            <div class="reset-password">Forgot password? <a href="/reset_password/">Reset</a></div>
+            <a onclick="ft_sign_up()">Create an account</a><br>
         </form>
     </div>
     <script src="script.js"></script>
+
 </body>
 </html>

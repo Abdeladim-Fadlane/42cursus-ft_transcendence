@@ -1,7 +1,5 @@
-
-
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('/api/friends/')
+    fetch('/api/suggest/')
         .then(response => {
             if (!response.ok) {
                 window.location.href = "/";
@@ -9,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            var reward = document.getElementById('Friends');
+            var reward = document.getElementById('challenge_friend');
             for (let i = 0; i < data.length; i++) {
 
                 let container = document.createElement('div');
@@ -26,10 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 let username = document.createElement('p');
                 username.textContent = data[i].username;
 
-            
                 let addfriend = document.createElement('button');
-                addfriend.textContent = "delete friend";
-
+                addfriend.textContent = "challenge friend";
                 addfriend.id = data[i].username;
 
                 container.appendChild(img);
@@ -38,32 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 container.appendChild(addfriend);
                 reward.appendChild(container);
                 reward.appendChild(document.createElement('br'));
-                addfriend.addEventListener('click', function() {
-                    handleRequestAction(data[i].username);
-                });
             }
         })
-        function handleRequestAction(senderUsername) {
-            fetch('/api/csrf-token/')
-            .then(response => response.json())
-            .then(data => {
-                let token = data.csrfToken;
-                fetch('/api/delete_friend/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': token,
-                    },
-                    body: JSON.stringify({
-                        'receiver': senderUsername,
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === true) {
-                        window.location.reload();
-                    }
-                });
-            });
-        }
+
 });

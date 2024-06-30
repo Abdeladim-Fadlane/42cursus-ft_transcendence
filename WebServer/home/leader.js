@@ -8,13 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            var mydiv = document.getElementById("leadrboard");
+            var mydiv = document.getElementById("leadrboard_container");
             for (let i = 0; i < data.length; i++) {
                 let container = document.createElement('div');
-                container.style.display = 'flex'; 
-                container.style.alignItems = 'center'; 
-            
-               
+
                 let img = document.createElement('img');
                 img.src = data[i].photo_profile;
                 img.style.width = "40px";
@@ -51,5 +48,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
         })
-        .catch(error => console.error('Error fetching leaderboard:', error));
 }  );

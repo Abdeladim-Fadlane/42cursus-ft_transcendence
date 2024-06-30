@@ -54,13 +54,13 @@
                     <div class="center">
                         <h2>challenge friends</h2>
                     </div>
-                    <div class="list_friend"></div>
+                    <div class="list_friend" id="challenge_friend"></div>
                 </div>
                 <div class="invite">
-                    <div class="center" id="allfriends">
-                        <h2>Friends</h2>
+                    <div class="center">
+                        <h2>invite to friends</h2>
                     </div>
-                    <div class="list_friend"  id="list_friends"></div>
+                    <div class="list_friend" id="list_friend"></div>
                 </div>
             </div>
             <div id="profile" class="content-section profile">
@@ -81,14 +81,18 @@
                 <div class="data">
                     <div class="leadrboard" id="leadrboard">
                         <div class="data_titel"><h2>leadrboard</h2></div>
+                        <div class="leadrboard_container"  id="leadrboard_container"></div>
                     </div>
                     
                     <div class="global_data" id="history">
                         <div class="data_titel" ><h2>match history</h2></div>
+                        <div class="data_history" id="data_history"></div>
                     </div>
                     
                     <div class="achievements" id="achievements">
-                        <div class="data_titel"><h2>Suggest Friends</h2></div>
+                        <div class="data_titel"><h2>Friends</h2></div>
+                        <div class="Friends"  id="Friends"></div>
+
                     </div>
                     
                 </div>
@@ -97,10 +101,12 @@
                 <div class="friend-list">
                     <h2>Friends</h2>
                     <ul id="friends">
-                        <li onclick="openChat('Alice')">Alice</li>
+                        <div class="list_friend" id="list_friend_chat"></div>
+                        <!-- <li onclick="openChat('Alice')">Alice</li>
                         <li onclick="openChat('Bob')">Bob</li>
-                        <li onclick="openChat('Charlie')">Charlie</li>
+                        <li onclick="openChat('Charlie')">Charlie</li> -->
                     </ul>
+
                 </div>
                 <div class="chat-container">
                     <div id="chat-header" class="chat-header">
@@ -115,11 +121,17 @@
                     </div>
                 </div>
             </div>
-            <div id="notifi" class="content-section">
+            <div id="notifi">
                 <div class="notification-contiener" id="notify">
-                    <!-- <span class="close" onclick="closeNotificationsModal()">&times;</span> -->
-                    <div class="modal-content">
-                        <span class="close" onclick="closeNotificationsModal()">&times;</span>
+                    <div class="modal_notificaton">
+                        <div class="close_notificaton">
+                        <span  onclick="closeNotificationsModal()">&times;</span>
+                     </div>
+                        <h1>Notifications</h1>
+                        
+                </div>
+                    <div class="content_notify" id="content_notify">
+
                     </div>
                 </div>
             </div>
@@ -280,6 +292,9 @@
     <script src="data.js"></script>
     <script src="token.js"></script>
     <script src="suggest.js"></script>
-    <script src="friends.js"></script>
+    <script src="invite.js"></script>
+    <script src="challenge.js"></script>
+    <script src="notif.js"></script> 
+    <script src="msgfriend.js"></script>
 </body>
 </html>
