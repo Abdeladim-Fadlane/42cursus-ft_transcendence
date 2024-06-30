@@ -124,3 +124,18 @@ def delete_friend(request):
     Friends.objects.filter(user1=friend, user2=user).delete()
     return JsonResponse({'status': True})
         
+
+def online_friends(request):
+    user = login_required(request)
+    if not user:
+        return JsonResponse({"message": "User not found"})
+    friends = Friends.objects.filter(user1=user)
+    data = []
+    for friend in friends:
+        if friend.user2.is_active:
+            friend_data = {
+                'username': friend.user2.username,
+                'photo_profile': friend.user2.photo_profile.url if friend.user2.photo_profile else None 
+            }
+            data.append(friend_data)
+    return JsonResponse(data, safe=False)

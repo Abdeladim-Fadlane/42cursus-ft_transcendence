@@ -6,9 +6,6 @@ from django.http import HttpResponseBadRequest
 from urllib.parse import urlencode
 from rest_framework import generics, permissions # type: ignore
 from .serializers import TaskSerializer ,MatchSerializer
-import requests 
-import secrets
-import os
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate
 from .forms import CustomUserForm 
@@ -17,6 +14,11 @@ from .forms import CustomUserForm
 from .models import CustomUser ,all_Match
 from rest_framework.authtoken.models import Token # type: ignore
 from django.http import JsonResponse
+from django.conf import settings
+import requests 
+import secrets
+import os
+
 
 state = secrets.token_urlsafe(16)
 client_id =  os.environ.get('client_id')
@@ -29,11 +31,13 @@ def SignIn(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+    
         user = authenticate(request, username=username, password=password)
         if user :
             token ,_ = Token.objects.get_or_create(user=user)
             request.session['user_id'] = user.id
             request.session['token'] = token.key
+            user.is_active = True
             return JsonResponse({'alert': 'ok', 'redirect_url': '/home/'}, status=200)
         else:
             return JsonResponse({'alert': 'Username or Password is incorrect'}, status=200)
@@ -77,7 +81,8 @@ def exchange_code_for_token(code):
         return response_data['access_token']
     else:
         return None
-from django.conf import settings
+
+
 def store_data_in_database(request,access_token):
     headers = {'Authorization': f'Bearer {access_token}'}
     response = requests.get('https://api.intra.42.fr/v2/me', headers=headers)
@@ -93,6 +98,7 @@ def store_data_in_database(request,access_token):
                 login = login + str(user_data['id'])
 
         user, created = CustomUser.objects.get_or_create(username=login, email=user_data['email'])
+        
         if  created:
             user.first_name = user_data['displayname'].split(' ')[0]
             user.last_name = user_data['displayname'].split(' ')[1]
@@ -109,12 +115,13 @@ def store_data_in_database(request,access_token):
                 with open(save_path, 'wb') as f:
                     f.write(response.content)
                 user.photo_profile = f'User_profile/{filename}'
-                user.save()
             user.save()
 
         token,_,= Token.objects.get_or_create(user=user)
         request.session['user_id'] = user.id
         request.session['token'] = token.key
+        user.is_active = True
+        user.save()
 
 
 def callback(request):

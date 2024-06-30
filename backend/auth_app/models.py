@@ -10,6 +10,7 @@ class CustomUser(AbstractUser):
     ranking = models.IntegerField(default=0)
     total_match = models.IntegerField(default=0)
     unigue_id = models.IntegerField(default=0)
+    is_active = models.BooleanField(default=False)
     def __str__(self):
         return self.username
     

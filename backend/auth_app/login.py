@@ -39,6 +39,10 @@ def get_match_history(request):
     
 
 def logout(request):
+    user = login_required(request)
+    if user:
+        user.is_active = False
+        user.save()
     log(request)
     return redirect('/')
 
