@@ -31,4 +31,7 @@ per :
 
 clean : 
 	docker compose  down 
-	docker image prune -f --all
+
+fclean : clean
+	docker system prune -a
+re : fclean all

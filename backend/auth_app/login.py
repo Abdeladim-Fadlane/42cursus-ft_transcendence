@@ -5,7 +5,7 @@ from django.shortcuts import  redirect
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
-from . serializers import TaskSerializer ,MatchSerializer
+from . serializers import TaskSerializer 
 
 def login_required(request):
     access_token = request.session.get('user_id')
@@ -39,10 +39,9 @@ def get_match_history(request):
     
 
 def logout(request):
-    user = login_required(request)
-    if user:
-        user.is_active = False
-        user.save()
+    user = CustomUser.objects.get(id=request.session.get('user_id'))
+    user.is_online = False
+    user.save()
     log(request)
     return redirect('/')
 
@@ -71,8 +70,6 @@ def leadrboard(request):
         user.ranking = calculate_ranking(user)
         user.total_match = user.win + user.lose
         data.append(user)
-        if len(data) == 7:
-            break
     dataseriaser = TaskSerializer(data, many=True)
     return JsonResponse(dataseriaser.data,safe=False)
 
