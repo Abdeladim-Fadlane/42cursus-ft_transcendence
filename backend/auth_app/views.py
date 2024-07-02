@@ -27,7 +27,7 @@ client_secret = os.environ.get('client_secret')
 
 def SignIn(request):
     if request.user.is_authenticated:
-        return JsonResponse({'alert': 'ok', 'redirect_url': '/home/'}, status=200)
+        return JsonResponse({'status':True}, status=200)
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -38,10 +38,10 @@ def SignIn(request):
             request.session['token'] = token.key
             user.is_online = True
             user.save()
-            return JsonResponse({'alert': 'ok', 'redirect_url': '/home/'}, status=200)
+            return JsonResponse({'status':True}, status=200)
         else:
-            return JsonResponse({'alert': 'Username or Password is incorrect'}, status=200)
-    return JsonResponse({'error': 'Invalid request method'}, status=200)
+            return JsonResponse({'status':False}, status=200)
+    return JsonResponse({'status':True}, status=200)
 
 def SignUp(request):
     if request.method == "POST":
