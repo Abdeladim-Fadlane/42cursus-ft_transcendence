@@ -9,12 +9,37 @@ html {
 }
 
 body {
-    /* width: 100vw;
-    height: 100vh; */
+    width: 100vw;
+    height: 100vh;
     /* overflow: hidden; */
-    background-color: #040000;
-    /* background-size: 53px 53px; */
-    /* position: relative; */
+    background-image: repeating-radial-gradient(
+        circle at center center,
+        transparent 0px,
+        transparent 11px,
+        rgba(255, 255, 255, 0.04) 11px,
+        rgba(255, 255, 255, 0.04) 19px,
+        transparent 19px,
+        transparent 29px,
+        rgba(255, 255, 255, 0.04) 29px,
+        rgba(255, 255, 255, 0.04) 33px
+      ),
+      repeating-radial-gradient(
+        circle at center center,
+        rgb(0, 0, 0) 0px,
+        rgb(0, 0, 0) 5px,
+        rgb(0, 0, 0) 5px,
+        rgb(0, 0, 0) 17px,
+        rgb(0, 0, 0) 17px,
+        rgb(0, 0, 0) 30px,
+        rgb(0, 0, 0) 30px,
+        rgb(0, 0, 0) 43px,
+        rgb(0, 0, 0) 43px,
+        rgb(0, 0, 0) 45px,
+        rgb(0, 0, 0) 45px,
+        rgb(0, 0, 0) 47px
+      );
+    background-size: 53px 53px;
+    position: relative;
   }
 
 
@@ -31,7 +56,7 @@ body {
     margin: auto;
     border-radius: 0% 0% 10% 10%;
     border-radius: 0% 0% 10% 10%;
-    /* border-bottom: 4px solid white; */
+    border-bottom: 4px solid white;
     /* position: fixed; */
 }
 
@@ -68,27 +93,23 @@ body {
     background-color: #218838;
 }
 
-/* 
+
 .slider{
     width: 100%;
     height: 100vh;
-    display: flex ;
-    justify-content: center;
-    align-items: center;
     /* background-color: #216c88; */
     /* background-image: url('./resrc/login_bacgraound.gif'); */
-    /* background-size: cover; 
-    background-position: center; */
+    background-size: cover; 
+    background-position: center;
     
-/* } */
+}
 video {
-    /* width: 100%;
-    height: 100%; */
+    width: 100%;
+    height: 100%;
     object-fit: cover; 
-    /* box-shadow: white 0px 0px 10px 0px; */
     
     
-} */
+}
 
 
 
@@ -138,11 +159,15 @@ p
 }
 @keyframes moveBall2 {
     0% {
-        top: 110%;
+        top: 20%;
         left: 10%;
     }
+    15% {
+        top: 30%;
+        left: 50%;
+    }
     25% {
-        top: 130%;
+        top: 75%;
         left: 60%;
     }
     50% {
@@ -154,7 +179,7 @@ p
         left: 50%;
     }
     100% {
-        top: 110%;
+        top: 20%;
         left: 10%;
     }
 }
@@ -174,24 +199,28 @@ p
 
 @keyframes moveBall {
     0% {
-        top: 110%;
-        left: 10%;
+        top: 20%;
+        left: 80%;
+    }
+    15% {
+        top: 60%;
+        left: 50%;
     }
     25% {
-        top: 130%;
-        left: 50%;
+        top: 100%;
+        left: 70%;
     }
     50% {
         top: 150%;
-        left: 80%;
+        left: 20%;
     }
     75% {
         top: 175%;
-        left: 60%;
+        left: 50%;
     }
     100% {
-        top: 110%;
-        left: 10%;
+        top: 20%;
+        left: 80%;
     }
 }
 .Join_now 

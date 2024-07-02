@@ -2,7 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('/api/suggest/')
         .then(response => {
             if (!response.ok) {
-                window.location.href = "/";
+                document.getElementById('list_friend').display = 'none';
+                console.log("handlerq11");
+                handlerq();
             }
             return response.json();
         })
@@ -13,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 let container = document.createElement('div');
                 container.style.display = 'flex';
                 container.style.alignItems = 'center';
+                reward.style.backgroundColor = "white";
 
                 let img = document.createElement('img');
                 img.src = data[i].photo_profile;
@@ -20,16 +23,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 img.style.height = "40px";
                 img.style.borderRadius = "50%";
                 img.style.border = "2px solid black";
+                let div = document.createElement('div');
+                div.style.width = "30%";
 
                 let username = document.createElement('p');
                 username.textContent = data[i].username;
-
+                div.appendChild(username);
                 let addfriend = document.createElement('button');
                 addfriend.textContent = "Add Friend";
                 
                 addfriend.id = data[i].username;
                 container.appendChild(img);
-                container.appendChild(username);
+                container.appendChild(div);
 
                 container.appendChild(addfriend);
                 reward.appendChild(container);
@@ -59,9 +64,66 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === true) {
-                        window.location.reload();
+                        // document.getElementById('list_friend').style.display = 'none';
+                        document.getElementById('list_friend').innerHTML = '';
+                        // console.log("handlerq");
+                        // window.location.reload();
+                        handlerq();
                     }
                 })
+            })
+        }
+        function handlerq()
+        {
+            
+            fetch('/api/suggest/')
+            .then(response => {
+                if (!response.ok) {
+                    // document.getElementById('list_friend').display = 'none';
+                    console.log("handlerq11");
+                    // handlerq();
+                }
+                return response.json();
+            })
+                .then(data => {
+                    console.log("handlerqssss");
+                    var reward = document.getElementById('list_friend');
+                    console.log(data);
+                    for (let i = 0; i < data.length; i++) {
+                        console.log("handlerq");
+                    let container = document.createElement('div');
+                    container.style.display = 'flex';
+                    container.style.alignItems = 'center';
+                    reward.style.backgroundColor = "black";
+    
+                    let img = document.createElement('img');
+                    img.src = data[i].photo_profile;
+                    img.style.width = "40px";
+                    img.style.height = "40px";
+                    img.style.borderRadius = "50%";
+                    img.style.border = "2px solid black";
+                    let div = document.createElement('div');
+                    div.style.width = "30%";
+    
+                    let username = document.createElement('p');
+                    username.textContent = data[i].username;
+                    div.appendChild(username);
+                    let addfriend = document.createElement('button');
+                    addfriend.textContent = "Add Friend";
+                    
+                    addfriend.id = data[i].username;
+                    container.appendChild(img);
+                    container.appendChild(div);
+    
+                    container.appendChild(addfriend);
+                    reward.appendChild(container);
+              
+                    reward.appendChild(document.createElement('br'));
+                    addfriend.addEventListener('click', function() {
+                        handleRequestAction(data[i].username);
+                    });
+                }
+                
             })
         }
 });

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('/api/online/')
+    fetch('/api/suggest/')
         .then(response => {
             if (!response.ok) {
                 window.location.href = "/";
@@ -19,17 +19,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 img.style.width = "40px";
                 img.style.height = "40px";
                 img.style.borderRadius = "50%";
-                img.style.border = "3px solid green";
+                img.style.border = "2px solid black";
+                let div = document.createElement('div');
+                div.style.width = "30%";
+                
 
                 let username = document.createElement('p');
                 username.textContent = data[i].username;
-
+                div.appendChild(username);
                 let addfriend = document.createElement('button');
-                addfriend.textContent = "Challenge";
+                addfriend.textContent = "challenge friend";
                 addfriend.id = data[i].username;
 
                 container.appendChild(img);
-                container.appendChild(username);
+                container.appendChild(div);
 
                 container.appendChild(addfriend);
                 reward.appendChild(container);

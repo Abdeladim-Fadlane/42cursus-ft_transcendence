@@ -52,21 +52,20 @@
                 </div>
                 <div class="challenge">
                     <div class="center">
-                        <h2>Online Friends</h2>
+                        <h2>challenge friends</h2>
                     </div>
                     <div class="list_friend" id="challenge_friend"></div>
                 </div>
                 <div class="invite">
                     <div class="center">
-                        <h2>Suggest Friends</h2>
+                        <h2>invite to friends</h2>
                     </div>
                     <div class="list_friend" id="list_friend"></div>
                 </div>
             </div>
             <div id="profile" class="content-section profile">
                 <div class="welcome">
-                    <div id="profileid">
-                        <!-- <div class="image_to_profile"></div> -->
+                    <div class="prf_to_prf" id="profileid">
                         <h3 id="login"></h3>
                     </div>
                     <div>
@@ -150,26 +149,39 @@
                     <div class="modal-content">
                         <span class="close" onclick="closeSettingsModal()">&times;</span>
                     </div>
-                    <div id = "editprofile">
+                    
                         <div class="settings-form" id="settings-form">
-                            <!-- <img id="editimage" src="" alt="profile"> -->
-                            <!-- <label for="profileImage">new Profile Image</label> -->
-                            <!-- <img id="profileImagePreview" src="default-profile.png" alt="Profile Image" class="profile-image"> -->
-                            <!-- <input type="file" id="profileImage" accept="image/*" onchange="previewImage(event)">
-                                < -->
+                            <div class="data_setting">
+                                <div class="profil" id="profil">
+                                    <img class="edit" src="./resrc/edit.png" alt="">
+                                </div>
                                 <label id="nameprofile" for="username"></label>
+                            </div>
+                            
+                                
                                 <form id="avatarForm" class="form-container" method="post" enctype="multipart/form-data" action="/update_profile/">
                                     <input type="hidden" name="csrfmiddlewaretoken" id="crcf">
-                                    <input type="file" id="image" name="image" accept="image/*" required>
-                                    <input type="text" id="username" name="username" placeholder="Username" required>
-                                    <button type="submit">Upload</button>
+                                    <input type="file" id="image" name="image" accept="image/*" style="display: none;">
+                                    <input type="text" id="username" name="username" placeholder="new Username">
+                                    <button class="submit" type="submit">Upload</button>
                                     <div id="messages"></div>
                                 </form>
-                                <!-- <button class="save-button" onclick="saveSettings()">Save Changes</button> -->
+                                <a class="delet_account" onclick="delete_funcyion()">delete my sccount</a>
+                                
                             </div>
+                            
                         </div>
-                    </div>
+                    
             </div>
+            <div class="modal_delete" id="modal_delete">
+                <div class="modal-content">
+                    <span class="close" onclick="closedelete()">&times;</span>
+                    <h2>Confirm delete</h2>
+                    <p>Are you sure ?</p>
+                    <button class="confirm-button" >Yes</button>
+                    <button class="cancel-button" >No</button>
+                </div>
+        </div>
             <section id="loading-section-id">
                 <div id="loading">
                     <div id="loader"></div>
@@ -296,5 +308,6 @@
     <script src="challenge.js"></script>
     <script src="notif.js"></script> 
     <script src="msgfriend.js"></script>
+    <script src="setting.js"></script>
 </body>
 </html>

@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 let container = document.createElement('div');
                 container.style.display = 'flex';
                 container.style.alignItems = 'center';
+                container.style.backgroundColor = "white";
 
                 let img = document.createElement('img');
                 img.src = data[i].photo_profile;
@@ -28,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             
                 let addfriend = document.createElement('button');
-                addfriend.textContent = "Unfriend";
+                addfriend.textContent = "delete friend";
 
                 addfriend.id = data[i].username;
 

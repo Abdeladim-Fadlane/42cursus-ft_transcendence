@@ -185,11 +185,13 @@ html {
     color: #ffffff;
   }
   .profil {
-    margin-left: 30px;
-    display: flex;
+    /* margin-left: 30px; */
+    /* display: flex;
     justify-content: center;
   
-    background-position: center;
+    background-position: center; */
+    width: 50px;
+    height: 50px;
     background-size: cover;
   }
   .notification_icon,
@@ -288,8 +290,8 @@ html {
   }
   
   img {
-    width: 80px;
-    height:80px;
+    width: 60px;
+    height:60px;
   }
   
   .image1 img,
@@ -763,9 +765,11 @@ html {
   {
     padding-top: 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
     flex-direction: column;
+    width: 100%;
+    height: 90%;
   }
   
   .save-button
@@ -812,7 +816,7 @@ html {
     justify-content: start;
     align-items: center;
     flex-direction: column;
-    width: 40%;
+    width: 20%;
     height: 50%;
     background-color: #777777;
   }
@@ -1154,8 +1158,8 @@ img.profile-pic.cyan-border {
 .leadrboard_container
 {
   display: flex;
-  justify-content: start;
-  /* align-items: center; */
+  justify-content: space-around;
+  align-items: center;
   flex-direction: column;
   margin-top: 10px;
   width: 100%;
@@ -1197,6 +1201,7 @@ img.profile-pic.cyan-border {
   width: 100%;
   height: 83%;
   overflow-y: auto;
+  
 }
 .Friends div p  ,.list_friend div p
 {
@@ -1216,6 +1221,7 @@ img.profile-pic.cyan-border {
   width: 100%;
   justify-content:space-around;
   align-items: center;
+ 
 }
 /* Friends end */
 
@@ -1270,3 +1276,83 @@ img.profile-pic.cyan-border {
   margin-top: 20px;
 }
 /* history end */
+.profile-settings-img
+{
+  width: 60px;
+  height: 60px;
+  /* border-radius: 10%; */
+  margin-top: 10px;
+
+}
+
+.delet_account
+{
+  color: brown;
+}
+.form-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  height: 40%;
+  width: 100%;
+}
+.data_setting
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  /* margin-top: 10px; */
+  width: 100%;
+  height: 100px;
+  overflow-y: auto;
+}
+input
+{
+  width: 200px;
+  height: 30px;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 5px;
+}
+.submit
+{
+  width: 200px;
+  height: 30px;
+  
+  color: #ffffff;
+}
+.edit
+{
+  /* z-index: 1000; */
+  width: 40px;
+  height: 40px;
+  position: relative;
+  left: 26px;
+  top: -35px;
+
+}
+.modal_delete
+{
+  display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+.prf_to_prf
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: 95px;
+  
+}
