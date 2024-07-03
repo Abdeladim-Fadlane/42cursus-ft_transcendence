@@ -139,3 +139,17 @@ def online_friends(request):
             }
             data.append(friend_data)
     return JsonResponse(data, safe=False)
+
+from django.contrib.auth.decorators import login_required as django_login_required
+# @django_login_required()
+
+def frined_profile(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    user = login_required(request)
+    if not user:
+        return JsonResponse({"message": "User not found"})
+    username = json.loads(request.body)['username']
+    friend = CustomUser.objects.get(username=username)
+    data = TaskSerializer(friend)
+    return JsonResponse(data.data, safe=False)
