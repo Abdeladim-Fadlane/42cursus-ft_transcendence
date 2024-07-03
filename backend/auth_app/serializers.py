@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import serializers # type: ignore 
 
 from .models import CustomUser ,all_Match
 
