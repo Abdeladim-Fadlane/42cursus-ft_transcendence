@@ -123,4 +123,33 @@ def delete_friend(request):
     Friends.objects.filter(user1=user, user2=friend).delete()
     Friends.objects.filter(user1=friend, user2=user).delete()
     return JsonResponse({'status': True})
-        
+
+
+def online_friends(request):
+    user = login_required(request)
+    if not user:
+        return JsonResponse({"message": "User not found"})
+    friends = Friends.objects.filter(user1=user)
+    data = []
+    for friend in friends:
+        if friend.user2.is_online:
+            friend_data = {
+                'username': friend.user2.username,
+                'photo_profile': friend.user2.photo_profile.url if friend.user2.photo_profile else None 
+            }
+            data.append(friend_data)
+    return JsonResponse(data, safe=False)
+
+from django.contrib.auth.decorators import login_required as django_login_required
+# @django_login_required()
+
+def frined_profile(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    user = login_required(request)
+    if not user:
+        return JsonResponse({"message": "User not found"})
+    username = json.loads(request.body)['username']
+    friend = CustomUser.objects.get(username=username)
+    data = TaskSerializer(friend)
+    return JsonResponse(data.data, safe=False)

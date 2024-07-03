@@ -30,4 +30,7 @@ urlpatterns = [
     path('friends/', api.get_friends, name='get_friends'),
     path('reject_friend/', api.reject_friend_request, name='reject_friend'),
     path('delete_friend/', api.delete_friend, name='delete_friend'),
+    path('online/', api.online_friends, name='online'),
+    path('display_name/', login.set_display_name, name='set_display_name'),
+
 ]

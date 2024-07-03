@@ -862,6 +862,7 @@ html {
   }
 
   /*88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888*/
+
   button {
     padding: 10px 20px;
     font-size: 16px;
@@ -997,41 +998,6 @@ html {
     background-color: #f0f0f0;
 }
 
-.menu {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 70%;
-    max-width: 400px;
-    background-color: #333;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    padding: 20px;
-    z-index: 1000;
-    overflow-y: auto;
-}
-
-.menu-btn {
-    display: block;
-    width: 100%;
-    padding: 15px 20px;
-    margin-bottom: 10px;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.menu-btn:hover {
-    background-color: #45a049;
-}
-
 #resultModal {
     background-color: #1d1e21;
     border: 2px solid #888;
@@ -1094,6 +1060,10 @@ section.active {
     width: 100%;
 }
 
+/* .glo{
+  background-color: white;
+} */
+
 .student-list {
   max-width: 220px;
   margin: 20px auto;
@@ -1128,7 +1098,129 @@ section.active {
   color: #333;
 }
 
+/*iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii*/
 
+#tournament_list
+{
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+/*8888888888888888888888888*/
+.tournament-input {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.tournament-input-form {
+  background: black;
+  padding: 20px 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px white;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+}
+
+/* Style the input */
+.tournament-input-form .inputt[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Style the button */
+.tournament-input-form .buttonn {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #8c8c8c;
+  color: white;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+/* Button hover effect */
+.tournament-input-form .buttonn:hover {
+  background-color: black;
+}
+
+/*lllllllaaaaaaaaaaaaaaaaaaaaaaastttttttttttttttttttt*/
+
+:root {
+    --cor-background: #212123;
+    --cor-reflexo: rgba(255, 255, 255, 0.4);
+    --cores-dancantes: rgb(30, 219, 68), rgb(52, 170, 220), rgb(88, 86, 217),
+        rgb(255, 45, 83);
+}
+
+body {
+    background-color: #212123;
+}
+
+.conteudo {
+    box-sizing: border-box;
+    position: absolute;
+    background: linear-gradient(to right, var(--cores-dancantes));
+    width: 250px;
+    height: auto;
+    border-radius: 10px;
+    animation: coresDancantes 1s linear infinite;
+    justify-content: center;
+    padding: 5px;
+}
+
+@keyframes coresDancantes {
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+  
+.student {
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid gray;
+}
+
+.student:last-child {
+    border-bottom: none;
+}
+
+.caixa{
+    background-color: white;
+    width: 98%;
+    background-color: var(--cor-background);
+    border-radius: 10px;
+    justify-content: center;
+    padding: 5px;
+}
+
+.student-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.student-name {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    color: white;
+}
+
+/* .contentt
+{
+    display: flex;
+    height: 60px;
+} */
+  
+  /*88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888*/
 
 /* data */
 #content_scor {

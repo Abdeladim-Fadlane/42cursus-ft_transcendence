@@ -8,9 +8,9 @@ import requests
 width = 600
 height = 300
 hh = 80
-ww = 10
+ww = 5
 racket_speed = 1
-score_to_win = 2
+score_to_win = 20
 
 class racket:
     def __init__(self, x, y, min, max):
@@ -58,7 +58,7 @@ class ball:
         self.y = y
         self.r = 10
         self.angl = 0
-        self.speed = 0.6
+        self.speed = 0.9
         self.vx = math.cos(self.angl * math.pi / 180) * self.speed
         self.vy = math.sin(self.angl * math.pi / 180) * self.speed
     def serialize_ball(self):
@@ -67,6 +67,36 @@ class ball:
             'y':self.y,
             'r':self.r,
         }
+
+def save_Match(group_name, idx):
+    losee_token = rooms[group_name].players[abs(idx-1)].scope['query_string'].decode().split('=')[1]
+    headers = {'Authorization': f'Token {losee_token}'}
+    body = {
+        'lose': rooms[group_name].players[abs(idx-1)].user.lose + 1,
+    }
+    idloser = rooms[group_name].players[abs(idx-1)].user.id
+    url = f'http://auth:8000/api/tasks/{idloser}/'
+    requests.patch(url=url, headers=headers, data=body)
+
+    """ update winner score"""
+    win_token = rooms[group_name].players[idx].scope['query_string'].decode().split('=')[1]
+    headers = {'Authorization': f'Token {win_token}'}
+    body = {
+        'score': rooms[group_name].players[idx].user.score + 10,
+        'win': rooms[group_name].players[idx].user.win + 1,
+    }
+    idwinner = rooms[group_name].players[idx].user.id
+    url = f'http://auth:8000/api/tasks/{idwinner}/'
+    requests.patch(url=url, headers=headers, data=body)
+
+    """ save match to database"""
+    data = {
+        'winner': idwinner,
+        'loser': idloser,
+        'score1': rooms[group_name].team1_score if rooms[group_name].team1_score > rooms[group_name].team2_score else rooms[group_name].team2_score,
+        'score2': rooms[group_name].team1_score if rooms[group_name].team1_score < rooms[group_name].team2_score else rooms[group_name].team2_score,}
+    url = f'http://auth:8000/api/match/'
+    requests.post(url=url, headers=headers, data=data)
 
 class   Match:
     def __init__(self, N):
@@ -125,11 +155,12 @@ class   Match:
     async def run_game(self):
         while self.players[0].avaible and self.players[1].avaible:
             self.move()
-            await self.players[0].channel_layer.group_send(self.players[0].group_name,
-            {
-                'type': 'send_data',
-                'data':json.dumps(self, default=serialize_Match)
-            })
+            await send_to_group(self.players, {'data':json.dumps(self, default=serialize_Match)})
+            # await self.players[0].channel_layer.group_send(self.players[0].group_name,
+            # {
+            #     'type': 'send_data',
+            #     'data':json.dumps(self, default=serialize_Match)
+            # })
             await asyncio.sleep(0.001)
             if (self.team1_score == score_to_win):
                 return 1
@@ -137,41 +168,23 @@ class   Match:
                 return 2
         if self.players[0].avaible:
             self.team1_score = score_to_win
-            return 1
+            return 2
         self.team2_score = score_to_win
-        return 2
+        return 1
 
-def save_Match(group_name, idx):
-    losee_token = rooms[group_name].players[abs(idx-1)].scope['query_string'].decode().split('=')[1]
-    headers = {'Authorization': f'Token {losee_token}'}
-    body = {
-        'lose': rooms[group_name].players[abs(idx-1)].user.lose + 1,
+async def send_to_group(group, data):
+    for channel in group:
+        await channel.send_data(data)
+
+def serialize_Users(o):
+    return{
+        'type': 'game.info',
+        'players':[p.user.serialize_User() for p in o.players],
     }
-    idloser = rooms[group_name].players[abs(idx-1)].user.id
-    url = f'http://auth:8000/api/tasks/{idloser}/'
-    requests.patch(url=url, headers=headers, data=body)
-
-    """ update winner score"""
-    win_token = rooms[group_name].players[idx].scope['query_string'].decode().split('=')[1]
-    headers = {'Authorization': f'Token {win_token}'}
-    body = {
-        'score': rooms[group_name].players[idx].user.score + 10,
-        'win': rooms[group_name].players[idx].user.win + 1,
-    }
-    idwinner = rooms[group_name].players[idx].user.id
-    url = f'http://auth:8000/api/tasks/{idwinner}/'
-    requests.patch(url=url, headers=headers, data=body)
-
-    """ save match to database"""
-    data = {
-        'winner': idwinner,
-        'loser': idloser,
-        'score1': rooms[group_name].team1_score if rooms[group_name].team1_score > rooms[group_name].team2_score else rooms[group_name].team2_score,
-        'score2': rooms[group_name].team1_score if rooms[group_name].team1_score < rooms[group_name].team2_score else rooms[group_name].team2_score,}
-    url = f'http://auth:8000/api/match/'
-    requests.post(url=url, headers=headers, data=data)
 
 async def start_game(group_name):
+    await send_to_group(rooms[group_name].players, {'data':json.dumps(rooms[group_name], default=serialize_Users)})
+    await asyncio.sleep(4)
     winner = await rooms[group_name].run_game()
     result = ['Winner', 'Winner']
     idx = 0
@@ -181,7 +194,7 @@ async def start_game(group_name):
     else:
         result[1] = 'Loser'
     for i in range(2):
-        if rooms[group_name].players[i].avaible:
+        if rooms[group_name] and rooms[group_name].players[i].avaible:
             await rooms[group_name].players[i].send(json.dumps({'type':'game.end', 'result':result[i % 2]}))
             rooms[group_name].players[i].avaible = False
             await rooms[group_name].players[i].close()
@@ -191,7 +204,7 @@ async def start_game(group_name):
 def serialize_Match(o):
     return{
         'type':'game.state',
-        'players':[{'user': {'login':p.user.username, 'icon':p.user.photo_profile}, 'racket':p.racket.serialize_racket()} for p in o.players],
+        'players':[{'racket':p.racket.serialize_racket()} for p in o.players],
         'ping':o.b.serialize_ball(),
         'team1_score':o.team1_score,
         'team2_score':o.team2_score,
@@ -204,6 +217,12 @@ class   User:
     def __init__(self, dict):
         for key, value in dict.items():
             setattr(self, key, value)
+
+    def serialize_User(self):
+        return{
+            'login':self.username,
+            'icon':self.photo_profile,
+        }
 
 class RacetCunsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -241,10 +260,10 @@ class RacetCunsumer(AsyncWebsocketConsumer):
     async def disconnect(self, event):
         print("----------disconnect-----------")
         self.avaible = False
-        if (self.group_name in rooms):
-            del rooms[self.group_name]
-        await self.channel_layer.group_send(self.group_name,
-        {
-            'type': 'send_data',
-            'data': json.dumps({'type':'game.end', 'result':'Winner'})
-        })
+        # if (self.group_name in rooms):
+        #     del rooms[self.group_name]
+        # await self.channel_layer.group_send(self.group_name,
+        # {
+        #     'type': 'send_data',
+        #     'data': json.dumps({'type':'game.end', 'result':'Winner'})
+        # })

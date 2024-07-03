@@ -1,3 +1,9 @@
+function ft_show_profile()
+{
+    // document.getElementById('home').style.display = 'none';
+    // document.getElementById('card-container').style.display = 'flex';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     fetch('/api/suggest/')
         .then(response => {
@@ -13,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 let container = document.createElement('div');
                 container.style.display = 'flex';
                 container.style.alignItems = 'center';
+                // var show_profile = document.createElement('button');
 
                 let img = document.createElement('img');
                 img.src = data[i].photo_profile;
@@ -31,6 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 addfriend.textContent = "challenge friend";
                 addfriend.id = data[i].username;
 
+                // show_profile.appendChild(img);
+                // show_profile.addEventListener('click', ft_show_profile);
                 container.appendChild(img);
                 container.appendChild(div);
 

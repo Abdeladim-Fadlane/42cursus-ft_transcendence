@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
+            // console.log(data);
             var reward = document.getElementById('Friends');
             for (let i = 0; i < data.length; i++) {
 

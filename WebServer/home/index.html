@@ -22,12 +22,14 @@
             </ul>
         </div>
     </nav>
+
     <div class="container">
         <aside>
             <div class="aside_content">
                 <div class="image1">
                     <ul>
                         <!-- <li><a class="settings-button" onclick="showSettingsModal()"><div class="seting_icon"></div></a></li> -->
+                        
                         <li><a class="notification" onclick="showNotificationsModal()"><div    class="notification_icon aside_button"></div></a></li>
                         <li><a class="nav-link" data-target="chat" href=""><div    class="chat_icon  aside_button"></div></a></li>
                     </ul>
@@ -48,7 +50,7 @@
                 </div>
                 <div class="game">
                     <img src="./resrc/ai_game.jpeg" alt="">
-                    <button onclick="navigate('play_tournament')">play Tournament</button>
+                    <button onclick="navigate('tournament_input')">play Tournament</button>
                 </div>
                 <div class="challenge">
                     <div class="center">
@@ -204,13 +206,8 @@
             </section>
             <section id="resultModal">
                 <span class="close" onclick="closeModal()">&times;</span>
-                <span id="resultMessage">You Win</span>
-                <img id="result-gif" src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e70bcc65284623.5aef51b58b0c9.gif">
-            </section>
-            <section id="resultModal">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <span id="resultMessage">You Win</span>
-                <img id="result-gif" src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e70bcc65284623.5aef51b58b0c9.gif">
+                <span id="resultMessage"></span>
+                <img id="result-gif">
             </section>
             <section id="play-4" >
                 <div class="ping-pong">
@@ -236,6 +233,14 @@
                     </div>
                 </div>
             </div>
+        </section>
+        <section id="tournament_input" class="tournament-input">
+            <form method="post" id="display_name-form-id" class="tournament-input-form" action="/account/display_name/" enctype="multipart/form-data">
+                <input type="hidden" name="csrfmiddlewaretoken" id="display_name_csrfToken">
+                <input type="text" id="display_name" class="inputt" name="display_name" placeholder="Tournament display name" required><br>
+                <div id="display_name_err"></div>
+                <button type="submit" class="buttonn">Start</button>
+            </form>
         </section>
         <section id="play_tournament">
             <div id="tournament-id" class="tournament">
@@ -279,24 +284,17 @@
                 </div>
             </section>
             <section id="win-tournament-id">
-                <img id="win-tournament-background-id" src="https://cdn.dribbble.com/users/7421625/screenshots/18722898/media/9dc2ccd128c89b19dddd55447ba5e1d0.gif">
+                <img id="win-tournament-background-id" src="./resrc/win_tournament.gif">
             </section>
-            <section id="tournament_list" class="student-list">
-                <div class="student">
-                    <!-- <img src="mkatfi.jpeg" alt="Student Icon" class="student-icon"> -->
-                    <span class="student-name">Student Name 1</span>
-                </div>
-                <div class="student">
-                    <!-- <img src="mkatfi.jpeg" alt="Student Icon" class="student-icon"> -->
-                    <span class="student-name">Student Name 2</span>
-                </div>
-                <div class="student">
-                    <!-- <img src="mkatfi.jpeg" alt="Student Icon" class="student-icon"> -->
-                    <span class="student-name">Student Name 3</span>
+            <section id="tournament_list">
+                <div class="conteudo">
+                    <div id="tournament_content" class="caixa">
+                    </div>
                 </div>
             </section>
         </article>
     </div>
+    <script src="profile.js"></script>
     <script src="game.js"></script>
     <script src="script.js"></script>
     <script src="match.js"></script>
@@ -308,6 +306,7 @@
     <script src="challenge.js"></script>
     <script src="notif.js"></script> 
     <script src="msgfriend.js"></script>
+    <!-- <script src="profile.js"></script> -->
     <script src="setting.js"></script>
 </body>
 </html>
