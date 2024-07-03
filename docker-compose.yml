@@ -2,10 +2,11 @@ services:
   Database:
     image: postgres
     container_name: postgreSql
-    volumes:
-      - ./postgreSql/data/db:/var/lib/postgresql/data
+    # volumes:
+    #   - ./postgreSql/data/db:/var/lib/postgresql/data
     env_file:
       - .env
+    restart: always
 
   auth:
     build: backend

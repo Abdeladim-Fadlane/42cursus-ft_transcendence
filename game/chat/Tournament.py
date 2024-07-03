@@ -11,9 +11,8 @@ waiting = {}
 tournaments = {}
 tournament_name = 'tournament_' + datetime.now().time().strftime("%H_%M_%S_%f")
 
-async def full_tournament(users):
+async def full_tournament(users, tournament_name):
     # random.shuffle(users)
-    tournament_name = 'tournament_' + datetime.now().time().strftime("%H_%M_%S_%f")
     tournaments[tournament_name] = {}
     while len(users) > 1:
         group_name = None
@@ -24,7 +23,7 @@ async def full_tournament(users):
             users[i].group_name = group_name
             users[i].next_index = int(i / 2)
             await users[i].channel_layer.group_add(users[i].group_name, users[i].channel_name)
-            await users[i].channel_layer.group_add(tournament_name, users[i].channel_name)
+            # await users[i].channel_layer.group_add(tournament_name, users[i].channel_name)
             if i % 2 == 1:
                 users[i].racket = racket((width - ww), (height - hh) / 2, 0, height)
                 users[i - 1].racket = racket(0, (height - hh) / 2, 0, height)
@@ -96,29 +95,33 @@ x = 1
 class   Tournament(AsyncWebsocketConsumer):
     async def connect(self):
         global x
+        global tournament_name
         print("------------Tournament---------------")
         await self.accept()
-        self.tournament_name = "None"
+        # self.tournament_name = "None"
         self.group_name = "None"
         self.avaible = True
         query_string = self.scope['query_string'].decode().split('=')[1]
         data = endpoint(query_string)
         self.user = User(data[0])
-        self.user.x = x
+        self.tournament_name = tournament_name
+        # self.user.x = x
         x += 1
-        await self.channel_layer.group_add('global_group', self.channel_name)
+        await self.channel_layer.group_add(self.tournament_name, self.channel_name)
         # if self.user.login in waiting:
             # waiting[self.user.login].send("you are already in another connection biiiiiitch")
         # waiting[self.user.login] = self
         waiting[str(x)] = self
-        await tournaments[tournament_name][group_name].players[0].channel_layer.group_send(tournament_name,
+        self.x = str(x)
+        await self.channel_layer.group_send(self.tournament_name,
         {
             'type': 'send_data',
-            'data':json.dumps({'type':'tournament.info', 'players':[{'login':u.user.username, 'icon':u.user.photo_profile} for u in users]})
+            'data':json.dumps({'type':'tournament.list', 'players':[{'login':u.user.display_name, 'icon':u.user.photo_profile} for u in waiting.values()]})
         })
         if len(waiting) == N:
             x = 1
-            asyncio.create_task(full_tournament(list(waiting.values())))
+            asyncio.create_task(full_tournament(list(waiting.values()), tournament_name))
+            tournament_name = 'tournament_' + datetime.now().time().strftime("%H_%M_%S_%f")
             waiting.clear()
 
     async def receive(self, text_data):
@@ -130,6 +133,8 @@ class   Tournament(AsyncWebsocketConsumer):
             await self.send(event['data'])
 
     async def disconnect(self, code):
+        if (self.x in waiting):
+            del waiting[self.x]
         if self.user.username in waiting:
             del waiting[self.user.login]
         else:

@@ -4,6 +4,7 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     photo_profile = models.ImageField(upload_to='User_profile', default="User_profile/default_profile.png")
+    display_name = models.CharField(max_length=10, default="Untitled")
     score = models.IntegerField(default=10)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)

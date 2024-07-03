@@ -91,7 +91,6 @@ def token(request):
     contex = {'token': token}
     return JsonResponse(contex)
 
-
 def update_profile(request):
     if request.method == 'POST':
         user = login_required(request)
@@ -111,6 +110,23 @@ def update_username(request):
         user.username = request.POST.get('username')
         user.save()
     return redirect('/home/')
+
+####################################
+def set_display_name(request):
+    if request.method == 'POST':
+        user = login_required(request)
+        user.display_name = ''
+        new_display_name = request.POST.get('display_name')
+        if len(new_display_name) > 10:
+            return JsonResponse({'status': False, 'message': 'display name Too large'}, status=200)
+        if CustomUser.objects.filter(display_name=new_display_name).exclude(id=user.id).exists():
+            return JsonResponse({'status': False, 'message': 'display name already taken'}, status=200)
+        user.display_name = new_display_name
+        user.save()
+        return JsonResponse({'status': True}, status=200)
+    else:
+        return JsonResponse({'status': False, 'message': 'Invalid request method'}, status=405)
+####################################
 
 @csrf_exempt
 def csrf_token(request):
