@@ -31,5 +31,6 @@ urlpatterns = [
     path('reject_friend/', api.reject_friend_request, name='reject_friend'),
     path('delete_friend/', api.delete_friend, name='delete_friend'),
     path('online/', api.online_friends, name='online'),
+    path('friend/', api.frined_profile, name='profile'),
 
 ]

@@ -5,6 +5,8 @@ from django.db import models
 class CustomUser(AbstractUser):
     photo_profile = models.ImageField(upload_to='User_profile', default="User_profile/default_profile.png")
     score = models.IntegerField(default=10)
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
     win = models.IntegerField(default=0)
     lose = models.IntegerField(default=0)
     ranking = models.IntegerField(default=0)
