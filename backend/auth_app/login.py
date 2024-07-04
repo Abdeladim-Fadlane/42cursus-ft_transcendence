@@ -7,15 +7,12 @@ from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
 from . serializers import TaskSerializer 
 
-def login_required(request):
-    access_token = request.session.get('user_id')
-    try:
-        user = CustomUser.objects.get(id=access_token)
-    except CustomUser.DoesNotExist:
-        return None
-    return user
+from .views import login_required
 
 def get_match_history(request):
+    user = login_required(request)
+    if not user:
+        return HttpResponseBadRequest("Forbidden", status=403)
     if request.method == 'GET':
         try:
             user = CustomUser.objects.get(id=request.session.get('user_id'))
@@ -40,7 +37,7 @@ def get_match_history(request):
 
 def logout(request):
     user = CustomUser.objects.get(id=request.session.get('user_id'))
-    user.is_online = False
+    user.is_active = False
     user.save()
     log(request)
     return redirect('/')
@@ -63,6 +60,9 @@ def calculate_ranking(user):
     return 0
 
 def leadrboard(request):
+    user = login_required(request)
+    if not user:
+        return HttpResponseBadRequest("Forbidden", status=403)
     all_users = CustomUser.objects.all().exclude(username='root')
     all_users = sorted(all_users, key=lambda x: x.score, reverse=True)
     data = []
@@ -93,6 +93,7 @@ def token(request):
 
 
 def update_profile(request):
+    
     if request.method == 'POST':
         user = login_required(request)
         user.photo_profile = request.FILES.get('image')
