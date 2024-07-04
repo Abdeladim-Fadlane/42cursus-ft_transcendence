@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from dotenv import load_dotenv 
+from dotenv import load_dotenv  # type: ignore
 
 load_dotenv()
 
@@ -24,7 +24,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
-    # 'UserManagement',
 ]
 AUTH_USER_MODEL = 'auth_app.CustomUser'
 
@@ -83,7 +82,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'auth_project.wsgi.application'
 ASGI_APPLICATION = 'auth_project.asgi.application'
+""" add the following code to the end of the file """
 
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+
+""" add the following code to the end of the file """
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': "channels.layers.InMemoryChannelLayer",
@@ -96,8 +100,8 @@ DATABASES = {
         'NAME': os.environ.get('POSTGRES_NAME'),
         'USER': os.environ.get('POSTGRES_USER'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': 'Database',
-        'PORT': 5432,
+        'HOST': os.environ.get('POSTGRES_HOST'),
+        'PORT': os.environ.get('POSTGRES_PORT'),
     }
 }
 CORS_ORIGIN_WHITELIST = (
@@ -122,22 +126,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SITE_ID = 2
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'auth_app/static'),
-]
-
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-
-EMAIL_HOST = "smtp.gmail.com"
-
-EMAIL_USE_TLS = True
-
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'ayoubkatfi44@gmail.com'
-EMAIL_HOST_PASSWORD = 'crou cotb farf ffcx'
