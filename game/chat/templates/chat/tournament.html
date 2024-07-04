@@ -1,0 +1,401 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: gray; /* Set background color */
+        }
+        
+        .navbar {
+            background-color: #333; /* Navbar background color */
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar h1 {
+            margin: 0;
+            font-size: 20px; /* Increase font size */
+        }
+        
+        #pro {
+            border: 2px solid white; /* Add border around user image */
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        p {
+            background-color: #333; /* Dark background color for text */
+            color: white; /* White text color */
+            padding: 10px; /* Add padding */
+            text-align: center; /* Center text */
+        }
+        
+        #game__{
+            height: 50px;
+            width: 50px;
+        }
+        #join_game{
+            height: 10;
+            width: 40px;
+            background-color: blue;
+            color: #4CAF50;
+            border-radius: 5px;
+        }
+
+        body {
+            background-color: gray;
+            font-family: Arial, sans-serif;
+        }
+
+        .tournament {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .round {
+            /* background-color: beige; */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 200px;
+            height: 800px;
+            margin: 0 40px;
+        }
+
+        .matchup {
+            /* background-color: yellow; */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 180px;
+            margin: 10px 0;
+        }
+
+        .player {
+            border: 1px solid #000;
+            background-color: yellow;
+            padding: 10px;
+            border-radius: 20px;
+            text-align: center;
+            height: inherit;
+            align-items: center;
+            display: flex;
+        }
+
+        .champion {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .champion .player {
+            font-weight: bold;
+            height: 50px;
+            width: 150px;
+            background-color: #f0f0f0;
+        }
+
+        .icon{
+            height: 50px;
+            width: 50px;
+            border-radius: 25px;
+        }
+
+        #user-display-name{
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        #semi-finale{
+            background-color: white;
+        }
+
+        #game-serface {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #ping-pong{
+            background-color: yellow;
+            width: 600px;
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .canvas{
+            border: 3px solid black;
+            background-color: darkblue;
+        }
+
+        .users{
+            /* background-color: gray; */
+            display: flex;
+        }
+        
+        .user1{
+            /* background-color: yellow; */
+            display: flex;
+            align-items: center;
+            margin-right: auto;
+        }
+
+        .user2{
+            /* background-color: yellow; */
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .display-name{
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .icon{
+            height: 50px;
+            width: 50px;
+            border-radius: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="{{ user.image_url }}" id ="pro"alt="User Image" style="width: 50px; height: 50px; border-radius: 50%;">
+        <h1>{{ user.login}}</h1>
+        <h1>PING PONG</h1>
+        <div>
+            {% comment %} <button id="showMenu">Menu</button> {% endcomment %}
+            <button id="logoutButton">Exit</button>
+        </div>
+    </div>
+    <div id="game-serface">
+        <div id="loader"></div>
+    </div>
+    <div id="ping-pong">
+        <div class="users">
+            <div class="user1">
+                <img id="canvas-icon-id-0" class="icon">
+                <h2 id="canvas-display_name-id-0" class="display-name"></h2>
+            </div>
+            <div class="user2">
+                <h2 id="canvas-display_name-id-1" class="display-name"></h2>
+                <img id="canvas-icon-id-1" class="icon">
+            </div>
+        </div>
+        <canvas id="canvas-id" class="canvas" width="600px" height="300px"></canvas>
+    </div>
+    <div id="tournament-id" class="tournament">
+        <div class="round">
+            <div class="matchup">
+                <div id="00" class="player"></div>
+                <div id="01" class="player"></div>
+            </div>
+            <div class="matchup">
+                <div id="02" class="player"></div>
+                <div id="03" class="player"></div>
+            </div>
+            <div class="matchup">
+                <div id="04" class="player"></div>
+                <div id="05" class="player"></div>
+            </div>
+            <div class="matchup">
+                <div id="06" class="player"></div>
+                <div id="07" class="player"></div>
+            </div>
+        </div>
+        <div class="round">
+            <div class="matchup">
+                <div id="10" class="player"></div>
+                <div id="11" class="player"></div>
+            </div>
+            <div class="matchup">
+                <div id="12" class="player"></div>
+                <div id="13" class="player"></div>
+            </div>
+        </div>
+        <div class="round">
+            <div class="matchup">
+                <div id="20" class="player"></div>
+                <div id="21" class="player"></div>
+            </div>
+        </div>
+        <div class="champion">
+            <div id="30" class="player"></div>
+        </div>
+    </div>
+    <script>
+            document.getElementById("logoutButton").addEventListener('click',exit)
+            function exit(){
+                window.location.href = "/game/"
+            }
+            const   tournament_url = `ws://${window.location.host}/ws/tournament/?id={{user.token_access}}`;
+            const   tournament = new WebSocket(tournament_url);
+            tournament.onopen = function(event) {
+                console.log("tournament WebSocket established.");
+            };
+            var elem = document.getElementById("canvas-id");
+            var ctx = elem.getContext("2d");
+            width = elem.width
+            height = elem.height
+    
+            function draw_ball(b)
+            {
+                ctx.beginPath();
+                ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.fillStyle = "yellow";
+                ctx.fill();
+            }
+    
+            function put_center()
+            {
+                ctx.beginPath();
+                ctx.moveTo(width / 2, 0);
+                ctx.lineTo(width / 2, height);
+                ctx.stroke();
+            }
+    
+            function put_score(score, x, y)
+            {
+                ctx.font = "60px Arial";
+                ctx.fillText(score, x,y);
+            }
+        
+            function draw_racket(racket)
+            {
+                ctx.fillStyle = "red";
+                ctx.fillRect(racket.x, racket.y, racket.w, racket.h);
+            }
+    
+            function draw(data)
+            {
+                ctx.clearRect(0, 0, width, height);
+                put_center();
+                for (let i = 0; i < data.players.length; i++)
+                    draw_racket(data.players[i].racket);
+                draw_ball(data.ping);
+                put_score(data.team1_score, width / 2 + (40), 20 / 100 * height);
+                put_score(data.team2_score, width / 2 - (60 + 10), 20 / 100 * height);
+                // requestAnimationFrame(draw);
+            }
+
+            var round = 0;
+            function    tournament_info(players)
+            {
+                document.getElementById("game-serface").style.display = "none";
+                document.getElementById("ping-pong").style.display = "none";
+                document.getElementById("tournament-id").style.display = "flex";
+                for (let i = 0; i < players.length; i++)
+                {
+                    var container = document.getElementById(round.toString() + i.toString());
+                    var icon = document.createElement("img");
+                    icon.className = "icon";
+                    icon.src = players[i].icon
+                    var display_name = document.createElement("h2");
+                    display_name.id = "user-display-name"
+                    // display_name.textContent = players[i].login;
+                    display_name.textContent = i;
+                    container.appendChild(icon);
+                    container.appendChild(display_name);
+                }
+                round++;
+            }
+
+            function    ft(data)
+            {
+                document.getElementById("game-serface").style.display = "none";
+                document.getElementById("tournament-id").style.display = "none";
+                document.getElementById("ping-pong").style.display = "block";
+                for (let i = 0; i < data.players.length; i++)
+                {
+                    console.log(data.players[i].user.login);
+                    // document.getElementById("canvas-display_name-id-" + i.toString()).innerHTML = data.players[i].user.login;
+                    document.getElementById("canvas-display_name-id-" + i.toString()).innerHTML = i;
+                    document.getElementById("canvas-icon-id-" + i.toString()).src = data.players[i].user.icon;
+                }
+            }
+
+            var l = false
+            tournament.onmessage = function (e)
+            {
+                var data = JSON.parse(e.data)
+                console.log(data);
+                if (data.type == 'game.state')
+                {
+                    if (!l)
+                        ft(data);
+                    l = true
+                    draw(data);
+                }
+                else if (data.type == 'tournament.info')
+                {
+                    tournament_info(data.players);
+                    l = false;
+                }
+            }
+            document.addEventListener("keydown", (event) => {
+                // if (event.key == "w")
+                //     tournament_socket.send(JSON.stringify('w'));
+                // else if (event.key == "s")
+                //     tournament_socket.send(JSON.stringify('s'));
+                if (event.key == "ArrowUp")
+                    tournament.send(JSON.stringify('Up'));
+                else if (event.key == "ArrowDown")
+                    tournament.send(JSON.stringify('Down'));
+            });
+            document.addEventListener("keyup", (event) => {
+                if (event.key == "ArrowUp" || event.key == "ArrowDown")
+                tournament.send(JSON.stringify('Stop'));//stop1
+                // else if (event.key == "s" || event.key == "w")
+                //     tournament.send(JSON.stringify('Stop2'));
+            });
+
+    </script>
+</body>
+</html>

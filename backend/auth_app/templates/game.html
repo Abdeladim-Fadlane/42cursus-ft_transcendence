@@ -1,0 +1,54 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping pong</title>
+    <link rel="stylesheet" href="{% static 'game.css' %}">
+    <script src="{% static 'game.js' %}"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'icon.ico' %}">
+
+</head>
+<body>
+
+    <div class="navbar">
+        <img src="{{ login.image_url }}" id ="pro"alt="User Image" style="width: 50px; height: 50px; border-radius: 50%;">
+        <h1>{{ login.login}}</h1>
+        <h1>PING PONG</h1>
+        <div>
+            <button id="showMenu">Menu</button>
+            <button id="logoutButton">Logout</button>
+
+        </div>
+    </div>
+    <div class="content">
+        <div class="friends"> 
+            {% for user in users %}
+                <div class="friend-item">
+                    <div class="friend-info">
+                        <img src="{{ user.image_url }}" alt="User Image">
+                        <span>{{ user.login }}</span>
+                    </div>
+                    <button id="addfriend">offline</button>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div id="img">
+        <input type="image" src="https://cdn.dribbble.com/users/2162668/screenshots/4496481/media/aba494acc850e2576a21f275c0d180a2.gif" class="bg-image" alt="Background Image">
+    </div>
+    <div id="profile">
+        <span>{{user.email}}</span>
+        <span>{{users.display_name}}</span>
+    </div>
+    <div id="menu" class="menu">
+        <button id="playButton" class="menu-btn">Play</button>
+        <button id="toggleFriends" class="menu-btn">Show Friends</button>
+        <button id="settingsButton" class="menu-btn">Profile</button>
+        <button id="Tournament" class="menu-btn">Tournament</button>
+        <button id="boot" class="menu-btn">Boot</button>
+    </div>
+    
+</body>
+</html>

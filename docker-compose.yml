@@ -1,0 +1,42 @@
+services:
+  Database:
+    image: postgres
+    container_name: postgreSql
+    volumes:
+      - ./postgreSql/data/db:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  auth:
+    build: backend
+    image: djangoo
+    container_name: auth
+    volumes:
+      - ./backend/.:/code
+    env_file:
+      - .env
+    depends_on:
+      - Database
+
+  game:
+    image: djangoo
+    container_name: game
+    volumes:
+      - ./game/.:/code
+    env_file:
+      - .env
+    depends_on:
+      - auth
+      - Database
+
+  webserver:
+    build: WebServer
+    image: nginx
+    container_name: nginx
+    volumes:
+      - ./WebServer/.:/server
+    ports:
+      - "443:443"
+    depends_on:
+      - game
+      - auth
