@@ -16,9 +16,10 @@ def send_friend_request(request):
         re = FriendRequest.objects.create(sender=sender, receiver=receiver)
         re.photo_profile = sender.photo_profile
         re.save()
-        return JsonResponse({"status":True})
-    return JsonResponse({"status":False})
+        return JsonResponse({"status":True}, status=200)
+    return JsonResponse({"status":False}, status=405)
     
+
 def suggest_friend(request):
     user_login = login_required(request)
     if not user_login:
@@ -42,7 +43,7 @@ def suggest_friend(request):
         all_users = all_users.exclude(username=friend.user2.username)
 
     data = TaskSerializer(all_users, many=True)
-    return JsonResponse(data.data, safe=False)
+    return JsonResponse(data.data, safe=False, status=200)
 
         
 def get_friend_requests(request):
@@ -57,7 +58,8 @@ def get_friend_requests(request):
             'photo_profile': req.photo_profile.url if req.photo_profile else None 
         }
         data.append(request_data)
-    return JsonResponse(data, safe=False)
+    return JsonResponse(data, safe=False, status=200)
+
 
 def reject_friend_request(request, sender_username):
     receiver = login_required(request)
@@ -67,9 +69,10 @@ def reject_friend_request(request, sender_username):
     friend_request = FriendRequest.objects.filter(sender=sender, receiver=receiver)
     if friend_request:
         friend_request.delete()
-        return JsonResponse({'status': True})
+        return JsonResponse({'status': True}, status=200)
     else:
         return JsonResponse({'error': 'Friend request not found'}, status=404)
+
 
 def accept_friend_request(request):
     if request.method != 'POST':
@@ -93,10 +96,9 @@ def accept_friend_request(request):
             Friends.objects.create(user1=sender, user2=receiver)
             Friends.objects.create(user1=receiver, user2=sender)
             context = {'status': True}
-            return JsonResponse(data=context)
+            return JsonResponse(data=context, status=200)
         else:
             return JsonResponse({'error': 'Friend request not found'}, status=404)
-
 
 
 def get_friends(request):
@@ -111,8 +113,7 @@ def get_friends(request):
             'photo_profile': friend.user2.photo_profile.url if friend.user2.photo_profile else None 
         }
         data.append(friend_data)
-    return JsonResponse(data, safe=False)
-
+    return JsonResponse(data, safe=False, status=200)
 
 
 def delete_friend(request):
@@ -125,10 +126,13 @@ def delete_friend(request):
     friend_username = data.get('receiver', None)
     if friend_username is None:
         return JsonResponse({'error': 'Friend username not provided'}, status=400)
-    friend = CustomUser.objects.get(username=friend_username)
+    try:
+        friend = CustomUser.objects.get(username=friend_username)
+    except CustomUser.DoesNotExist:
+        return JsonResponse({'error': 'Friend not found'}, status=404)
     Friends.objects.filter(user1=user, user2=friend).delete()
     Friends.objects.filter(user1=friend, user2=user).delete()
-    return JsonResponse({'status': True})
+    return JsonResponse({'status': True}, status=200)
 
 def online_friends(request):
     user = login_required(request)
@@ -143,8 +147,7 @@ def online_friends(request):
                 'photo_profile': friend.user2.photo_profile.url if friend.user2.photo_profile else None 
             }
             data.append(friend_data)
-    return JsonResponse(data, safe=False)
-
+    return JsonResponse(data, safe=False, status=200)
 
 
 def frined_profile(request):
@@ -154,6 +157,17 @@ def frined_profile(request):
     if request.method != 'POST':
         return JsonResponse({'error': 'Method not allowed'}, status=405)
     username = json.loads(request.body)['username']
-    friend = CustomUser.objects.get(username=username)
+    try:
+        friend = CustomUser.objects.get(username=username)
+    except CustomUser.DoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
     data = TaskSerializer(friend)
-    return JsonResponse(data.data, safe=False)
+    return JsonResponse(data.data, safe=False, status=200)
+
+
+def delete_account(request):
+    user = login_required(request)
+    if not user:
+        return HttpResponseForbidden("Forbidden", status=403)
+    user.delete()
+    return JsonResponse({'status': True}, status=200)

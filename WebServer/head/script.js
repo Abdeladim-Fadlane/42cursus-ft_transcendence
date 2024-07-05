@@ -8,7 +8,7 @@ function already_logged() {
             }
         })
         .then(data => {
-            if (data.logged)
+            if (data.status === true)
                 window.location.href = "/home/";
         })
 }

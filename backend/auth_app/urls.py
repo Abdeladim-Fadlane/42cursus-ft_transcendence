@@ -10,7 +10,6 @@ urlpatterns = [
     path('redirect/', views.redirect_to_42, name='redirect_to_42'),
     path('auth/callback/', views.callback, name='callback'),
     path('logout/',login.logout,name='logout'),
-    path('exit/',login.exit,name='exit'),
     path('tasks/', TaskListCreateAPIView.as_view(), name='task-list-create'),
     path('tasks/<int:pk>/', TaskRetrieveUpdateDestroyAPIView.as_view(), name='task-retrieve-update-destroy'),
     path('match/', MatchListCreateAPIView.as_view(), name='match-list-create'),
@@ -32,5 +31,5 @@ urlpatterns = [
     path('delete_friend/', api.delete_friend, name='delete_friend'),
     path('online/', api.online_friends, name='online'),
     path('friend/', api.frined_profile, name='profile'),
-
+    path('delete_account/', api.delete_account, name='delete account'),
 ]
