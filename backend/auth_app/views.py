@@ -28,7 +28,13 @@ client_secret = os.environ.get('client_secret')
 def login_required(request):
     if request.user.is_authenticated:
         return request.user
-    None
+    if 'token' in request.session and 'user_id' in request.session:
+        try:
+            user = CustomUser.objects.get(id=request.session['user_id'])
+        except CustomUser.DoesNotExist:
+            return None
+        return user
+    return None
    
 
 def SignIn(request):
@@ -122,6 +128,7 @@ def store_data_in_database(request,access_token):
                     user.photo_profile = f'User_profile/{filename}'
                     user.save()
                 user.save()
+                # login(request, user)
             token,_,= Token.objects.get_or_create(user=user)
             request.session['user_id'] = user.id
             request.session['token'] = token.key
