@@ -1,2 +1,2 @@
-postgreSql
-# .env
+auth/data/db
+game/data/db

@@ -41,6 +41,8 @@ function createProfileImage(src, border) {
     const img = document.createElement('img');
     img.src = src;
     img.style.borderRadius = "50%";
+    img.style.boxShadow = "1px 1px 10px 1px lightblue";
+    img.style.backgroundColor = "#B3B8CD";
     img.style.border = border;
     return img;
 }

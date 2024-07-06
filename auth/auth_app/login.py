@@ -1,18 +1,17 @@
 from django.contrib.auth import logout as log
-from django.http import HttpResponseBadRequest
 from .models import CustomUser ,all_Match
 from django.shortcuts import  redirect
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
 from . serializers import TaskSerializer 
-
+from django.http import HttpResponseForbidden
 from .views import login_required
 
 def get_match_history(request):
     user = login_required(request)
     if not user:
-        return HttpResponseBadRequest("Forbidden", status=403)
+        return HttpResponseForbidden("Forbidden", status=403)
     if request.method == 'GET':
         try:
             user = CustomUser.objects.get(id=request.session.get('user_id'))
@@ -30,9 +29,9 @@ def get_match_history(request):
             datalooser = TaskSerializer(CustomUser.objects.get(id=match.loser.id))
             data.append({'winner': datawinner.data, 'loser': datalooser.data, 'date': match.date, 'score1': match.score1, 'score2': match.score2})
         data = sorted(data, key=lambda x: x['date'], reverse=True)
-        return JsonResponse(data, safe=False)
+        return JsonResponse(data, safe=False, status=200)
     else:
-        return JsonResponse({'status': False, 'message': 'Invalid request method'}, status=405)
+        return JsonResponse({'status': False}, status=405)
     
 
 def logout(request):
@@ -45,11 +44,8 @@ def logout(request):
 def already_logged(request):
     user = login_required(request)
     if user:
-        return JsonResponse({'logged': True}, status=200)
-    return JsonResponse({'logged': False}, status=200)
-
-def exit():
-    return redirect('/game/')
+        return JsonResponse({'status': True}, status=200)
+    return JsonResponse({'status': False}, status=200)
 
 def calculate_ranking(user):
     all_users = CustomUser.objects.all()
@@ -62,7 +58,7 @@ def calculate_ranking(user):
 def leadrboard(request):
     user = login_required(request)
     if not user:
-        return HttpResponseBadRequest("Forbidden", status=403)
+        return HttpResponseForbidden("Forbidden", status=403)
     all_users = CustomUser.objects.all().exclude(username='root')
     all_users = sorted(all_users, key=lambda x: x.score, reverse=True)
     data = []
@@ -71,29 +67,26 @@ def leadrboard(request):
         user.total_match = user.win + user.lose
         data.append(user)
     dataseriaser = TaskSerializer(data, many=True)
-    return JsonResponse(dataseriaser.data,safe=False)
+    return JsonResponse(dataseriaser.data,safe=False, status=200)
 
 def data(request):
     user = login_required(request)
     if not user:
-        return HttpResponseBadRequest("Forbidden", status=403)
+        return HttpResponseForbidden("Forbidden", status=403)
     user.ranking = calculate_ranking(user)
-    user.total_match = user.win + user.lose
-    user.save()
     dataseriaser = TaskSerializer(user)
-    return JsonResponse(dataseriaser.data)
+    return JsonResponse(dataseriaser.data, status=200)
 
 def token(request):
     user = login_required(request)
     if not user:
-        return HttpResponseBadRequest("Forbidden", status=403)
+        return HttpResponseForbidden("Forbidden", status=403)
     token = request.session.get('token')
     contex = {'token': token}
-    return JsonResponse(contex)
+    return JsonResponse(contex, status=200)
 
 
 def update_profile(request):
-    
     if request.method == 'POST':
         user = login_required(request)
         user.photo_profile = request.FILES.get('image')
@@ -104,16 +97,18 @@ def update_profile(request):
         user.save()
         return JsonResponse({'status': True}, status=200)
     else:
-        return JsonResponse({'status': False, 'message': 'Invalid request method'}, status=405)
+        return JsonResponse({'status': False}, status=405)
+
 
 def update_username(request):
     if request.method == 'POST':
         user = login_required(request)
         user.username = request.POST.get('username')
         user.save()
-    return redirect('/home/')
+        return JsonResponse({'status': True}, status=200)
+    return JsonResponse({'status': False}, status=405)
 
 @csrf_exempt
 def csrf_token(request):
     token = get_token(request)
-    return JsonResponse({'csrfToken': token})
+    return JsonResponse({'csrfToken': token}, status=200)
