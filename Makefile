@@ -1,4 +1,4 @@
-all : build
+all : per build 
 	
 git : per add commit push 
 	
@@ -34,4 +34,5 @@ clean :
 
 fclean : clean
 	docker system prune -a
+	
 re : fclean all
