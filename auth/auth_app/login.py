@@ -64,7 +64,6 @@ def leadrboard(request):
     data = []
     for user in all_users:
         user.ranking = calculate_ranking(user)
-        user.total_match = user.win + user.lose
         data.append(user)
     dataseriaser = TaskSerializer(data, many=True)
     return JsonResponse(dataseriaser.data,safe=False, status=200)

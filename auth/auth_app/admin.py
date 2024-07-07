@@ -13,10 +13,10 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserForm
     model = CustomUser
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('photo_profile', 'score', 'win', 'lose', 'ranking', 'total_match', 'unigue_id')}),
+        (None, {'fields': ('photo_profile', 'score', 'win', 'lose', 'ranking', 'unigue_id')}),
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
-        (None, {'fields': ('photo_profile', 'score', 'win', 'lose', 'ranking', 'total_match', 'unigue_id')}),
+        (None, {'fields': ('photo_profile', 'score', 'win', 'lose', 'ranking', 'unigue_id')}),
     )
 
 admin.site.register(CustomUser, CustomUserAdmin)

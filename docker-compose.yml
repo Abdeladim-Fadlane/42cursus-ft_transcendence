@@ -11,25 +11,24 @@ services:
   gamedb:
     image: postgres
     container_name: gamedb
-    # volumes:
-    #   - ./game/data/db:/var/lib/postgresql/data
+    volumes:
+      - ./game/data/db:/var/lib/postgresql/data
     env_file:
       - .env
     depends_on:
       - authdb
     restart: always
 
-
-  chatdb:
-    image: postgres
-    container_name: chatdb
-    # volumes:
-    #   - ./chat/data/db:/var/lib/postgresql/data
-    env_file:
-      - .env
-    depends_on:
-      - authdb
-    restart: always
+  # chatdb:
+  #   image: postgres
+  #   container_name: chatdb
+  #   volumes:
+  #     - ./chat/data/db:/var/lib/postgresql/data
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - authdb
+  #   restart: always
 
   auth:
     build: auth
@@ -43,7 +42,6 @@ services:
       - authdb
     restart: always
 
-
   game:
     image: djangoo
     container_name: game
@@ -54,6 +52,17 @@ services:
     depends_on:
       - gamedb
     restart: always
+
+  # chat:
+  #   image: djangoo
+  #   container_name: chat
+  #   volumes:
+  #     - ./chat/.:/code
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - chatdb
+  #   restart: always
 
   webserver:
     build: WebServer
