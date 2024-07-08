@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from dotenv import load_dotenv  # type: ignore
+from dotenv import load_dotenv 
 
 load_dotenv()
 
@@ -78,8 +78,8 @@ DATABASES = {
         'NAME': os.environ.get('POSTGRES_NAME'),
         'USER': os.environ.get('POSTGRES_USER'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': os.environ.get('GAME_HOST'),
-        'PORT': os.environ.get('POSTGRES_PORT'),
+        'HOST': 'Database',
+        'PORT': 5432,
     }
 }
 CORS_ORIGIN_WHITELIST = (

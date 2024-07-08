@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamer Profile</title>
+    <link rel="stylesheet" href="{% static 'profile.css' %}">
+    <script src="{% static 'profile.js' %}"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'icon.ico' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="profile">
+            <img src="{{ user.image }}" alt="Gamer Avatar">
+            <h1>{{ user.username }}</h1>
+            <h1>{{ user.email }}</h1>
+        </div>
+        <div style="text-align: center;">
+            <button id="btn" class="btn">Change Avatar</button>
+            <button id="usernameBtn" class="btn">Change Username</button>
+        </div>
+        <div class="game-info">
+            <h3>Milestone Deadline : {{user.blachole}}</h3>
+            <h3>Level: {{user.level}}</h3>
+        </div>
+        <form id="avatarForm" class="form-container" method="post" enctype="multipart/form-data" action="{% url 'update_profile' %}">
+            {% csrf_token %}
+            <label for="image">Choose an image to upload:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+            <button type="submit">Upload</button>
+        </form>
+        <form id="userform" class="form-container" method="post" enctype="multipart/form-data" action="{% url 'update_username' %}">
+            {% csrf_token %}
+            <label for="usernameInput">New Username:</label>
+            <input type="text" id="usernameInput" name="username" required>
+            <button type="submit">Change</button>
+        </form>
+    </div>
+    
+</body

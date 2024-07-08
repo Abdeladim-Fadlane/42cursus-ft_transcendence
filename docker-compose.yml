@@ -1,58 +1,34 @@
 services:
-  authdb:
+  Database:
     image: postgres
-    container_name: authdb
+    container_name: postgreSql
     volumes:
-      - ./auth/data/db:/var/lib/postgresql/data
+      - ./postgreSql/data/db:/var/lib/postgresql/data
     env_file:
       - .env
-    restart: always
-
-  gamedb:
-    image: postgres
-    container_name: gamedb
-    volumes:
-      - ./game/data/db:/var/lib/postgresql/data
-    env_file:
-      - .env
-    depends_on:
-      - authdb
-    restart: always
-    
-  trackdb:
-    image: postgres
-    container_name: trackdb
-    volumes:
-      - ./track/data/db:/var/lib/postgresql/data
-    env_file:
-      - .env
-    depends_on:
-      - gamedb
-    restart: always
-    
-  # chatdb:
-  #   image: postgres
-  #   container_name: chatdb
-  #   volumes:
-  #     - ./chat/data/db:/var/lib/postgresql/data
-  #   env_file:
-  #     - .env
-  #   depends_on:
-  #     - authdb
-  #   restart: always
 
   auth:
-    build: auth
+    build: backend
     image: djangoo
     container_name: auth
     volumes:
-      - ./auth/.:/code
+      - ./backend/.:/code
     env_file:
       - .env
     depends_on:
-      - authdb
-    restart: always
-
+      - Database
+  chat:
+    image: djangoo
+    container_name: chatLive
+    volumes:
+      - ./chat_env/.:/code
+    env_file:
+      - .env
+    ports:
+      - "8003:8003"
+    depends_on:
+      - auth
+      - Database
   game:
     image: djangoo
     container_name: game
@@ -61,30 +37,8 @@ services:
     env_file:
       - .env
     depends_on:
-      - gamedb
-    restart: always
-
-  track:
-    image: djangoo
-    container_name: track
-    volumes:
-      - ./track/.:/code
-    env_file:
-      - .env
-    depends_on:
-      - gamedb
-    restart: always
-  
-  # chat:
-  #   image: djangoo
-  #   container_name: chat
-  #   volumes:
-  #     - ./chat/.:/code
-  #   env_file:
-  #     - .env
-  #   depends_on:
-  #     - chatdb
-  #   restart: always
+      - auth
+      - Database
 
   webserver:
     build: WebServer
@@ -97,6 +51,3 @@ services:
     depends_on:
       - game
       - auth
-    restart: always
-
-      

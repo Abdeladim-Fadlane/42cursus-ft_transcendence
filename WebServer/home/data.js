@@ -7,10 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             return response.json();
         })
-        
         .then(data => {
             const userData = JSON.parse(JSON.stringify(data));
-            console.log(userData);
+            
             // Update user information in the DOM
             document.getElementById('login').textContent = userData.username;
             document.getElementById('content_scor').textContent = userData.score;
@@ -42,8 +41,6 @@ function createProfileImage(src, border) {
     const img = document.createElement('img');
     img.src = src;
     img.style.borderRadius = "50%";
-    img.style.boxShadow = "1px 1px 10px 1px lightblue";
-    img.style.backgroundColor = "#B3B8CD";
     img.style.border = border;
     return img;
 }

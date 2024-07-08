@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            // console.log(data);
             var reward = document.getElementById('Friends');
             for (let i = 0; i < data.length; i++) {
 
@@ -29,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             
                 let addfriend = document.createElement('button');
-                addfriend.textContent = "Unfriend";
+                addfriend.textContent = "delete friend";
 
                 addfriend.id = data[i].username;
 

@@ -19,9 +19,9 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
     // Initial state
-    document.getElementById("home").style.display = "flex";
+    document.getElementById("home").style.display = "none";
     document.getElementById("profile").style.display = "none";
-    document.getElementById("chat").style.display = "none";
+    document.getElementById("chat").style.display = "flex";
     document.getElementById("notifi").style.display = "none";
     // document.getElementById("setting").style.display = "none";
   });
