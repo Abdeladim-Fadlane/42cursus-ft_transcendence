@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         .then(data => {
             const userData = JSON.parse(JSON.stringify(data));
-            console.log(userData);
+            // console.log(userData);
             // Update user information in the DOM
             document.getElementById('login').textContent = userData.username;
             document.getElementById('content_scor').textContent = userData.score;

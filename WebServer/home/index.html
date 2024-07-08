@@ -6,6 +6,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
     <div class="ball"></div>
@@ -103,10 +105,9 @@
                 <div class="friend-list">
                     <h2>Friends</h2>
                     <ul id="friends">
-                        <div class="list_friend" id="list_friend_chat"></div>
-                        <!-- <li onclick="openChat('Alice')">Alice</li>
-                        <li onclick="openChat('Bob')">Bob</li>
-                        <li onclick="openChat('Charlie')">Charlie</li> -->
+                        <div class="list_friend" id="list_friend_chat">
+                            <!-- <button class="friend-list-room">adddd</button> -->
+                        </div>
                     </ul>
 
                 </div>
@@ -114,13 +115,15 @@
                     <div id="chat-header" class="chat-header">
                         <h2 id="chat-friend-name">Select a friend to chat</h2>
                     </div>
-                    <div id="chat-messages" class="chat-messages">
-                        <!-- Chat messages will appear here -->
-                    </div>
-                    <div class="chat-input">
-                        <input type="text" id="message-input" placeholder="Type a message...">
-                        <button onclick="sendMessage()">Send</button>
-                    </div>
+                    <!-- <div class="chat-body"> -->
+                        <div id="chat-messages" class="chat-messages">
+                            <!-- Chat messages will appear here -->
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" id="message-input" placeholder="Type a message...">
+                            <button id="button-chat">Send</button>
+                        </div>
+                    <!-- </div> -->
                 </div>
             </div>
             <div id="notifi">
@@ -298,7 +301,8 @@
     <script src="invite.js"></script>
     <script src="challenge.js"></script>
     <script src="notif.js"></script> 
-    <script src="msgfriend.js"></script>
+    <script src="msgfriend.js" type="module"></script>
+    <script src="chatScript.js" type="module"></script>
     <script src="track.js"></script>
     <!-- <script src="profile.js"></script> -->
 </body>
