@@ -64,6 +64,28 @@ REST_FRAMEWORK = {
 
 ROOT_URLCONF = 'auth_project.urls'
 
+AUTH_PWD_MODULE = "django.contrib.auth.password_validation."
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": f"{AUTH_PWD_MODULE}UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME": f"{AUTH_PWD_MODULE}MinimumLengthValidator",
+        "OPTIONS": {
+            "min_length": 8,
+        }
+    },
+    {
+        "NAME": f"{AUTH_PWD_MODULE}CommonPasswordValidator",
+    },
+    {
+        "NAME": f"{AUTH_PWD_MODULE}NumericPasswordValidator",
+    },
+]
+
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

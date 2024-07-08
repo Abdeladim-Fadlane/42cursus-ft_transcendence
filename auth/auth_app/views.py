@@ -49,7 +49,6 @@ def SignIn(request):
             request.session['user_id'] = user.id
             request.session['token'] = token.key
             login(request, user)
-            # user.is_online = True
             user.save()
             return JsonResponse({'status':True}, status=200)
         else:
