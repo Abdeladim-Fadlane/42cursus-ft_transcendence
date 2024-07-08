@@ -36,7 +36,7 @@ def get_match_history(request):
 
 def logout(request):
     user = CustomUser.objects.get(id=request.session.get('user_id'))
-    user.is_active = False
+    user.available = False
     user.save()
     log(request)
     return redirect('/')
@@ -81,7 +81,7 @@ def token(request):
     if not user:
         return HttpResponseForbidden("Forbidden", status=403)
     token = request.session.get('token')
-    contex = {'token': token}
+    contex = {'token': token,'id':user.id}
     return JsonResponse(contex, status=200)
 
 

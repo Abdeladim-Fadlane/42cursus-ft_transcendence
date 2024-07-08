@@ -1,7 +1,7 @@
 import asyncio, json, math
 from datetime import datetime
 from . views import endpoint
-from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.generic.websocket import AsyncWebsocketConsumer # type: ignore
 from asgiref.sync import sync_to_async
 # from auth_app.models import User
 import requests

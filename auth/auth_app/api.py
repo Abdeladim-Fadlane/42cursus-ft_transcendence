@@ -141,7 +141,7 @@ def online_friends(request):
     friends = Friends.objects.filter(user1=user)
     data = []
     for friend in friends:
-        if friend.user2.is_active:
+        if friend.user2.available:
             friend_data = {
                 'username': friend.user2.username,
                 'photo_profile': friend.user2.photo_profile.url if friend.user2.photo_profile else None 

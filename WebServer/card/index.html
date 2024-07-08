@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,8 +17,8 @@
                 <button class="primary">
                     Invite
                 </button>
-            </div> -->
-            <!-- <div class="skills">
+            </div>
+            <div class="skills">
                 <h6>statistic</h6>
                 <ul>
                     <li id="Total-match"></li>
@@ -31,61 +31,6 @@
         </div>
     <script src="script.js"></script>
 </body>
-</html> -->
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebSocket Example</title>
-</head>
-<body>
-    <h1>WebSocket Example</h1>
-    <input type="text" id="messageInput" placeholder="Type a message">
-    <button onclick="sendMessage()">Send</button>
-    <div id="messageContainer"></div>
-
-    <script>
-        const socket = new WebSocket('wss://ping-pong.com/wss/track/');
-
-        socket.onopen = function(event) {
-            console.log('WebSocket connection established.');
-        };
-
-        socket.onerror = function(error) {
-            console.error('WebSocket error:', error);
-        };
-
-        socket.onclose = function(event) {
-            console.log('WebSocket connection closed.');
-        };
-
-        socket.onmessage = function(event) {
-            console.log('Message received from server:', event.data);
-            // Handle server's response here
-            const messageContainer = document.getElementById('messageContainer');
-            const messageElement = document.createElement('p');
-            messageElement.textContent = event.data;
-            messageContainer.appendChild(messageElement);
-        };
-
-        function sendMessage() {
-            const messageInput = document.getElementById('messageInput');
-            const message = messageInput.value.trim();
-            
-            if (message !== '') {
-                if (socket.readyState === WebSocket.OPEN) {
-                    socket.send(message);
-                    console.log('Message sent to server:', message);
-                    messageInput.value = '';
-                } else {
-                    console.error('WebSocket connection is not open.');
-                }
-            }
-        }
-    </script>
-</body>
 </html>
+
 
