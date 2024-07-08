@@ -18,7 +18,18 @@ services:
     depends_on:
       - authdb
     restart: always
-
+    
+  trackdb:
+    image: postgres
+    container_name: trackdb
+    volumes:
+      - ./track/data/db:/var/lib/postgresql/data
+    env_file:
+      - .env
+    depends_on:
+      - gamedb
+    restart: always
+    
   # chatdb:
   #   image: postgres
   #   container_name: chatdb
@@ -53,6 +64,17 @@ services:
       - gamedb
     restart: always
 
+  track:
+    image: djangoo
+    container_name: track
+    volumes:
+      - ./track/.:/code
+    env_file:
+      - .env
+    depends_on:
+      - gamedb
+    restart: always
+  
   # chat:
   #   image: djangoo
   #   container_name: chat

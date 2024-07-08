@@ -11,7 +11,7 @@ class CustomUser(AbstractUser):
     lose = models.IntegerField(default=0)
     ranking = models.IntegerField(default=0)
     unigue_id = models.IntegerField(default=0)
-    is_online = models.BooleanField(default=False)
+    available = models.BooleanField(default=False)
     def __str__(self):
         return self.username
     
