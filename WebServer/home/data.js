@@ -7,19 +7,23 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             return response.json();
         })
-        
         .then(data => {
             const userData = JSON.parse(JSON.stringify(data));
-            // console.log(userData);
+            
             // Update user information in the DOM
             document.getElementById('login').textContent = userData.username;
             document.getElementById('content_scor').textContent = userData.score;
+            console.log(userData.username);
+            if (userData.username ) {
+                console.log('username', userData.username);
             document.getElementById('nameprofile').textContent = userData.username;
+            }
             document.getElementById('content_rank').textContent = userData.ranking;
             
             // Add user profile picture to settings form
-            const settingsForm = document.getElementById('settings-form');
+            const settingsForm = document.getElementById('profil');
             const img3 = createProfileImage(userData.photo_profile, "2px solid black");
+            img3.classList.add('profile-settings-img');
             settingsForm.prepend(img3);
             
             // Add user profile picture to profileid
@@ -42,8 +46,6 @@ function createProfileImage(src, border) {
     const img = document.createElement('img');
     img.src = src;
     img.style.borderRadius = "50%";
-    img.style.boxShadow = "1px 1px 10px 1px lightblue";
-    img.style.backgroundColor = "#B3B8CD";
     img.style.border = border;
     return img;
 }
