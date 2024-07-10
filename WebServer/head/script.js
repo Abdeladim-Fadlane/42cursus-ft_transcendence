@@ -1,5 +1,3 @@
-
-
 function already_logged() {
     fetch('/api/already_logged/')
         .then(response => {

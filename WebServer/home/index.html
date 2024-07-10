@@ -6,8 +6,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="icon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 </head>
 <body>
     <div class="ball"></div>
@@ -18,20 +16,18 @@
         </div>
         <div class="navbar-buttons">
             <ul>
-                <li><a class="nav-link" data-target="home" href="#home" onclick="disactiv_sections()">Home</a></li>
-                <li><a class="nav-link" data-target="profile" href="#profile"  onclick="disactiv_sections()">Profile</a></li>
+                <li><a class="nav-link nav_hover" data-target="home" href="#home" onclick="disactiv_sections()">Home</a></li>
+                <li><a class="nav-link nav_hover" data-target="profile" href="#profile"  onclick="disactiv_sections()">Profile</a></li>
                 <li><div class="profil" id="imageprofile"></div></li>
             </ul>
         </div>
     </nav>
-
     <div class="container">
         <aside>
             <div class="aside_content">
                 <div class="image1">
                     <ul>
                         <!-- <li><a class="settings-button" onclick="showSettingsModal()"><div class="seting_icon"></div></a></li> -->
-                        
                         <li><a class="notification" onclick="showNotificationsModal()"><div    class="notification_icon aside_button"></div></a></li>
                         <li><a class="nav-link" data-target="chat" href=""><div    class="chat_icon  aside_button"></div></a></li>
                     </ul>
@@ -47,30 +43,29 @@
         <article>
             <div id="home" class="content-section home">
                 <div class="game">
-                    <img src="./resrc/normal.jpeg" alt="">
-                    <button onclick="navigate('play')" >Start game</button>
+                    <img src="./resrc/normal.webp" alt="">
+                    <button class="home_button" onclick="navigate('play')" >Start game</button>
                 </div>
                 <div class="game">
-                    <img src="./resrc/ai_game.jpeg" alt="">
-                    <button onclick="navigate('play_tournament')">play Tournament</button>
+                    <img src="./resrc/ai_game.jpg" alt="">
+                    <button class="" onclick="navigate('play_tournament')">play Tournament</button>
                 </div>
                 <div class="challenge">
                     <div class="center">
-                        <h2>Online Friends</h2>
+                        <h2>challenge friends</h2>
                     </div>
                     <div class="list_friend" id="challenge_friend"></div>
                 </div>
                 <div class="invite">
                     <div class="center">
-                        <h2>Suggest Friends</h2>
+                        <h2>invite to friends</h2>
                     </div>
                     <div class="list_friend" id="list_friend"></div>
                 </div>
             </div>
             <div id="profile" class="content-section profile">
                 <div class="welcome">
-                    <div id="profileid">
-                        <!-- <div class="image_to_profile"></div> -->
+                    <div class="prf_to_prf" id="profileid">
                         <h3 id="login"></h3>
                     </div>
                     <div>
@@ -126,60 +121,120 @@
                     <!-- </div> -->
                 </div>
             </div>
-            <div id="notifi">
-                <div class="notification-contiener" id="notify">
-                    <div class="modal_notificaton">
-                        <div class="close_notificaton">
-                        <span  onclick="closeNotificationsModal()">&times;</span>
-                     </div>
-                        <h1>Notifications</h1>
-                        
-                </div>
-                    <div class="content_notify" id="content_notify">
-
-                    </div>
-                </div>
-            </div>
-            <div id="logout-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeLogoutModal()">&times;</span>
-                    <h2>Confirm Logout</h2>
-                    <p>Are you sure you want to logout?</p>
-                    <button class="confirm-button" onclick="logout()">Yes</button>
-                    <button class="cancel-button" onclick="closeLogoutModal()">No</button>
-                </div>
-            </div>
-            
-            <div id="settings-modal" class="settings-modal">
-                <div class="setting-contiener">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeSettingsModal()">&times;</span>
-                    </div>
-                    <div id = "editprofile">
-                        <div class="settings-form" id="settings-form">
-                            <!-- <img id="editimage" src="" alt="profile"> -->
-                            <!-- <label for="profileImage">new Profile Image</label> -->
-                            <!-- <img id="profileImagePreview" src="default-profile.png" alt="Profile Image" class="profile-image"> -->
-                            <!-- <input type="file" id="profileImage" accept="image/*" onchange="previewImage(event)">
-                                < -->
-                                <label id="nameprofile" for="username"></label>
-                                <form id="avatarForm" class="form-container" method="post" enctype="multipart/form-data" action="/update_profile/">
-                                    <input type="hidden" name="csrfmiddlewaretoken" id="crcf">
-                                    <input type="file" id="image" name="image" accept="image/*" required>
-                                    <input type="text" id="username" name="username" placeholder="Username" required>
-                                    <button type="submit">Upload</button>
-                                    <div id="messages"></div>
-                                </form>
-                                <!-- <button class="save-button" onclick="saveSettings()">Save Changes</button> -->
+                <div id="notifi">
+                    <div class="notification-contiener" id="notify">
+                        <div class="modal_notificaton">
+                            <div class="close_notificaton">
+                                <span onclick="closeNotificationsModal()" >&times;</span>
                             </div>
+                            <h1>Notifications</h1>
+                            
+                    </div>
+                        <div class="content_notify" id="content_notify">
+
                         </div>
                     </div>
-            </div>
-            <section id="loading-section-id">
+                </div>
+                <div id="logout-modal" class="modal">
+                    <div class="modal-content_set">
+                        <span class="close" onclick="closeLogoutModal()">&times;</span>
+                        <h2>Confirm Logout</h2>
+                        <p>Are you sure you want to logout?</p>
+                        <button class="confirm-button" onclick="logout()">Yes</button>
+                        <button class="cancel-button" onclick="closeLogoutModal()">No</button>
+                    </div>
+                </div>
+                
+                <div id="settings-modal" class="settings-modal">
+                    <div class="setting-contiener">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeSettingsModal()">&times;</span>
+                        </div>
+                        
+                            <div class="settings-form" id="settings-form">
+                                <div class="data_setting">
+                                    <div class="profil" id="profil">
+                                        <img class="edit" src="./resrc/edit.png" alt="">
+                                    </div>
+                                    <label id="nameprofile" for="username"></label>
+                                </div>
+                                
+                                    
+                                    <form id="avatarForm" class="form-container" method="post" enctype="multipart/form-data" action="/update_profile/">
+                                        <input type="hidden" name="csrfmiddlewaretoken" id="crcf">
+                                        <input type="file" id="image" name="image" accept="image/*" style="display: none;">
+                                        <div>
+                                            <div>
+                                                <input type="text" id="username" name="username" placeholder="new Username">
+                                                <input type="text" id="first_name" name="first_name" placeholder="new First Name"><br>
+                                            </div>
+                                            <div>
+                                                <input type="text" id="last_name" name="last_name" placeholder="new Last Name" ><br>
+                                                <input type="email" id="email" name="email" placeholder="new Email" ><br>
+                                            </div>
+                                        </div>
+                                        <button class="submit" type="submit">SAVE</button>
+                                        <div id="messages"></div>
+                                        <a class="delet_account" onclick="delete_funcyion()">delete my sccount</a>
+                                    </form>
+                                
+                                    
+                                </div>
+                                
+                            </div>
+                        
+                </div>
+                <div class="modal_delete" id="modal_delete">
+                    <div class="modal-content_no">
+                        <span class="close" onclick="closedelete()">&times;</span>
+                        <h2>Confirm delete</h2>
+                        <p>Are you sure ?</p>
+                        <button class="confirm-button" >Yes</button>
+                        <button class="cancel-button"  onclick="closedelete()" >No</button>
+                    </div>
+                </div>
+                <div class="content-user" id="content-user">
+                    <div class="profile-user">
+                        
+                            <div class="image_user">
+                                <span class="close_profile" onclick="close_user_profile()">&times;</span>
+                                <img src="/media/User_profile/moelkama.JPG" alt="">
+                            </div>
+                            <div class="profile-user-info">
+                                   
+                                    <h2>username</h2>
+                                    <h2>score</h2>
+                                    <h2>ranking</h2>
+                                
+                                
+                            </div>
+                        
+                        <div class="profile-user-body">
+                            
+                            <div class="button_profile">
+                                <div class="options">
+                                    <h4 class="profile-user-friend" id="profile-user-friend"  onclick="view_friends()">view friends</h4>
+                                    <h4 class="profile-user-match" id="profile-user-match" onclick="view_matchs()">view matchs</h4>
+                                </div>
+                                    <div class="view-friends" id="view-friends"></div>
+                                    <div class="view-matchs" id="view-matchs"></div>
+                               
+                                
+                                
+                            </div>
+                            <div class="information_user">
+                                <h4 class="profile-user-information">view information</h4>
+                                <div class="data_information"></div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <section id="loading-section-id">
                 <div id="loading">
                     <div id="loader"></div>
                 </div>
-            </section>
+                </section>
             <section id="play">
                 <div id="ping-pong-2" class="ping-pong">
                     <div class="users">
@@ -289,21 +344,22 @@
                 </div>
             </section>
         </article>
+       
     </div>
-    <script src="profile.js"></script>
     <script src="game.js"></script>
     <script src="script.js"></script>
     <script src="match.js"></script>
     <script src="leader.js"></script>
     <script src="data.js"></script>
     <script src="token.js"></script>
-    <script src="suggest.js"></script>
+    <script type="module" src="suggest.js"></script>
     <script src="invite.js"></script>
-    <script src="challenge.js"></script>
-    <script src="notif.js"></script> 
+    <script type="module" src="challenge.js"></script>
+    <script type="module" src="notif.js"></script> 
+    <script src="setting.js"></script>
+    <script src="userInformation.js"></script>
     <script src="msgfriend.js" type="module"></script>
     <script src="chatScript.js" type="module"></script>
     <script src="track.js"></script>
-    <!-- <script src="profile.js"></script> -->
 </body>
 </html>
