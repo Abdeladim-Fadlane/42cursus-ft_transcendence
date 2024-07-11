@@ -35,9 +35,6 @@ def get_match_history(request):
     
 
 def logout(request):
-    user = CustomUser.objects.get(id=request.session.get('user_id'))
-    user.available = False
-    user.save()
     log(request)
     return redirect('/')
 

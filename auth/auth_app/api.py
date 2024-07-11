@@ -3,8 +3,10 @@ from .models import Friends ,CustomUser, FriendRequest
 from django.http import JsonResponse
 import json
 from .views import  login_required
+from .login import logout as log
 from django.http import HttpResponseForbidden
 from . serializers import TaskSerializer
+from django.contrib.auth import logout
 
 def send_friend_request(request):
     sender = login_required(request)
@@ -169,5 +171,9 @@ def delete_account(request):
     user = login_required(request)
     if not user:
         return HttpResponseForbidden("Forbidden", status=403)
+    if hasattr(user,'photo_profile'):
+        if user.photo_profile != "User_profile/default_profile.png" :
+            user.photo_profile.delete(save=False)
+    logout(request)
     user.delete()
     return JsonResponse({'status': True}, status=200)

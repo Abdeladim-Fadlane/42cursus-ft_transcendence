@@ -5,7 +5,7 @@
 export function handlechalleng()
 {
     document.getElementById('challenge_friend').innerHTML = '';
-    fetch('/api/friends/')
+    fetch('/api/online/')
         .then(response => {
             if (!response.ok) {
                 window.location.href = "/";

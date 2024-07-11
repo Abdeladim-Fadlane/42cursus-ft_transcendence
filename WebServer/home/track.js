@@ -19,3 +19,17 @@ fetch('https://ping-pong.com/api/token/')
 .catch(error => {
     console.error('Error fetching token:', error);
 });
+
+
+function delete_account() {
+    fetch('/api/delete_account/')
+    .then(response => response.json())
+    .then(data => {
+        window.location.href = '/';
+        console.log('Account deleted');
+    })
+    .catch(error => {
+        console.error('Error deleting account:', error);
+    });
+};
+        
