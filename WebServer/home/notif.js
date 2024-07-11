@@ -1,5 +1,5 @@
 import { handleRequestsuggestion } from './suggest.js';
-import { handlechalleng } from './challenge.js';
+import { handlechalleng } from './online.js';
 document.addEventListener('DOMContentLoaded', function() {
     fetch("/api/get_requests/")
         .then(response => {

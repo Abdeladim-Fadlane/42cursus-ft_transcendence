@@ -127,13 +127,11 @@ def store_data_in_database(request,access_token):
             token,_,= Token.objects.get_or_create(user=user)
             request.session['user_id'] = user.id
             request.session['token'] = token.key
-            # user.is_online = True
             user.save()
         else:
             token,_,= Token.objects.get_or_create(user=fuser)
             request.session['user_id'] = fuser.id
             request.session['token'] = token.key
-            # fuser.is_online = True
             fuser.save()
 
 

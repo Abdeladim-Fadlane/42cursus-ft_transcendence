@@ -1,7 +1,3 @@
-function printdatasessions(){
-
-
-}
 
 document.addEventListener('DOMContentLoaded', function() {
     fetch('/api/csrf-token/')
@@ -15,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 'X-CSRFToken': token,
             },
             body: JSON.stringify({
-                'username': 'moelkama',
+                'username': 'afadlane',
             })
         })
         .then(response => {
@@ -25,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            co
+            console.log(data);
             var friendProfile = document.getElementById('card-container');
             img = document.createElement('img');
             img.src = data.photo_profile;
@@ -41,6 +37,10 @@ document.addEventListener('DOMContentLoaded', function() {
             username.textContent = data.username;
             ranking = document.getElementById('rank-card');
             ranking.textContent =  "Rannking : " + data.ranking;
+            date_joined = document.getElementById('date-joined-card');
+            date_joined.textContent = "Date joined : " + data.date_joined.split('T')[0] + ' ' + data.date_joined.split('T')[1].split('.')[0];
+            score = document.getElementById('score-card');
+            score.textContent = "Score : " + data.score;
 
             Total_card = document.getElementById('Total-match');
             Total_card.textContent = "Total : " + (data.win + data.lose);
