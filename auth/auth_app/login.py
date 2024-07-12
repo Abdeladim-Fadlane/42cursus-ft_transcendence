@@ -35,9 +35,6 @@ def get_match_history(request):
     
 
 def logout(request):
-    user = CustomUser.objects.get(id=request.session.get('user_id'))
-    user.available = False
-    user.save()
     log(request)
     return redirect('/')
 
@@ -64,6 +61,7 @@ def leadrboard(request):
     data = []
     for user in all_users:
         user.ranking = calculate_ranking(user)
+        user.save()
         data.append(user)
     dataseriaser = TaskSerializer(data, many=True)
     return JsonResponse(dataseriaser.data,safe=False, status=200)

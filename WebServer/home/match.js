@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function()
             return response.json();   
         })
         .then(data => {
+            console.log(data);
             var historyContainer = this.getElementById('data_history');
             for (let i = 0; i < data.length; i++) {
   
@@ -17,6 +18,14 @@ document.addEventListener('DOMContentLoaded', function()
                 let content = document.createElement('div');
                 content.classList.add('content');
 
+                let date = document.createElement('p');
+                date.textContent = data[i].date.split('T')[0] + ' ' + data[i].date.split('T')[1].split('.')[0];
+                date.classList.add('date');
+                date.style.textAlign = 'center';
+                date.style.fontSize = '20px';
+                date.style.fontWeight = 'bold';
+                date.style.color = 'white';
+                
 
                 let div1 = document.createElement('div');
                 div1.classList.add('player1');
@@ -49,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function()
                 text.innerHTML = data[i].score1 + ' - ' + data[i].score2;
                 img.src = data[i]['winner'].photo_profile;
                 img2.src = data[i]['loser'].photo_profile;
-
+                content.appendChild(date);
                 container.appendChild(content);
                 historyContainer.appendChild(container);
                 historyContainer.appendChild(document.createElement('br'));
