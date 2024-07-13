@@ -8,7 +8,8 @@ from django.middleware.csrf import get_token
 import json
 
 # Create your views here.
-
+def dalete_message(request):
+    pass
 
 def MessageHistory(request, room_name):
     _conversation = Conversation.objects.get(room_name=room_name)
