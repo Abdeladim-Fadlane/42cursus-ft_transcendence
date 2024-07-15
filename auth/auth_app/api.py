@@ -177,3 +177,4 @@ def delete_account(request):
     logout(request)
     user.delete()
     return JsonResponse({'status': True}, status=200)
+

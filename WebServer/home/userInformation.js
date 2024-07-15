@@ -3,61 +3,74 @@ function ParceDate(date){
     let _time = date.substr(date.indexOf('T') + 1 ,  date.indexOf('.') - (date.indexOf('T') + 1));
     return `${_date + ' ' + _time}`;
 }
-// function drawCircle(lose, win)
-// {
-//     let circle = document.querySelector('.circle');
+function drawCircle(lose, win)
+{
+    let circle = document.querySelector('.circle');
 
-//     let value_win = win;
-//     let value_lose = lose;
-//     let totale = value_win +value_lose;
-//     let win = value_win * 100 / totale;
-//     let lose = value_lose * 100 / totale;
+    let value_win = win;
+    let value_lose = lose;
+    let totale = value_win +value_lose;
+    let _win = value_win * 100 / totale;
+    let _lose = value_lose * 100 / totale;
+    let  div_white = document.createElement('div')
+    let div_lose =  document.createElement('div');
+    let number_win = document.querySelector('.number-win')
+    let number_lose = document.querySelector('.number-lose')
+    number_lose.textContent = `Losing ${lose}`;
+    number_win.textContent = `Wining ${win}`;
+    let text_lose  = document.querySelector('.lose-statistique');
+    div_lose.classList.add('child');
+    let div_win =  document.createElement('div');
+    let text_win  = document.querySelector('.win-statistique');
+    div_win.classList.add('child');
+    text_win.textContent = '0 %'
+    text_lose.textContent = '0 %'
+    console.log(_win)
+    circle.append(div_lose, div_win, div_white);
+    div_white.classList.add('div-white')
+    let i = 0;
+    let j = 0;
+    div_win.addEventListener('mouseover', ()=>{
+        div_win.style.width = '230px';
+        div_win.style.height = '230px';
+        number_lose.style.display = 'flex';
+        number_win.style.display = 'flex';
 
-//     let div_lose =  document.createElement('div');
-//     let text_lose  = document.createElement('span');
-//     text_lose.classList.add('text_lose' , 'text')
-
-//     div_lose.classList.add('child');
-//     let div_win =  document.createElement('div');
-//     let text_win  = document.createElement('span');
-//     text_win.classList.add('text_win' , 'text')
-//     div_win.classList.add('child');
-
-//     circle.append(div_lose, div_win);
-//     circle.append(text_lose, text_win);
-//     let circle_value = 0;
-//     let i = 0;
-//     let j = 0;
-//     div_win.style.opacity =  '0.1';
-//     div_lose.style.opacity  = '0.1'
-
-
-//     setInterval(()=>{
-//         if (i < win)
-//         {
-//             i++;
-//             text_lose.textContent = `${i}%`
-//             if (circle_value + 3.6 > 360)
-//                 circle_value = 360;
-//             else
-//                 circle_value += 3.6;
-//             div_win.style.background = `conic-gradient(blue ${circle_value}deg, white 0deg)`
-//         }
-//         else if (j < lose)
-//         {
-//             j++;
-//             text_win.textContent = `${j}%`
-//             if (circle_value + 3.6 > 360)
-//                 circle_value = 360;
-//             else
-//                 circle_value += 3.6;
-//             div_lose.style.background = `conic-gradient(red ${circle_value}deg, white 0deg)`
-//         }
-//     }, circle_value + 20)
-// }
+    });
+    div_win.addEventListener('mouseleave', ()=>{
+        div_win.style.width = '200px';
+        div_win.style.height = '200px';
+        number_lose.style.display = 'none';
+        number_win.style.display = 'none';
+    });
+    div_win.style.background = `conic-gradient(#5cb85c ${value_win * 360 / totale}deg, #D8636F 0deg)`
+    div_lose.style.background = `conic-gradient(#D8636F ${value_lose * 360 / totale}deg, #5cb85c 0deg)`
+    var interval = setInterval(()=>{
+        if (i < _win)
+        {
+            i++;
+            if (i > _win)
+                i = _win.toFixed(2);
+            text_win.textContent = `${i} %`
+        }
+        if (j < _lose)
+        {
+            j++;
+            if (j > _lose)
+                j = _lose.toFixed(2);
+            text_lose.textContent = `${j} %`
+        }
+        if (Number(i) + Number(j) == 100)
+            clearInterval(interval);
+    },  80)
+    circle.style.display = 'flex';
+}
+let closeInter;
 function view_profile(e)
 {
     const modal = document.getElementById('content-user');
+    let _circle = document.querySelector('.circle');
+
     let username = document.querySelector('.profile-user-info-username');
     let score = document.querySelector('.profile-user-info-score');
     let rank = document.querySelector('.profile-user-info-rank');
@@ -68,9 +81,15 @@ function view_profile(e)
     let email = document.querySelector('.profile-user-email');
     let status = document.querySelector('.profile-user-status-string');
     let status_color = document.querySelector('.profile-user-status-color');
-    let statistique = document.querySelector('.circle');
+    let statistique = document.querySelector('.no-statistique');
     let win = document.querySelector('.win-statistique');
     let lose = document.querySelector('.lose-statistique');
+    if (e.target.id.length == 0)
+    {
+
+        e.target.id =  e.currentTarget.id
+        document.querySelector()
+    }
     fetch('/api/csrf-token/')
     .then(response =>{
         if (response.ok == false){
@@ -97,7 +116,6 @@ function view_profile(e)
             return response.json();
         })
         .then(data=>{
-            console.log(data);
             username.textContent = data.username;
             score.textContent = data.score;
             rank.textContent = data.ranking;
@@ -113,20 +131,22 @@ function view_profile(e)
             else
             {
                 status.textContent = 'offline';
-                status_color.style.backgroundColor = 'red'
+                status_color.style.backgroundColor = 'red';
             }
             if (data.lose == '0' && data.lose == '0'){
-                statistique.textContent = 'this player has no statistiques yet';
-                statistique.className = 'no-statistique';
-                lose.textContent = '0%';
-                win.textContent = '0%'
+                statistique.style.display = 'flex';
+                _circle.style.display = 'none';
+                lose.textContent = '0 %';
+                win.textContent = '0 %';
             }
             else{
+                drawCircle(Number(data.lose), Number(data.win))
+                statistique.style.display = 'none';
                 console.log('has a statistique')
             }
         })
     })
-    setInterval(()=>{
+    closeInter = setInterval(()=>{
         fetch('/api/csrf-token/')
         .then(response =>{
             if (response.ok == false){
@@ -171,6 +191,7 @@ function close_user_profile()
 {
     const modal = document.getElementById('content-user');
     modal.style.display = 'none';
+    clearInterval(closeInter)
 }
 function view_friends()
 {

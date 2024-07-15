@@ -83,6 +83,24 @@ document.addEventListener("DOMContentLoaded", function () {
   function showSettingsModal() {
     const modal = document.getElementById('settings-modal');
     modal.style.display = 'flex';
+    // console.log('hhhhhhhhhhhhhhhhhhhhhhhhhh')
+    let username = document.querySelector('#username')
+    let first_name = document.querySelector('#first_name')
+    let lsat_name = document.querySelector('#last_name')
+    let email = document.querySelector('#email')
+    fetch('/api/data/')
+    .then(response =>{
+        if (response.ok == true)
+            return response.json();
+    })
+    .then(data => {
+      console.log(data)
+        username.value = data.username;
+        first_name.value = data.first_name;
+        lsat_name.value = data.lsat_name;
+        email.value = data.email;
+
+    })
   }
   
   function closeSettingsModal() {

@@ -16,7 +16,6 @@ function hasNonPrintableChars(inputString) {
     // console.log(":::" + inputString + ":::")
     for (var i = 0; i < inputString.length; i++) {
         var code = inputString.charCodeAt(i);
-        // console.log("code =====> " + code)
         if (code > 32 && code < 126) 
         {
             return true;

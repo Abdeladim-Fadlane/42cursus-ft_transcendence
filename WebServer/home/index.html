@@ -15,6 +15,13 @@
         <div class="navbar-logo">
             <a class="nav-link" data-target="home"><img src="./resrc/media/logo.png" alt="Logo" onclick="active_section('play')"></a>
         </div>
+        <div class="nav-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="search-input" placeholder="search ...">
+            <div class="users-search-bar">
+    
+            </div>
+        </div>
         <div class="navbar-buttons">
             <ul>
                 <li><a class="nav-link nav_hover" data-target="home" href="#home" onclick="disactiv_sections()">Home</a></li>
@@ -239,17 +246,21 @@
                                     <i class="fa-solid fa-chart-pie"></i>
                                     <span>User statistiques</span>
                                 </span>
-                                <div class="circle">
-
+                                <div class="no-statistique">
+                                    This player has no statistiques yet
                                 </div>
-                                <div class="win-statistique-div">Win
-                                    <span class="win-statistique">
-
-                                    </span>
-                                </div>
-                                <div class="lose-statistique-div">Lose
-                                    <span class="lose-statistique">
-                                    </span>
+                                <div class="number-win"></div>
+                                <div class="number-lose"></div>
+                                <div class="circle"></div>
+                                <div class="number-statistique">
+                                    <div class="win-statistique-div">Win
+                                        <span class="win-statistique">
+                                        </span>
+                                    </div>
+                                    <div class="lose-statistique-div">Lose
+                                        <span class="lose-statistique">
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -386,6 +397,7 @@
     <script src="msgfriend.js" type="module"></script>
     <script src="chatScript.js" type="module"></script>
     <script src="track.js"></script>
+    <script src="search.js"></script>
 
 </body>
 </html>
