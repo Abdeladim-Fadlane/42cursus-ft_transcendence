@@ -90,15 +90,7 @@ def exchange_code_for_token(code):
     response = requests.post(token_url,data=data)
     return response.json()['access_token']
 
-
-def generateRandomUsername(username):
-    suffix = 1
-    while CustomUser.objects.filter(username=username).exists():
-        username += str(suffix)
-        suffix += 1
-    return username
-
-
+    
 def store_data_in_database(request,access_token):
     headers = {'Authorization': f'Bearer {access_token}'}
     response = requests.get('https://api.intra.42.fr/v2/me', headers=headers)
@@ -116,7 +108,7 @@ def store_data_in_database(request,access_token):
                 user = None
             if user:
                 if user.unigue_id != user_data['id']:
-                    login = generateRandomUsername(login)
+                    login = login + str(user_data['id'])
             user, created = CustomUser.objects.get_or_create(username=login, email=user_data['email'])
             if  created:
                 user.first_name = user_data['displayname'].split(' ')[0]

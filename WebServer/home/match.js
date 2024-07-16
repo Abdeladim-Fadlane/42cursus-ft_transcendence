@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function()
                 date.textContent = data[i].date.split('T')[0] + ' ' + data[i].date.split('T')[1].split('.')[0];
                 date.classList.add('date');
                 date.style.textAlign = 'center';
-                date.style.fontSize = '20px';
+                date.style.fontSize = '10px';
                 date.style.fontWeight = 'bold';
                 date.style.color = 'white';
                 
@@ -58,10 +58,11 @@ document.addEventListener('DOMContentLoaded', function()
                 text.innerHTML = data[i].score1 + ' - ' + data[i].score2;
                 img.src = data[i]['winner'].photo_profile;
                 img2.src = data[i]['loser'].photo_profile;
-                content.appendChild(date);
+                
                 container.appendChild(content);
+                container.appendChild(date);
                 historyContainer.appendChild(container);
-                historyContainer.appendChild(document.createElement('br'));
+                // historyContainer.appendChild(document.createElement('br'));
             }
         });
 });

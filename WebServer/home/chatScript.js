@@ -91,6 +91,7 @@ function create_chatRoom(map)
             username2 = button.id;
             room_name = generateRoomName( username1,username2);
             let icon = document.createElement('i');
+            icon.style.color = 'white';
             icon.classList.add('fa-solid', 'fa-ellipsis-vertical');
             let url = `/DisplayMsg/${room_name}`
             fetch(url)
@@ -147,25 +148,23 @@ function create_chatRoom(map)
             .catch(error =>{ 
                 // console.error(error);
                 console.log(error);
-            })     
-        
+            })
+            let div_image = document.getElementById('image-chat');
+            div_image.append(user_image);
             header_username.innerHTML = username2;
             div_info.textContent = '';
             div_info.append(icon);
             div_info.className = 'chat-option-user';
-            chat_header.append(user_image, div_info);
+            chat_header.append(div_info);
             user_image.src = button.querySelector("img").src;
             user_image.alt = "user_photo";
             user_image.className = 'header-chat-photouser'
             header_username.style.cssText = `
-                position : absolute;
-                top : 15px;
-                left : 90px;
                 font-size : 20px;
-                color : black;
-                font-family: 'Arial', sans-serif;
             `
-            chat_header.style.cssText = `background-color : gray; border-radius : 10px;`;
+            chat_header.style.cssText = `border: 2px solid #bbbbbb7b;
+            border-radius: 10px;`;
+            // chat_header.style.cssText = `background-color : gray; border-radius : 10px;`;
            // socket part -----------------------------------------------------------------
             if (Web_socket != null)
             {

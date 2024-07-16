@@ -50,6 +50,8 @@ var firs_time = true;
 
 function    disactiv_sections()
 {
+    
+
     document.querySelectorAll('section').forEach(section => {
         section.classList.remove('active');
     });

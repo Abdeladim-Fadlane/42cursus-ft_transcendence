@@ -6,18 +6,20 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.cdnfonts.com/css/games" rel="stylesheet">
 </head>
 <body>
     <div class="ball"></div>
     <div class="ball2"></div>
     <nav class="navbar">
         <div class="navbar-logo">
-            <a class="nav-link" data-target="home"><img src="./resrc/media/logo.png" alt="Logo" onclick="active_section('play')"></a>
+            <a class="nav-link" data-target="home"><img src="./resrc/new-logo.png" alt="Logo" onclick="active_section('play')"></a>
         </div>
         <div class="navbar-buttons">
             <ul>
-                <li><a class="nav-link nav_hover" data-target="home" href="#home" onclick="disactiv_sections()">Home</a></li>
-                <li><a class="nav-link nav_hover" data-target="profile" href="#profile"  onclick="disactiv_sections()">Profile</a></li>
+                <li id="Home"><a  class="nav-link nav_hover" data-target="home" href="#home"  onclick="border_home()" onclick="disactiv_sections()">Home</a></li>
+                <li id="Pr" ><a class="nav-link nav_hover" data-target="profile" href="#profile" onclick="border_pr()" onclick="disactiv_sections()">Profile</a></li>
                 <li><div class="profil" id="imageprofile"></div></li>
             </ul>
         </div>
@@ -28,31 +30,42 @@
                 <div class="image1">
                     <ul>
                         <!-- <li><a class="settings-button" onclick="showSettingsModal()"><div class="seting_icon"></div></a></li> -->
-                        <li><a class="notification" onclick="showNotificationsModal()"><div    class="notification_icon aside_button"></div></a></li>
-                        <li><a class="nav-link" data-target="chat" href=""><div    class="chat_icon  aside_button"></div></a></li>
+                        <li><a class="notification"  onclick="showNotificationsModal()"><div    class="aside_button icons" class="icons"> <i class="fa-solid fa-bell"></i> </div></a></li>
+                        <li><a class="nav-link" data-target="chat"  onclick="click_chat()"><div  class="icons"  class="aside_button"><i class="fa-solid fa-comment"></i></div></a></li>
                     </ul>
                 </div>
                 <div class="image2">
                     <ul>
-                        <li><a class="settings-button" onclick="showSettingsModal()"><div class="seting_icon"></div></a></li>
-                        <li><a class="logout-button og_out_icon aside_button" onclick="showLogoutModal()"><div class="log_out_icon"></div></a></li>
+                        <li><a class="settings-button" onclick="showSettingsModal()"><div class="icons" ><i class="fa-solid fa-gear"></i></div></a></li>
+                        <li><a class="logout-button og_out_icon aside_button" onclick="showLogoutModal()"><div class="icons"><i class="fa-solid fa-right-from-bracket"></i></div></a></li>
                     </ul>
                 </div>
             </div>
         </aside>
         <article>
+            <div></div>
             <div id="home" class="content-section home">
-                <div class="game">
-                    <img src="./resrc/normal.webp" alt="">
-                    <button class="home_button" onclick="navigate('play')" >Start game</button>
+                    
+                <div class="images">
+
+                    <div class="welcome_home">
+                        <h1>Welcome to Ping Pong</h1>
+                        <h1>Choose a game mode</h1>
+                    </div>
+                    <div class="play">
+                    <div class="game">
+                           
+                            <button class="home_button" onclick="navigate('play')" >Start game</button>
+                        </div>
+                        <div class="game">
+                            
+                            <button class="home_button" onclick="navigate('play_tournament')">play Tournament</button>
+                        </div>
                 </div>
-                <div class="game">
-                    <img src="./resrc/ai_game.jpg" alt="">
-                    <button class="" onclick="navigate('play_tournament')">play Tournament</button>
-                </div>
+            </div>
                 <div class="challenge">
                     <div class="center">
-                        <h2>challenge friends</h2>
+                        <h2>online  friends</h2>
                     </div>
                     <div class="list_friend" id="challenge_friend"></div>
                 </div>
@@ -60,7 +73,7 @@
                     <div class="center">
                         <h2>invite to friends</h2>
                     </div>
-                    <div class="list_friend" id="list_friend"></div>
+                    <div class="invet_friend" id="list_friend"></div>
                 </div>
             </div>
             <div id="profile" class="content-section profile">
@@ -69,7 +82,7 @@
                         <h3 id="login"></h3>
                     </div>
                     <div>
-                        <div class="rank"></div>
+                        <div class="rank"><i class="fa-solid fa-ranking-star"></i></div>
                         <h3 id="content_rank"></h3>
                     </div>
                     <div class="scor">
@@ -80,7 +93,9 @@
                 <div class="data">
                     <div class="leadrboard" id="leadrboard">
                         <div class="data_titel"><h2>leadrboard</h2></div>
-                        <div class="leadrboard_container"  id="leadrboard_container"></div>
+                        <div class="leadrboard_container"  id="leadrboard_container">
+                            <div class="crown"><i class="fa-solid fa-crown"></i></div>
+                        </div>
                     </div>
                     
                     <div class="global_data" id="history">
@@ -97,6 +112,28 @@
                 </div>
             </div>
             <div id="chat" class="content-section aside-co">
+                <div>
+                    <h1 class="game_title">
+                        Game Chat Hup
+                    </h1>
+
+                </div>
+                <div class="chat-container">
+                    <div id="chat-header" class="chat-header">
+                        <div class="image-chat" id="image-chat"></div>
+                        <h2 id="chat-friend-name">Select a friend to chat</h2>
+                        
+                    </div>
+                    
+                        <div id="chat-messages" class="chat-messages">
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" id="message-input" placeholder="Type a message...">
+                            <button id="button-chat"><i class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+                        
+                    
+                </div>
                 <div class="friend-list">
                     <h2>Friends</h2>
                     <ul id="friends">
@@ -106,20 +143,8 @@
                     </ul>
 
                 </div>
-                <div class="chat-container">
-                    <div id="chat-header" class="chat-header">
-                        <h2 id="chat-friend-name">Select a friend to chat</h2>
-                    </div>
-                    <!-- <div class="chat-body"> -->
-                        <div id="chat-messages" class="chat-messages">
-                            <!-- Chat messages will appear here -->
-                        </div>
-                        <div class="chat-input">
-                            <input type="text" id="message-input" placeholder="Type a message...">
-                            <button id="button-chat">Send</button>
-                        </div>
-                    <!-- </div> -->
-                </div>
+                
+                
             </div>
                 <div id="notifi">
                     <div class="notification-contiener" id="notify">
@@ -147,41 +172,38 @@
                 
                 <div id="settings-modal" class="settings-modal">
                     <div class="setting-contiener">
-                        <div class="modal-content">
-                            <span class="close" onclick="closeSettingsModal()">&times;</span>
-                        </div>
-                        
-                            <div class="settings-form" id="settings-form">
-                                <div class="data_setting">
-                                    <div class="profil" id="profil">
-                                        <img class="edit" src="./resrc/edit.png" alt="">
-                                    </div>
-                                    <label id="nameprofile" for="username"></label>
-                                </div>
-                                
-                                    
+                        <span class="close_set" onclick="closeSettingsModal()">&times;</span>
+                            
+                            <div class="forms">
                                     <form id="avatarForm" class="form-container" method="post" enctype="multipart/form-data" action="/update_profile/">
-                                        <input type="hidden" name="csrfmiddlewaretoken" id="crcf">
-                                        <input type="file" id="image" name="image" accept="image/*" style="display: none;">
-                                        <div>
-                                            <div>
+                                        <h3 class="h3_setting">Change your profile data</h3>
+                                                <div class="profil setting_profile" id="profil">
+                                                    <img class="edit" src="./resrc/edit.png" alt="">
+                                                </div>
+                                                    <label id="nameprofile" for="username"></label>
+                                                <input type="hidden" name="csrfmiddlewaretoken" id="crcf">
+                                                <input type="file" id="image" name="image" accept="image/*" style="display: none;">
                                                 <input type="text" id="username" name="username" placeholder="new Username">
-                                                <input type="text" id="first_name" name="first_name" placeholder="new First Name"><br>
-                                            </div>
-                                            <div>
-                                                <input type="text" id="last_name" name="last_name" placeholder="new Last Name" ><br>
-                                                <input type="email" id="email" name="email" placeholder="new Email" ><br>
-                                            </div>
-                                        </div>
+                                                <input type="text" id="first_name" name="first_name" placeholder="new First Name">
+                                                <input type="text" id="last_name" name="last_name" placeholder="new Last Name" >
+                                                <input type="email" id="email" name="email" placeholder="new Email" >
                                         <button class="submit" type="submit">SAVE</button>
                                         <div id="messages"></div>
                                         <a class="delet_account" onclick="delete_funcyion()">delete my sccount</a>
                                     </form>
-                                
-                                    
-                                </div>
-                                
+                                    <form class="form-container"  action="">
+                                        <div class="center-h3">
+                                            <h3 class="h3_setting">Change your profile password</h3>
+                                        </div>
+                                        <input type="text" id="username" name="username" placeholder="new Username">
+                                        <input type="text" id="first_name" name="first_name" placeholder="new First Name">
+                                        <input type="text" id="last_name" name="last_name" placeholder="new Last Name" >
+                                        <button class="submit" type="submit">SAVE</button>
+                                        <div id="messages"></div>
+                                        <!-- <a class="delet_account" onclick="delete_funcyion()">delete my sccount</a> -->
+                                    </form>
                             </div>
+                    </div>
                         
                 </div>
                 <div class="modal_delete" id="modal_delete">
@@ -351,8 +373,8 @@
     <script src="data.js"></script>
     <script src="token.js"></script>
     <script type="module" src="suggest.js"></script>
-    <script src="invite.js"></script>
-    <script type="module" src="online.js"></script>
+    <script  type="module" src="invite.js"></script>
+    <script type="module" src="challenge.js"></script>
     <script type="module" src="notif.js"></script> 
     <script src="setting.js"></script>
     <script src="userInformation.js"></script>

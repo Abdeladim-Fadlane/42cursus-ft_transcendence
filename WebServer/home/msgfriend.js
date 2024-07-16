@@ -30,19 +30,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     display : flex;
                     align-items : center;
                     width : 100%;
-                    background-color : gray;
+                    
                 `
-                container.addEventListener('mouseover', () => {
-                    container.style.backgroundColor = 'lightblue';  
-                    container.style.fontWeight = 'bold';   
-                 });
+                // container.addEventListener('mouseover', () => {
+                //     container.style.backgroundColor = 'lightblue';  
+                //     container.style.fontWeight = 'bold';   
+                //  });
                   
-                container.addEventListener('mouseout', () => {
-                    container.style.backgroundColor = 'gray';
-                    container.style.fontWeight = 'normal';  
+                // container.addEventListener('mouseout', () => {
+                //     container.style.backgroundColor = 'gray';
+                //     container.style.fontWeight = 'normal';  
                     
                     
-                });
+                // });
                 container.appendChild(img);
                 container.appendChild(username);
                 container.classList.add("friend-list-room")
