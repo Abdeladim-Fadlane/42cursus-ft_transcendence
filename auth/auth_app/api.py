@@ -35,7 +35,7 @@ def suggest_friend(request):
         all_users = all_users.exclude(username=req.sender.username)
     
 
-    sendreqest = FriendRequest.objects.filter()
+    sendreqest = FriendRequest.objects.filter(sender=request.session.get('user_id'))
     for req in sendreqest:
         all_users = all_users.exclude(username=req.receiver.username)
 
