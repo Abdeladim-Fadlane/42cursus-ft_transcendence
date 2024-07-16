@@ -1373,7 +1373,7 @@ border: 2px solid cyan;
 .leadrboard_container
 {
 display: flex;
-justify-content: space-around;
+justify-content: start;
 align-items: center;
 flex-direction: column;
 margin-top: 10px;
@@ -2092,7 +2092,7 @@ font-family: 'games' , sans-serif;
 .crown i
 {
   position: relative;
-  top: 8px;
-  left: 54px;
+  top: 13px;
+    left: 53px;
   color: #ebbf5c;
 }
