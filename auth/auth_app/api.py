@@ -26,15 +26,16 @@ def suggest_friend(request):
     user_login = login_required(request)
     if not user_login:
         return HttpResponseForbidden("Forbidden", status=403)
-    
+    """ get all users except the user who is login """
     all_users = CustomUser.objects.all().exclude(id=request.session.get('user_id'))
     all_users = all_users.exclude(username='root')
 
+    """ get all users except the user who is login and the user who send friend request to him """
     resive = FriendRequest.objects.filter(receiver=request.session.get('user_id'))
     for req in resive:
         all_users = all_users.exclude(username=req.sender.username)
     
-
+    """ get all users except the user who is login and the user who he send friend request to him """
     sendreqest = FriendRequest.objects.filter(sender=request.session.get('user_id'))
     for req in sendreqest:
         all_users = all_users.exclude(username=req.receiver.username)

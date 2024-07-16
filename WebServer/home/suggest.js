@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         
             let addfriend = document.createElement('button');
-            addfriend.textContent = "delete friend";
+            addfriend.textContent = "Unfriend";
 
             addfriend.id = data[i].username;
 
