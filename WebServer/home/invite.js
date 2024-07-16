@@ -32,9 +32,9 @@ function fetchSuggestions() {
 function updateSuggestions(data) {
     var reward = document.getElementById('list_friend');
     reward.innerHTML = ''; // Clear previous suggestions
-
+    console.log(data);
     data.forEach(item => {
-        console.log(item);
+        // console.log(item);
         let container = document.createElement('div');
         container.classList.add('bar_content');
         container.style.display = 'flex';
