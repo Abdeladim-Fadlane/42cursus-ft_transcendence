@@ -12,51 +12,71 @@ function hasNonPrintableChars(inputString) {
     return false;
 }
 let div_user = document.querySelector('.users-search-bar')
-search.addEventListener('keyup', ()=>{
-    div_user.textContent = "";
-    if (hasNonPrintableChars(search.value) == false)
+let d = true;
+let index = 0;
+let text = 'Search ...'
+function do_event()
+{ 
+    if (d == true)
     {
-        div_user.style.display = 'inline';
-        let tab_user = [
-            {
-                'username' : 'akatfi'
-            },
-            {
-                'username': 'mkatfi'
-            }
-        ];
-        // fetch('/api/suggest/')
-        // .then(response => {
-        //     if (!response.ok) {
-        //         window.location.href = "/";
-        //     }
-        //     return response.json();
-        // })
-        // .then(data => {
-        //     console.log(data);
-        // })
-        // .catch(error=>{
-        //     console.log(error);
-        // })
-        for (let i = 0; i < tab_user.length ;i++)
-        {
-            if (tab_user[i].username.includes(search.value))
-            {
-                console.log(tab_user[i].username)
-                let div = document.createElement('div');
-                div.classList.add('div-search-user');
-                div.id = tab_user[i].username;
-                div.style.display = 'block';
-                let username = document.createElement('p');
-                username.classList.add('search-username')
-                div.append(username);
-                username.textContent = tab_user[i].username;
-                div_user.append(div);
-                div.addEventListener('click', view_profile);
-                // div_user.style.color = 'white';
-            }
-        }
+        search.placeholder += text[index++]
+        if (search.placeholder.length == text.length)
+            d = false;
     }
     else
-        div_user.style.display = 'none';
+    {
+        search.placeholder = search.placeholder.substr(0, index--)
+        if (search.placeholder.length == 0)
+        {
+            index = 0
+            d = true;
+        }
+    }
+}
+let interval_serch = setInterval(do_event, 100);
+search.addEventListener('keyup', ()=>{
+    if (hasNonPrintableChars(search.value) == false)
+    {
+        clearInterval(interval_serch);
+      
+        fetch('/api/users/')
+        .then(response => {
+            if (!response.ok) {
+                window.location.href = "/";
+            }
+            return response.json();
+        })
+        .then(data => {
+            div_user.textContent = "";
+
+            for (let i = 0; i < data.length ;i++)
+            {
+                if (data[i].username.includes(search.value))
+                {
+                    let div = document.createElement('div');
+                    div.classList.add('div-search-user');
+                    div.style.display = 'block';
+                    let username = document.createElement('p');
+                    let img = document.createElement('img');
+                    img.classList.add('search-photo_profile')
+                    img.src = data[i].photo_profile;
+                    div.id = data[i].username;
+                    username.classList.add('search-username')
+                    div.append(img ,username);
+                    username.textContent = data[i].username;
+                    div.addEventListener('click', view_profile);
+                    div_user.append(div);
+                }
+            }
+        })
+        .catch(error=>{
+            console.log(error);
+        })
+        div_user.style.display = 'inline';
+    }
+    else if (search.value.length == 0)
+    {
+        div_user.textContent = '';
+        interval_serch = setInterval(do_event, 200);
+    }
 })

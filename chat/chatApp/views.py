@@ -8,16 +8,7 @@ from django.middleware.csrf import get_token
 import json
 
 # Create your views here.
-def dalete_message(request):
-    if (request.method == 'POST'):
-        try:
-            username = json.loads(request.body).get('username')
-            msg = Message.objects.filter(sender_name=username)
-            msg.conversation.delete()
-            return JsonResponse({'status' : 'ok'})
-        except (Message.DoesNotExist):
-            return JsonResponse({'status' : 'error'})
-    return JsonResponse({'status' : 'error'})
+
 
 def MessageHistory(request, room_name):
     _conversation = Conversation.objects.get(room_name=room_name)

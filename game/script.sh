@@ -1,6 +1,11 @@
 #!/bin/bash
 
-sleep 5
+until pg_isready -h $GAME_HOST -p $POSTGRES_PORT -U $POSTGRES_USER
+do
+  echo "$(date) - waiting for database to start"
+  sleep 2
+done
+
 
 
 # python manage.py makemigrations

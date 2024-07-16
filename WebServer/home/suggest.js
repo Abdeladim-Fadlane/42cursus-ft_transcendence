@@ -1,53 +1,10 @@
 
 
+
 document.addEventListener('DOMContentLoaded', function() {
-
-fetch('/api/friends/')
-    .then(response => {
-        if (!response.ok) {
-            window.location.href = "/";
-        }
-        return response.json();
-    })
-    .then(data => {
-        var reward = document.getElementById('Friends');
-        for (let i = 0; i < data.length; i++) {
-
-            let container = document.createElement('div');
-            container.classList.add('bar_content');
-            container.style.display = 'flex';
-            container.style.alignItems = 'center';
-            // container.style.backgroundColor = "white";
-
-            let img = document.createElement('img');
-            img.addEventListener('click', view_profile);
-            img.id = data[i].username;
-            img.src = data[i].photo_profile;
-            img.style.width = "40px";
-            img.style.height = "40px";
-            img.style.borderRadius = "50%";
-            img.style.border = "2px solid black";
-
-            let username = document.createElement('p');
-            username.textContent = data[i].username;
-
-        
-            let addfriend = document.createElement('button');
-            addfriend.textContent = "delete friend";
-
-            addfriend.id = data[i].username;
-
-            container.appendChild(img);
-            container.appendChild(username);
-
-            container.appendChild(addfriend);
-            reward.appendChild(container);
-            reward.appendChild(document.createElement('br'));
-            addfriend.addEventListener('click', function() {
-                handleRequestAction(data[i].username);
-            });
-        }
-    })
+    handleRequestsuggestion();
+    setInterval(handleRequestsuggestion, 2000);
+    
         function handleRequestAction(senderUsername) {
             fetch('/api/csrf-token/')
             .then(response => response.json())
@@ -78,7 +35,7 @@ fetch('/api/friends/')
 });
  export function handleRequestsuggestion(){
     // handlenotif();
-    document.getElementById('Friends').innerHTML = "";
+    
     fetch('/api/friends/')
     .then(response => {
         if (!response.ok) {
@@ -87,6 +44,7 @@ fetch('/api/friends/')
         return response.json();
     })
     .then(data => {
+        document.getElementById('Friends').innerHTML = "";
         var reward = document.getElementById('Friends');
         for (let i = 0; i < data.length; i++) {
 
@@ -110,7 +68,7 @@ fetch('/api/friends/')
 
         
             let addfriend = document.createElement('button');
-            addfriend.textContent = "delete friend";
+            addfriend.textContent = "Unfriend";
 
             addfriend.id = data[i].username;
 
@@ -126,4 +84,4 @@ fetch('/api/friends/')
         }
     })
             
-            }
+}

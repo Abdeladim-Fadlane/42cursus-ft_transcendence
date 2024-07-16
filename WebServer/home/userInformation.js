@@ -3,6 +3,7 @@ function ParceDate(date){
     let _time = date.substr(date.indexOf('T') + 1 ,  date.indexOf('.') - (date.indexOf('T') + 1));
     return `${_date + ' ' + _time}`;
 }
+let  interval;
 function drawCircle(lose, win)
 {
     let circle = document.querySelector('.circle');
@@ -25,7 +26,6 @@ function drawCircle(lose, win)
     div_win.classList.add('child');
     text_win.textContent = '0 %'
     text_lose.textContent = '0 %'
-    console.log(_win)
     circle.append(div_lose, div_win, div_white);
     div_white.classList.add('div-white')
     let i = 0;
@@ -45,7 +45,7 @@ function drawCircle(lose, win)
     });
     div_win.style.background = `conic-gradient(#5cb85c ${value_win * 360 / totale}deg, #D8636F 0deg)`
     div_lose.style.background = `conic-gradient(#D8636F ${value_lose * 360 / totale}deg, #5cb85c 0deg)`
-    var interval = setInterval(()=>{
+    interval = setInterval(()=>{
         if (i < _win)
         {
             i++;
@@ -62,15 +62,17 @@ function drawCircle(lose, win)
         }
         if (Number(i) + Number(j) == 100)
             clearInterval(interval);
+        console.log()
     },  80)
     circle.style.display = 'flex';
 }
 let closeInter;
 function view_profile(e)
 {
+    // document.querySelector('.search-input').value = '';
+    // document.querySelector('.users-search-bar').textContent = '';
     const modal = document.getElementById('content-user');
     let _circle = document.querySelector('.circle');
-
     let username = document.querySelector('.profile-user-info-username');
     let score = document.querySelector('.profile-user-info-score');
     let rank = document.querySelector('.profile-user-info-rank');
@@ -85,11 +87,7 @@ function view_profile(e)
     let win = document.querySelector('.win-statistique');
     let lose = document.querySelector('.lose-statistique');
     if (e.target.id.length == 0)
-    {
-
-        e.target.id =  e.currentTarget.id
-        document.querySelector()
-    }
+        e.target.id = e.currentTarget.id
     fetch('/api/csrf-token/')
     .then(response =>{
         if (response.ok == false){
@@ -116,6 +114,7 @@ function view_profile(e)
             return response.json();
         })
         .then(data=>{
+            // console.log(data)
             username.textContent = data.username;
             score.textContent = data.score;
             rank.textContent = data.ranking;
@@ -133,13 +132,15 @@ function view_profile(e)
                 status.textContent = 'offline';
                 status_color.style.backgroundColor = 'red';
             }
-            if (data.lose == '0' && data.lose == '0'){
-                statistique.style.display = 'flex';
-                _circle.style.display = 'none';
+            console.log(data.lose + "   " + data.win)
+            if (data.win == '0' && data.lose == '0'){
                 lose.textContent = '0 %';
                 win.textContent = '0 %';
+                _circle.style.display = 'none';
+                statistique.style.display = 'flex';
             }
             else{
+                // console.log('ssjhsjsjsjsjsjs')
                 drawCircle(Number(data.lose), Number(data.win))
                 statistique.style.display = 'none';
                 console.log('has a statistique')
@@ -191,7 +192,9 @@ function close_user_profile()
 {
     const modal = document.getElementById('content-user');
     modal.style.display = 'none';
-    clearInterval(closeInter)
+    clearInterval(closeInter);
+    clearInterval(interval);
+
 }
 function view_friends()
 {

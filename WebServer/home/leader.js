@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 container.classList.add('bar_content');
                 let img = document.createElement('img');
                 img.addEventListener('click', view_profile);
-                img.src = data[i].username;
+                img.id = data[i].username;
                 img.src = data[i].photo_profile;
                 img.style.width = "40px";
                 img.style.height = "40px";

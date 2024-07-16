@@ -32,4 +32,5 @@ urlpatterns = [
     path('online/', api.online_friends, name='online'),
     path('friend/', api.frined_profile, name='profile'),
     path('delete_account/', api.delete_account, name='delete account'),
+    path('users/', api.getAllUser, name='users'),
 ]
