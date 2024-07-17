@@ -3,36 +3,55 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     handleRequestsuggestion();
-    setInterval(handleRequestsuggestion, 2000);
-    
-        function handleRequestAction(senderUsername) {
-            fetch('/api/csrf-token/')
-            .then(response => response.json())
-            .then(data => {
-                let token = data.csrfToken;
-                fetch('/api/delete_friend/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': token,
-                    },
-                    body: JSON.stringify({
-                        'receiver': senderUsername,
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === true) {
-                        
-                       handleRequestsuggestion();
-                    }
-                });
-            });
-        }
-        
-
-
+    setInterval(fetchdelette, 2000);
 });
+
+let current = 0;
+function fetchdelette() {
+    fetch('/api/friends/')
+        .then(response => {
+            if (!response.ok) {
+                document.getElementById('list_friend').style.display = 'none';
+                
+                return;
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.length !== current) {
+                current = data.length;
+                handleRequestsuggestion();
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching suggestions:', error);
+        });
+}
+
+function handleRequestAction(senderUsername) {
+    fetch('/api/csrf-token/')
+    .then(response => response.json())
+    .then(data => {
+        let token = data.csrfToken;
+        fetch('/api/delete_friend/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': token,
+            },
+            body: JSON.stringify({
+                'receiver': senderUsername,
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === true) {
+                
+               handleRequestsuggestion();
+            }
+        });
+    });
+}
  export function handleRequestsuggestion(){
     // handlenotif();
     
@@ -85,3 +104,8 @@ document.addEventListener('DOMContentLoaded', function() {
     })
             
 }
+
+
+
+
+

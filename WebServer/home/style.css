@@ -1659,7 +1659,7 @@ display: none;
   align-items: center;
 }
 .profile-user{
-  background-color: #2e2727a9;
+  background-color: #130039;
   border: #ffffff9b 2px solid;
   border-radius: 15px;
   display: flex;
@@ -1726,7 +1726,7 @@ display: none;
   align-items: start;
   width: 100%;
   height: 70%;
-  background-color: #2e2727a9;
+  /* background-color: #2e2727a9; */
   border-radius: 0px 0px 15px 15px;
 }
 .profile-user-more_info{
@@ -2218,12 +2218,18 @@ font-family: 'games' , sans-serif;
   border-radius: 50%;
   /* opacity: 0; */
 }
-
+.fac_one{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 33%;
+  /* opacity: 0; */
+}
 .nav-search
 {
   position: relative;
-  top: 3px;
-  left: -235px;
+  /* top: 3px;
+  left: -235px; */
   color: white;
  
 }
@@ -2338,7 +2344,7 @@ font-family: 'games' , sans-serif;
   transition: 0.3 ease;
 }
 .div-search-user:hover{
-  background-color: #218838;
+  background-color: #764082;
 }
 .search-photo_profile
 {

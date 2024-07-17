@@ -1,5 +1,5 @@
-import { handleRequestsuggestion } from './suggest.js';
-import { handlechalleng } from './challenge.js';
+// import { handleRequestsuggestion } from './suggest.js';
+// import { handlechalleng } from './challenge.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     fetchRequests();
@@ -13,10 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Global state to track current data
-let currentRequests = [];
-let currentSuggestions = [];
+
+let currentSuggestions = 0;
 
 // Fetch friend requests
+let currentRequests = 0;
 function fetchRequests() {
     fetch("/api/get_requests/")
         .then(response => {
@@ -26,8 +27,8 @@ function fetchRequests() {
             return response.json();
         })
         .then(data => {
-            if (JSON.stringify(data) !== JSON.stringify(currentRequests)) {
-                currentRequests = data;
+            if (data.length !== currentRequests) {
+                currentRequests = data.length;
                 updateRequests(data);
             }
         })
@@ -57,8 +58,8 @@ function handleRequestAction(action, senderUsername, requestId) {
             .then(response => response.json())
             .then(data => {
                 if (data.status === true) {
-                    removeRequestFromUI(requestId);
-                    handlechalleng();
+                    // removeRequestFromUI(requestId);
+                    // handlechalleng();
                     handlenotif();
                 } else {
                     console.error('Failed to handle request:', data.message);
@@ -74,12 +75,12 @@ function handleRequestAction(action, senderUsername, requestId) {
 }
 
 // Remove request from UI
-function removeRequestFromUI(requestId) {
-    const requestElement = document.getElementById(`request-${requestId}`);
-    if (requestElement) {
-        requestElement.remove();
-    }
-}
+// function removeRequestFromUI(requestId) {
+//     const requestElement = document.getElementById(`request-${requestId}`);
+//     if (requestElement) {
+//         requestElement.remove();
+//     }
+// }
 
 // Update friend requests in the UI
 function updateRequests(data) {
@@ -145,8 +146,8 @@ function fetchSuggestions() {
             return response.json();
         })
         .then(data => {
-            if (JSON.stringify(data) !== JSON.stringify(currentSuggestions)) {
-                currentSuggestions = data;
+            if (data.length !== currentSuggestions) {
+                currentSuggestions = data.length;
                 handlenotif();
                 updateSuggestions(data);
             }
@@ -230,8 +231,8 @@ function handleAddFriend(username) {
 
 // Combined notification handling function
 export function handlenotif() {
-    handleRequestsuggestion();
-    handlechalleng();
+    // handleRequestsuggestion();
+    // handlechalleng();
     fetchRequests();
     fetchSuggestions();
     

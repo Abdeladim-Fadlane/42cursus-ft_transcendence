@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(fetchSuggestions, 30000);
 });
 
-let currentData = [];
+let currentData = 0;
 
 function fetchSuggestions() {
     fetch('/api/suggest/')
@@ -18,8 +18,8 @@ function fetchSuggestions() {
             return response.json();
         })
         .then(data => {
-            if (JSON.stringify(data) !== JSON.stringify(currentData)) {
-                currentData = data;
+            if (data.length !== currentData) {
+                currentData = data.length;
                 handlenotif();
                 updateSuggestions(data);
             }

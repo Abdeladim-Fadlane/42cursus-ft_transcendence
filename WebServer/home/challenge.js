@@ -51,7 +51,27 @@ export function handlechalleng() {
         });
 }
 
+let currentRequestSize = 0;
+function fetchRequests() {
+    fetch("/api/online/")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch friend requests');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.length !== currentRequestSize) {
+                currentRequestSize = data.length;
+                handlechalleng();
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching friend requests:', error);
+        });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     handlechalleng(); // Initial call on page load
-    setInterval(handlechalleng, 2000); // Subsequent calls every 2 seconds
+    setInterval(fetchRequests, 2000); // Subsequent calls every 2 seconds
 });
