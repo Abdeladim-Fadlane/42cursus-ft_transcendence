@@ -214,6 +214,7 @@ a {
   height: 45px;
   background-position: center;
   background-size: cover;
+  cursor: pointer;
 }
 /* .notification_icon {
   background-image: url("./resrc/media/icon/notification.png");
@@ -236,12 +237,14 @@ a {
 {
   font-size: 36px;
   margin-top: 10px;
+  cursor: pointer;
 
 }
 .icons i:hover
 {
   font-size: 38px;
   color: #4c3a7be8;
+  cursor: pointer;
 }
 
 img {
@@ -1524,6 +1527,7 @@ width: 60px;
 height: 60px;
 /* border-radius: 10%; */
 margin-top: 10px;
+cursor: pointer;
 
 }
 
@@ -1548,6 +1552,7 @@ border-left: 1px solid #bbb;
   left: 303px;
   font-size: 30px;
   color: #777;
+  cursor: pointer;
 }
 .data_setting
 {
@@ -1606,6 +1611,7 @@ height: 40px;
 position: relative;
 left: 26px;
 top: -35px;
+cursor: pointer;
 
 }
 .modal_delete
@@ -1637,6 +1643,7 @@ p, h1, h2 ,a,h4 ,h3{
 span
 {
 color: #ffffff;
+cursor: pointer;
 }
 span:hover
 {

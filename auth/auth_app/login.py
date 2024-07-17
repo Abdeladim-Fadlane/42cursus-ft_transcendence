@@ -123,8 +123,11 @@ def change_password(request):
     user = login_required(request)
     old_password = request.POST.get('old_password')
     new_password = request.POST.get('new_password')
+    confirm_password = request.POST.get('confirm_password')
     if not user.check_password(old_password):
-        return JsonResponse({'status': False}, status=200)
+        return JsonResponse({'status': False, 'message': 'Old password was incorrect'}, status =200)
+    if new_password != confirm_password:
+        return JsonResponse({'status': False, 'message': 'Confirm password was incorrect'}, status=200)
     user.set_password(new_password)
     user.save()
     return JsonResponse({'status': True}, status=200)

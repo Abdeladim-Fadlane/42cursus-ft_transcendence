@@ -541,6 +541,7 @@ p{
 }
   span {
     color: #e5e6e8;
+    cursor: pointer;
   }
 h2,h1{
     font-family: 'Games', sans-serif;

@@ -190,24 +190,28 @@
                                                     <label id="nameprofile" for="username"></label>
                                                 <input type="hidden" name="csrfmiddlewaretoken" id="crcf">
                                                 <input type="file" id="image" name="image" accept="image/*" style="display: none;">
-                                                <input type="text" id="username" name="username" placeholder="new Username">
-                                                <input type="text" id="first_name" name="first_name" placeholder="new First Name">
-                                                <input type="text" id="last_name" name="last_name" placeholder="new Last Name" >
-                                                <input type="email" id="email" name="email" placeholder="new Email" >
+                                                <input type="text" id="username" name="username" placeholder="New UserName"  minlength="8" required>
+                                                <input type="text" id="first_name" name="first_name" placeholder="New First Name"  minlength="8" required>
+                                                <input type="text" id="last_name" name="last_name" placeholder="New Last Name"  minlength="8" required >
+                                                <input type="email" id="email" name="email" placeholder="New Email"  minlength="8" required>
+                                                <div id="messages"></div>
+                                                <br>
                                         <button class="submit" type="submit">SAVE</button>
-                                        <div id="messages"></div>
-                                        <a class="delet_account" onclick="delete_funcyion()">delete my sccount</a>
                                     </form>
-                                    <form class="form-container"  action="">
+                                    <form id="passwordForm" class="form-container" method="post" enctype="multipart/form-data" action="/change_password/">
                                         <div class="center-h3">
                                             <h3 class="h3_setting">Change profile password</h3>
                                         </div>
-                                        <input type="text" id="username" name="username" placeholder="new Username">
-                                        <input type="text" id="first_name" name="first_name" placeholder="new First Name">
-                                        <input type="text" id="last_name" name="last_name" placeholder="new Last Name" >
+                                        <input type="hidden" name="csrfmiddlewaretoken" id="crcf2">
+                                        <input type="password" id="old_password" name="old_password" placeholder="Old password" minlength="12" required >
+                                        <input type="password" id="new_password" name="new_password" placeholder="New password"  minlength="12" required>
+                                        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password">
+                                        <div id="messages1"></div> 
+                                        <br>
                                         <button class="submit" type="submit">SAVE</button>
-                                        <div id="messages"></div>
-                                        <!-- <a class="delet_account" onclick="delete_funcyion()">delete my sccount</a> -->
+                                        <br>
+                                        <br>
+                                        <a class="delet_account" onclick="delete_funcyion()">Delete Acount</a>
                                     </form>
                             </div>
                     </div>
