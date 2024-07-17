@@ -122,6 +122,7 @@ def store_data_in_database(request,access_token):
                     with open(save_path, 'wb') as f:
                         f.write(response.content)
                     user.photo_profile = f'User_profile/{filename}'
+                    user.intraUser = True
                     user.save()
                 user.save()
             token,_,= Token.objects.get_or_create(user=user)
@@ -132,6 +133,7 @@ def store_data_in_database(request,access_token):
             token,_,= Token.objects.get_or_create(user=fuser)
             request.session['user_id'] = fuser.id
             request.session['token'] = token.key
+            fuser.intraUser = True
             fuser.save()
 
 

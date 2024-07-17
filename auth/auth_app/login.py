@@ -86,11 +86,23 @@ def token(request):
 def update_profile(request):
     if request.method == 'POST':
         user = login_required(request)
-        user.photo_profile = request.FILES.get('image')
+        photo_profile = request.FILES.get('image')
         new_username = request.POST.get('username')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+
         if CustomUser.objects.filter(username=new_username).exclude(id=user.id).exists():
             return JsonResponse({'status': False, 'message': 'Username already taken'}, status=200)
+        if CustomUser.objects.filter(email=email).exclude(id=user.id).exists():
+            return JsonResponse({'status': False, 'message': 'Email already taken'}, status=200)
+        if not photo_profile or not new_username or not first_name or not last_name or not email:
+            return JsonResponse({'status': False, 'message': 'All fields are required'}, status=200)
+        user.photo_profile = photo_profile
         user.username = new_username
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
         user.save()
         return JsonResponse({'status': True}, status=200)
     else:
@@ -104,6 +116,19 @@ def update_username(request):
         user.save()
         return JsonResponse({'status': True}, status=200)
     return JsonResponse({'status': False}, status=405)
+
+def change_password(request):
+    if request.method != 'POST':
+        return JsonResponse({'status': False}, status=405)
+    user = login_required(request)
+    old_password = request.POST.get('old_password')
+    new_password = request.POST.get('new_password')
+    if not user.check_password(old_password):
+        return JsonResponse({'status': False}, status=200)
+    user.set_password(new_password)
+    user.save()
+    return JsonResponse({'status': True}, status=200)
+
 
 @csrf_exempt
 def csrf_token(request):

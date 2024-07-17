@@ -36,7 +36,7 @@ export function handlechalleng() {
                 div.appendChild(username);
 
                 let addfriend = document.createElement('button');
-                addfriend.textContent = "challenge friend";
+                addfriend.textContent = "Challenge";
                 addfriend.id = data[i].username;
 
                 container.appendChild(img);

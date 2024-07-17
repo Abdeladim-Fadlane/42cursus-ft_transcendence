@@ -173,7 +173,7 @@ def delete_account(request):
     if not user:
         return HttpResponseForbidden("Forbidden", status=403)
     if hasattr(user,'photo_profile'):
-        if user.photo_profile != "User_profile/default_profile.png" :
+        if user.photo_profile != "User_profile/avatar.svg" :
             user.photo_profile.delete(save=False)
     logout(request)
     user.delete()
