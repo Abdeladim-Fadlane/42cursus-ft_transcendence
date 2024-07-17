@@ -1,10 +1,10 @@
 
-fetch('https://ping-pong.com/api/token/')
+fetch('/api/token/')
     .then(response => response.json())
     .then(data => {
         token = data.token;
         id = data.id;
-        const socket = new WebSocket(`wss://ping-pong.com/wss/track/?token=${token}&id=${id}`);
+        const socket = new WebSocket(`wss://${window.location.host}/wss/track/?token=${token}&id=${id}`);
         socket.onopen = () => {
             // console.log('WebSocket connected');
         };

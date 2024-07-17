@@ -182,14 +182,18 @@
                         <span class="close_set" onclick="closeSettingsModal()">&times;</span>
                             
                             <div class="forms">
-                                    <form id="avatarForm" class="form-container" method="post" enctype="multipart/form-data" action="/update_profile/">
+                                    <form class="profile_photo_form" method="post" enctype="multipart/form-data">
+                                        <input type="hidden" name="csrfmiddlewaretoken" id="crcf_profileuser">
+                                        <div class="profil setting_profile" id="profil">
+                                            <img class="edit" src="./resrc/edit.png" alt="">
+                                        </div>
+                                        <input type="file" id="image" name="image" accept="image/*" style="display: none;">
+                                        <button type="submit" id="button_profile_click" style="display: none;">click</button>
+                                    </form>
+                                    <form id="avatarForm" class="form-container" method="post" enctype="multipart/form-data">
                                         <h3 class="h3_setting">Change profile data</h3>
-                                                <div class="profil setting_profile" id="profil">
-                                                    <img class="edit" src="./resrc/edit.png" alt="">
-                                                </div>
-                                                    <label id="nameprofile" for="username">Edit Avatar</label>
+                                                <label id="nameprofile" for="username"></label>
                                                 <input type="hidden" name="csrfmiddlewaretoken" id="crcf">
-                                                <input type="file" id="image" name="image" accept="image/*" style="display: none;">
                                                 <input type="text" id="username" name="username" placeholder="New UserName"  minlength="8" required>
                                                 <input type="text" id="first_name" name="first_name" placeholder="New First Name"  minlength="8" required>
                                                 <input type="text" id="last_name" name="last_name" placeholder="New Last Name"  minlength="8" required >

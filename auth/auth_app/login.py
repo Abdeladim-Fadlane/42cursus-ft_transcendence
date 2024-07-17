@@ -4,9 +4,11 @@ from django.shortcuts import  redirect
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import update_session_auth_hash
 from . serializers import TaskSerializer 
 from django.http import HttpResponseForbidden
 from .views import login_required
+
 
 def get_match_history(request):
     user = login_required(request)
@@ -86,7 +88,8 @@ def token(request):
 def update_profile(request):
     if request.method == 'POST':
         user = login_required(request)
-        photo_profile = request.FILES.get('image')
+        if not user:
+            return JsonResponse({'status': False}, status=200)
         new_username = request.POST.get('username')
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -96,9 +99,8 @@ def update_profile(request):
             return JsonResponse({'status': False, 'message': 'Username already taken'}, status=200)
         if CustomUser.objects.filter(email=email).exclude(id=user.id).exists():
             return JsonResponse({'status': False, 'message': 'Email already taken'}, status=200)
-        if not photo_profile or not new_username or not first_name or not last_name or not email:
+        if  not new_username or not first_name or not last_name or not email:
             return JsonResponse({'status': False, 'message': 'All fields are required'}, status=200)
-        user.photo_profile = photo_profile
         user.username = new_username
         user.first_name = first_name
         user.last_name = last_name
@@ -109,15 +111,20 @@ def update_profile(request):
         return JsonResponse({'status': False}, status=405)
 
 
-def update_username(request):
+def change_profile(request):
     if request.method == 'POST':
         user = login_required(request)
-        user.username = request.POST.get('username')
+        if not user:
+            return JsonResponse({'status': False}, status=200)
+        photo_profile = request.FILES.get('image')
+        if not photo_profile:
+            return JsonResponse({'status': False, 'message': 'Image is required'}, status=200)
+        user.photo_profile = photo_profile
         user.save()
-        return JsonResponse({'status': True}, status=200)
-    return JsonResponse({'status': False}, status=405)
-from django.contrib.auth import update_session_auth_hash
-
+        data = TaskSerializer(CustomUser.objects.get(username=user.username)).data['photo_profile']
+        return JsonResponse({'status': True, 'photo_profile' : data}, status=200)
+    else:
+        return JsonResponse({'status': False}, status=200)
 
 def change_password(request):
     if request.method != 'POST':

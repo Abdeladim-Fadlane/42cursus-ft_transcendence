@@ -49,6 +49,7 @@ function create_chatRoom(map)
     let button_info = document.createElement('a');
     button_info.className = 'menu-info-button'
     button_info.href = "#"
+    button_info.addEventListener('click', view_profile);
     let div_menu_child1 = document.createElement('div');
     let icon_div = document.createElement('i')
     icon_div.classList.add("fa-solid" ,"fa-user") 
@@ -164,8 +165,6 @@ function create_chatRoom(map)
             `
             chat_header.style.cssText = `border: 2px solid #bbbbbb7b;
             border-radius: 10px;`;
-            // chat_header.style.cssText = `background-color : gray; border-radius : 10px;`;
-           // socket part -----------------------------------------------------------------
             if (Web_socket != null)
             {
                 Web_socket.close();
@@ -176,7 +175,7 @@ function create_chatRoom(map)
                 Web_socket = new WebSocket(`wss://ping-pong.com/wss/chat/${room_name}/`);
             
             Web_socket.onopen = () =>{
-                console.log(`WebSocket server is running on ws://localhost:8003/${room_name}/`);
+                console.log(`WebSocket server is running on wss://${window.location.host}/${room_name}/`);
                 url = `/Converstaion/${room_name}/`;
                 fetch(url)
                 .then(response => {
@@ -354,6 +353,7 @@ function create_chatRoom(map)
         if (check == true){
             button_block.textContent = `${map_action[username2]} ${username2}`;
             button_info.textContent = `${username2}'s profile`;
+            button_info.id = username2;
             chat_container.append(div_menu);
             check = false;
         }

@@ -175,6 +175,7 @@ def delete_account(request):
     if hasattr(user,'photo_profile'):
         if user.photo_profile != "User_profile/avatar.svg" :
             user.photo_profile.delete(save=False)
+    response = requests.get(f'http://chat:8003/delete_conversation/{user.username}')
     logout(request)
     user.delete()
     return JsonResponse({'status': True}, status=200)
