@@ -13,10 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update user information in the DOM
             document.getElementById('login').textContent = userData.username;
             document.getElementById('content_scor').textContent = userData.score;
-            console.log(userData.username);
             if (userData.username ) {
-                console.log('username', userData.username);
-            document.getElementById('nameprofile').textContent = userData.username;
+                document.getElementById('nameprofile').textContent = userData.username;
             }
             document.getElementById('content_rank').textContent = userData.ranking;
             

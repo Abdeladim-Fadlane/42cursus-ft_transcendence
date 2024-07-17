@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            console.log(data);
+            // console.log(data);
             var friendProfile = document.getElementById('card-container');
             img = document.createElement('img');
             img.src = data.photo_profile;

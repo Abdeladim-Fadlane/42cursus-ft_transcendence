@@ -116,6 +116,8 @@ def update_username(request):
         user.save()
         return JsonResponse({'status': True}, status=200)
     return JsonResponse({'status': False}, status=405)
+from django.contrib.auth import update_session_auth_hash
+
 
 def change_password(request):
     if request.method != 'POST':
@@ -129,6 +131,8 @@ def change_password(request):
     if new_password != confirm_password:
         return JsonResponse({'status': False, 'message': 'Confirm password was incorrect'}, status=200)
     user.set_password(new_password)
+    """ update the session token """
+    update_session_auth_hash(request, user)
     user.save()
     return JsonResponse({'status': True}, status=200)
 

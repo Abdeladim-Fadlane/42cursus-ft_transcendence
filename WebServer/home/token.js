@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.status === true) {
-                    window.location.href = "/home/";
+                document.getElementById('settings-modal').style.display = 'none';
             } else {
                 var msg = document.getElementById('messages');
                 msg.innerHTML = data.message;
@@ -51,8 +51,10 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
+            // console.log(data);
             if (data.status === true) {
-                    window.location.href = "/home/";
+                    document.getElementById('settings-modal').style.display = 'none';
+                    
             } else {
                 document.getElementById('messages1').innerHTML =  data.message;
             }
