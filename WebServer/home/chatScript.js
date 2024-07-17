@@ -173,10 +173,10 @@ function create_chatRoom(map)
                 console.log('the web socket has been closed');
             }
             if (Web_socket == null)
-                Web_socket = new WebSocket(`wss://ping-pong.com/wss/chat/${room_name}/`);
+                Web_socket = new WebSocket(`wss://${window.location.host}/wss/chat/${room_name}/`);
             
             Web_socket.onopen = () =>{
-                console.log(`WebSocket server is running on ws://localhost:8003/${room_name}/`);
+                console.log(`WebSocket server is running on ws://${window.location.host}:8003/${room_name}/`);
                 url = `/Converstaion/${room_name}/`;
                 fetch(url)
                 .then(response => {
