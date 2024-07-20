@@ -9,6 +9,10 @@ import json
 
 # Create your views here.
 
+def delete_conversation(request, username):
+    message = Message.objects.filter(sender_name=username).first()
+    message.conversation.delete()
+
 
 def MessageHistory(request, room_name):
     _conversation = Conversation.objects.get(room_name=room_name)

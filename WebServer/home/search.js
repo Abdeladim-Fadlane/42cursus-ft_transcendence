@@ -15,8 +15,10 @@ let div_user = document.querySelector('.users-search-bar')
 let d = true;
 let index = 0;
 let text = 'Search ...'
-function do_event()
+function do_event(e)
 { 
+    // if ()
+    // console.log('speeend up')
     if (d == true)
     {
         search.placeholder += text[index++]
@@ -33,7 +35,16 @@ function do_event()
         }
     }
 }
-let interval_serch = setInterval(do_event, 100);
+let interval_serch = setInterval(do_event, 500);
+search.addEventListener('blur', function() {
+    index = 0;
+    interval_serch = setInterval(do_event, 500);
+});
+search.addEventListener('focus', function(e) {
+    e.target.placeholder = '';
+    clearInterval(interval_serch);
+
+});
 search.addEventListener('keyup', ()=>{
     if (hasNonPrintableChars(search.value) == false)
     {
@@ -77,6 +88,5 @@ search.addEventListener('keyup', ()=>{
     else if (search.value.length == 0)
     {
         div_user.textContent = '';
-        interval_serch = setInterval(do_event, 200);
     }
 })

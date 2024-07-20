@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 // console.log(data);image-profile-user  image-profile-id
+                // fetchRequests();
+                // document.querySelectorAll()
                 document.querySelector('.profile-settings-img').src = data.photo_profile;
                 document.querySelector('.image-profile-user').src = data.photo_profile;
                 document.querySelector('.image-profile-id').src = data.photo_profile;
@@ -28,7 +30,9 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 document.querySelector('#image').addEventListener('input', (e)=>{
     e.preventDefault();
-    document.querySelector('#button_profile_click').click();
+    let type_file = e.target.files[0].type.startsWith('image/');
+    if (e.target.value.length != 0 && type_file)
+        document.querySelector('#button_profile_click').click();
 });
 
 

@@ -7,6 +7,7 @@ from .login import logout as log
 from django.http import HttpResponseForbidden
 from . serializers import TaskSerializer
 from django.contrib.auth import logout
+import requests
 
 def send_friend_request(request):
     sender = login_required(request)

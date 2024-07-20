@@ -104,8 +104,18 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function showSettingsModal() {
+    fetch('/api/data/')
+    .then(response => { return response.json()})
+    .then(data =>{
+      console.log(data);
+      document.querySelector('#username').value = data.username;
+      document.querySelector('#email').value = data.email;
+      document.querySelector('#first_name').value = data.first_name;
+      document.querySelector('#last_name').value = data.last_name;
+    })
     const modal = document.getElementById('settings-modal');
     modal.style.display = 'flex';
+    
   }
   
   function closeSettingsModal() {

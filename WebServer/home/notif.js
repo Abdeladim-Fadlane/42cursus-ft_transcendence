@@ -87,6 +87,7 @@ function updateRequests(data) {
     const requests = document.getElementById('content_notify');
     requests.innerHTML = ''; // Clear previous requests
     data.forEach(item => {
+        // console.log(item);
         let container = document.createElement('div');
         container.classList.add('bar_content');
         container.style.display = 'flex';
@@ -96,7 +97,9 @@ function updateRequests(data) {
 
         let img = document.createElement('img');
         img.addEventListener('click', view_profile);
-        img.id = item.username;
+        img.id = item.sender_username;
+        // console.log(item.username);
+        // img.id = item.username;
         img.src = item.photo_profile;
         img.style.width = "40px";
         img.style.height = "40px";

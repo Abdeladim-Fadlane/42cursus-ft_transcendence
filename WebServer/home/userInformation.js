@@ -67,10 +67,94 @@ function drawCircle(lose, win)
     circle.style.display = 'flex';
 }
 let closeInter;
+let action = ''
+
+function button_profile(username){
+
+    let parent_button = document.querySelector('.profile-user-action');
+    let add_friend = document.querySelector('.profile-user-action-add_friend')
+    let chat_button = document.querySelector('.profile-user-action-go_to_chat')
+    let delete_friend = document.querySelector('.profile-user-action-unfriend')
+    let isdone = false;
+    add_friend.addEventListener('click', func_add_friend );
+    chat_button.addEventListener('click', to_chat);
+    delete_friend.addEventListener('click', remove_friend);
+    if (username == document.querySelector('#login').textContent)
+        return ;
+    fetch('/api/suggest/')
+    .then(response=>{
+        return response.json();
+    })
+    .then(data=>{
+        let isdone = false;
+        for(let i = 0; i < data.length; i++)
+        {
+            if (data[i].username == username)
+            {     
+                isdone = true;
+                if (add_friend.style.display != 'none')
+                    return;
+                console.log('1111111111111111******')  
+                add_friend.style.display = 'flex';
+                add_friend.id = username;
+                delete_friend.style.display = 'none';
+                parent_button.style.display = 'flex';
+                chat_button.style.display = 'none';
+                return ;
+            }
+                
+        }
+        if (!isdone)
+        {
+            fetch('/api/friends/')
+            .then(response=>{
+                return response.json();
+            })
+            .then(data=>{
+                for (let i = 0; i < data.length; i++)
+                {
+                    if (data[i].username == username)
+                    {
+                        isdone = true;
+                        console.log('2222222222222222******')  
+
+                        if (delete_friend.style.display != 'none')
+                            return ;
+                        // delete_friend.style.backgroundColor = 'red';
+                        delete_friend.style.display = 'flex';
+                        chat_button.style.display = 'flex';
+                        parent_button.style.display = 'flex';
+                        button_friend.style.display = 'none';
+                        delete_friend.id = username;
+                        // isdone = true;
+                        chat_button.id = username;
+                        return ;
+                    }
+                    
+                }
+                if (!isdone)
+                {
+                    console.log('3333333333333333333****')
+                    parent.style.display = 'none';
+                }
+            })
+           
+        }
+        
+        console.log('------------------------')
+    })
+    .catch(error=>{console.log(error);return ;})
+}
+
+let action_profile;
 function view_profile(e)
 {
-    // document.querySelector('.search-input').value = '';
-    // document.querySelector('.users-search-bar').textContent = '';
+    let button_friend = document.querySelector('.profile-user-action-add_friend');
+    let delete_friend = document.querySelector('.profile-user-action-unfriend');
+    let button_chat = document.querySelector('.profile-user-action-go_to_chat');
+    button_chat.style.display = 'none';
+    button_friend.style.display = 'none';
+    delete_friend.style.display = 'none';
     const modal = document.getElementById('content-user');
     let _circle = document.querySelector('.circle');
     let username = document.querySelector('.profile-user-info-username');
@@ -86,13 +170,13 @@ function view_profile(e)
     let statistique = document.querySelector('.no-statistique');
     let win = document.querySelector('.win-statistique');
     let lose = document.querySelector('.lose-statistique');
+    let usernameFriend ;
     if (e.target.id.length == 0)
         e.target.id = e.currentTarget.id
     fetch('/api/csrf-token/')
     .then(response =>{
-        if (response.ok == false){
+        if (response.ok == false)
             console.log('error when fetching data');
-        }
         return response.json();
     })
     .then(data =>{
@@ -114,7 +198,7 @@ function view_profile(e)
             return response.json();
         })
         .then(data=>{
-            // console.log(data)
+            usernameFriend = data.username
             username.textContent = data.username;
             score.textContent = data.score;
             rank.textContent = data.ranking;
@@ -132,7 +216,6 @@ function view_profile(e)
                 status.textContent = 'offline';
                 status_color.style.backgroundColor = 'red';
             }
-            console.log(data.lose + "   " + data.win)
             if (data.win == '0' && data.lose == '0'){
                 lose.textContent = '0 %';
                 win.textContent = '0 %';
@@ -140,10 +223,8 @@ function view_profile(e)
                 statistique.style.display = 'flex';
             }
             else{
-                // console.log('ssjhsjsjsjsjsjs')
                 drawCircle(Number(data.lose), Number(data.win))
                 statistique.style.display = 'none';
-                console.log('has a statistique')
             }
         })
     })
@@ -172,7 +253,7 @@ function view_profile(e)
                 return response.json();
             })
             .then(data=>{
-                console.log(data.available);
+                // console.log(data.available);
                 if (String(data.available) == 'true'){
                     status.textContent = 'online';
                     status_color.style.backgroundColor = 'green'
@@ -186,14 +267,21 @@ function view_profile(e)
            })
         })
     }, 2000);
+    button_profile(e.target.id)
+    action_profile = setInterval(()=>{button_profile(e.target.id)}, 2000);
     modal.style.display = 'flex';
 }
 function close_user_profile()
 {
     const modal = document.getElementById('content-user');
     modal.style.display = 'none';
+    document.querySelector('.profile-user-action').style.display = 'none';
+    document.querySelector('.profile-user-action-add_friend').style.display = 'none';
+    document.querySelector('.profile-user-action-go_to_chat').style.display = 'none';
+    document.querySelector('.profile-user-action-unfriend').style.display = 'none';
     clearInterval(closeInter);
     clearInterval(interval);
+    clearInterval(action_profile);
 
 }
 function view_friends()
