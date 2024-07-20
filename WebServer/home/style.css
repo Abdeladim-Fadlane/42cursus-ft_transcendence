@@ -2393,7 +2393,7 @@ font-family: 'games' , sans-serif;
   display: none;
 }
 
-.profile-user-action-go_to_chat:hover{
+.profile-user-action-go_to_chat:hover, .profile-user-action-add_friend:hover{
   background-color: #218837c2;
 }
 /* rgb(209, 172, 172); */

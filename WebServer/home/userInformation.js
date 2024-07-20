@@ -94,7 +94,7 @@ function button_profile(username){
                 isdone = true;
                 if (add_friend.style.display != 'none')
                     return;
-                console.log('1111111111111111******')  
+                // console.log('1111111111111111******')  
                 add_friend.style.display = 'flex';
                 add_friend.id = username;
                 delete_friend.style.display = 'none';
@@ -116,7 +116,7 @@ function button_profile(username){
                     if (data[i].username == username)
                     {
                         isdone = true;
-                        console.log('2222222222222222******')  
+                        // console.log('2222222222222222******')  
 
                         if (delete_friend.style.display != 'none')
                             return ;
@@ -134,14 +134,14 @@ function button_profile(username){
                 }
                 if (!isdone)
                 {
-                    console.log('3333333333333333333****')
+                    // console.log('3333333333333333333****')
                     parent.style.display = 'none';
                 }
             })
            
         }
         
-        console.log('------------------------')
+        // console.log('------------------------')
     })
     .catch(error=>{console.log(error);return ;})
 }

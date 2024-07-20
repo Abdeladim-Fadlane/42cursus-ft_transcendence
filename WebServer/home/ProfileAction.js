@@ -17,6 +17,7 @@ function to_chat(e)
 
 function func_add_friend(e)
 {
+    console.log('=====>' + e.target.id)
     fetch('/api/csrf-token/')
     .then(response => response.json())
     .then(data => {
@@ -74,6 +75,8 @@ function remove_friend(e)
                 parent.style.display = 'flex';
                 button_unfriend.style.display = 'none';
                 button_friend.style.display = 'flex';
+                button_friend.id = e.target.id;
+                button_chat.id = e.target.id;
                 button_chat.style.display = 'none';
             }
         });
