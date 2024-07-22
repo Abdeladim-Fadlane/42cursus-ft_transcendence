@@ -38,6 +38,8 @@ class ChatLive(AsyncWebsocketConsumer):
                 content=message,
             )
             time = str(message_obj.time_added)
+        if (conversation_obj.block_conversation == True and task == 'send_message') :
+            return 
         await self.channel_layer.group_send(
             self.room_group_name,
             {

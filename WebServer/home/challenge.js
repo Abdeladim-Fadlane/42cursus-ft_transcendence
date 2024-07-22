@@ -11,8 +11,8 @@ export function handlechalleng() {
             return response.json();
         })
         .then(data => {
-            document.getElementById('challenge_friend').innerHTML = '';
             var reward = document.getElementById('challenge_friend');
+            reward.innerHTML = '';
             for (let i = 0; i < data.length; i++) {
                 let container = document.createElement('div');
                 container.classList.add('bar_content');
@@ -36,7 +36,7 @@ export function handlechalleng() {
                 div.appendChild(username);
 
                 let addfriend = document.createElement('button');
-                addfriend.textContent = "Challenge";
+                addfriend.textContent = "challenge friend";
                 addfriend.id = data[i].username;
 
                 container.appendChild(img);

@@ -10,44 +10,17 @@ html {
   box-sizing: inherit;
 }
 
-body {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  /* background-image: repeating-radial-gradient(
-      circle at center center,
-      transparent 0px,
-      transparent 11px,
-      rgba(255, 255, 255, 0.04) 11px,
-      rgba(255, 255, 255, 0.04) 19px,
-      transparent 19px,
-      transparent 29px,
-      rgba(255, 255, 255, 0.04) 29px,
-      rgba(255, 255, 255, 0.04) 33px
-    ),
-    repeating-radial-gradient(
-      circle at center center,
-      rgb(0, 0, 0) 0px,
-      rgb(0, 0, 0) 5px,
-      rgb(0, 0, 0) 5px,
-      rgb(0, 0, 0) 17px,
-      rgb(0, 0, 0) 17px,
-      rgb(0, 0, 0) 30px,
-      rgb(0, 0, 0) 30px,
-      rgb(0, 0, 0) 43px,
-      rgb(0, 0, 0) 43px,
-      rgb(0, 0, 0) 45px,
-      rgb(0, 0, 0) 45px,
-      rgb(0, 0, 0) 47px
-    ); */
-    background-image: url("./resrc/featured-scaled.jpg");
-    background-size: cover;
-    position: relative;
-    background-repeat: no-repeat;
-    width: 100%;
+  body {
+    width: 100vw;
     height: 100vh;
-    /* backdrop-filter: blur(200px); */
-}
+    overflow: hidden;
+      background-image: url("./resrc/featured-scaled.jpg");
+      background-size: cover;
+      position: relative;
+      /* background-repeat: no-repeat; */
+  }
+
+
 
 .ball2 {
   width: 200px;
@@ -122,7 +95,29 @@ body {
     left: 10%;
   }
 }
-
+.blur
+{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #00000081;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+/* .Message-Div
+{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #00000081;
+  top: 0;
+  left: 0;
+} */
+.nav-link
+{
+  cursor: pointer;
+}
 .navbar {
   
   width: 75%;
@@ -134,7 +129,7 @@ body {
   padding: 10px 20px;
   margin-bottom: 15px;
   margin: auto;
-  margin-top: 10px;
+  margin-top: 20px;
   border-radius:15px;
   border: #ffffffc0 2px solid;
 }
@@ -214,39 +209,23 @@ a {
   height: 45px;
   background-position: center;
   background-size: cover;
-  cursor: pointer;
 }
-/* .notification_icon {
-  background-image: url("./resrc/media/icon/notification.png");
-  margin-right: 6px;
-  
-}
-.chat_icon {
-  background-image: url("./resrc/media/icon/chat.png");
-  
-}
-.seting_icon {
-  background-image: url("./resrc/media/icon/seting.png");
-  
-}
-.log_out_icon {
-  background-image: url("./resrc/media/icon/log_out.png");
-   */
-/* } */
+
 .icons i
 {
   font-size: 36px;
   margin-top: 10px;
-  cursor: pointer;
 
 }
 .icons i:hover
 {
   font-size: 38px;
   color: #4c3a7be8;
+}
+.icons
+{
   cursor: pointer;
 }
-
 img {
   width: 50px;
   height: 50px;
@@ -380,10 +359,10 @@ ul {
   list-style-type: none;
 }
 
+
 #home {
   width: 100%;
   height: 90%;
-  /* background-color: #0056b3; */
   display: flex;
   justify-content: start;
   align-items: center;
@@ -424,7 +403,6 @@ ul {
   border-radius: 15px;
   margin-top: 30px;
   border: #ddd 2px solid;
-  background-color: #ff44e4;
   background-color: rgba(0, 0, 0, 0.7);
   /* opacity: 0; */
   /* transition: opacity 0.3s ease; */
@@ -446,7 +424,7 @@ ul {
 
 .challenge,
 .invite {
-  width: 25%;
+  width: 400px;
   height: 60%;
   background-color: #18093d;
   margin-left: 10px;
@@ -595,8 +573,8 @@ a {
 
 .friend-list
 {
-  width: 18%;
-  height: 60%;
+  width: 250px;
+  height: 70%;
   /* background-color: #18093d; */
 
   display: flex;
@@ -616,6 +594,7 @@ a {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-direction: column;
 }
 .friend-list h2 
 {
@@ -649,27 +628,36 @@ a {
   display: flex;
   justify-content: center;
 }
+.container-chat
+{
+  width: 80%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 .chat-container
 {
-  width: 29%;
-  height: 94%;
+  width: 450px;
+  height: 100%;
   /* background-color: rgba(45, 42, 42, 0.625); */
   /* background-color: #18093d; */
 
   display: flex;
-  align-items: center;
+  align-items: space-between;
   /* position: relative; */
   justify-content: center;
   flex-direction: column;
   border-radius: 15px;
   border:2px solid #bbb ;
+  background-color: #020e1b;
   
 
 
 }
 .chat-messages
 {
-  background-image: url("./resrc/chat.avif");
+  background-image: url("./resrc/chatbackground.jpg");
   width: 100%;
   height: 75%;
   /* background-color: #ffffffe8; */
@@ -695,7 +683,7 @@ a {
 {
   width: 100%;
   height: 72px;
-  /* display: flex; */
+  display: flex;
   justify-content: center;
   align-items: start;
   display: none;
@@ -760,7 +748,7 @@ a {
 .chat-message p {
   margin: 10px;
   width: 50%;
-  
+  /* display: none; */
   height: auto;
 }
 .sent  {
@@ -1528,7 +1516,6 @@ width: 60px;
 height: 60px;
 /* border-radius: 10%; */
 margin-top: 10px;
-cursor: pointer;
 
 }
 
@@ -1553,7 +1540,6 @@ border-left: 1px solid #bbb;
   left: 303px;
   font-size: 30px;
   color: #777;
-  cursor: pointer;
 }
 .data_setting
 {
@@ -1612,7 +1598,6 @@ height: 40px;
 position: relative;
 left: 26px;
 top: -35px;
-cursor: pointer;
 
 }
 .modal_delete
@@ -1638,15 +1623,17 @@ flex-direction: column;
 height: 95px;
 
 }
-p, h1, h2 ,a,h4 ,h3{
+ h1, h2 ,a,h4 ,h3{
   font-family: 'Games', sans-serif;
+}
+p{
+  font-family: sans-serif;
 }
 span
 {
 color: #ffffff;
-cursor: pointer;
 }
-.close:hover ,.close1:hover 
+span:hover
 {
 color: red;
 }
@@ -1677,7 +1664,9 @@ display: none;
   width:870px;
   height:600px;
   position: relative;
- 
+  /* transform: translateY(40px); */
+  /* animation: slideIn 1s forwards; */
+  /* --------------------------------------------------------------------------- */
 }
 .profile-user-info{
   width: 100%;
@@ -1859,12 +1848,13 @@ cursor: pointer;
 /* css li zadt akatfi*/
 .Message-time
 {
-color: #bbb;
+color: rgb(252, 252, 252);
 font-size: 10px;
 visibility: hidden;
 position: absolute;
 position: absolute;
-
+font-family: sans-serif;
+    font-weight: bold;
 
 }
 
@@ -1917,16 +1907,17 @@ width: auto;
 height: auto;
 background-color: #764082;
 position:absolute;
-top: 128px;
-right: 20%;
+top: 245px;
+right: 29%;
 padding : 8px;
 border-radius: 6px;
 
 }
-
+/* .user-info-menu div  */
 .user-info-menu div{
 padding: 10px 10px 10px 4px;
 /* margin: 6px 0px 6px 0px; */
+cursor: pointer;
 }
 .user-info-menu div:hover{
 background-color: rgb(163, 157, 150);
@@ -2043,7 +2034,7 @@ font-family: 'games' , sans-serif;
 .home_button:hover {
   background-color: #333;
   color: #fff;
-  transform: scale(1.1);
+
 }
 
 /* Styling for challenge and invite sections */
@@ -2113,7 +2104,7 @@ font-family: 'games' , sans-serif;
 }
 
 /* Styling for the data sections */
-.data .leadrboard, .data .global_data, .data .achievements {
+.data .leadrboard, .data .global_data, .data .achievements, .profile-user {
   opacity: 0;
   transform: translateY(40px);
   animation: slideIn 1s forwards;
@@ -2335,7 +2326,7 @@ font-family: 'games' , sans-serif;
   border-radius: 6px;
   display: none;
 }
-.search-username
+.search-usernamea
 {
   font-family: sans-serif;
   font-weight: bold;
@@ -2364,11 +2355,10 @@ font-family: 'games' , sans-serif;
   top: 4px;
   left: 10px;
 }
-
 .profile-user-action{
   position: absolute;
   top: 28%;
-  left: 15%;
+  left: 5%;
   display: flex;
   flex-direction: row;
   z-index: 1000;
@@ -2396,5 +2386,7 @@ font-family: 'games' , sans-serif;
 .profile-user-action-go_to_chat:hover, .profile-user-action-add_friend:hover{
   background-color: #218837c2;
 }
-/* rgb(209, 172, 172); */
-/*  */
+.menu-block-button, .menu-info-button, .menu-game-button{
+  display: inline;
+  margin-left: 8px;
+}

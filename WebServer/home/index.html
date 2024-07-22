@@ -10,12 +10,13 @@
     <link href="https://fonts.cdnfonts.com/css/games" rel="stylesheet">
 </head>
 <body>
+    <div class="blur"></div>
     <div class="ball"></div>
     <div class="ball2"></div>
     <nav class="navbar">
         <div class="fac_one">
         <div class="navbar-logo">
-            <a class="nav-link" data-target="home"><img src="./resrc/new-logo.png" alt="Logo" onclick="active_section('play')"></a>
+            <a class="nav-link" data-target="home"><img src="./resrc/new-logo.png" alt="Logo" ></a>
         </div>
         <div class="nav-search">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -25,8 +26,8 @@
     </div>
         <div class="navbar-buttons">
             <ul>
-                <li id="Home"><a  class="nav-link nav_hover" data-target="home" href="#home"  onclick="border_home()" onclick="disactiv_sections()">Home</a></li>
-                <li id="Pr" ><a class="nav-link nav_hover" data-target="profile" href="#profile" onclick="border_pr()" onclick="disactiv_sections()">Profile</a></li>
+                <li id="Home"><a  class="nav-link nav_hover" data-target="home"   onclick="border_home()" onclick="disactiv_sections()">Home</a></li>
+                <li id="Pr" ><a class="nav-link nav_hover" data-target="profile"  onclick="border_pr()" onclick="disactiv_sections()">Profile</a></li>
                 <li><div class="profil" id="imageprofile"></div></li>
             </ul>
         </div>
@@ -52,36 +53,36 @@
         <article>
             <div></div>
             <div id="home" class="content-section home">
-                    
-                <div class="images">
+                        
+                    <div class="images">
 
-                    <div class="welcome_home">
-                        <h1>Welcome to Ping Pong</h1>
-                        <h1>Choose a game mode</h1>
-                    </div>
-                    <div class="play">
-                    <div class="game">
-                           
-                            <button class="home_button" onclick="navigate('play')" >Start game</button>
+                        <div class="welcome_home">
+                            <h1>Welcome to Ping Pong</h1>
+                            <h1>Choose a game mode</h1>
                         </div>
-                        <div class="game">
-                            
-                            <button class="home_button" onclick="navigate('play_tournament')">play Tournament</button>
+                        <div class="play">
+                            <div class="game">
+                                
+                                    <button class="home_button" onclick="navigate('play')" >Start game</button>
+                            </div>
+                            <div class="game">
+                                
+                                <button class="home_button" onclick="navigate('play_tournament')">play Tournament</button>
+                            </div>
                         </div>
                 </div>
-            </div>
-                <div class="challenge">
-                    <div class="center">
-                        <h2>online  friends</h2>
+                    <div class="challenge">
+                        <div class="center">
+                            <h2>online  friends</h2>
+                        </div>
+                        <div class="list_friend" id="challenge_friend"></div>
                     </div>
-                    <div class="list_friend" id="challenge_friend"></div>
-                </div>
-                <div class="invite">
-                    <div class="center">
-                        <h2>invite to friends</h2>
+                    <div class="invite">
+                        <div class="center">
+                            <h2>invite to friends</h2>
+                        </div>
+                        <div class="invet_friend" id="list_friend"></div>
                     </div>
-                    <div class="invet_friend" id="list_friend"></div>
-                </div>
             </div>
             <div id="profile" class="content-section profile">
                 <div class="welcome">
@@ -119,20 +120,34 @@
                 </div>
             </div>
             <div id="chat" class="content-section aside-co">
+                
                 <div>
                     <h1 class="game_title">
-                        Game Chat Hup
+                        Game Chat Hub
                     </h1>
 
                 </div>
+                <div class="container-chat">
+                    <div class="friend-list">
+                        <h2>Friends</h2>
+                        <ul id="friends">
+                            <div class="list_friend" id="list_friend_chat">
+                                <!-- <button class="friend-list-room">adddd</button> -->
+                            </div>
+                        </ul>
+                    </div>
                 <div class="chat-container">
+                    
                     <div id="chat-header" class="chat-header">
-                        <div class="image-chat" id="image-chat"></div>
+                        <div class="image-chat" id="image-chat">
+                            
+                        </div>
                         <h2 id="chat-friend-name">Select a friend to chat</h2>
                         
                     </div>
                     
                         <div id="chat-messages" class="chat-messages">
+
                         </div>
                         <div class="chat-input">
                             <input type="text" id="message-input" placeholder="Type a message...">
@@ -141,15 +156,10 @@
                         
                     
                 </div>
-                <div class="friend-list">
-                    <h2>Friends</h2>
-                    <ul id="friends">
-                        <div class="list_friend" id="list_friend_chat">
-                            <!-- <button class="friend-list-room">adddd</button> -->
-                        </div>
-                    </ul>
-
-                </div>
+                    
+            </div>
+                
+                
                 
                 
             </div>
@@ -421,18 +431,17 @@
     <script src="leader.js"></script>
     <script src="data.js"></script>
     <script src="token.js"></script>
-    <!-- include the ProfileAction.js -->
     <script type="module" src="suggest.js"></script>
     <script  type="module" src="invite.js"></script>
     <script type="module" src="challenge.js"></script>
     <script type="module" src="notif.js"></script> 
     <script src="setting.js"></script>
-    <script src="ProfileAction.js"></script>
     <script src="userInformation.js"></script>
     <script src="msgfriend.js" type="module"></script>
     <script src="chatScript.js" type="module"></script>
     <script src="track.js"></script>
     <script src="search.js"></script>
+    <script src="ProfileAction.js"></script>
 
 </body>
 </html>

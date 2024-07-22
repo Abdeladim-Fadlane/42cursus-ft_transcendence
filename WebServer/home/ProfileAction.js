@@ -14,10 +14,29 @@ function to_chat(e)
             friends[j].click();
 }
 
-
-function func_add_friend(e)
+function Animation_elemeny(element)
 {
-    console.log('=====>' + e.target.id)
+    let text = element.textContent;
+    element.textContent = '';
+    
+    let inter = setInterval(()=>{
+        if (element.textContent == '...')
+        {
+            clearInterval(inter);
+            element.textContent = text;
+        }
+        else
+            element.textContent += '.';
+    }, 300)
+
+
+}
+
+
+async function func_add_friend(e)
+{
+    // console.log('=====>' + e.target.id)
+    Animation_elemeny(e.target);
     fetch('/api/csrf-token/')
     .then(response => response.json())
     .then(data => {
