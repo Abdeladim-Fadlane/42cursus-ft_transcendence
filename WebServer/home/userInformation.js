@@ -1,0 +1,305 @@
+function ParceDate(date){
+    let _date = date.substr(0, date.indexOf('T'));
+    let _time = date.substr(date.indexOf('T') + 1 ,  date.indexOf('.') - (date.indexOf('T') + 1));
+    return `${_date + ' ' + _time}`;
+}
+let  interval;
+function drawCircle(lose, win)
+{
+    let circle = document.querySelector('.circle');
+
+    let value_win = win;
+    let value_lose = lose;
+    let totale = value_win +value_lose;
+    let _win = value_win * 100 / totale;
+    let _lose = value_lose * 100 / totale;
+    let  div_white = document.createElement('div')
+    let div_lose =  document.createElement('div');
+    let number_win = document.querySelector('.number-win')
+    let number_lose = document.querySelector('.number-lose')
+    number_lose.textContent = `Losing ${lose}`;
+    number_win.textContent = `Wining ${win}`;
+    let text_lose  = document.querySelector('.lose-statistique');
+    div_lose.classList.add('child');
+    let div_win =  document.createElement('div');
+    let text_win  = document.querySelector('.win-statistique');
+    div_win.classList.add('child');
+    text_win.textContent = '0 %'
+    text_lose.textContent = '0 %'
+    circle.append(div_lose, div_win, div_white);
+    div_white.classList.add('div-white')
+    let i = 0;
+    let j = 0;
+    div_win.addEventListener('mouseover', ()=>{
+        div_win.style.width = '230px';
+        div_win.style.height = '230px';
+        number_lose.style.display = 'flex';
+        number_win.style.display = 'flex';
+
+    });
+    div_win.addEventListener('mouseleave', ()=>{
+        div_win.style.width = '200px';
+        div_win.style.height = '200px';
+        number_lose.style.display = 'none';
+        number_win.style.display = 'none';
+    });
+    div_win.style.background = `conic-gradient(#5cb85c ${value_win * 360 / totale}deg, #D8636F 0deg)`
+    div_lose.style.background = `conic-gradient(#D8636F ${value_lose * 360 / totale}deg, #5cb85c 0deg)`
+    interval = setInterval(()=>{
+        if (i < _win)
+        {
+            i++;
+            if (i > _win)
+                i = _win.toFixed(2);
+            text_win.textContent = `${i} %`
+        }
+        if (j < _lose)
+        {
+            j++;
+            if (j > _lose)
+                j = _lose.toFixed(2);
+            text_lose.textContent = `${j} %`
+        }
+        if (Number(i) + Number(j) == 100)
+            clearInterval(interval);
+        console.log()
+    },  80)
+    circle.style.display = 'flex';
+}
+let closeInter;
+let action = ''
+
+function button_profile(username){
+
+    let parent_button = document.querySelector('.profile-user-action');
+    let add_friend = document.querySelector('.profile-user-action-add_friend')
+    let chat_button = document.querySelector('.profile-user-action-go_to_chat')
+    let delete_friend = document.querySelector('.profile-user-action-unfriend')
+    let isdone = false;
+    add_friend.addEventListener('click', func_add_friend );
+    chat_button.addEventListener('click', to_chat);
+    delete_friend.addEventListener('click', remove_friend);
+    if (username == document.querySelector('#login').textContent)
+        return ;
+    fetch('/api/suggest/')
+    .then(response=>{
+        return response.json();
+    })
+    .then(data=>{
+        let isdone = false;
+        for(let i = 0; i < data.length; i++)
+        {
+            if (data[i].username == username)
+            {     
+                isdone = true;
+                if (add_friend.style.display != 'none')
+                    return;
+                // console.log('1111111111111111******')  
+                add_friend.style.display = 'flex';
+                add_friend.id = username;
+                delete_friend.style.display = 'none';
+                parent_button.style.display = 'flex';
+                chat_button.style.display = 'none';
+                return ;
+            }
+                
+        }
+        if (!isdone)
+        {
+            fetch('/api/friends/')
+            .then(response=>{
+                return response.json();
+            })
+            .then(data=>{
+                for (let i = 0; i < data.length; i++)
+                {
+                    if (data[i].username == username)
+                    {
+                        isdone = true;
+                        // console.log('2222222222222222******')  
+
+                        if (delete_friend.style.display != 'none')
+                            return ;
+                        // delete_friend.style.backgroundColor = 'red';
+                        delete_friend.style.display = 'flex';
+                        chat_button.style.display = 'flex';
+                        parent_button.style.display = 'flex';
+                        button_friend.style.display = 'none';
+                        delete_friend.id = username;
+                        // isdone = true;
+                        chat_button.id = username;
+                        return ;
+                    }
+                    
+                }
+                if (!isdone)
+                {
+                    // console.log('3333333333333333333****')
+                    parent.style.display = 'none';
+                }
+            })
+           
+        }
+        
+        // console.log('------------------------')
+    })
+    .catch(error=>{console.log(error);return ;})
+}
+
+let action_profile;
+function view_profile(e)
+{
+    let button_friend = document.querySelector('.profile-user-action-add_friend');
+    let delete_friend = document.querySelector('.profile-user-action-unfriend');
+    let button_chat = document.querySelector('.profile-user-action-go_to_chat');
+    button_chat.style.display = 'none';
+    button_friend.style.display = 'none';
+    delete_friend.style.display = 'none';
+    const modal = document.getElementById('content-user');
+    let _circle = document.querySelector('.circle');
+    let username = document.querySelector('.profile-user-info-username');
+    let score = document.querySelector('.profile-user-info-score');
+    let rank = document.querySelector('.profile-user-info-rank');
+    let img_profile = document.querySelector('.profile-user-photo_profile');
+    let dateCreatiomAccount = document.querySelector('.profile-user-dateCreationAccount');
+    let firstname = document.querySelector('.profile-user-firstname');
+    let lastname = document.querySelector('.profile-user-lastname');
+    let email = document.querySelector('.profile-user-email');
+    let status = document.querySelector('.profile-user-status-string');
+    let status_color = document.querySelector('.profile-user-status-color');
+    let statistique = document.querySelector('.no-statistique');
+    let win = document.querySelector('.win-statistique');
+    let lose = document.querySelector('.lose-statistique');
+    let usernameFriend ;
+    if (e.target.id.length == 0)
+        e.target.id = e.currentTarget.id
+    fetch('/api/csrf-token/')
+    .then(response =>{
+        if (response.ok == false)
+            console.log('error when fetching data');
+        return response.json();
+    })
+    .then(data =>{
+        fetch('/api/friend/', {
+            method: 'POST',
+            headers : {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': data.csrfToken,
+            },
+            body :JSON.stringify({
+                'username' : e.target.id,
+            })
+        })
+        .then(response =>{
+            if (response.ok != true)
+            {
+                console.log('error when fetching data of user by `/api/friend/`');
+            }
+            return response.json();
+        })
+        .then(data=>{
+            usernameFriend = data.username
+            username.textContent = data.username;
+            score.textContent = data.score;
+            rank.textContent = data.ranking;
+            img_profile.src = data.photo_profile;
+            dateCreatiomAccount.textContent = ParceDate(data.date_joined);
+            firstname.textContent = data.first_name;
+            lastname.textContent = data.last_name;
+            email.textContent = data.email;
+            if (String(data.available) == 'true'){
+                status.textContent = 'online';
+                status_color.style.backgroundColor = 'green'
+            }
+            else
+            {
+                status.textContent = 'offline';
+                status_color.style.backgroundColor = 'red';
+            }
+            if (data.win == '0' && data.lose == '0'){
+                lose.textContent = '0 %';
+                win.textContent = '0 %';
+                _circle.style.display = 'none';
+                statistique.style.display = 'flex';
+            }
+            else{
+                drawCircle(Number(data.lose), Number(data.win))
+                statistique.style.display = 'none';
+            }
+        })
+    })
+    closeInter = setInterval(()=>{
+        fetch('/api/csrf-token/')
+        .then(response =>{
+            if (response.ok == false){
+                console.log('error when fetching data');
+            }
+            return response.json();
+        })
+        .then(data =>{
+            fetch('/api/friend/', {
+                method: 'POST',
+                headers : {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': data.csrfToken,
+                },
+                body :JSON.stringify({
+                    'username' : e.target.id,
+                })
+            })
+            .then(response =>{
+                if (response.ok != true)
+                    console.log('error when fetching data of user by `/api/friend/`');
+                return response.json();
+            })
+            .then(data=>{
+                // console.log(data.available);
+                if (String(data.available) == 'true'){
+                    status.textContent = 'online';
+                    status_color.style.backgroundColor = 'green'
+                }
+                else
+                {
+                    status.textContent = 'offline';
+                    status_color.style.backgroundColor = 'red'
+
+                }
+           })
+        })
+    }, 2000);
+    button_profile(e.target.id)
+    action_profile = setInterval(()=>{button_profile(e.target.id)}, 2000);
+    modal.style.display = 'flex';
+}
+function close_user_profile()
+{
+    const modal = document.getElementById('content-user');
+    modal.style.display = 'none';
+    document.querySelector('.profile-user-action').style.display = 'none';
+    document.querySelector('.profile-user-action-add_friend').style.display = 'none';
+    document.querySelector('.profile-user-action-go_to_chat').style.display = 'none';
+    document.querySelector('.profile-user-action-unfriend').style.display = 'none';
+    clearInterval(closeInter);
+    clearInterval(interval);
+    clearInterval(action_profile);
+
+}
+function view_friends()
+{
+    console.log("view_friends");
+    const modal = document.getElementById('view-friends');
+    modal.style.display = 'flex';
+    document.getElementById('view-matchs').style.display = 'none';
+    document.getElementById('profile-user-friend').style.borderBottom = '2px solid #ffffff';
+    document.getElementById('profile-user-match').style.borderBottom = '0px solid #ffffff';
+}
+function view_matchs()
+{
+    console.log("view_matchs");
+    const modal = document.getElementById('view-matchs');
+    modal.style.display = 'flex';
+    document.getElementById('view-friends').style.display = 'none';
+    document.getElementById('profile-user-match').style.borderBottom = '2px solid #ffffff';
+    document.getElementById('profile-user-friend').style.borderBottom = '0px solid #ffffff';
+    
+}

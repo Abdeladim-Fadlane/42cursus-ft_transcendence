@@ -1,5 +1,3 @@
-
-
 function already_logged() {
     fetch('/api/already_logged/')
         .then(response => {
@@ -8,7 +6,7 @@ function already_logged() {
             }
         })
         .then(data => {
-            if (data.logged)
+            if (data.status === true)
                 window.location.href = "/home/";
         })
 }
@@ -96,6 +94,14 @@ document.addEventListener('DOMContentLoaded', function() {
             } 
             else
             {
+                if (data.error.email != undefined)
+                {
+                    console.log(data.error);
+                    document.getElementById('messageemail').innerHTML = data.error.email;
+                    document.getElementById('messageemail').style.color = 'red';
+                }
+                else
+                    document.getElementById('messageemail').innerHTML = '';
                 if (data.error.username != undefined)
                 {
                     document.getElementById('messageusername').innerHTML = data.error.username;
@@ -103,6 +109,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 else
                     document.getElementById('messageusername').innerHTML = '';
+                if (data.error.password1 != undefined)
+                {
+                    document.getElementById('messagepassword').innerHTML = data.error.password1;
+                    document.getElementById('messagepassword').style.color = 'red';
+                }
+                else
+                    document.getElementById('messagepassword').innerHTML = '';
                 if (data.error.password2 != undefined)
                 {
                     document.getElementById('messagepassword2').innerHTML = data.error.password2;

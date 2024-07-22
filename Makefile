@@ -1,4 +1,4 @@
-all : build
+all : per build 
 	
 git : per add commit push 
 	
@@ -18,11 +18,10 @@ build :
 	docker compose up --build
 
 down:
-
 	docker compose down -v 
 
-rmv : per
-	rm -rf postgreSql
+remove : per
+	rm -rf chat/data game/data track/data auth/data
 
 restart:down run
 
@@ -30,5 +29,10 @@ per :
 	sudo chmod -R 0777 .
 
 clean : 
-	docker compose  down 
-	docker image prune -f --all
+	docker compose  down
+	docker compose rm ${docker compose ps -a -q}
+
+fclean : clean
+	docker system prune -a
+	
+re : fclean all
