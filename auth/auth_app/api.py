@@ -150,6 +150,15 @@ def online_friends(request):
                 'photo_profile': friend.user2.photo_profile.url if friend.user2.photo_profile else None 
             }
             data.append(friend_data)
+    friends = Friends.objects.filter(user2=user)
+    for friend in friends:
+        if friend.user1.available:
+            friend_data = {
+                'username': friend.user1.username,
+                'photo_profile': friend.user1.photo_profile.url if friend.user1.photo_profile else None 
+            }
+            if friend_data not in data:
+                data.append(friend_data)
     return JsonResponse(data, safe=False, status=200)
 
 
@@ -183,7 +192,6 @@ def getAllUser(request):
     user = login_required(request)
     if not user:
         return HttpResponseForbidden("Forbidden", status=403)
-    
     users = CustomUser.objects.all()
     data = TaskSerializer(users,many=True)
     return JsonResponse(data.data,safe=False)

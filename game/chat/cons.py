@@ -11,7 +11,10 @@ hh = 80
 ww = 10
 racket_speed = 1
 score_to_win = 2
-
+def add_padding(data):
+    return data + '=' * (-len(data) % 4)
+import os
+from cryptography.fernet import Fernet
 class racket:
     def __init__(self, x, y, min, max):
         self.x = x
@@ -143,6 +146,9 @@ class   Match:
 
 def save_Match(group_name, idx):
     losee_token = rooms[group_name].players[abs(idx-1)].scope['query_string'].decode().split('=')[1]
+    key = os.environ.get('encrypt_key')
+    f = Fernet(key)
+    losee_token = f.decrypt(add_padding(losee_token).encode()).decode()
     headers = {'Authorization': f'Token {losee_token}'}
     body = {
         'lose': rooms[group_name].players[abs(idx-1)].user.lose + 1,
@@ -153,6 +159,7 @@ def save_Match(group_name, idx):
 
     """ update winner score"""
     win_token = rooms[group_name].players[idx].scope['query_string'].decode().split('=')[1]
+    win_token = f.decrypt(add_padding(win_token).encode()).decode()
     headers = {'Authorization': f'Token {win_token}'}
     body = {
         'score': rooms[group_name].players[idx].user.score + 10,
@@ -205,6 +212,7 @@ class   User:
         for key, value in dict.items():
             setattr(self, key, value)
 
+
 class RacetCunsumer(AsyncWebsocketConsumer):
     async def connect(self):
         print("----------------connect----------------")
@@ -212,6 +220,10 @@ class RacetCunsumer(AsyncWebsocketConsumer):
         await self.accept()
         self.avaible = True
         query_string = self.scope['query_string'].decode().split('=')[1]
+        key = os.environ.get('encrypt_key')
+        f = Fernet(key)
+        query_string = f.decrypt(add_padding(query_string).encode()).decode()
+
         data = endpoint(query_string)        
         self.user = User(data[0])
         self.group_name = group_name
