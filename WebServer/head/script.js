@@ -7,7 +7,8 @@ function already_logged() {
         })
         .then(data => {
             if (data.status === true)
-                window.location.href = "/home/";
+                console.log('Already logged in');
+                console.log(data);
         })
 }
 
