@@ -28,6 +28,7 @@ restart:down run
 per :
 	sudo chmod -R 0777 .
 
+
 clean : remove
 	docker compose  down
 	docker compose rm ${docker compose ps -a -q}
