@@ -1,2 +1,4 @@
-postgreSql
-.env
+auth/data/db
+game/data/db
+track/data/db
+chat/data/db

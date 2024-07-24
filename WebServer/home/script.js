@@ -1,6 +1,8 @@
 
 
 document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById('Home').style.borderBottom = '2px solid #bbb';
+
     const links = document.querySelectorAll(".nav-link");
     const sections = document.querySelectorAll(".content-section");
     links.forEach((link) => {
@@ -26,8 +28,29 @@ document.addEventListener("DOMContentLoaded", function () {
     // document.getElementById("setting").style.display = "none";
   });
   
-  
-  
+  function border_home()
+  {
+    document.getElementById('Home').style.borderBottom = '2px solid #bbb';
+    document.getElementById('Home').style.padding = '5px';
+    document.getElementById('Pr').style.borderBottom = '0px solid #bbb';
+    
+
+  }
+  function border_pr()
+  {
+    document.getElementById('Home').style.borderBottom = '0px solid #bbb';
+    document.getElementById('Pr').style.padding = '5px';
+
+    document.getElementById('Pr').style.borderBottom = '2px solid #bbb';
+    
+
+  }
+  function click_chat()
+  {
+    document.getElementById('Home').style.borderBottom = '0px solid #bbb';
+    document.getElementById('Pr').style.borderBottom = '0px solid #bbb';
+    // document.getElementById('chat_icon').style.borderBottom = '2px solid #bbb';
+  }
   let currentFriend = null;
   
   function openChat(friendName) {
@@ -92,6 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
   
   function showNotificationsModal() {
+    
     const modal = document.getElementById('notifi');
     modal.style.display = 'flex';
   }
@@ -99,24 +123,3 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById('notifi');
     modal.style.display = 'none';
   }
-
-
-
-  // function previewImage(event) {
-  //   const reader = new FileReader();
-  //   reader.onload = function() {
-  //       const output = document.getElementById('profileImagePreview');
-  //       output.src = reader.result;
-  //   };
-  //   reader.readAsDataURL(event.target.files[0]);
-  // }
-  
-  // function saveSettings() {
-  //   const username = document.getElementById('username').value;
-  //   // Simulate saving data to a server
-  //   console.log('Saving settings...');
-  //   console.log('New username:', username);
-  
-  //   // Show a confirmation message or perform further actions as needed
-  //   alert('Settings saved successfully!');
-  // }

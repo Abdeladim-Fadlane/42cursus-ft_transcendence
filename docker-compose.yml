@@ -1,23 +1,57 @@
 services:
-  Database:
+  authdb:
     image: postgres
-    container_name: postgreSql
-    # volumes:
-    #   - ./postgreSql/data/db:/var/lib/postgresql/data
+    container_name: authdb
+    volumes:
+      - ./auth/data/db:/var/lib/postgresql/data
     env_file:
       - .env
     restart: always
 
-  auth:
-    build: backend
-    image: djangoo
-    container_name: auth
+  gamedb:
+    image: postgres
+    container_name: gamedb
     volumes:
-      - ./backend/.:/code
+      - ./game/data/db:/var/lib/postgresql/data
     env_file:
       - .env
     depends_on:
-      - Database
+      - authdb
+    restart: always
+    
+  trackdb:
+    image: postgres
+    container_name: trackdb
+    volumes:
+      - ./track/data/db:/var/lib/postgresql/data
+    env_file:
+      - .env
+    depends_on:
+      - gamedb
+    restart: always
+    
+  chatdb:
+    image: postgres
+    container_name: chatdb
+    volumes:
+      - ./chat/data/db:/var/lib/postgresql/data
+    env_file:
+      - .env
+    depends_on:
+      - authdb
+    restart: always
+
+  auth:
+    build: auth
+    image: djangoo
+    container_name: auth
+    volumes:
+      - ./auth/.:/code
+    env_file:
+      - .env
+    depends_on:
+      - authdb
+    restart: always
 
   game:
     image: djangoo
@@ -27,8 +61,30 @@ services:
     env_file:
       - .env
     depends_on:
-      - auth
-      - Database
+      - gamedb
+    restart: always
+
+  track:
+    image: djangoo
+    container_name: track
+    volumes:
+      - ./track/.:/code
+    env_file:
+      - .env
+    depends_on:
+      - gamedb
+    restart: always
+  
+  chat:
+    image: djangoo
+    container_name: chat
+    volumes:
+      - ./chat/.:/code
+    env_file:
+      - .env
+    depends_on:
+      - chatdb
+    restart: always
 
   webserver:
     build: WebServer
@@ -41,3 +97,6 @@ services:
     depends_on:
       - game
       - auth
+    restart: always
+
+      

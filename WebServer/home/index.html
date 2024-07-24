@@ -3,76 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ping-pong</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.cdnfonts.com/css/games" rel="stylesheet">
 </head>
 <body>
     <div class="ball"></div>
     <div class="ball2"></div>
     <nav class="navbar">
+        <div class="fac_one">
         <div class="navbar-logo">
-            <a class="nav-link" data-target="home"><img src="./resrc/media/logo.png" alt="Logo" onclick="active_section('play')"></a>
+            <a class="nav-link" data-target="home"><img src="./resrc/new-logo.png" alt="Logo" onclick="active_section('play')"></a>
         </div>
+        <div class="nav-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="search-input" >
+            <div class="users-search-bar"></div>
+        </div>
+    </div>
         <div class="navbar-buttons">
             <ul>
-                <li><a class="nav-link" data-target="home" href="#home" onclick="disactiv_sections()">Home</a></li>
-                <li><a class="nav-link" data-target="profile" href="#profile"  onclick="disactiv_sections()">Profile</a></li>
+                <li id="Home"><a  class="nav-link nav_hover" data-target="home" href="#home"  onclick="border_home()" onclick="disactiv_sections()">Home</a></li>
+                <li id="Pr" ><a class="nav-link nav_hover" data-target="profile" href="#profile" onclick="border_pr()" onclick="disactiv_sections()">Profile</a></li>
                 <li><div class="profil" id="imageprofile"></div></li>
             </ul>
         </div>
     </nav>
-
     <div class="container">
         <aside>
             <div class="aside_content">
                 <div class="image1">
                     <ul>
                         <!-- <li><a class="settings-button" onclick="showSettingsModal()"><div class="seting_icon"></div></a></li> -->
-                        
-                        <li><a class="notification" onclick="showNotificationsModal()"><div    class="notification_icon aside_button"></div></a></li>
-                        <li><a class="nav-link" data-target="chat" href=""><div    class="chat_icon  aside_button"></div></a></li>
+                        <li><a class="notification aside"  onclick="showNotificationsModal()"><div    class="aside_button icons" class="icons"> <i class="fa-solid fa-bell"></i> </div></a></li>
+                        <li><a class="nav-link aside" data-target="chat"  onclick="click_chat()"><div  class="icons"  class="aside_button"><i class="fa-solid fa-comment"></i></div></a></li>
                     </ul>
                 </div>
                 <div class="image2">
                     <ul>
-                        <li><a class="settings-button" onclick="showSettingsModal()"><div class="seting_icon"></div></a></li>
-                        <li><a class="logout-button og_out_icon aside_button" onclick="showLogoutModal()"><div class="log_out_icon"></div></a></li>
+                        <li><a class="settings-button" onclick="showSettingsModal()"><div class="icons" ><i class="fa-solid fa-gear"></i></div></a></li>
+                        <li><a class="logout-button og_out_icon aside_button" onclick="showLogoutModal()"><div class="icons"><i class="fa-solid fa-right-from-bracket"></i></div></a></li>
                     </ul>
                 </div>
             </div>
         </aside>
         <article>
+            <div></div>
             <div id="home" class="content-section home">
-                <div class="game">
-                    <img src="./resrc/normal.jpeg" alt="">
-                    <button onclick="navigate('play')" >Start game</button>
+                    
+                <div class="images">
+
+                    <div class="welcome_home">
+                        <h1>Welcome to Ping Pong</h1>
+                        <h1>Choose a game mode</h1>
+                    </div>
+                    <div class="play">
+                    <div class="game">
+                           
+                            <button class="home_button" onclick="navigate('play')" >Start game</button>
+                        </div>
+                        <div class="game">
+                            
+                            <button class="home_button" onclick="navigate('tournament_input')">play Tournament</button>
+                        </div>
                 </div>
-                <div class="game">
-                    <img src="./resrc/ai_game.jpeg" alt="">
-                    <button onclick="navigate('tournament_input')">play Tournament</button>
-                </div>
+            </div>
                 <div class="challenge">
                     <div class="center">
-                        <h2>Online Friends</h2>
+                        <h2>online  friends</h2>
                     </div>
                     <div class="list_friend" id="challenge_friend"></div>
                 </div>
                 <div class="invite">
                     <div class="center">
-                        <h2>Suggest Friends</h2>
+                        <h2>invite to friends</h2>
                     </div>
-                    <div class="list_friend" id="list_friend"></div>
+                    <div class="invet_friend" id="list_friend"></div>
                 </div>
             </div>
             <div id="profile" class="content-section profile">
                 <div class="welcome">
-                    <div id="profileid">
-                        <!-- <div class="image_to_profile"></div> -->
+                    <div class="prf_to_prf" id="profileid">
                         <h3 id="login"></h3>
                     </div>
                     <div>
-                        <div class="rank"></div>
+                        <div class="rank"><i class="fa-solid fa-ranking-star"></i></div>
                         <h3 id="content_rank"></h3>
                     </div>
                     <div class="scor">
@@ -83,7 +100,9 @@
                 <div class="data">
                     <div class="leadrboard" id="leadrboard">
                         <div class="data_titel"><h2>leadrboard</h2></div>
-                        <div class="leadrboard_container"  id="leadrboard_container"></div>
+                        <div class="leadrboard_container"  id="leadrboard_container">
+                            <div class="crown"><i class="fa-solid fa-crown"></i></div>
+                        </div>
                     </div>
                     
                     <div class="global_data" id="history">
@@ -100,200 +119,362 @@
                 </div>
             </div>
             <div id="chat" class="content-section aside-co">
-                <div class="friend-list">
-                    <h2>Friends</h2>
-                    <ul id="friends">
-                        <div class="list_friend" id="list_friend_chat"></div>
-                        <!-- <li onclick="openChat('Alice')">Alice</li>
-                        <li onclick="openChat('Bob')">Bob</li>
-                        <li onclick="openChat('Charlie')">Charlie</li> -->
-                    </ul>
+                <div>
+                    <h1 class="game_title">
+                        Game Chat Hup
+                    </h1>
 
                 </div>
                 <div class="chat-container">
                     <div id="chat-header" class="chat-header">
+                        <div class="image-chat" id="image-chat"></div>
                         <h2 id="chat-friend-name">Select a friend to chat</h2>
+                        
                     </div>
-                    <div id="chat-messages" class="chat-messages">
-                        <!-- Chat messages will appear here -->
+                    
+                        <div id="chat-messages" class="chat-messages">
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" id="message-input" placeholder="Type a message...">
+                            <button id="button-chat"><i class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+                        
+                    
+                </div>
+                <div class="friend-list">
+                    <h2>Friends</h2>
+                    <ul id="friends">
+                        <div class="list_friend" id="list_friend_chat">
+                            <!-- <button class="friend-list-room">adddd</button> -->
+                        </div>
+                    </ul>
+
+                </div>
+                
+                
+            </div>
+                <div id="notifi">
+                    <div class="notification-contiener" id="notify">
+                        <div class="modal_notificaton">
+                            <div class="close_notificaton">
+                                <span onclick="closeNotificationsModal()" >&times;</span>
+                            </div>
+                            <h1>Notifications</h1>
+                            
                     </div>
-                    <div class="chat-input">
-                        <input type="text" id="message-input" placeholder="Type a message...">
-                        <button onclick="sendMessage()">Send</button>
+                        <div class="content_notify" id="content_notify">
+
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="notifi">
-                <div class="notification-contiener" id="notify">
-                    <div class="modal_notificaton">
-                        <div class="close_notificaton">
-                        <span  onclick="closeNotificationsModal()">&times;</span>
-                     </div>
-                        <h1>Notifications</h1>
+                <div id="logout-modal" class="modal">
+                    <div class="modal-content_set">
+                        <span class="close" onclick="closeLogoutModal()">&times;</span>
+                        <h2>Confirm Logout</h2>
+                        <p>Are you sure you want to logout?</p>
+                        <button class="confirm-button" onclick="logout()">Yes</button>
+                        <button class="cancel-button" onclick="closeLogoutModal()">No</button>
+                    </div>
+                </div>
+                
+                <div id="settings-modal" class="settings-modal">
+                    <div class="setting-contiener">
+                        <span class="close_set" onclick="closeSettingsModal()">&times;</span>
+                            
+                            <div class="forms">
+                                    <form id="avatarForm" class="form-container" method="post" enctype="multipart/form-data" action="/update_profile/">
+                                        <h3 class="h3_setting">Change profile data</h3>
+                                                <div class="profil setting_profile" id="profil">
+                                                    <img class="edit" src="./resrc/edit.png" alt="">
+                                                </div>
+                                                    <label id="nameprofile" for="username">Edit Avatar</label>
+                                                <input type="hidden" name="csrfmiddlewaretoken" id="crcf">
+                                                <input type="file" id="image" name="image" accept="image/*" style="display: none;">
+                                                <input type="text" id="username" name="username" placeholder="New UserName"  minlength="8" required>
+                                                <input type="text" id="first_name" name="first_name" placeholder="New First Name"  minlength="8" required>
+                                                <input type="text" id="last_name" name="last_name" placeholder="New Last Name"  minlength="8" required >
+                                                <input type="email" id="email" name="email" placeholder="New Email"  minlength="8" required>
+                                                <div id="messages"></div>
+                                                <br>
+                                        <button class="submit" type="submit">SAVE</button>
+                                    </form>
+                                    <form id="passwordForm" class="form-container" method="post" enctype="multipart/form-data" action="/change_password/">
+                                        <div class="center-h3">
+                                            <h3 class="h3_setting">Change profile password</h3>
+                                        </div>
+                                        <input type="hidden" name="csrfmiddlewaretoken" id="crcf2">
+                                        <input type="password" id="old_password" name="old_password" placeholder="Old password" minlength="12" required >
+                                        <input type="password" id="new_password" name="new_password" placeholder="New password"  minlength="12" required>
+                                        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password">
+                                        <div id="messages1"></div> 
+                                        <br>
+                                        <button class="submit" type="submit">SAVE</button>
+                                        <br>
+                                        <a class="delet_account" onclick="delete_funcyion()">Delete Acount</a>
+                                    </form>
+                            </div>
+                    </div>
                         
                 </div>
-                    <div class="content_notify" id="content_notify">
-
+                <div class="modal_delete" id="modal_delete">
+                    <div class="modal-content_no">
+                        <span class="close" onclick="closedelete()">&times;</span>
+                        <h2>Confirm delete</h2>
+                        <p>Are you sure ?</p>
+                        <button class="confirm-button" onclick="delete_account()" >Yes</button>
+                        <button class="cancel-button"  onclick="closedelete()" >No</button>
                     </div>
                 </div>
-            </div>
-            <div id="logout-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeLogoutModal()">&times;</span>
-                    <h2>Confirm Logout</h2>
-                    <p>Are you sure you want to logout?</p>
-                    <button class="confirm-button" onclick="logout()">Yes</button>
-                    <button class="cancel-button" onclick="closeLogoutModal()">No</button>
-                </div>
-            </div>
-            
-            <div id="settings-modal" class="settings-modal">
-                <div class="setting-contiener">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeSettingsModal()">&times;</span>
-                    </div>
-                    <div id = "editprofile">
-                        <div class="settings-form" id="settings-form">
-                            <!-- <img id="editimage" src="" alt="profile"> -->
-                            <!-- <label for="profileImage">new Profile Image</label> -->
-                            <!-- <img id="profileImagePreview" src="default-profile.png" alt="Profile Image" class="profile-image"> -->
-                            <!-- <input type="file" id="profileImage" accept="image/*" onchange="previewImage(event)">
-                                < -->
-                                <label id="nameprofile" for="username"></label>
-                                <form id="avatarForm" class="form-container" method="post" enctype="multipart/form-data" action="/update_profile/">
-                                    <input type="hidden" name="csrfmiddlewaretoken" id="crcf">
-                                    <input type="file" id="image" name="image" accept="image/*" required>
-                                    <input type="text" id="username" name="username" placeholder="Username" required>
-                                    <button type="submit">Upload</button>
-                                    <div id="messages"></div>
-                                </form>
-                                <!-- <button class="save-button" onclick="saveSettings()">Save Changes</button> -->
+                <div class="content-user" id="content-user">
+                    <div class="profile-user">
+                        <div class="profile-user-info">
+                            <div class="image_user">
+                                <span class="close_profile" onclick="close_user_profile()">&times;</span>
+                                <img class="profile-user-photo_profile" src="" alt="">
+                                <span class="profile-user-status">
+                                    <p class="profile-user-status-color"></p>
+                                    <p class="profile-user-status-string"></p>
+                                </span>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-user"></i>
+                                <h2 class="profile-user-info-username"></h2>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-star"></i>
+                                <h2 class="profile-user-info-score"></h2>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-ranking-star"></i>
+                                <h2 class="profile-user-info-rank"></h2>
+                            </div>
+                        </div>
+                        <div class="profile-user-body">
+                            <div class="profile-user-more_info">
+                                
+                                <span>First name</span>
+                                <div class="profile-user-firstname"></div>
+                                <hr>
+                                <span>Last name</span>
+                                <div class="profile-user-lastname"></div>
+                                <hr>
+                                <span>Email</span>
+                                <div class="profile-user-email"></div>
+                                <hr>
+                                <span>Account creation date</span>
+                                <div class="profile-user-dateCreationAccount"></div>
+                                <hr>
+                            </div>
+                            <div class="profile-user-statistique">
+                                <span class="statistique-header">
+                                    <i class="fa-solid fa-chart-pie"></i>
+                                    <span>User statistiques</span>
+                                </span>
+                                <div class="no-statistique">
+                                    This player has no statistiques yet
+                                </div>
+                                <div class="number-win"></div>
+                                <div class="number-lose"></div>
+                                <div class="circle"></div>
+                                <div class="number-statistique">
+                                    <div class="win-statistique-div">Win
+                                        <span class="win-statistique">
+                                        </span>
+                                    </div>
+                                    <div class="lose-statistique-div">Lose
+                                        <span class="lose-statistique">
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-            </div>
-            <section id="loading-section-id">
-                <div id="loading">
-                    <div id="loader"></div>
                 </div>
-            </section>
-            <section id="play">
-                <div id="ping-pong-2" class="ping-pong">
-                    <div class="users">
-                        <div class="user1">
-                            <img id="2-canvas-icon-id-0" class="icon">
-                            <h2 id="2-canvas-display_name-id-0" class="display-name"></h2>
+
+                <section id="loading-section-id">
+                    <div id="loading">
+                        <div id="loader"></div>
+                    </div>
+                </section>
+                <section id="play">
+                    <div id="ping-pong-2" class="ping-pong">
+                        <div class="users">
+                            <div class="user1">
+                                <img id="2-canvas-icon-id-0" class="icon">
+                                <h2 id="2-canvas-display_name-id-0" class="display-name"></h2>
+                            </div>
+                            <div class="user2">
+                                <h2 id="2-canvas-display_name-id-1" class="display-name"></h2>
+                                <img id="2-canvas-icon-id-1" class="icon">
+                            </div>
+                        </div>
+                        <canvas id="2-canvas-id" class="canvas" width="600px" height="300px"></canvas>
+                    </div>
+                </section>
+                <section id="resultModal" class="result_class">
+                    <div class="msg_img">
+                        <h1 id="resultMessage" class="result_msg">Congration You Won!</h1>
+                        <div class="center_contents">
+                            <img id="result-gif" class="result_img" src="/home/resrc/game/win.gif">
+                        </div>
+                    </div>
+                    <div class="result_buttuns">
+                        <button class="Retry_button" onclick="challenge_lastone()">Retry</button>
+                        <button class="Retry_button" onclick="navigate('play')">Play Random</button>
+                        <button class="Home_button" onclick="closeModal('resultModal')">Home</button>
+                    </div>
+                </section>
+                <section id="refuse_game_id">
+                    <div class="pp">
+                        <h1 class="game_notification_msg">Game Refused by</h1>
+                        <div class="con">
+                            <img id="game_refuse_icon_id">
+                        </div> 
+                        <h1 id="game_refuse_username_id"></h1>
+                    </div>
+                    <div class="buttonss">
+                        <button class="Retry_button" onclick="navigate('play')">Play Random</button>
+                        <button class="Home_button" onclick="closeModal('refuse_game_id')">Home</button>
+                    </div>
+                </section>
+                <section id="play-4" >
+                    <div class="ping-pong">
+                        <div class="users">
+                            <div class="user1">
+                                <img id="4-canvas-icon-id-0" class="icon">
+                                <h2 id="4-canvas-display_name-id-0" class="display-name"></h2>
+                            </div>
+                            <div class="user2">
+                                <h2 id="4-canvas-display_name-id-2" class="display-name"></h2>
+                                <img id="4-canvas-icon-id-2" class="icon">
+                            </div>
+                        </div>
+                        <canvas id="4-canvas-id" class="canvas" width="600px" height="300px"></canvas>
+                        <div class="users">
+                            <div class="user1">
+                                <img id="4-canvas-icon-id-1" class="icon">
+                            <h2 id="4-canvas-display_name-id-1" class="display-name"></h2>
                         </div>
                         <div class="user2">
-                            <h2 id="2-canvas-display_name-id-1" class="display-name"></h2>
-                            <img id="2-canvas-icon-id-1" class="icon">
+                            <h2 id="4-canvas-display_name-id-3" class="display-name"></h2>
+                            <img id="4-canvas-icon-id-3" class="icon">
                         </div>
                     </div>
-                    <canvas id="2-canvas-id" class="canvas" width="600px" height="300px"></canvas>
                 </div>
             </section>
-            <section id="resultModal">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <span id="resultMessage"></span>
-                <img id="result-gif">
+            <section id="tournament_input" class="tournament-input">
+                <form method="post" id="display_name-form-id" class="tournament-input-form" action="/account/display_name/" enctype="multipart/form-data">
+                    <input type="hidden" name="csrfmiddlewaretoken" id="display_name_csrfToken">
+                    <input type="text" id="display_name" class="inputt" name="display_name" placeholder="Tournament display name" required><br>
+                    <div id="display_name_err"></div>
+                    <button type="submit" class="buttonn">Start</button>
+                </form>
             </section>
-            <section id="play-4" >
-                <div class="ping-pong">
-                    <div class="users">
-                        <div class="user1">
-                            <img id="4-canvas-icon-id-0" class="icon">
-                            <h2 id="4-canvas-display_name-id-0" class="display-name"></h2>
-                        </div>
-                        <div class="user2">
-                            <h2 id="4-canvas-display_name-id-2" class="display-name"></h2>
-                            <img id="4-canvas-icon-id-2" class="icon">
-                        </div>
-                    </div>
-                    <canvas id="4-canvas-id" class="canvas" width="600px" height="300px"></canvas>
-                    <div class="users">
-                        <div class="user1">
-                            <img id="4-canvas-icon-id-1" class="icon">
-                        <h2 id="4-canvas-display_name-id-1" class="display-name"></h2>
-                    </div>
-                    <div class="user2">
-                        <h2 id="4-canvas-display_name-id-3" class="display-name"></h2>
-                        <img id="4-canvas-icon-id-3" class="icon">
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="tournament_input" class="tournament-input">
-            <form method="post" id="display_name-form-id" class="tournament-input-form" action="/account/display_name/" enctype="multipart/form-data">
-                <input type="hidden" name="csrfmiddlewaretoken" id="display_name_csrfToken">
-                <input type="text" id="display_name" class="inputt" name="display_name" placeholder="Tournament display name" required><br>
-                <div id="display_name_err"></div>
-                <button type="submit" class="buttonn">Start</button>
-            </form>
-        </section>
-        <section id="play_tournament">
-            <div id="tournament-id" class="tournament">
-                <div class="round">
-                    <div class="matchup">
-                        <div id="00" class="player"></div>
-                        <div id="01" class="player"></div>
-                    </div>
-                    <div class="matchup">
-                        <div id="02" class="player"></div>
-                        <div id="03" class="player"></div>
-                    </div>
-                    <div class="matchup">
-                        <div id="04" class="player"></div>
-                        <div id="05" class="player"></div>
-                    </div>
-                    <div class="matchup">
-                        <div id="06" class="player"></div>
-                        <div id="07" class="player"></div>
-                    </div>
-                    </div>
+            <section id="play_tournament">
+                <div id="tournament-id" class="tournament">
                     <div class="round">
                         <div class="matchup">
-                            <div id="10" class="player"></div>
-                            <div id="11" class="player"></div>
+                            <div id="00" class="player"></div>
+                            <div id="01" class="player"></div>
                         </div>
                         <div class="matchup">
-                            <div id="12" class="player"></div>
-                            <div id="13" class="player"></div>
+                            <div id="02" class="player"></div>
+                            <div id="03" class="player"></div>
                         </div>
-                    </div>
-                    <div class="round">
                         <div class="matchup">
-                            <div id="20" class="player"></div>
-                            <div id="21" class="player"></div>
+                            <div id="04" class="player"></div>
+                            <div id="05" class="player"></div>
+                        </div>
+                        <div class="matchup">
+                            <div id="06" class="player"></div>
+                            <div id="07" class="player"></div>
+                        </div>
+                        </div>
+                        <div class="round">
+                            <div class="matchup">
+                                <div id="10" class="player"></div>
+                                <div id="11" class="player"></div>
+                            </div>
+                            <div class="matchup">
+                                <div id="12" class="player"></div>
+                                <div id="13" class="player"></div>
+                            </div>
+                        </div>
+                        <div class="round">
+                            <div class="matchup">
+                                <div id="20" class="player"></div>
+                                <div id="21" class="player"></div>
+                            </div>
+                        </div>
+                        <div class="champion">
+                            <div id="30" class="player"></div>
                         </div>
                     </div>
-                    <div class="champion">
-                        <div id="30" class="player"></div>
+                </section>
+                <section id="win-tournament-id">
+                    <div class="msg_img_t">
+                        <h1 class="result_msg">Congration You are the champion!</h1>
+                        <div class="center_contents">
+                            <img class="result_img" src="/home/resrc/game/champion.gif">
+                        </div>
                     </div>
-                </div>
-            </section>
-            <section id="win-tournament-id">
-                <img id="win-tournament-background-id" src="./resrc/win_tournament.gif">
-            </section>
-            <section id="tournament_list">
-                <div class="conteudo">
-                    <div id="tournament_content" class="caixa">
+                    <div class="result_buttuns">
+                        <button class="Retry_button" onclick="challenge_lastone()">Retry</button>
+                        <button class="Retry_button" onclick="navigate('play')">Play Random</button>
+                        <button class="Home_button" onclick="closeModal('resultModal')">Home</button>
                     </div>
-                </div>
-            </section>
+                </section>
+                <section id="tournament_list">
+                    <div class="conteudo">
+                        <div id="tournament_content" class="caixa">
+                        </div>
+                    </div>
+                </section>
+                <section id="game_notification_id" class="game_notification">
+                    <img id="game_notification_icon_id" class="icon">
+                    <h2 id="game_notification_username_id" class="display-name"></h2>
+                    <h1>Do you want to play a game?</h1>
+                    <div class="fighters_bottuns">
+                        <button class="Continue" id="acceptBtn_play" onclick="accept_game()">Accept</button>
+                        <button class="Give_Up" id="refuseBtn_play" onclick="refuse_game()">Refuse</button>
+                    </div>
+                </section>
+                <section class="par" id="start_fight">
+                    <div class="fighters">
+                      <div class="fighter1" id="fighter1">
+                        <h1 id="fighter_username_0"></h1>
+                        <img id="fighter_icon_0" class="icon">
+                      </div>
+                      <div class="vs">vs</div>
+                      <div class="fighter2">
+                        <img id="fighter_icon_1" class="icon">
+                        <h1 id="fighter_username_1"></h1>
+                      </div>
+                    </div>
+                    <div class="fighters_bottuns">
+                      <button class="Continue" onclick="Continue_game('Continue')">Continue</button>
+                      <button class="Give_Up" onclick="Continue_game('Give_Up')">Give Up</button>
+                    </div>
+                </section>
         </article>
+       
     </div>
-    <script src="profile.js"></script>
     <script src="game.js"></script>
     <script src="script.js"></script>
     <script src="match.js"></script>
     <script src="leader.js"></script>
     <script src="data.js"></script>
     <script src="token.js"></script>
-    <script src="suggest.js"></script>
-    <script src="invite.js"></script>
-    <script src="challenge.js"></script>
-    <script src="notif.js"></script> 
-    <script src="msgfriend.js"></script>
-    <!-- <script src="profile.js"></script> -->
+    <script type="module" src="suggest.js"></script>
+    <script  type="module" src="invite.js"></script>
+    <script type="module" src="challenge.js"></script>
+    <script type="module" src="notif.js"></script> 
+    <script src="setting.js"></script>
+    <script src="userInformation.js"></script>
+    <script src="msgfriend.js" type="module"></script>
+    <script src="chatScript.js" type="module"></script>
+    <script src="track.js"></script>
+    <script src="search.js"></script>
+
 </body>
 </html>

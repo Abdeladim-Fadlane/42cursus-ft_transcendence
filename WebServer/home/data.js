@@ -13,12 +13,15 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update user information in the DOM
             document.getElementById('login').textContent = userData.username;
             document.getElementById('content_scor').textContent = userData.score;
-            document.getElementById('nameprofile').textContent = userData.username;
+            if (userData.username ) {
+                document.getElementById('nameprofile').textContent = userData.username;
+            }
             document.getElementById('content_rank').textContent = userData.ranking;
             
             // Add user profile picture to settings form
-            const settingsForm = document.getElementById('settings-form');
+            const settingsForm = document.getElementById('profil');
             const img3 = createProfileImage(userData.photo_profile, "2px solid black");
+            img3.classList.add('profile-settings-img');
             settingsForm.prepend(img3);
             
             // Add user profile picture to profileid

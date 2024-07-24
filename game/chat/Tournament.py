@@ -1,17 +1,26 @@
 import asyncio, json, math, random
 # from chat.game import serialize_pingpong
 from datetime import datetime
-from chat.cons import Match, serialize_Match, User, racket, height, hh, width, ww, score_to_win
+from chat.cons import Match, serialize_Match, User, send_to_group, racket, height, hh, width, ww, score_to_win, serialize_Users
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
 from . views import endpoint
-
-N = 4
+import os
+from . cons import add_padding
+from cryptography.fernet import Fernet
+N = 2
 waiting = {}
 tournaments = {}
 tournament_name = 'tournament_' + datetime.now().time().strftime("%H_%M_%S_%f")
 
+def serialize_Tournament_Users(o):
+    return{
+        'type': 'game.info',
+        'players':[{'login':p.display_name, 'icon':p.photo_profile,} for p in o.players],
+    }
+
 async def full_tournament(users, tournament_name):
+    # await asyncio.sleep(3)
     # random.shuffle(users)
     tournaments[tournament_name] = {}
     while len(users) > 1:
@@ -33,9 +42,12 @@ async def full_tournament(users, tournament_name):
         await tournaments[tournament_name][group_name].players[0].channel_layer.group_send(tournament_name,
         {
             'type': 'send_data',
-            'data':json.dumps({'type':'tournament.info', 'players':[{'login':u.user.username, 'icon':u.user.photo_profile} for u in users]})
+            'data':json.dumps({'type':'tournament.info', 'players':[{'login':u.user.display_name, 'icon':u.user.photo_profile} for u in users]})
         })
         users.clear()
+        await asyncio.sleep(3)
+        # for m in tournaments[tournament_name].values():
+        #     await send_to_group(m.players, {'data':json.dumps(m, default=serialize_Users)})
         await asyncio.sleep(3)
         tasks = [asyncio.create_task(run_game(m)) for m in tournaments[tournament_name].values()]
         users = await asyncio.gather(*tasks)
@@ -94,57 +106,80 @@ async def run_game(match):
 x = 1
 class   Tournament(AsyncWebsocketConsumer):
     async def connect(self):
-        global x
+        # global x
         global tournament_name
         print("------------Tournament---------------")
         await self.accept()
-        # self.tournament_name = "None"
         self.group_name = "None"
         self.avaible = True
-        query_string = self.scope['query_string'].decode().split('=')[1]
-        data = endpoint(query_string)
-        self.user = User(data[0])
+        query_parameters = self.scope['query_string'].decode().split('&')
+        token = query_parameters[0].split('=')[1]
+        key = os.environ.get('encrypt_key')
+        f = Fernet(key)
+        token = f.decrypt(add_padding(token).encode()).decode()
+        id = query_parameters[1].split('=')[1]
+        game_typ = query_parameters[2].split('=')[1]
+        data = endpoint(token, id)
+        self.user = User(data)
         self.tournament_name = tournament_name
-        # self.user.x = x
-        x += 1
         await self.channel_layer.group_add(self.tournament_name, self.channel_name)
-        # if self.user.login in waiting:
-            # waiting[self.user.login].send("you are already in another connection biiiiiitch")
+        ########################
+        # if self.user.username in waiting:
+        #     waiting[self.user.username].send("you are already in another connection biiiiiitch")
+        #     self.close()
         # waiting[self.user.login] = self
+        ########################
+        #***********************#
+        global x
+        # self.user.x = x
         waiting[str(x)] = self
         self.x = str(x)
+        x += 1
+        #***********************#
         await self.channel_layer.group_send(self.tournament_name,
         {
             'type': 'send_data',
             'data':json.dumps({'type':'tournament.list', 'players':[{'login':u.user.display_name, 'icon':u.user.photo_profile} for u in waiting.values()]})
         })
         if len(waiting) == N:
-            x = 1
+            # x = 1
             asyncio.create_task(full_tournament(list(waiting.values()), tournament_name))
             tournament_name = 'tournament_' + datetime.now().time().strftime("%H_%M_%S_%f")
             waiting.clear()
 
     async def receive(self, text_data):
         data = json.loads(text_data)
-        self.racket.change_direction(data)
+        if data.get('type') == 'move':
+            self.racket.change_direction(data.get('move'))
 
     async def send_data(self, event):
         if self.avaible:
             await self.send(event['data'])
 
     async def disconnect(self, code):
+        print("---------------disconnect---------------------------", code)
+        #################################################################
         if (self.x in waiting):
             del waiting[self.x]
+            await self.channel_layer.group_send(self.tournament_name,
+            {
+                'type': 'send_data',
+                'data':json.dumps({'type':'tournament.list', 'players':[{'login':u.user.display_name, 'icon':u.user.photo_profile} for u in waiting.values()]})
+            })
+        #################################################################
         if self.user.username in waiting:
             del waiting[self.user.login]
-        else:
-            if self.avaible:
-                await self.channel_layer.group_discard(
-                        self.tournament_name,
-                        self.channel_name
-                    )
-                await self.channel_layer.group_discard(
-                        self.group_name,
-                        self.channel_name
-                    )
+            await self.channel_layer.group_send(self.tournament_name,
+            {
+                'type': 'send_data',
+                'data':json.dumps({'type':'tournament.list', 'players':[{'login':u.user.display_name, 'icon':u.user.photo_profile} for u in waiting.values()]})
+            })
+        await self.channel_layer.group_discard(
+            self.tournament_name,
+            self.channel_name
+        )
+        await self.channel_layer.group_discard(
+                self.group_name,
+                self.channel_name
+            )
         self.avaible = False
