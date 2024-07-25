@@ -9,15 +9,24 @@ import json
 
 # Create your views here.
 
+def change_room_name(request, oldusername, newusername):
+    conves = Conversation.objects.all()
+    for obj in conves:
+        if (oldusername in obj.room_name):
+            obj.room_name = obj.room_name.replace(oldusername, newusername)
+            obj.save()
+    msgs = Message.objects.filter(sender_name=oldusername)
+    for msg in msgs:
+        msg.sender_name = newusername
+        msg.save()
+    return JsonResponse({'status' : 'success'})
+            
+
 def delete_conversation(request, username):
-    # try:
     conves = Conversation.objects.all()
     for obj in conves:
         if (username in obj.room_name):
             obj.delete()
-    # message = Message.objects.filter(sender_name=username).first()
-    # message.conversation.delete()
-    # except 
     return JsonResponse({'status' : 'success'})
 
 

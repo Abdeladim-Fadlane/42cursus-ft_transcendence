@@ -8,4 +8,5 @@ urlpatterns = [
     path("blockFriend/", views.block_user),
     path("chatCsrftoken/", views.csrf_token),
     path("delete_conversation/<str:username>/", views.delete_conversation),
+    path("change_chat/<str:oldusername>/<str:newusername>", views.change_room_name),
 ]

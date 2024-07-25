@@ -9,6 +9,7 @@ from . serializers import TaskSerializer
 from django.http import HttpResponseForbidden
 from .views import login_required
 import os
+import requests
 
 from cryptography.fernet import Fernet
 
@@ -111,6 +112,7 @@ def update_profile(request):
             return JsonResponse({'status': False, 'message': 'Email already taken'}, status=200)
         if  not new_username or not first_name or not last_name or not email:
             return JsonResponse({'status': False, 'message': 'All fields are required'}, status=200)
+        response = requests.get(f'http://chat:8003/change_chat/{user.username}/{new_username}')
         user.username = new_username
         user.first_name = first_name
         user.last_name = last_name
