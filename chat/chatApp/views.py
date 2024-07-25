@@ -10,8 +10,15 @@ import json
 # Create your views here.
 
 def delete_conversation(request, username):
-    message = Message.objects.filter(sender_name=username).first()
-    message.conversation.delete()
+    # try:
+    conves = Conversation.objects.all()
+    for obj in conves:
+        if (username in obj.room_name):
+            obj.delete()
+    # message = Message.objects.filter(sender_name=username).first()
+    # message.conversation.delete()
+    # except 
+    return JsonResponse({'status' : 'success'})
 
 
 def MessageHistory(request, room_name):

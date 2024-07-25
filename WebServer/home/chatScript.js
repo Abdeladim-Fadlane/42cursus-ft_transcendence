@@ -145,8 +145,6 @@ function create_chatRoom(map)
 
                     div_parent.append(div_message, div_time);
                     chat_div.append(div_parent);
-
-                    // console.log(div_parent.clientHeight)
                     index += div_message.clientHeight;
                     index += 8;
                     div_time.style.top = `${index}px`
@@ -157,7 +155,6 @@ function create_chatRoom(map)
              
             })
             .catch(error =>{ 
-                // console.error(error);
                 console.log(error);
             })
             let div_image = document.getElementById('image-chat');
@@ -229,14 +226,16 @@ function create_chatRoom(map)
                     console.log(error);
                 })
             }
+            let div_animate;
             Web_socket.onmessage = (e) =>{
                 let data_message = JSON.parse(e.data);
                 if (data_message.task == 'send_message')
-                {
+                {   
                     let div_time = document.createElement('div')
                     div_time.innerHTML = ParceDate(data_message.time);
                     if (data_message.status == "success")
                     {
+                        
                         let div_message = document.createElement('div');
                         div_message.innerHTML = data_message.message;
                         let div_parent = document.createElement("div");
@@ -319,11 +318,10 @@ function create_chatRoom(map)
                     chat_input.value = "";
                 }
             })
-            // Web_socket.onerror()
+         
             chat_input.addEventListener('keyup', (e) => {
                 if (String(chat_input.value).length && e.key == 'Enter' && hasNonPrintableChars(chat_input.value) == true)
-                {
-                    console.log(hasNonPrintableChars(chat_input.value) + ' hhhhhhhhhhh ::' + chat_input.value)
+                {   
                     Web_socket.send(JSON.stringify({
                         'task' : 'send_message',
                         'sender' : username1,

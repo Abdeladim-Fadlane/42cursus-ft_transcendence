@@ -12,7 +12,7 @@ function fetchSuggestions() {
         .then(response => {
             if (!response.ok) {
                 document.getElementById('list_friend').style.display = 'none';
-                console.log("Failed to fetch suggestions");
+                // console.log("Failed to fetch suggestions");
                 return;
             }
             return response.json();
@@ -32,7 +32,7 @@ function fetchSuggestions() {
 function updateSuggestions(data) {
     var reward = document.getElementById('list_friend');
     reward.innerHTML = ''; // Clear previous suggestions
-    console.log(data);
+    // console.log(data);
     data.forEach(item => {
         // console.log(item);
         let container = document.createElement('div');

@@ -10,13 +10,12 @@
     <link href="https://fonts.cdnfonts.com/css/games" rel="stylesheet">
 </head>
 <body>
-    <div class="blur"></div>
     <div class="ball"></div>
     <div class="ball2"></div>
     <nav class="navbar">
         <div class="fac_one">
         <div class="navbar-logo">
-            <a class="nav-link" data-target="home"><img src="./resrc/new-logo.png" alt="Logo" ></a>
+            <a class="nav-link" data-target="home"><img src="./resrc/new-logo.png" alt="Logo" onclick="active_section('play')"></a>
         </div>
         <div class="nav-search">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -26,8 +25,8 @@
     </div>
         <div class="navbar-buttons">
             <ul>
-                <li id="Home"><a  class="nav-link nav_hover" data-target="home"   onclick="border_home()" onclick="disactiv_sections()">Home</a></li>
-                <li id="Pr" ><a class="nav-link nav_hover" data-target="profile"  onclick="border_pr()" onclick="disactiv_sections()">Profile</a></li>
+                <li id="Home"><a  class="nav-link nav_hover" data-target="home" href="#home"  onclick="border_home()" onclick="disactiv_sections()">Home</a></li>
+                <li id="Pr" ><a class="nav-link nav_hover" data-target="profile" href="#profile" onclick="border_pr()" onclick="disactiv_sections()">Profile</a></li>
                 <li><div class="profil" id="imageprofile"></div></li>
             </ul>
         </div>
@@ -53,36 +52,36 @@
         <article>
             <div></div>
             <div id="home" class="content-section home">
-                        
-                    <div class="images">
+                    
+                <div class="images">
 
-                        <div class="welcome_home">
-                            <h1>Welcome to Ping Pong</h1>
-                            <h1>Choose a game mode</h1>
+                    <div class="welcome_home">
+                        <h1>Welcome to Ping Pong</h1>
+                        <h1>Choose a game mode</h1>
+                    </div>
+                    <div class="play">
+                    <div class="game">
+                           
+                            <button class="home_button" onclick="navigate('play')" >Start game</button>
                         </div>
-                        <div class="play">
-                            <div class="game">
-                                
-                                    <button class="home_button" onclick="navigate('play')" >Start game</button>
-                            </div>
-                            <div class="game">
-                                
-                                <button class="home_button" onclick="navigate('play_tournament')">play Tournament</button>
-                            </div>
+                        <div class="game">
+                            
+                            <button class="home_button" onclick="navigate('tournament_input')">play Tournament</button>
                         </div>
                 </div>
-                    <div class="challenge">
-                        <div class="center">
-                            <h2>online  friends</h2>
-                        </div>
-                        <div class="list_friend" id="challenge_friend"></div>
+            </div>
+                <div class="challenge">
+                    <div class="center">
+                        <h2>online  friends</h2>
                     </div>
-                    <div class="invite">
-                        <div class="center">
-                            <h2>invite to friends</h2>
-                        </div>
-                        <div class="invet_friend" id="list_friend"></div>
+                    <div class="list_friend" id="challenge_friend"></div>
+                </div>
+                <div class="invite">
+                    <div class="center">
+                        <h2>invite to friends</h2>
                     </div>
+                    <div class="invet_friend" id="list_friend"></div>
+                </div>
             </div>
             <div id="profile" class="content-section profile">
                 <div class="welcome">
@@ -267,6 +266,7 @@
                             <button class="profile-user-action-add_friend">Add friend</button>
                             <button class="profile-user-action-unfriend">Unfriend</button>
                             <button class="profile-user-action-go_to_chat">Go to chat</button>
+                            <div class="profile-user-action-message"></div>
                         </div>
                         <div class="profile-user-body">
                             <div class="profile-user-more_info">
@@ -310,118 +310,170 @@
                     </div>
                 </div>
                 <section id="loading-section-id">
-                <div id="loading">
-                    <div id="loader"></div>
-                </div>
+                    <div id="loading">
+                        <div id="loader"></div>
+                    </div>
                 </section>
-            <section id="play">
-                <div id="ping-pong-2" class="ping-pong">
-                    <div class="users">
-                        <div class="user1">
-                            <img id="2-canvas-icon-id-0" class="icon">
-                            <h2 id="2-canvas-display_name-id-0" class="display-name"></h2>
+                <section id="play">
+                    <div id="ping-pong-2" class="ping-pong">
+                        <div class="users">
+                            <div class="user1">
+                                <img id="2-canvas-icon-id-0" class="icon">
+                                <h2 id="2-canvas-display_name-id-0" class="display-name"></h2>
+                            </div>
+                            <div class="user2">
+                                <h2 id="2-canvas-display_name-id-1" class="display-name"></h2>
+                                <img id="2-canvas-icon-id-1" class="icon">
+                            </div>
+                        </div>
+                        <canvas id="2-canvas-id" class="canvas" width="600px" height="300px"></canvas>
+                    </div>
+                </section>
+                <section id="resultModal" class="result_class">
+                    <div class="msg_img">
+                        <h1 id="resultMessage" class="result_msg">Congration You Won!</h1>
+                        <div class="center_contents">
+                            <img id="result-gif" class="result_img" src="/home/resrc/game/win.gif">
+                        </div>
+                    </div>
+                    <div class="result_buttuns">
+                        <button class="Retry_button" onclick="challenge_lastone()">Retry</button>
+                        <button class="Retry_button" onclick="navigate('play')">Play Random</button>
+                        <button class="Home_button" onclick="closeModal('resultModal')">Home</button>
+                    </div>
+                </section>
+                <section id="refuse_game_id">
+                    <div class="pp">
+                        <h1 class="game_notification_msg">Game Refused by</h1>
+                        <div class="con">
+                            <img id="game_refuse_icon_id">
+                        </div> 
+                        <h1 id="game_refuse_username_id"></h1>
+                    </div>
+                    <div class="buttonss">
+                        <button class="Retry_button" onclick="navigate('play')">Play Random</button>
+                        <button class="Home_button" onclick="closeModal('refuse_game_id')">Home</button>
+                    </div>
+                </section>
+                <section id="play-4" >
+                    <div class="ping-pong">
+                        <div class="users">
+                            <div class="user1">
+                                <img id="4-canvas-icon-id-0" class="icon">
+                                <h2 id="4-canvas-display_name-id-0" class="display-name"></h2>
+                            </div>
+                            <div class="user2">
+                                <h2 id="4-canvas-display_name-id-2" class="display-name"></h2>
+                                <img id="4-canvas-icon-id-2" class="icon">
+                            </div>
+                        </div>
+                        <canvas id="4-canvas-id" class="canvas" width="600px" height="300px"></canvas>
+                        <div class="users">
+                            <div class="user1">
+                                <img id="4-canvas-icon-id-1" class="icon">
+                            <h2 id="4-canvas-display_name-id-1" class="display-name"></h2>
                         </div>
                         <div class="user2">
-                            <h2 id="2-canvas-display_name-id-1" class="display-name"></h2>
-                            <img id="2-canvas-icon-id-1" class="icon">
+                            <h2 id="4-canvas-display_name-id-3" class="display-name"></h2>
+                            <img id="4-canvas-icon-id-3" class="icon">
                         </div>
                     </div>
-                    <canvas id="2-canvas-id" class="canvas" width="600px" height="300px"></canvas>
                 </div>
             </section>
-            <section id="resultModal">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <span id="resultMessage">You Win</span>
-                <img id="result-gif" src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e70bcc65284623.5aef51b58b0c9.gif">
+            <section id="tournament_input" class="tournament-input">
+                <form method="post" id="display_name-form-id" class="tournament-input-form" action="/account/display_name/" enctype="multipart/form-data">
+                    <input type="hidden" name="csrfmiddlewaretoken" id="display_name_csrfToken">
+                    <input type="text" id="display_name" class="inputt" name="display_name" placeholder="Tournament display name" required><br>
+                    <div id="display_name_err"></div>
+                    <button type="submit" class="buttonn">Start</button>
+                </form>
             </section>
-            <section id="resultModal">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <span id="resultMessage">You Win</span>
-                <img id="result-gif" src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e70bcc65284623.5aef51b58b0c9.gif">
-            </section>
-            <section id="play-4" >
-                <div class="ping-pong">
-                    <div class="users">
-                        <div class="user1">
-                            <img id="4-canvas-icon-id-0" class="icon">
-                            <h2 id="4-canvas-display_name-id-0" class="display-name"></h2>
-                        </div>
-                        <div class="user2">
-                            <h2 id="4-canvas-display_name-id-2" class="display-name"></h2>
-                            <img id="4-canvas-icon-id-2" class="icon">
-                        </div>
-                    </div>
-                    <canvas id="4-canvas-id" class="canvas" width="600px" height="300px"></canvas>
-                    <div class="users">
-                        <div class="user1">
-                            <img id="4-canvas-icon-id-1" class="icon">
-                        <h2 id="4-canvas-display_name-id-1" class="display-name"></h2>
-                    </div>
-                    <div class="user2">
-                        <h2 id="4-canvas-display_name-id-3" class="display-name"></h2>
-                        <img id="4-canvas-icon-id-3" class="icon">
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="play_tournament">
-            <div id="tournament-id" class="tournament">
-                <div class="round">
-                    <div class="matchup">
-                        <div id="00" class="player"></div>
-                        <div id="01" class="player"></div>
-                    </div>
-                    <div class="matchup">
-                        <div id="02" class="player"></div>
-                        <div id="03" class="player"></div>
-                    </div>
-                    <div class="matchup">
-                        <div id="04" class="player"></div>
-                        <div id="05" class="player"></div>
-                    </div>
-                    <div class="matchup">
-                        <div id="06" class="player"></div>
-                        <div id="07" class="player"></div>
-                    </div>
-                    </div>
+            <section id="play_tournament">
+                <div id="tournament-id" class="tournament">
                     <div class="round">
                         <div class="matchup">
-                            <div id="10" class="player"></div>
-                            <div id="11" class="player"></div>
+                            <div id="00" class="player"></div>
+                            <div id="01" class="player"></div>
                         </div>
                         <div class="matchup">
-                            <div id="12" class="player"></div>
-                            <div id="13" class="player"></div>
+                            <div id="02" class="player"></div>
+                            <div id="03" class="player"></div>
                         </div>
-                    </div>
-                    <div class="round">
                         <div class="matchup">
-                            <div id="20" class="player"></div>
-                            <div id="21" class="player"></div>
+                            <div id="04" class="player"></div>
+                            <div id="05" class="player"></div>
+                        </div>
+                        <div class="matchup">
+                            <div id="06" class="player"></div>
+                            <div id="07" class="player"></div>
+                        </div>
+                        </div>
+                        <div class="round">
+                            <div class="matchup">
+                                <div id="10" class="player"></div>
+                                <div id="11" class="player"></div>
+                            </div>
+                            <div class="matchup">
+                                <div id="12" class="player"></div>
+                                <div id="13" class="player"></div>
+                            </div>
+                        </div>
+                        <div class="round">
+                            <div class="matchup">
+                                <div id="20" class="player"></div>
+                                <div id="21" class="player"></div>
+                            </div>
+                        </div>
+                        <div class="champion">
+                            <div id="30" class="player"></div>
                         </div>
                     </div>
-                    <div class="champion">
-                        <div id="30" class="player"></div>
+                </section>
+                <section id="win-tournament-id">
+                    <div class="msg_img_t">
+                        <h1 class="result_msg">Congration You are the champion!</h1>
+                        <div class="center_contents">
+                            <img class="result_img" src="/home/resrc/game/champion.gif">
+                        </div>
                     </div>
-                </div>
-            </section>
-            <section id="win-tournament-id">
-                <img id="win-tournament-background-id" src="https://cdn.dribbble.com/users/7421625/screenshots/18722898/media/9dc2ccd128c89b19dddd55447ba5e1d0.gif">
-            </section>
-            <section id="tournament_list" class="student-list">
-                <div class="student">
-                    <!-- <img src="mkatfi.jpeg" alt="Student Icon" class="student-icon"> -->
-                    <span class="student-name">Student Name 1</span>
-                </div>
-                <div class="student">
-                    <!-- <img src="mkatfi.jpeg" alt="Student Icon" class="student-icon"> -->
-                    <span class="student-name">Student Name 2</span>
-                </div>
-                <div class="student">
-                    <!-- <img src="mkatfi.jpeg" alt="Student Icon" class="student-icon"> -->
-                    <span class="student-name">Student Name 3</span>
-                </div>
-            </section>
+                    <div class="result_buttuns">
+                        <button class="Retry_button" onclick="challenge_lastone()">Retry</button>
+                        <button class="Retry_button" onclick="navigate('play')">Play Random</button>
+                        <button class="Home_button" onclick="closeModal('resultModal')">Home</button>
+                    </div>
+                </section>
+                <section id="tournament_list">
+                    <div class="conteudo">
+                        <div id="tournament_content" class="caixa">
+                        </div>
+                    </div>
+                </section>
+                <section id="game_notification_id" class="game_notification">
+                    <img id="game_notification_icon_id" class="icon">
+                    <h2 id="game_notification_username_id" class="display-name"></h2>
+                    <h1>Do you want to play a game?</h1>
+                    <div class="fighters_bottuns">
+                        <button class="Continue" id="acceptBtn_play" onclick="accept_game()">Accept</button>
+                        <button class="Give_Up" id="refuseBtn_play" onclick="refuse_game()">Refuse</button>
+                    </div>
+                </section>
+                <section class="par" id="start_fight">
+                    <div class="fighters">
+                      <div class="fighter1" id="fighter1">
+                        <h1 id="fighter_username_0"></h1>
+                        <img id="fighter_icon_0" class="icon">
+                      </div>
+                      <div class="vs">vs</div>
+                      <div class="fighter2">
+                        <img id="fighter_icon_1" class="icon">
+                        <h1 id="fighter_username_1"></h1>
+                      </div>
+                    </div>
+                    <div class="fighters_bottuns">
+                      <button class="Continue" onclick="Continue_game('Continue')">Continue</button>
+                      <button class="Give_Up" onclick="Continue_game('Give_Up')">Give Up</button>
+                    </div>
+                </section>
         </article>
        
     </div>

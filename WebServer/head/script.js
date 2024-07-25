@@ -7,7 +7,8 @@ function already_logged() {
         })
         .then(data => {
             if (data.status === true)
-                window.location.href = "/home/";
+                console.log('Already logged in');
+                console.log(data);
         })
 }
 
@@ -52,7 +53,7 @@ function ft_sign_up() {
 
 
 function ft_sign_in() {
-console.log('hello2');
+// console.log('hello2');
 
 const modal1 = document.getElementById('sign-up-form');
 modal1.style.display = 'none';
@@ -60,7 +61,7 @@ const modal = document.getElementById('login-form');
 modal.style.display = 'flex';
 }
   function closeLogoutModal() {
-    console.log('hello3');
+    // console.log('hello3');
     const modal1 = document.getElementById('sign-up-form');
     modal1.style.display = 'none';
     const modal = document.getElementById('login-form');
@@ -88,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.status === true) {
 
                 const modal1 = document.getElementById('sign-up-form');
-                mf
+                modal1.style.display = 'none';
                 const modal = document.getElementById('login-form');
                 modal.style.display = 'flex';
             } 
@@ -96,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 if (data.error.email != undefined)
                 {
-                    console.log(data.error);
+                    // console.log(data.error);
                     document.getElementById('messageemail').innerHTML = data.error.email;
                     document.getElementById('messageemail').style.color = 'red';
                 }

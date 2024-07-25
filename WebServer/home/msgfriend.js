@@ -50,6 +50,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     if (!ishere)
                     {
+                        // if (document.querySelector('.chat-input').contains(document.querySelector('.user-info-menu')))
+                        //     document.querySelector('.chat-input').removeChild(document.querySelector('.user-info-menu'))
                         document.querySelector('.chat-messages').style.display = 'none';
                         document.querySelector('.chat-input').style.display = 'none';
                         if (document.querySelector('.header-chat-photouser'))

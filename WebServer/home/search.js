@@ -16,9 +16,7 @@ let d = true;
 let index = 0;
 let text = 'Search ...'
 function do_event(e)
-{ 
-    // if ()
-    // console.log('speeend up')
+{
     if (d == true)
     {
         search.placeholder += text[index++]

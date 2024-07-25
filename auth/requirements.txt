@@ -10,3 +10,4 @@ channels
 channels[daphne]
 Pillow
 django-cors-headers
+httpx

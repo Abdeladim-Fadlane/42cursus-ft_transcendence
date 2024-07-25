@@ -7,6 +7,7 @@ do
   sleep 2
 done
 
+
 python manage.py makemigrations 
 python manage.py migrate
 

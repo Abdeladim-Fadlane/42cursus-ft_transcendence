@@ -1,107 +1,56 @@
-function initializePageState() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const page = urlParams.get('page');
 
-  if (!isValidPage(page)) {
-    redirectTo404();
-    return;
-  }
 
-  switch (page) {
-    case 'home':
-      border_home();
-      break;
-    case 'profile':
-      border_pr();
-      break;
-    case 'chat':
-      click_chat();
-      break;
-    default:
-      border_home();
-  }
-}
-
-function isValidPage(page) {
-  console.log(page);
-  const validPages = ['home', 'profile', 'chat',null];
-  return validPages.includes(page);
-}
-
-function redirectTo404() {
-  window.location.href = '/404.html'; // Redirect to your 404 page
-}
-
-window.onload = function() {
-  initializePageState();
-};
-
-window.onpopstate = function(event) {
-  if (event.state) {
-    switch (event.state.page) {
-      case 'home':
-        border_home(false);
-        break;
-      case 'profile':
-        border_pr(false);
-        break;
-      case 'chat':
-        click_chat(false);
-        break;
-      default:
-        border_home(false); 
-    }
-  }
-};
-
-function border_home(pushState = true) {
+document.addEventListener("DOMContentLoaded", function () {
   document.getElementById('Home').style.borderBottom = '2px solid #bbb';
-  document.getElementById('Home').style.padding = '5px';
-  document.getElementById('Pr').style.borderBottom = '0px solid #bbb';
 
-  if (pushState) {
-    window.history.pushState({page: 'home'}, 'Home', '?page=home');
+    const links = document.querySelectorAll(".nav-link");
+    const sections = document.querySelectorAll(".content-section");
+    links.forEach((link) => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("data-target");
+        // console.log(targetId);
+  
+        sections.forEach((section) => {
+          if (section.id === targetId) {
+            section.style.display = "flex";
+          } else {
+            section.style.display = "none";
+          }
+        });
+      });
+    });
+    // Initial state
+    document.getElementById("home").style.display = "flex";
+    document.getElementById("profile").style.display = "none";
+    document.getElementById("chat").style.display = "none";
+    document.getElementById("notifi").style.display = "none";
+    // document.getElementById("setting").style.display = "none";
+  });
+  
+  function border_home()
+  {
+    document.getElementById('Home').style.borderBottom = '2px solid #bbb';
+    document.getElementById('Home').style.padding = '5px';
+    document.getElementById('Pr').style.borderBottom = '0px solid #bbb';
+    
+
   }
+  function border_pr()
+  {
+    document.getElementById('Home').style.borderBottom = '0px solid #bbb';
+    document.getElementById('Pr').style.padding = '5px';
 
-  document.getElementById("home").style.display = "flex";
-  document.getElementById("profile").style.display = "none";
-  document.getElementById("chat").style.display = "none";
-}
+    document.getElementById('Pr').style.borderBottom = '2px solid #bbb';
+    
 
-function border_pr(pushState = true) {
-  document.getElementById('Home').style.borderBottom = '0px solid #bbb';
-  document.getElementById('Pr').style.padding = '5px';
-  document.getElementById('Pr').style.borderBottom = '2px solid #bbb';
-
-  if (pushState) {
-    window.history.pushState({page: 'profile'}, 'Profile', '?page=profile');
   }
-
-  document.getElementById("home").style.display = "none";
-  document.getElementById("profile").style.display = "flex";
-  document.getElementById("chat").style.display = "none";
-}
-
-function click_chat(pushState = true) {
-  console.log("chat");
-  document.getElementById('Home').style.borderBottom = '0px solid #bbb';
-  document.getElementById('Pr').style.borderBottom = '0px solid #bbb';
-
-  if (pushState) {
-    window.history.pushState({page: 'chat'}, 'Chat', '?page=chat');
+  function click_chat()
+  {
+    document.getElementById('Home').style.borderBottom = '0px solid #bbb';
+    document.getElementById('Pr').style.borderBottom = '0px solid #bbb';
+    // document.getElementById('chat_icon').style.borderBottom = '2px solid #bbb';
   }
-
-  document.getElementById("home").style.display = "none";
-  document.getElementById("profile").style.display = "none";
-  document.getElementById("chat").style.display = "flex";
-}
-
-
-
-
-
-
-
   let currentFriend = null;
   
   function openChat(friendName) {
@@ -154,7 +103,6 @@ function click_chat(pushState = true) {
     window.location.href = '/logout/';
   }
 
- 
   function showSettingsModal() {
     fetch('/api/data/')
     .then(response => { return response.json()})
@@ -167,8 +115,8 @@ function click_chat(pushState = true) {
     })
     const modal = document.getElementById('settings-modal');
     modal.style.display = 'flex';
-    
   }
+  
   function closeSettingsModal() {
     const modal = document.getElementById('settings-modal');
     modal.style.display = 'none';

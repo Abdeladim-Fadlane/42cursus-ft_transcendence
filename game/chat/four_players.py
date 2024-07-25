@@ -1,5 +1,5 @@
 import asyncio, json
-from chat.cons import Match, racket, height, width, ww, User
+from chat.cons import Match, racket, height, width, ww, User, send_to_group, serialize_Users
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
 from datetime import datetime
@@ -78,6 +78,9 @@ async def four_players_game(users):
         u.racket = racket(int(i / 2) * (width - ww), (i % 2) * int(height / 2) + int(height / 4), (i % 2) * int(height / 2), int(height / 2) + (i % 2) * int(height / 2))
         rooms[group_name].set_player(u, i)
         i += 1
+    print("-------------------------task start-------------------------")
+    await send_to_group(rooms[group_name].players, {'data':json.dumps(rooms[group_name], default=serialize_Users)});
+    await asyncio.sleep(5)
     winners = await rooms[group_name].run_game()
     result = [None] * 2
     result[0] = 'Winner' if winners == 1 else 'Loser'
