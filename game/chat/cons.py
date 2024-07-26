@@ -60,7 +60,7 @@ class ball:
         self.x = x
         self.y = y
         self.r = 10
-        self.angl = 0
+        self.angl = 5.2
         self.speed = 0.9
         self.vx = math.cos(self.angl * math.pi / 180) * self.speed
         self.vy = math.sin(self.angl * math.pi / 180) * self.speed
