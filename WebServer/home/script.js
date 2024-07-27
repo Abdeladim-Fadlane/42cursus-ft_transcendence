@@ -170,7 +170,9 @@ function click_chat(pushState = true) {
     // Redirect to the login page (assuming login.html is your login page)
     window.location.href = '/logout/';
   }
-
+  // old_password
+  // new_password
+  // confirm_password
   function showSettingsModal() {
     fetch('/api/data/')
     .then(response => { return response.json()})
@@ -180,6 +182,12 @@ function click_chat(pushState = true) {
       document.querySelector('#email').value = data.email;
       document.querySelector('#first_name').value = data.first_name;
       document.querySelector('#last_name').value = data.last_name;
+      if (data.unique_id != '0') {
+        document.querySelector('#old_password').readOnly = true;
+        document.querySelector('#new_password').readOnly = true;
+        document.querySelector('#confirm_password').readOnly = true;
+        document.querySelector('.isintra').style.display = 'none';
+      }
     })
     const modal = document.getElementById('settings-modal');
     modal.style.display = 'flex';
