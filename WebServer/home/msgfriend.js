@@ -13,12 +13,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
+                let chat_msg = document.querySelector('.chat-friend-name');
+                let ishere =  false;
                 if (data.length !== previousDataSize) {
+                    
                     previousDataSize = data.length;
                     var reward = document.getElementById('list_friend_chat');
                     reward.innerHTML = "";  // Clear the existing content
 
                     for (let i = 0; i < data.length; i++) {
+                        if (chat_msg != undefined && chat_msg == data[i].username)
+                            ishere = true;
                         let container = document.createElement('button');
                         let img = document.createElement('img');
                         img.src = data[i].photo_profile;
@@ -43,6 +48,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         reward.appendChild(document.createElement('br'));
                         map.set(data[i].username, "block");
                     }
+                    if (!ishere)
+                    {
+                        // if (document.querySelector('.chat-input').contains(document.querySelector('.user-info-menu')))
+                        //     document.querySelector('.chat-input').removeChild(document.querySelector('.user-info-menu'))
+                        document.querySelector('.chat-messages').style.display = 'none';
+                        document.querySelector('.chat-input').style.display = 'none';
+                        if (document.querySelector('.header-chat-photouser'))
+                            document.querySelector('.header-chat-photouser').style.display = 'none'
+                        if (document.querySelector('.chat-option-user'))
+                            document.querySelector('.chat-option-user').style.display = 'none'
+                        document.querySelector('#chat-friend-name').textContent = 'Select a friend to chat';
+                        document.querySelector('#chat-friend-name').style.fontSize = '25px'
+                        document.querySelector('.chat-header').style.border = 'none';
+                        
+                    }
                     create_chatRoom(map);
                 }
             })
@@ -54,5 +74,5 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchAndUpdateFriends();
 
     
-    setInterval(fetchAndUpdateFriends, 3000);
+    setInterval(fetchAndUpdateFriends, 2000);
 });

@@ -7,7 +7,6 @@ from .login import logout as log
 from django.http import HttpResponseForbidden
 from . serializers import TaskSerializer
 from django.contrib.auth import logout
-import requests
 
 def send_friend_request(request):
     sender = login_required(request)
@@ -16,9 +15,11 @@ def send_friend_request(request):
     if request.method == 'POST':
         receivernaem = json.loads(request.body)['receiver']
         receiver = CustomUser.objects.get(username=receivernaem)
+        if FriendRequest.objects.filter(sender=sender, receiver=receiver):
+            return JsonResponse({"status":False}, status=405)
+        if FriendRequest.objects.filter(sender=receiver, receiver=sender):
+            return JsonResponse({"status":False}, status=405)
         re = FriendRequest.objects.create(sender=sender, receiver=receiver)
-        re.photo_profile = sender.photo_profile
-        re.save()
         return JsonResponse({"status":True}, status=200)
     return JsonResponse({"status":False}, status=405)
     
@@ -59,7 +60,7 @@ def get_friend_requests(request):
     for req in requests:
         request_data = {
             'sender_username': req.sender.username,
-            'photo_profile': req.photo_profile.url if req.photo_profile else None 
+            'photo_profile': req.sender.photo_profile.url
         }
         data.append(request_data)
     return JsonResponse(data, safe=False, status=200)
@@ -114,7 +115,7 @@ def get_friends(request):
     for friend in friends:
         friend_data = {
             'username': friend.user2.username,
-            'photo_profile': friend.user2.photo_profile.url if friend.user2.photo_profile else None 
+            'photo_profile': friend.user2.photo_profile.url
         }
         data.append(friend_data)
     return JsonResponse(data, safe=False, status=200)
@@ -148,9 +149,18 @@ def online_friends(request):
         if friend.user2.available:
             friend_data = {
                 'username': friend.user2.username,
-                'photo_profile': friend.user2.photo_profile.url if friend.user2.photo_profile else None 
+                'photo_profile': friend.user2.photo_profile.url 
             }
             data.append(friend_data)
+    friends = Friends.objects.filter(user2=user)
+    for friend in friends:
+        if friend.user1.available:
+            friend_data = {
+                'username': friend.user1.username,
+                'photo_profile': friend.user1.photo_profile.url 
+            }
+            if friend_data not in data:
+                data.append(friend_data)
     return JsonResponse(data, safe=False, status=200)
 
 
@@ -176,7 +186,6 @@ def delete_account(request):
     if hasattr(user,'photo_profile'):
         if user.photo_profile != "User_profile/avatar.svg" :
             user.photo_profile.delete(save=False)
-    response = requests.get(f'http://chat:8003/delete_conversation/{user.username}')
     logout(request)
     user.delete()
     return JsonResponse({'status': True}, status=200)
@@ -185,7 +194,6 @@ def getAllUser(request):
     user = login_required(request)
     if not user:
         return HttpResponseForbidden("Forbidden", status=403)
-    
     users = CustomUser.objects.all()
     data = TaskSerializer(users,many=True)
     return JsonResponse(data.data,safe=False)

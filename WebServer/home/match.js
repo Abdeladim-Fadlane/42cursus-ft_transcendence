@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 var historyContainer = document.getElementById('data_history');
                 if (historyContainer) {
                     historyContainer.innerHTML = ''; // Clear previous content

@@ -13,7 +13,6 @@ function generateRoomName(user1, user2)
 }
 
 function hasNonPrintableChars(inputString) {
-    // console.log(":::" + inputString + ":::")
     for (var i = 0; i < inputString.length; i++) {
         var code = inputString.charCodeAt(i);
         // console.log("code =====> " + code)
@@ -39,18 +38,16 @@ function create_chatRoom(map)
     let user_image = document.createElement('img');
     let div_info = document.createElement('div');
     let div_menu = document.createElement('div');
-    button_chat.hidden = true;
-    chat_input.hidden = true;
-    let button_block = document.createElement('a');
-    chat_div.hidden = true;
+    let button_block = document.createElement('p');
     div_menu.className = 'user-info-menu';
-    button_block.className = 'menu-block-button'
-    button_block.href = "#"
-    let button_info = document.createElement('a');
+    button_block.className = 'menu-block-button';
+    let button_info = document.createElement('p');
     button_info.className = 'menu-info-button'
-    button_info.href = "#"
-    button_info.addEventListener('click', view_profile);
     let div_menu_child1 = document.createElement('div');
+    div_menu_child1.addEventListener('click', view_profile);
+    let button_game = document.createElement('p');
+    button_game.classList.add('menu-game-button');
+    
     let icon_div = document.createElement('i')
     icon_div.classList.add("fa-solid" ,"fa-user") 
     div_menu_child1.append(
@@ -69,16 +66,29 @@ function create_chatRoom(map)
         document.createElement('hr'),
         div_menu_child2
     );
+    let div_menu_child3 = document.createElement('div')
+    icon_div = document.createElement('i');
+    icon_div.classList.add('fa-solid', 'fa-table-tennis-paddle-ball');
+    div_menu_child3.append(
+        icon_div,
+        button_game
+    )
+    div_menu.append(
+        document.createElement('hr'),
+        div_menu_child3
+    );
     var check = true;
     let username2;
     let username1;
     let room_name;
     let div_bolck_msg = document.createElement('div');
     div_bolck_msg.className = 'div-block-user'
+    let last_button;
     buttons_friends.forEach(button => {
         button.addEventListener('click', (e) =>
         {
-            chat_div.hidden = false
+            chat_div.style.display = 'flex';
+            div_chat_tools.style.display = 'flex';
             if (chat_container.contains(div_menu))
             {
                 check = true;
@@ -135,10 +145,8 @@ function create_chatRoom(map)
 
                     div_parent.append(div_message, div_time);
                     chat_div.append(div_parent);
-
-                    // console.log(div_parent.clientHeight)
                     index += div_message.clientHeight;
-                    index += 5;
+                    index += 8;
                     div_time.style.top = `${index}px`
                     index += 10;
                     chat_div.scrollTop = chat_div.scrollHeight - chat_div.clientHeight;
@@ -147,7 +155,6 @@ function create_chatRoom(map)
              
             })
             .catch(error =>{ 
-                // console.error(error);
                 console.log(error);
             })
             let div_image = document.getElementById('image-chat');
@@ -219,18 +226,18 @@ function create_chatRoom(map)
                     console.log(error);
                 })
             }
+            let div_animate;
             Web_socket.onmessage = (e) =>{
                 let data_message = JSON.parse(e.data);
                 if (data_message.task == 'send_message')
-                {
+                {   
                     let div_time = document.createElement('div')
                     div_time.innerHTML = ParceDate(data_message.time);
-                    // console.log("==========> " + data_message.message);
                     if (data_message.status == "success")
                     {
+                        
                         let div_message = document.createElement('div');
                         div_message.innerHTML = data_message.message;
-                        // console.log(data_message.sender == username1);
                         let div_parent = document.createElement("div");
                         
                         if (data_message.sender == username1)
@@ -258,7 +265,7 @@ function create_chatRoom(map)
                         div_parent.append(div_message, div_time)
                         chat_div.append(div_parent);
                         index += div_message.clientHeight;
-                        index += 5;
+                        index += 8;
                         div_time.style.top = `${index}px`;
                         index += 10;
                     }
@@ -311,11 +318,10 @@ function create_chatRoom(map)
                     chat_input.value = "";
                 }
             })
-            // Web_socket.onerror()
+         
             chat_input.addEventListener('keyup', (e) => {
                 if (String(chat_input.value).length && e.key == 'Enter' && hasNonPrintableChars(chat_input.value) == true)
-                {
-                    console.log(hasNonPrintableChars(chat_input.value) + ' hhhhhhhhhhh ::' + chat_input.value)
+                {   
                     Web_socket.send(JSON.stringify({
                         'task' : 'send_message',
                         'sender' : username1,
@@ -353,7 +359,8 @@ function create_chatRoom(map)
         if (check == true){
             button_block.textContent = `${map_action[username2]} ${username2}`;
             button_info.textContent = `${username2}'s profile`;
-            button_info.id = username2;
+            button_game.textContent = `play with ${username2}`;
+            div_menu_child1.id = username2;
             chat_container.append(div_menu);
             check = false;
         }
@@ -415,7 +422,7 @@ function create_chatRoom(map)
     }
     // div_bolck_msg.className = 'chat-block-user'
     // div_bolck_msg.style.color = 'white';
-    button_block.addEventListener('click', do_action);
+    div_menu_child2.addEventListener('click', do_action);
 }
 
 

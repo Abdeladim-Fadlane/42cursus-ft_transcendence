@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.profile_photo_form').addEventListener('submit', (e)=>{
         e.preventDefault();
@@ -35,14 +34,14 @@ document.querySelector('#image').addEventListener('input', (e)=>{
         document.querySelector('#button_profile_click').click();
 });
 
+
 document.addEventListener('DOMContentLoaded', function() {
     
     fetch('/api/csrf-token/')
       .then(response => response.json())
       .then(data => {
           document.getElementById('crcf').value = data.csrfToken;
-      })
-      .catch(error => console.error('Error fetching CSRF token:', error));
+        })
     });
     document.getElementById('avatarForm').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -58,14 +57,43 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.status === true) {
-                    window.location.href = "/home/";
+                document.getElementById('settings-modal').style.display = 'none';
             } else {
-                document.getElementById('messages').innerHTML =  data.message;
-                document.getElementById('messages').style.color = 'red';
+                var msg = document.getElementById('messages');
+                msg.innerHTML = data.message;
             }
         })
-        .catch(error => {
-            document.getElementById('messages').innerHTML = error;
-            document.getElementById('messages').style.color = 'red';
-        });
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/api/csrf-token/')
+      .then(response => response.json())
+      .then(data => {
+          document.getElementById('crcf2').value = data.csrfToken;
+      })
+      .catch(error => console.error('Error fetching CSRF token:', error));
+    });
+
+    document.getElementById('passwordForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        const csrfToken = document.getElementById('crcf2').value;
+        fetch('/change_password/', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': csrfToken,
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // console.log(data);
+            if (data.status === true) {
+                    document.getElementById('settings-modal').style.display = 'none';
+                    
+            } else {
+                document.getElementById('messages1').innerHTML =  data.message;
+            }
+        })
 });

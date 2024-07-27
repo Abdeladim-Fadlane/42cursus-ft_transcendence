@@ -55,10 +55,7 @@ window.onpopstate = function(event) {
 };
 
 function border_home(pushState = true) {
-  document.getElementById('Home').style.borderBottom = '2px solid #bbb';
-  document.getElementById('Home').style.padding = '5px';
-  document.getElementById('Pr').style.borderBottom = '0px solid #bbb';
-
+  console.log("home");
   if (pushState) {
     window.history.pushState({page: 'home'}, 'Home', '?page=home');
   }
@@ -66,12 +63,18 @@ function border_home(pushState = true) {
   document.getElementById("home").style.display = "flex";
   document.getElementById("profile").style.display = "none";
   document.getElementById("chat").style.display = "none";
+  document.getElementById('Home-aside').style.cssText = 'font-size: 40px; color: #ff44e4; ';
+  document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+
 }
 
 function border_pr(pushState = true) {
-  document.getElementById('Home').style.borderBottom = '0px solid #bbb';
-  document.getElementById('Pr').style.padding = '5px';
-  document.getElementById('Pr').style.borderBottom = '2px solid #bbb';
+  console.log("profile------");
+  document.getElementById('Pr-aside').style.borderBottom = '2px solid #bbb';
 
   if (pushState) {
     window.history.pushState({page: 'profile'}, 'Profile', '?page=profile');
@@ -80,13 +83,20 @@ function border_pr(pushState = true) {
   document.getElementById("home").style.display = "none";
   document.getElementById("profile").style.display = "flex";
   document.getElementById("chat").style.display = "none";
+  document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('Pr-aside').style.cssText = 'font-size: 40px; color: #ff44e4; ';
+  document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+
+  document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  
+
+
 }
 
 function click_chat(pushState = true) {
   console.log("chat");
-  document.getElementById('Home').style.borderBottom = '0px solid #bbb';
-  document.getElementById('Pr').style.borderBottom = '0px solid #bbb';
-
   if (pushState) {
     window.history.pushState({page: 'chat'}, 'Chat', '?page=chat');
   }
@@ -94,20 +104,21 @@ function click_chat(pushState = true) {
   document.getElementById("home").style.display = "none";
   document.getElementById("profile").style.display = "none";
   document.getElementById("chat").style.display = "flex";
+  document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('chat-aside').style.cssText = 'font-size: 40px; color: #ff44e4; ';
+  document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+
 }
-
-
-
-
-
-
-
   let currentFriend = null;
   
   function openChat(friendName) {
       currentFriend = friendName;
       document.getElementById('chat-friend-name').textContent = `Chat with ${friendName}`;
       document.getElementById('chat-messages').innerHTML = ''; // Clear previous messages
+
   }
   
   function sendMessage() {
@@ -137,6 +148,12 @@ function click_chat(pushState = true) {
 
     function showLogoutModal() {
     const modal = document.getElementById('logout-modal');
+  //   document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('logout-aside').style.cssText = 'font-size: 40px; color: #ff44e4 ';
     modal.style.display = 'flex';
   }
   
@@ -166,7 +183,13 @@ function click_chat(pushState = true) {
     })
     const modal = document.getElementById('settings-modal');
     modal.style.display = 'flex';
-    
+
+  //   document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc;  ';
+  // document.getElementById('setting-aside').style.cssText = 'font-size: 40px; color: #ff44e4 ';
+  // document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
   }
   
   function closeSettingsModal() {
@@ -179,8 +202,40 @@ function click_chat(pushState = true) {
     
     const modal = document.getElementById('notifi');
     modal.style.display = 'flex';
+  //   document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('notif-aside').style.cssText = 'font-size: 40px; color: #ff44e4  ';
+  // document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
   }
+
+  
+
   function closeNotificationsModal() {
-    const modal = document.getElementById('notifi');
-    modal.style.display = 'none';
+    document.getElementById('notifi').style.display = 'none';
+}
+
+document.getElementById('notifi').addEventListener('click', function(event) {
+  if (event.target === this) {
+      closeNotificationsModal();
   }
+});
+
+document.getElementById('logout-modal').addEventListener('click', function(event) {
+  if (event.target === this) {
+    closeLogoutModal();
+  }
+});
+
+document.getElementById('settings-modal').addEventListener('click', function(event) {
+  if (event.target === this) {
+    closeSettingsModal();
+  }
+});
+
+document.getElementById('notifi').addEventListener('click', function(event) {
+  if (event.target === this) {
+      closeNotificationsModal();
+  }
+});

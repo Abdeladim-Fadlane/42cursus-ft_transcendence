@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add user profile picture to profileid
             const imgpro = document.getElementById('profileid');
             const img2 = createProfileImage(userData.photo_profile, "2px solid cyan");
-            img2.classList.add('image-profile-id')
+            img2.classList.add('image-profile-id');
             imgpro.appendChild(img2);
             
             // Add user profile picture to imageprofile

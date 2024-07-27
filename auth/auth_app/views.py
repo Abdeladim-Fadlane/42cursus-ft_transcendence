@@ -48,6 +48,7 @@ def SignIn(request):
             token ,_ = Token.objects.get_or_create(user=user)
             request.session['user_id'] = user.id
             request.session['token'] = token.key
+            user.available = True
             login(request, user)
             user.save()
             return JsonResponse({'status':True}, status=200)
@@ -88,7 +89,9 @@ def exchange_code_for_token(code):
         'redirect_uri': redirect_uri
     }
     response = requests.post(token_url,data=data)
-    return response.json()['access_token']
+    if response.status_code == 200:
+        return response.json()['access_token']
+    return None
 
     
 def store_data_in_database(request,access_token):
@@ -122,7 +125,7 @@ def store_data_in_database(request,access_token):
                     with open(save_path, 'wb') as f:
                         f.write(response.content)
                     user.photo_profile = f'User_profile/{filename}'
-                    user.intraUser = True
+                    user.available = True
                     user.save()
                 user.save()
             token,_,= Token.objects.get_or_create(user=user)
@@ -133,7 +136,7 @@ def store_data_in_database(request,access_token):
             token,_,= Token.objects.get_or_create(user=fuser)
             request.session['user_id'] = fuser.id
             request.session['token'] = token.key
-            fuser.intraUser = True
+            fuser.available = True
             fuser.save()
 
 

@@ -4,11 +4,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     fetchRequests();
     fetchSuggestions();
-    // handlechalleng();
-    // Polling every 30 seconds to fetch updates
     setInterval(fetchRequests, 3000);
     setInterval(fetchSuggestions, 3000);
-    // setInterval(handlechalleng, 3000);
 
 });
 
@@ -39,7 +36,7 @@ function fetchRequests() {
 
 // Handle friend request action
 function handleRequestAction(action, senderUsername, requestId) {
-    console.log('Handling request:', action, senderUsername);
+    // console.log('Handling request:', action, senderUsername);
     fetch('/api/csrf-token/')
         .then(response => response.json())
         .then(data => {
@@ -140,7 +137,7 @@ function fetchSuggestions() {
         .then(response => {
             if (!response.ok) {
                 document.getElementById('list_friend').style.display = 'none';
-                console.log("Failed to fetch suggestions");
+                // console.log("Failed to fetch suggestions");
                 return;
             }
             return response.json();

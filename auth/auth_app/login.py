@@ -8,7 +8,9 @@ from django.contrib.auth import update_session_auth_hash
 from . serializers import TaskSerializer 
 from django.http import HttpResponseForbidden
 from .views import login_required
+import os
 
+from cryptography.fernet import Fernet
 
 def get_match_history(request):
     user = login_required(request)
@@ -76,14 +78,22 @@ def data(request):
     dataseriaser = TaskSerializer(user)
     return JsonResponse(dataseriaser.data, status=200)
 
+
+
 def token(request):
     user = login_required(request)
     if not user:
         return HttpResponseForbidden("Forbidden", status=403)
+    key =  os.environ.get('encrypt_key')
+    ferneet = Fernet(key)
+    id = request.session.get('user_id')
     token = request.session.get('token')
-    contex = {'token': token,'id':user.id}
-    return JsonResponse(contex, status=200)
-
+    encrypted_token = ferneet.encrypt(token.encode())
+    context = {
+        'token': encrypted_token.decode(),
+        'id': id
+    }
+    return JsonResponse(context, status=200)
 
 def update_profile(request):
     if request.method == 'POST':
@@ -126,6 +136,7 @@ def change_profile(request):
     else:
         return JsonResponse({'status': False}, status=200)
 
+
 def change_password(request):
     if request.method != 'POST':
         return JsonResponse({'status': False}, status=405)
@@ -143,6 +154,22 @@ def change_password(request):
     user.save()
     return JsonResponse({'status': True}, status=200)
 
+####################################
+def set_display_name(request):
+    if request.method == 'POST':
+        user = login_required(request)
+        user.display_name = ''
+        new_display_name = request.POST.get('display_name')
+        if len(new_display_name) > 10:
+            return JsonResponse({'status': False, 'message': 'display name Too large'}, status=200)
+        if CustomUser.objects.filter(display_name=new_display_name).exclude(id=user.id).exists():
+            return JsonResponse({'status': False, 'message': 'display name already taken'}, status=200)
+        user.display_name = new_display_name
+        user.save()
+        return JsonResponse({'status': True}, status=200)
+    else:
+        return JsonResponse({'status': False, 'message': 'Invalid request method'}, status=405)
+####################################
 
 @csrf_exempt
 def csrf_token(request):

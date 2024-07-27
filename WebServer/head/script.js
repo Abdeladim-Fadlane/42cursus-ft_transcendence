@@ -60,12 +60,22 @@ const modal = document.getElementById('login-form');
 modal.style.display = 'flex';
 }
   function closeLogoutModal() {
-    console.log('hello3');
+    
     const modal1 = document.getElementById('sign-up-form');
     modal1.style.display = 'none';
     const modal = document.getElementById('login-form');
     modal.style.display = 'none';
   }
+  document.getElementById('sign-up-form').addEventListener('click', function(event) {
+    if (event.target === this) {
+        closeLogoutModal();
+    }
+  });
+  document.getElementById('login-form').addEventListener('click', function(event) {
+    if (event.target === this) {
+        closeLogoutModal();
+    }
+  });
 document.addEventListener('DOMContentLoaded', function() {
     fetch('/api/csrf-token/')
         .then(response => response.json())
