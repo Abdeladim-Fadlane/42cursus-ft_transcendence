@@ -116,6 +116,11 @@ CHANNEL_LAYERS = {
     },
 }
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': "channels.layers.InMemoryChannelLayer",
+    },
+}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

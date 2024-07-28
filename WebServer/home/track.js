@@ -15,6 +15,11 @@ fetch('/api/token/')
         socket.onerror = (error) => {
             console.error('WebSocket error: ', error);
         };
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            console.log(data.message);
+
+        }
     })
 .catch(error => {
     console.error('Error fetching token:', error);

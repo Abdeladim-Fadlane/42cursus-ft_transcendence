@@ -3,7 +3,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     handleRequestsuggestion();
-    setInterval(fetchdelette, 2000);
+    // setInterval(fetchdelette, 2000);
 });
 
 let current = 0;

@@ -1,6 +1,6 @@
 import json 
 from asgiref.sync import sync_to_async
-from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.generic.websocket import AsyncWebsocketConsumer # type: ignore
 from django.shortcuts import get_object_or_404
 from .models import Conversation, Message
 class ChatLive(AsyncWebsocketConsumer):

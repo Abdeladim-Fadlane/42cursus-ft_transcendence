@@ -77,5 +77,5 @@ function fetchRequests() {
 
 document.addEventListener('DOMContentLoaded', function() {
     handlechalleng(); // Initial call on page load
-    setInterval(fetchRequests, 2000); // Subsequent calls every 2 seconds
+    // setInterval(fetchRequests, 2000); // Subsequent calls every 2 seconds
 });

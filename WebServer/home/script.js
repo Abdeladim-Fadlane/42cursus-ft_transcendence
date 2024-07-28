@@ -23,7 +23,7 @@ function initializePageState() {
 }
 
 function isValidPage(page) {
-  console.log(page);
+  // console.log(page);
   const validPages = ['home', 'profile', 'chat',null];
   return validPages.includes(page);
 }
@@ -55,7 +55,7 @@ window.onpopstate = function(event) {
 };
 
 function border_home(pushState = true) {
-  console.log("home");
+  // console.log("home");
   if (pushState) {
     window.history.pushState({page: 'home'}, 'Home', '?page=home');
   }
@@ -73,7 +73,6 @@ function border_home(pushState = true) {
 }
 
 function border_pr(pushState = true) {
-  console.log("profile------");
   document.getElementById('Pr-aside').style.borderBottom = '2px solid #bbb';
 
   if (pushState) {

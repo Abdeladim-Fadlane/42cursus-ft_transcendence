@@ -11,3 +11,4 @@ channels[daphne]
 Pillow
 django-cors-headers
 httpx
+channels_redis

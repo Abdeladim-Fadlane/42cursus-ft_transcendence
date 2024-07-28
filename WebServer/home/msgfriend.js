@@ -74,5 +74,5 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchAndUpdateFriends();
 
     
-    setInterval(fetchAndUpdateFriends, 2000);
+    // setInterval(fetchAndUpdateFriends, 2000);
 });

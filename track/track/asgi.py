@@ -19,6 +19,7 @@ from django.urls import path
 from track_app.consumers import TrackConsumer
 
 application = ProtocolTypeRouter({
+    "http": get_asgi_application(),
     'websocket': AuthMiddlewareStack(
         URLRouter([
             path('wss/track/', TrackConsumer.as_asgi()),

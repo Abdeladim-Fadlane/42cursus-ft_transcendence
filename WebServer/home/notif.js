@@ -4,8 +4,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     fetchRequests();
     fetchSuggestions();
-    setInterval(fetchRequests, 3000);
-    setInterval(fetchSuggestions, 3000);
+    // setInterval(fetchRequests, 3000);
+    // setInterval(fetchSuggestions, 3000);
 
 });
 

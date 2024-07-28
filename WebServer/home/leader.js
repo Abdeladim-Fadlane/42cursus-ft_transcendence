@@ -59,5 +59,5 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchRequests();
 
     // Set interval to check for updates every 5 seconds
-    setInterval(fetchRequests, 5000);
+    // setInterval(fetchRequests, 5000);
 });
