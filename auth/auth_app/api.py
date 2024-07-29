@@ -1,20 +1,25 @@
 from .models import Friends, CustomUser, FriendRequest
 from django.http import JsonResponse
 import json
-from .views import login_required
+from .views import login_required ,notify
 from .login import logout as log
 from django.http import HttpResponseForbidden
 from .serializers import TaskSerializer
 from django.contrib.auth import logout
-import requests
 
-def notify(id, action):
-    url = 'http://track:8004/notify/'
-    data = {
-        'id': id,
-        'action': action,
-    }
-    requests.get(url=url,params=data)
+def reponceNotify(request):
+    if request.method == 'GET':
+        id = request.GET.get('id')
+        all_id = list(CustomUser.objects.all().values_list('id', flat=True).exclude(id=id))
+        friends = []
+        for i in all_id:
+            if Friends.objects.filter(user1=id, user2=i):
+                friends.append(i)
+        if friends:
+            return JsonResponse({'usersid': friends}, status=200)
+        else:
+            return JsonResponse({'error': 'User not found'}, status=404)
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 def send_friend_request(request):
     sender = login_required(request)
@@ -28,7 +33,7 @@ def send_friend_request(request):
         if FriendRequest.objects.filter(sender=receiver, receiver=sender):
             return JsonResponse({"status": False}, status=405)
         FriendRequest.objects.create(sender=sender, receiver=receiver)
-        notify(receiver.id, 'friend_request')
+        notify(receiver.id, 'friend_request_send')
         return JsonResponse({"status": True}, status=200)
 
     return JsonResponse({"status": False}, status=405)
@@ -56,7 +61,7 @@ def suggest_friend(request):
     for friend in friends:
         all_users = all_users.exclude(username=friend.user2.username)
 
-    data = TaskSerializer(all_users, many=True)
+    data = TaskSerializer(all_users, many=True)    
     return JsonResponse(data.data, safe=False, status=200)
 
 
@@ -149,6 +154,7 @@ def delete_friend(request):
         return JsonResponse({'error': 'Friend not found'}, status=404)
     Friends.objects.filter(user1=user, user2=friend).delete()
     Friends.objects.filter(user1=friend, user2=user).delete()
+    notify(friend.id, 'friend_delete')
     return JsonResponse({'status': True}, status=200)
 
 

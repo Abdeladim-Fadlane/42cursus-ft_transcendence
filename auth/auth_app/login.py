@@ -9,7 +9,7 @@ from . serializers import TaskSerializer
 from django.http import HttpResponseForbidden
 from .views import login_required
 import os
-
+from .views import sendToAllUsers
 from cryptography.fernet import Fernet
 
 def get_match_history(request):
@@ -130,6 +130,7 @@ def change_profile(request):
         if not photo_profile:
             return JsonResponse({'status': False, 'message': 'Image is required'}, status=200)
         user.photo_profile = photo_profile
+        sendToAllUsers(user.id, 'profile_change')
         user.save()
         data = TaskSerializer(CustomUser.objects.get(username=user.username)).data['photo_profile']
         return JsonResponse({'status': True, 'photo_profile' : data}, status=200)

@@ -16,13 +16,24 @@ fetch('/api/token/')
             console.error('WebSocket error: ', error);
         };
         socket.onmessage = (event) => {
+            /* here use switch case or of army of if conditions */
             const data = JSON.parse(event.data);
-            console.log(data.message);
-
+            console.log(data);
+            if (data.type === 'friend_request_send') {
+                
+            }
+            else if (data.type === 'friend_request_reject') {
+                
+            }
+            else if (data.type === 'friend_request_accept') {
+                 
+            }
+            else if (data.type === 'friend_request_suggest') {
+                
+            }
+            else if (data.type === 'friend is online' || data.type === 'friend is offline') {                
+            }
         }
-    })
-.catch(error => {
-    console.error('Error fetching token:', error);
 });
 
 

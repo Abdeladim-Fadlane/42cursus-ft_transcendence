@@ -36,4 +36,5 @@ urlpatterns = [
     path('change_password/', login.change_password, name='change_password'),
     path('change_profile/', login.change_profile, name='change_profile'),
     path('display_name/', login.set_display_name, name='display_name'),
+    path('notify/', api.reponceNotify, name='reponceNotify'),
 ]

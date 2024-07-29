@@ -1,4 +1,4 @@
-// import { handleRequestsuggestion } from './suggest.js';
+// import { fetchRequests } from './suggest.js';
 // import { handlechalleng } from './challenge.js';
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -15,7 +15,7 @@ let currentSuggestions = 0;
 
 // Fetch friend requests
 let currentRequests = 0;
-function fetchRequests() {
+export function fetchRequests() {
     fetch("/api/get_requests/")
         .then(response => {
             if (!response.ok) {
