@@ -15,10 +15,8 @@ def reponceNotify(request):
         for i in all_id:
             if Friends.objects.filter(user1=id, user2=i):
                 friends.append(i)
-        if friends:
-            return JsonResponse({'usersid': friends}, status=200)
-        else:
-            return JsonResponse({'error': 'User not found'}, status=404)
+        return JsonResponse({'usersid': friends}, status=200)
+    
     return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 def send_friend_request(request):
@@ -217,3 +215,10 @@ def getAllUser(request):
     users = CustomUser.objects.all()
     data = TaskSerializer(users, many=True)
     return JsonResponse(data.data, safe=False)
+
+
+def getAllUserTrack(request):
+    if request.method != 'GET':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    all_id = list(CustomUser.objects.all().values_list('id', flat=True))
+    return JsonResponse({'usersid': all_id}, status=200)

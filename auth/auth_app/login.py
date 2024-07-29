@@ -115,6 +115,7 @@ def update_profile(request):
         user.first_name = first_name
         user.last_name = last_name
         user.email = email
+        sendToAllUsers(user.id, 'profile_change')
         user.save()
         return JsonResponse({'status': True}, status=200)
     else:

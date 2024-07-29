@@ -5,6 +5,10 @@ html {
 *,
 *::after,
 *::before {
+  user-select: none; /* Prevents text selection in most browsers */
+  -webkit-user-select: none; /* For Safari */
+  -moz-user-select: none; /* For Firefox */
+  -ms-user-select: none; 
   margin: 0;
   padding: 0;
   box-sizing: inherit;

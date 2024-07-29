@@ -19,19 +19,27 @@ fetch('/api/token/')
             /* here use switch case or of army of if conditions */
             const data = JSON.parse(event.data);
             console.log(data);
-            if (data.type === 'friend_request_send') {
+            if (data.message === 'friend_request_send') {
                 
             }
-            else if (data.type === 'friend_request_reject') {
+            else if (data.message === 'friend_request_reject') {
                 
             }
-            else if (data.type === 'friend_request_accept') {
+            else if (data.message === 'friend_request_accept') {
                  
             }
-            else if (data.type === 'friend_request_suggest') {
+            else if (data.message === 'friend_request_suggest') {
                 
             }
-            else if (data.type === 'friend is online' || data.type === 'friend is offline') {                
+            else if (data.message === 'friend is online' || data.message === 'friend is offline') {   
+                             
+            }
+            else if (data.message === 'profile_change') {
+                
+            }
+            else if (data.message === 'update_leaderboard') {
+            }
+            else if (data.message === 'update_match_history') {
             }
         }
 });
