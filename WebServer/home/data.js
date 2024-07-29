@@ -8,10 +8,11 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
+            // console.log(data)
             const userData = JSON.parse(JSON.stringify(data));
-            
             // Update user information in the DOM
             document.getElementById('login').textContent = userData.username;
+            document.getElementById('login').classList.add(userData.id);
             document.getElementById('content_scor').textContent = userData.score;
             if (userData.username ) {
                 document.getElementById('nameprofile').textContent = userData.username;

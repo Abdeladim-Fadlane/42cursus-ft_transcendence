@@ -2,7 +2,7 @@ import { handlenotif } from './notif.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     fetchSuggestions();
-    setInterval(fetchSuggestions, 30000);
+    // setInterval(fetchSuggestions, 30000);
 });
 
 let currentData = 0;

@@ -1,62 +1,123 @@
+function initializePageState() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const page = urlParams.get('page');
 
+  if (!isValidPage(page)) {
+    redirectTo404();
+    return;
+  }
 
-document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById('Home').style.borderBottom = '2px solid #bbb';
+  switch (page) {
+    case 'home':
+      border_home();
+      break;
+    case 'profile':
+      border_pr();
+      break;
+    case 'chat':
+      click_chat();
+      break;
+    default:
+      border_home();
+  }
+}
 
-    const links = document.querySelectorAll(".nav-link");
-    const sections = document.querySelectorAll(".content-section");
-    links.forEach((link) => {
-      link.addEventListener("click", function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute("data-target");
-        // console.log(targetId);
+function isValidPage(page) {
+  // console.log(page);
+  const validPages = ['home', 'profile', 'chat',null];
+  return validPages.includes(page);
+}
+
+function redirectTo404() {
+  window.location.href = '/404.html'; // Redirect to your 404 page
+}
+
+window.onload = function() {
+  initializePageState();
+};
+
+window.onpopstate = function(event) {
+  if (event.state) {
+    switch (event.state.page) {
+      case 'home':
+        border_home(false);
+        break;
+      case 'profile':
+        border_pr(false);
+        break;
+      case 'chat':
+        click_chat(false);
+        break;
+      default:
+        border_home(false); 
+    }
+  }
+};
+
+function border_home(pushState = true) {
+  // console.log("home");
+  if (pushState) {
+    window.history.pushState({page: 'home'}, 'Home', '?page=home');
+  }
+
+  document.getElementById("home").style.display = "flex";
+  document.getElementById("profile").style.display = "none";
+  document.getElementById("chat").style.display = "none";
+  document.getElementById('Home-aside').style.cssText = 'font-size: 40px; color: #ff44e4; ';
+  document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+
+}
+
+function border_pr(pushState = true) {
+  document.getElementById('Pr-aside').style.borderBottom = '2px solid #bbb';
+
+  if (pushState) {
+    window.history.pushState({page: 'profile'}, 'Profile', '?page=profile');
+  }
+
+  document.getElementById("home").style.display = "none";
+  document.getElementById("profile").style.display = "flex";
+  document.getElementById("chat").style.display = "none";
+  document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('Pr-aside').style.cssText = 'font-size: 40px; color: #ff44e4; ';
+  document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+
+  document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
   
-        sections.forEach((section) => {
-          if (section.id === targetId) {
-            section.style.display = "flex";
-          } else {
-            section.style.display = "none";
-          }
-        });
-      });
-    });
-    // Initial state
-    document.getElementById("home").style.display = "flex";
-    document.getElementById("profile").style.display = "none";
-    document.getElementById("chat").style.display = "none";
-    document.getElementById("notifi").style.display = "none";
-    // document.getElementById("setting").style.display = "none";
-  });
-  
-  function border_home()
-  {
-    document.getElementById('Home').style.borderBottom = '2px solid #bbb';
-    document.getElementById('Home').style.padding = '5px';
-    document.getElementById('Pr').style.borderBottom = '0px solid #bbb';
-    
 
-  }
-  function border_pr()
-  {
-    document.getElementById('Home').style.borderBottom = '0px solid #bbb';
-    document.getElementById('Pr').style.padding = '5px';
 
-    document.getElementById('Pr').style.borderBottom = '2px solid #bbb';
-    
+}
 
+function click_chat(pushState = true) {
+  console.log("chat");
+  if (pushState) {
+    window.history.pushState({page: 'chat'}, 'Chat', '?page=chat');
   }
-  function click_chat()
-  {
-    document.getElementById('Home').style.borderBottom = '0px solid #bbb';
-    document.getElementById('Pr').style.borderBottom = '0px solid #bbb';
-    // document.getElementById('chat_icon').style.borderBottom = '2px solid #bbb';
-  }
+
+  document.getElementById("home").style.display = "none";
+  document.getElementById("profile").style.display = "none";
+  document.getElementById("chat").style.display = "flex";
+  document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('chat-aside').style.cssText = 'font-size: 40px; color: #ff44e4; ';
+  document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+
+}
   let currentFriend = null;
   
   function openChat(friendName) {
       currentFriend = friendName;
       document.getElementById('chat-friend-name').textContent = `Chat with ${friendName}`;
       document.getElementById('chat-messages').innerHTML = ''; // Clear previous messages
+
   }
   
   function sendMessage() {
@@ -86,6 +147,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function showLogoutModal() {
     const modal = document.getElementById('logout-modal');
+  //   document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('logout-aside').style.cssText = 'font-size: 40px; color: #ff44e4 ';
     modal.style.display = 'flex';
   }
   
@@ -102,19 +169,34 @@ document.addEventListener("DOMContentLoaded", function () {
     // Redirect to the login page (assuming login.html is your login page)
     window.location.href = '/logout/';
   }
-
+  // old_password
+  // new_password
+  // confirm_password
   function showSettingsModal() {
     fetch('/api/data/')
     .then(response => { return response.json()})
     .then(data =>{
-      console.log(data);
+      // console.log(data);
       document.querySelector('#username').value = data.username;
       document.querySelector('#email').value = data.email;
       document.querySelector('#first_name').value = data.first_name;
       document.querySelector('#last_name').value = data.last_name;
+      if (data.unique_id != '0') {
+        document.querySelector('#old_password').readOnly = true;
+        document.querySelector('#new_password').readOnly = true;
+        document.querySelector('#confirm_password').readOnly = true;
+        document.querySelector('.isintra').style.display = 'none';
+      }
     })
     const modal = document.getElementById('settings-modal');
     modal.style.display = 'flex';
+
+  //   document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc;  ';
+  // document.getElementById('setting-aside').style.cssText = 'font-size: 40px; color: #ff44e4 ';
+  // document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
   }
   
   function closeSettingsModal() {
@@ -127,8 +209,40 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const modal = document.getElementById('notifi');
     modal.style.display = 'flex';
+  //   document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('notif-aside').style.cssText = 'font-size: 40px; color: #ff44e4  ';
+  // document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  // document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
   }
+
+  
+
   function closeNotificationsModal() {
-    const modal = document.getElementById('notifi');
-    modal.style.display = 'none';
+    document.getElementById('notifi').style.display = 'none';
+}
+
+document.getElementById('notifi').addEventListener('click', function(event) {
+  if (event.target === this) {
+      closeNotificationsModal();
   }
+});
+
+document.getElementById('logout-modal').addEventListener('click', function(event) {
+  if (event.target === this) {
+    closeLogoutModal();
+  }
+});
+
+document.getElementById('settings-modal').addEventListener('click', function(event) {
+  if (event.target === this) {
+    closeSettingsModal();
+  }
+});
+
+document.getElementById('notifi').addEventListener('click', function(event) {
+  if (event.target === this) {
+      closeNotificationsModal();
+  }
+});

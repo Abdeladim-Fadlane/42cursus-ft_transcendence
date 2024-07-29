@@ -7,8 +7,7 @@ function already_logged() {
         })
         .then(data => {
             if (data.status === true)
-                console.log('Already logged in');
-                console.log(data);
+                window.location.href = "/home/";
         })
 }
 
@@ -53,7 +52,7 @@ function ft_sign_up() {
 
 
 function ft_sign_in() {
-// console.log('hello2');
+console.log('hello2');
 
 const modal1 = document.getElementById('sign-up-form');
 modal1.style.display = 'none';
@@ -61,12 +60,22 @@ const modal = document.getElementById('login-form');
 modal.style.display = 'flex';
 }
   function closeLogoutModal() {
-    // console.log('hello3');
+    
     const modal1 = document.getElementById('sign-up-form');
     modal1.style.display = 'none';
     const modal = document.getElementById('login-form');
     modal.style.display = 'none';
   }
+  document.getElementById('sign-up-form').addEventListener('click', function(event) {
+    if (event.target === this) {
+        closeLogoutModal();
+    }
+  });
+  document.getElementById('login-form').addEventListener('click', function(event) {
+    if (event.target === this) {
+        closeLogoutModal();
+    }
+  });
 document.addEventListener('DOMContentLoaded', function() {
     fetch('/api/csrf-token/')
         .then(response => response.json())
@@ -97,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 if (data.error.email != undefined)
                 {
-                    // console.log(data.error);
+                    console.log(data.error);
                     document.getElementById('messageemail').innerHTML = data.error.email;
                     document.getElementById('messageemail').style.color = 'red';
                 }

@@ -92,5 +92,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
     
     fetchHistory();
-    setInterval(fetchRequests, 4000);
+    // setInterval(fetchRequests, 4000);
 });

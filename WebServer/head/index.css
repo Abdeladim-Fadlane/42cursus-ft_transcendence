@@ -9,36 +9,6 @@ html {
 }
 
 body {
-   
-    
-    
-    /* overflow: hidden; */
-    /* background-image: repeating-radial-gradient(
-        circle at center center,
-        transparent 0px,
-        transparent 11px,
-        rgba(255, 255, 255, 0.04) 11px,
-        rgba(255, 255, 255, 0.04) 19px,
-        transparent 19px,
-        transparent 29px,
-        rgba(255, 255, 255, 0.04) 29px,
-        rgba(255, 255, 255, 0.04) 33px
-      ),
-      repeating-radial-gradient(
-        circle at center center,
-        rgb(0, 0, 0) 0px,
-        rgb(0, 0, 0) 5px,
-        rgb(0, 0, 0) 5px,
-        rgb(0, 0, 0) 17px,
-        rgb(0, 0, 0) 17px,
-        rgb(0, 0, 0) 30px,
-        rgb(0, 0, 0) 30px,
-        rgb(0, 0, 0) 43px,
-        rgb(0, 0, 0) 43px,
-        rgb(0, 0, 0) 45px,
-        rgb(0, 0, 0) 45px,
-        rgb(0, 0, 0) 47px
-      ); */
       background-color: #764082;
       background-image: url("./resrc/featured-scaled.jpg");
       background-size: cover;
@@ -60,18 +30,14 @@ body {
 .navbar {
     
     width: 80%;
+    height:75px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-        padding: 10px 20px;
-        margin: auto;
-       
-        border-radius:15px;
-        border: #ffffffc0 2px solid;
-        
-    z-index: 1000;
-    
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius:3px;
+    border-bottom: #eeeeeeab 2px solid;   
 }
 
 .navbar-logo img {
@@ -90,7 +56,7 @@ body {
 .sign-in,.sign-up  {
     width: 100px;
     height: 30px;
-    border-radius: 10%;
+    border-radius: 10px;
     background-color: #77777700;
     color: #ffffff;
     padding: 5px;
@@ -272,12 +238,13 @@ p
 }
 .blur
 {
-    background-color: rgba(0, 0, 0, 0.6);
-    width: 100%;
-    height: 100%;
     position: absolute;
-    top: 0;
-    right: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000ad;
+  z-index: -10;
 }
 p{
     font-weight: 900;
@@ -289,8 +256,7 @@ p{
 
 
 .highlight{
-    color: #c900fb;
-    font-style: initial;
+    color: #764081;
     font-size: 70px;
 }
 
@@ -367,8 +333,9 @@ p{
 }
 .container-sign, .container-login
 {
-    width: 44%;
-    height: 60%;
+    position: relative;
+    width: 750px;
+    height: 65%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -444,7 +411,7 @@ input[type="email"],
 input[type="password"] {
     width: 90%;
     padding: 10px;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
@@ -457,7 +424,10 @@ input[type="password"]:focus {
     border-color: #bbb;
     outline: none;
 }
-
+.pass
+{
+    margin-top: 15px;
+}
 /* Button styling */
 button {
     display: flex;
@@ -510,24 +480,18 @@ button:hover {
 /* .close_container {
     margin-bottom:18px ;
 }  */
-.close {
-    position: relative;
-    top: -700%;
-    left: 5017%;
+.close ,.close2{
+position: absolute;
+top: 4px;
+left: 723px;
   font-size: 20px;
   cursor: pointer;
   margin-bottom:5px ;
   color: white;
 }
-.close2
-{
-    position: relative;
-    top: -14px;
-    left: 130px;
-    cursor: pointer;
-}
+
 .close:hover , .close2:hover {
-    color: #007bff;
+    color: #d7390d;
 }
 
 
@@ -542,6 +506,7 @@ p{
   span {
     color: #e5e6e8;
     cursor: pointer;
+    font-size: 24px;
   }
 h2,h1{
     font-family: 'Games', sans-serif;
@@ -550,44 +515,14 @@ h2,h1{
 h2{
     font-size: 70px;
 }
-/* footer{
-    width: 80%;
-    height: 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
-    padding: 10px 20px;
-    margin: auto;
-    margin-top: 40px;
-    border-radius:15px;
-    border: #ffffffc0 2px solid;
-    background-color: #3333339f;
-}
-.footer-content {
-    max-width: 1200px; 
-    margin: 0 auto;
-    padding: 20px;
-}
-.footer-content p {
-    margin: 0;
-}
-.social-media {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-}
 
-.social-media li {
-    margin: 0 10px;
-}
+.errors
+{
+    width: 100%;
+    
+    text-align: center;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
 
-.social-media a {
-    color: white;
-    text-decoration: none;
-}
 
-.social-media a:hover {
-    text-decoration: underline;
-} */
+}

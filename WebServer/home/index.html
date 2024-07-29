@@ -8,45 +8,47 @@
     <link rel="icon" href="icon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.cdnfonts.com/css/games" rel="stylesheet">
+    
 </head>
 <body>
+    <div class="brull"></div>
     <div class="ball"></div>
     <div class="ball2"></div>
     <nav class="navbar">
         <div class="fac_one">
         <div class="navbar-logo">
-            <a class="nav-link" data-target="home"><img src="./resrc/new-logo.png" alt="Logo" onclick="active_section('play')"></a>
+            <a class="logo" onclick="border_home()" data-target="home"><img src="./resrc/new-logo.png" alt="Logo" ></a>
         </div>
         <div class="nav-search">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" class="search-input" >
             <div class="users-search-bar"></div>
         </div>
-    </div>
-        <div class="navbar-buttons">
-            <ul>
-                <li id="Home"><a  class="nav-link nav_hover" data-target="home" href="#home"  onclick="border_home()" onclick="disactiv_sections()">Home</a></li>
-                <li id="Pr" ><a class="nav-link nav_hover" data-target="profile" href="#profile" onclick="border_pr()" onclick="disactiv_sections()">Profile</a></li>
-                <li><div class="profil" id="imageprofile"></div></li>
-            </ul>
         </div>
+            <div class="navbar-buttons">
+                <ul>
+                    
+                    <li><label id="nameprofile"></label> </li>               
+                    <li><div onclick="border_pr()" class="profil" id="imageprofile"></div></li>
+                </ul>
+            </div>
     </nav>
     <div class="container">
         <aside>
             <div class="aside_content">
-                <div class="image1">
+                
                     <ul>
-                        <!-- <li><a class="settings-button" onclick="showSettingsModal()"><div class="seting_icon"></div></a></li> -->
-                        <li><a class="notification aside"  onclick="showNotificationsModal()"><div    class="aside_button icons" class="icons"> <i class="fa-solid fa-bell"></i> </div></a></li>
-                        <li><a class="chat-aside nav-link aside" data-target="chat"  onclick="click_chat()"><div  class="icons"  class="aside_button"><i class="fa-solid fa-comment"></i></div></a></li>
+                        <li ><a  data-target="home"   onclick="border_home()" onclick="disactiv_sections()" class="icons"  ><i id="Home-aside" class="fa-solid fa-house"></i></a></li>
+                         <li  ><a data-target="profile" onclick="border_pr()" onclick="disactiv_sections()" class="icons" ><i id="Pr-aside" class="fa-solid fa-user"></i></a></li>
+                        
+                        <li><a class="chat-aside nav-link aside"   onclick="click_chat()"><div  class="icons"  ><i id="chat-aside" class="fa-solid fa-comment"></i></div></a></li>
+                        <li><a class="notification aside"  onclick="showNotificationsModal()"><div    class="icons" > <i id="notif-aside" class="fa-solid fa-bell"></i> </div></a></li>
+                        
+                
+                        <li><a class="settings-button" onclick="showSettingsModal()"><div class="icons" ><i id="setting-aside" class="fa-solid fa-gear"></i></div></a></li>
+                        <li><a class="logout-button og_out_icon aside_button" onclick="showLogoutModal()"><div class="icons"><i id="logout-aside" class="fa-solid fa-right-from-bracket"></i></div></a></li>
                     </ul>
-                </div>
-                <div class="image2">
-                    <ul>
-                        <li><a class="settings-button" onclick="showSettingsModal()"><div class="icons" ><i class="fa-solid fa-gear"></i></div></a></li>
-                        <li><a class="logout-button og_out_icon aside_button" onclick="showLogoutModal()"><div class="icons"><i class="fa-solid fa-right-from-bracket"></i></div></a></li>
-                    </ul>
-                </div>
+                
             </div>
         </aside>
         <article>
@@ -56,8 +58,8 @@
                 <div class="images">
 
                     <div class="welcome_home">
-                        <h1>Welcome to Ping Pong</h1>
-                        <h1>Choose a game mode</h1>
+                        <h1> <span class="span"> Welcome</span> to <span class="span"> Ping </span> Pong</h1>
+                        <h1> Choose <span class="span">a</span> game  <span class="span">mode</span></h1>
                     </div>
                     <div class="play">
                     <div class="game">
@@ -122,7 +124,7 @@
                 
                 <div>
                     <h1 class="game_title">
-                        Game Chat Hub
+                        <span class="span">Game</span> Chat  <span class="span">Hub</span>
                     </h1>
 
                 </div>
@@ -141,7 +143,7 @@
                         <div class="image-chat" id="image-chat">
                             
                         </div>
-                        <h2 id="chat-friend-name">Select a friend to chat</h2>
+                        <h2 id="chat-friend-name"><span class="span">Select</span> a friend to <span class="span">chat</span></h2>
                         
                     </div>
                     
@@ -191,6 +193,9 @@
                         <span class="close_set" onclick="closeSettingsModal()">&times;</span>
                             
                             <div class="forms">
+                                <div class="personil-data">
+                                    <h3 class="h3_setting">Change profile data</h3>
+                                    
                                     <form class="profile_photo_form" method="post" enctype="multipart/form-data">
                                         <input type="hidden" name="csrfmiddlewaretoken" id="crcf_profileuser">
                                         <div class="profil setting_profile" id="profil">
@@ -199,18 +204,19 @@
                                         <input type="file" id="image" name="image" accept="image/*" style="display: none;">
                                         <button type="submit" id="button_profile_click" style="display: none;"></button>
                                     </form>
+                                    <label id="nameprofile" for="username"></label>
                                     <form id="avatarForm" class="form-container" method="post" enctype="multipart/form-data">
-                                        <h3 class="h3_setting">Change profile data</h3>
-                                                <label id="nameprofile" for="username"></label>
+                                        
                                                 <input type="hidden" name="csrfmiddlewaretoken" id="crcf">
-                                                <input type="text" id="username" name="username" placeholder="New UserName"  minlength="8" required>
-                                                <input type="text" id="first_name" name="first_name" placeholder="New First Name"  minlength="8" required>
-                                                <input type="text" id="last_name" name="last_name" placeholder="New Last Name"  minlength="8" required >
-                                                <input type="email" id="email" name="email" placeholder="New Email"  minlength="8" required>
+                                                <input type="text" id="username" name="username" placeholder="New UserName"  maxlength="7"  required>
+                                                <input type="text" id="first_name" name="first_name" placeholder="New First Name"   required>
+                                                <input type="text" id="last_name" name="last_name" placeholder="New Last Name"   required >
+                                                <input type="email" id="email" name="email" placeholder="New Email"   required>
                                                 <div id="messages"></div>
                                                 <br>
                                         <button class="submit" type="submit">SAVE</button>
                                     </form>
+                                </div>
                                     <form id="passwordForm" class="form-container" method="post" enctype="multipart/form-data" action="/change_password/">
                                         <div class="center-h3">
                                             <h3 class="h3_setting">Change profile password</h3>
@@ -221,7 +227,7 @@
                                         <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password">
                                         <div id="messages1"></div> 
                                         <br>
-                                        <button class="submit" type="submit">SAVE</button>
+                                        <button class="submit isintra" type="submit">SAVE</button>
                                         <br>
                                         <a class="delet_account" onclick="delete_funcyion()">Delete Acount</a>
                                     </form>

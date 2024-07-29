@@ -284,6 +284,11 @@ function close_user_profile()
     clearInterval(action_profile);
 
 }
+document.getElementById('content-user').addEventListener('click', function(event) {
+    if (event.target === this) {
+        close_user_profile();
+    }
+  });
 function view_friends()
 {
     console.log("view_friends");

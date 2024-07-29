@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
+                // console.log(data);
                 let chat_msg = document.querySelector('.chat-friend-name');
                 let ishere =  false;
                 if (data.length !== previousDataSize) {
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         let username = document.createElement('p');
                         username.textContent = data[i].username;
                         username.style.marginLeft = "15px";
-                        container.id = data[i].username;
+                        container.id = data[i].user_id;
                         container.style.cssText = `
                             display: flex;
                             align-items: center;
@@ -74,5 +75,5 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchAndUpdateFriends();
 
     
-    setInterval(fetchAndUpdateFriends, 2000);
+    // setInterval(fetchAndUpdateFriends, 2000);
 });

@@ -13,7 +13,7 @@
     <div class="container_nav">
         <nav class="navbar">
             <div class="navbar-logo">
-                <img src="./resrc/new-logo.png" alt="Logo">
+                <img  src="./resrc/new-logo.png" alt="Logo">
             </div>
             <div class="navbar-buttons">
                 <button class="sign-in"><a  onclick="ft_sign_in()">Sign In</a></button>
@@ -21,10 +21,11 @@
             </div>
         </nav>
     </div>
+    <div class="blur"></div>
     <div class="ball"></div>
     <div class="ball2"></div>
     <div class="container">
-        <div class="blur"></div>
+        
         <div class="home">
             <div class="h_home">
                 <h1>
@@ -60,41 +61,32 @@
             
         </div>
         
-        <!-- <footer>
-
-            <div class="footer-content">
-                <p>&copy; 2024 Ping Pong Inc. All rights reserved.</p>
-                <ul class="social-media">
-                    <li><a href="https://www.facebook.com">Facebook</a></li>
-                    <li><a href="https://www.twitter.com">Twitter</a></li>
-                    <li><a href="https://www.instagram.com">Instagram</a></li>
-                </ul>
-            </div>
-        </footer> -->
+        
     </div>
     
     <div  id="sign-up-form" class="sign-up-form" >
         <div class="container-sign">
+            <div class="close_container">
+                    <span class="close2" onclick="closeLogoutModal()">&times;</span>
+                </div>
             <div class="image-sign">
                 <h2>Register</h2>
             </div>
             
             <form method="post" id="login-form-id2" action="/registeruser/" enctype="multipart/form-data">
-                <div class="close_container">
-                    <span class="close2" onclick="closeLogoutModal()">&times;</span>
-                </div>
+                
                 <input type="hidden" name="csrfmiddlewaretoken" id="csrfToken">
                 <!-- <h2>Register</h2> -->
                 <input type="text" id="username" name="username" placeholder="Username" required><br>
-                <div id="messageusername"></div>
+                <div class="errors" id="messageusername"></div>
                 <input type="text" id="first_name" name="first_name" placeholder="First Name"required><br>
                 <input type="text" id="last_name" name="last_name" placeholder="Last Name" required><br>
                 <input type="email" id="email" name="email" placeholder="Email" required><br>
-                <div id="messageemail"></div>
+                <div class="errors" id="messageemail"></div>
                 <input type="password" id="password1" name="password1" placeholder="Password" required><br>
-                <div id="messagepassword"></div>
+                <div class="errors" id="messagepassword"></div>
                 <input type="password" id="password2" name="password2" placeholder="Confirm Password" required><br>
-                <div id="messagepassword2"></div>
+                <div  class="errors" id="messagepassword2"></div>
                 <button type="submit" >Register</button>
                 <a class="a_to_sign_up" onclick="ft_sign_in()">Back to Login</a>
             </form>
@@ -103,16 +95,16 @@
     <div id="login-form" class="login-form">
         <div class="container-login">
             
+                <span class="close" onclick="closeLogoutModal()">&times;</span>
+            
+            
             <form id="login-form-id" method="post" action="/loginuser/">
-                <div class="close_container">
-                    <span class="close" onclick="closeLogoutModal()">&times;</span>
-                </div>
+                
                 <input type="hidden" name="csrfmiddlewaretoken" id="csrfToken1"/>
-                <!-- <h2>Login</h2> -->
                 <input name="username" type="text" placeholder="Username" required/>
-                <input name="password" type="password" placeholder="Password" required/>
-                <div id="messages"></div>
-                <button type="submit">Login</button>
+                <input class="pass" name="password" type="password" placeholder="Password" required/>
+                <div class="errors" id="messages"></div>
+                <button class="pass" type="submit">Login</button>
                 <a onclick="ft_sign_up()">Create an account</a><br>
             </form>
             <div class="image-login">

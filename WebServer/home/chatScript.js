@@ -15,7 +15,6 @@ function generateRoomName(user1, user2)
 function hasNonPrintableChars(inputString) {
     for (var i = 0; i < inputString.length; i++) {
         var code = inputString.charCodeAt(i);
-        // console.log("code =====> " + code)
         if (code > 32 && code < 126) 
         {
             return true;
@@ -23,6 +22,7 @@ function hasNonPrintableChars(inputString) {
     }
     return false;
 }
+
 
 function create_chatRoom(map)
 {
@@ -87,6 +87,9 @@ function create_chatRoom(map)
     buttons_friends.forEach(button => {
         button.addEventListener('click', (e) =>
         {
+            if (button == last_button)
+                return ;
+            chat_input.value = '';
             chat_div.style.display = 'flex';
             div_chat_tools.style.display = 'flex';
             if (chat_container.contains(div_menu))
@@ -95,12 +98,14 @@ function create_chatRoom(map)
                 chat_container.removeChild(div_menu);
             }
             let index = 0;
-           
+            last_button = button;
             let header_username = document.querySelector("#chat-friend-name");
             chat_div.innerHTML = "";
+        
             username1 = document.querySelector('#login').textContent;
-            username2 = button.id;
-            room_name = generateRoomName( username1,username2);
+            let usernameid = document.querySelector('#login').className;
+            username2 = button.querySelector('p').textContent;
+            room_name = generateRoomName( usernameid ,button.id);
             let icon = document.createElement('i');
             icon.style.color = 'white';
             icon.classList.add('fa-solid', 'fa-ellipsis-vertical');
@@ -113,7 +118,7 @@ function create_chatRoom(map)
                 return response.json();
             })
             .then(data => {
-                
+                console.log(data);
                 for (let i = 0; i < data.length; i++)
                 {
                     let div_parent = document.createElement("div");
@@ -159,7 +164,7 @@ function create_chatRoom(map)
             })
             let div_image = document.getElementById('image-chat');
             div_image.append(user_image);
-            header_username.innerHTML = username2;
+            header_username.innerHTML = button.querySelector('p').textContent;
             div_info.textContent = '';
             div_info.append(icon);
             div_info.className = 'chat-option-user';
@@ -335,7 +340,7 @@ function create_chatRoom(map)
             Web_socket.onclose = () =>{
                 console.log('the connection has been closed')
             }
-            console.log(map);
+            // console.log(map);
 
         })
     });
@@ -356,6 +361,7 @@ function create_chatRoom(map)
         }
     })
     div_info.addEventListener('click', () =>{
+        
         if (check == true){
             button_block.textContent = `${map_action[username2]} ${username2}`;
             button_info.textContent = `${username2}'s profile`;
@@ -420,8 +426,6 @@ function create_chatRoom(map)
                 console.error('Error fetching CSRF token:', error);
             })     
     }
-    // div_bolck_msg.className = 'chat-block-user'
-    // div_bolck_msg.style.color = 'white';
     div_menu_child2.addEventListener('click', do_action);
 }
 

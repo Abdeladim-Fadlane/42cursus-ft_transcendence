@@ -194,6 +194,29 @@ def save_Match(group_name, idx):
     url = f'http://auth:8000/api/match/'
     requests.post(url=url, headers=headers, data=data)
 
+    url = 'http://track:8004/notify/'
+    data = {
+        'id': idwinner,
+        'action': "update_match_history",
+    }
+    requests.get(url=url,params=data)
+
+    url = 'http://track:8004/notify/'
+    data = {
+        'id': idloser,
+        'action': "update_match_history",
+    }
+    requests.get(url=url,params=data)
+
+    """ ///////////////////////////////// """
+    url2 = 'http://auth:8000/Allusers/'
+    res = requests.get(url=url2)
+    usersid_dic = res.json()
+    ids = usersid_dic.get('usersid',[])
+    for i in ids:
+        requests.get(url=url,params={'id':i,'action':'update_leaderboard'})
+
+
 async def start_game(group_name):
     # await asyncio.sleep(4)
     print("---------------game start-------------")

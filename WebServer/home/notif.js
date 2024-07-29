@@ -1,14 +1,11 @@
-// import { handleRequestsuggestion } from './suggest.js';
+// import { fetchRequests } from './suggest.js';
 // import { handlechalleng } from './challenge.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     fetchRequests();
     fetchSuggestions();
-    // handlechalleng();
-    // Polling every 30 seconds to fetch updates
-    setInterval(fetchRequests, 3000);
-    setInterval(fetchSuggestions, 3000);
-    // setInterval(handlechalleng, 3000);
+    // setInterval(fetchRequests, 3000);
+    // setInterval(fetchSuggestions, 3000);
 
 });
 
@@ -18,7 +15,7 @@ let currentSuggestions = 0;
 
 // Fetch friend requests
 let currentRequests = 0;
-function fetchRequests() {
+export function fetchRequests() {
     fetch("/api/get_requests/")
         .then(response => {
             if (!response.ok) {
