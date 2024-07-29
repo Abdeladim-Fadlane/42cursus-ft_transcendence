@@ -60,8 +60,8 @@ class ball:
         self.x = x
         self.y = y
         self.r = 10
-        self.angl = 0
-        self.speed = 0.9
+        self.angl = 10.5
+        self.speed = 0.8
         self.vx = math.cos(self.angl * math.pi / 180) * self.speed
         self.vy = math.sin(self.angl * math.pi / 180) * self.speed
     def serialize_ball(self):
@@ -218,7 +218,7 @@ def save_Match(group_name, idx):
 
 
 async def start_game(group_name):
-    # await asyncio.sleep(4)
+    await asyncio.sleep(3)
     print("---------------game start-------------")
     winner = await rooms[group_name].run_game()
     if group_name in rooms:

@@ -8,7 +8,7 @@ from . views import endpoint
 import os
 from . cons import add_padding
 from cryptography.fernet import Fernet
-N = 2
+N = 4
 waiting = {}
 tournaments = {}
 tournament_name = 'tournament_' + datetime.now().time().strftime("%H_%M_%S_%f")
