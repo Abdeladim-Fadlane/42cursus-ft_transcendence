@@ -18,7 +18,10 @@ fetch('/api/token/')
         socket.onmessage = (event) => {
             /* here use switch case or of army of if conditions */
             const data = JSON.parse(event.data);
-            console.log(data);
+            console.log('------------');
+            console.log(data.message);
+            console.log('------------');
+
             if (data.message === 'friend_request_send') {
 
             }

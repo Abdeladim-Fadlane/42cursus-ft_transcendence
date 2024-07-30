@@ -8,6 +8,9 @@
     <link rel="icon" href="icon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.cdnfonts.com/css/games" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/soap-opera" rel="stylesheet">
+                
+
     
 </head>
 <body>
@@ -28,7 +31,7 @@
             <div class="navbar-buttons">
                 <ul>
                     
-                    <li><label id="nameprofile"></label> </li>               
+                    <li ><label id="nameprofile"></label> </li>               
                     <li><div onclick="border_pr()" class="profil" id="imageprofile"></div></li>
                 </ul>
             </div>
@@ -190,12 +193,16 @@
                 
                 <div id="settings-modal" class="settings-modal">
                     <div class="setting-contiener">
-                        <span class="close_set" onclick="closeSettingsModal()">&times;</span>
+                        <!-- <span class="close_set" onclick="closeSettingsModal()">&times;</span> -->
+                            <div class="menu">
+                                <div class="menu-item1" onclick="openTab(event, 'profile-data')">Profile data</div>
+                                <div class="menu-item2" onclick="openTab(event, 'profile-password')">Profile password</div>
+                                <div class="menu-item3" onclick="delete_funcyion()">dellet account</div>
+                                <div class="menu-item4" onclick="showLogoutModal()">Quit</div>
+                                <div class="menu-item5" onclick="closeSettingsModal()">close window</div>
+                            </div>
                             
-                            <div class="forms">
                                 <div class="personil-data">
-                                    <h3 class="h3_setting">Change profile data</h3>
-                                    
                                     <form class="profile_photo_form" method="post" enctype="multipart/form-data">
                                         <input type="hidden" name="csrfmiddlewaretoken" id="crcf_profileuser">
                                         <div class="profil setting_profile" id="profil">
@@ -204,8 +211,8 @@
                                         <input type="file" id="image" name="image" accept="image/*" style="display: none;">
                                         <button type="submit" id="button_profile_click" style="display: none;"></button>
                                     </form>
-                                    <label id="nameprofile" for="username"></label>
-                                    <form id="avatarForm" class="form-container" method="post" enctype="multipart/form-data">
+                                    <!-- <label id="nameprofile" class="user-name" for="username"></label> -->
+                                    <form id="avatarForm" class="form-container-pofile" method="post" enctype="multipart/form-data">
                                         
                                                 <input type="hidden" name="csrfmiddlewaretoken" id="crcf">
                                                 <input type="text" id="username" name="username" placeholder="New UserName"  maxlength="7"  required>
@@ -217,21 +224,22 @@
                                         <button class="submit" type="submit">SAVE</button>
                                     </form>
                                 </div>
-                                    <form id="passwordForm" class="form-container" method="post" enctype="multipart/form-data" action="/change_password/">
+                                    <form id="passwordForm" class="form-container-pass" method="post" enctype="multipart/form-data" action="/change_password/">
                                         <div class="center-h3">
-                                            <h3 class="h3_setting">Change profile password</h3>
+                                            <h3 class="h3_setting">You can change your password if you have password.</h3>
                                         </div>
+                                        <button class="submit isintra" type="submit">SAVE</button>
                                         <input type="hidden" name="csrfmiddlewaretoken" id="crcf2">
                                         <input type="password" id="old_password" name="old_password" placeholder="Old password" minlength="12" required >
                                         <input type="password" id="new_password" name="new_password" placeholder="New password"  minlength="12" required>
                                         <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password">
                                         <div id="messages1"></div> 
-                                        <br>
+                                        
                                         <button class="submit isintra" type="submit">SAVE</button>
-                                        <br>
-                                        <a class="delet_account" onclick="delete_funcyion()">Delete Acount</a>
+                                        
+                                        <!-- <a class="delet_account" onclick="delete_funcyion()">Delete Acount</a> -->
                                     </form>
-                            </div>
+                            
                     </div>
                         
                 </div>
@@ -449,6 +457,7 @@
                     </div>
                 </section>
                 <section id="tournament_list">
+                    
                     <div class="conteudo">
                         <div id="tournament_content" class="caixa">
                         </div>
