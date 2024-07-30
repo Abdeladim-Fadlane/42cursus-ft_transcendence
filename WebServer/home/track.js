@@ -1,9 +1,11 @@
 
+import { handlechalleng } from "./challenge.js";
+
 fetch('/api/token/')
     .then(response => response.json())
     .then(data => {
-        token = data.token;
-        id = data.id;
+        let token = data.token;
+        let id = data.id;
         const socket = new WebSocket(`wss://${window.location.host}/wss/track/?token=${token}&id=${id}`);
         socket.onopen = () => {
             console.log('WebSocket connected');
@@ -18,9 +20,7 @@ fetch('/api/token/')
         socket.onmessage = (event) => {
             /* here use switch case or of army of if conditions */
             const data = JSON.parse(event.data);
-            console.log('------------');
             console.log(data.message);
-            console.log('------------');
 
             if (data.message === 'friend_request_send') {
 
@@ -37,7 +37,7 @@ fetch('/api/token/')
             }
             else if (data.message === 'friend is online' || data.message === 'friend is offline') {   
                 // handlechalleng();
-                console.log('online friends====>');
+                // console.log('online friends====>');
             }
             else if (data.message === 'profile_change') {
                 

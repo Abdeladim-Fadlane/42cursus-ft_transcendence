@@ -143,7 +143,7 @@ body {
 
 
 nav ul {
-  width: 170px;
+  /* width: 170px; */
   height: 75px;
   display: flex;
   list-style-type: none;
@@ -2538,10 +2538,12 @@ font-family: 'games' , sans-serif;
 }
 .nav-search
 {
-  position: relative;
+  /* position: relative; */
   /* top: 3px;
   left: -235px; */
   color: white;
+  /* display: flex; */
+  /* left: 160%; */
  
 }
 .number-win , .number-lose
@@ -2562,6 +2564,9 @@ font-family: 'games' , sans-serif;
   right: 355px;
 }
 .nav-search input{
+  transition: 0.3s;
+  transform: rotateY(90deg);
+  transform-origin: right top;
   border-radius: 12px;
   width: 300px;
   height: 35px;
@@ -2569,7 +2574,13 @@ font-family: 'games' , sans-serif;
   padding-left: 20px;
   font-family: sans-serif;
   font-weight: bold;
-
+}
+/* === ===========houwa hadak ================== ============= */
+.nav-search i{
+  
+  color: rgb(253, 253, 253);
+  /* display: flex; */
+  /* font-size: large; */
 }
 .win-statistique
 {
@@ -2623,9 +2634,9 @@ font-family: 'games' , sans-serif;
 }
 
 .nav-search i{
-  position: absolute;
-  right: 12px;
-  top: 10px;
+   position: relative;
+   top:2px;
+   left: -32px;
 }
 .users-search-bar
 {

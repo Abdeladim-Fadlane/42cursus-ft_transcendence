@@ -2,7 +2,7 @@
 
 // Use the imported function
 // handlenotif();
-export function handlechalleng() {
+function handlechalleng() {
     fetch('/api/online/')
         .then(response => {
             if (!response.ok) {
@@ -79,3 +79,4 @@ document.addEventListener('DOMContentLoaded', function() {
     handlechalleng(); // Initial call on page load
     // setInterval(fetchRequests, 2000); // Subsequent calls every 2 seconds
 });
+export {handlechalleng}

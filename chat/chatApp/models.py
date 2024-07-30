@@ -7,6 +7,8 @@ class Conversation(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     block_conversation = models.BooleanField(default=False)
     user_bloking = models.TextField(default="")
+    # user1_views = models.IntegerField()
+    # number_message = models.IntegerField(default=0)
     def __str__(self):
         return self.room_name
 

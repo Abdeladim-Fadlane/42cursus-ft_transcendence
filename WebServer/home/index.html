@@ -22,15 +22,15 @@
         <div class="navbar-logo">
             <a class="logo" onclick="border_home()" data-target="home"><img src="./resrc/new-logo.png" alt="Logo" ></a>
         </div>
-        <div class="nav-search">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" class="search-input" >
-            <div class="users-search-bar"></div>
-        </div>
+        
         </div>
             <div class="navbar-buttons">
                 <ul>
-                    
+                    <div class="nav-search">
+                        <input type="text" class="search-input" >
+                        <i id='search-icon'class="fa-solid fa-magnifying-glass"></i>
+                        <div class="users-search-bar"></div>
+                    </div>
                     <li ><label id="nameprofile"></label> </li>               
                     <li><div onclick="border_pr()" class="profil" id="imageprofile"></div></li>
                 </ul>
@@ -506,7 +506,7 @@
     <script src="userInformation.js"></script>
     <script src="msgfriend.js" type="module"></script>
     <script src="chatScript.js" type="module"></script>
-    <script src="track.js"></script>
+    <script type="module" src="track.js"></script>
     <script src="search.js"></script>
     <script src="ProfileAction.js"></script>
 
