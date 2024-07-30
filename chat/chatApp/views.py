@@ -9,15 +9,48 @@ import json
 
 # Create your views here.
 
+
+def getAllConversation(request):
+    if (request.method == 'POST'):
+        json_content = json.loads(request.body)
+        user_id = json_content.get('id_user')
+        count = 0
+        try:    
+            convers = Conversation.objects.all()
+            for c in convers:
+                if (user_id in c.room_name):
+                    msg = Message.objects.filter(conversation=c).last()
+                    print(f"{msg.sender_name}*******{msg.read_msg}")
+                    if (msg is not None and msg.read_msg == False and json_content.get('username') != msg.sender_name):
+                        count = count + 1
+            print(f'**********{count}****************')  
+            return JsonResponse({'status' : 'success','not_read' : count})
+        except Conversation.DoesNotExist:
+            return JsonResponse({'status' : 'success', 'not_read' : 0})
+    return JsonResponse({'status' : 'error'})
+
+
+def Message_readed(request):
+    if (request.method == 'POST'):
+        json_data = json.loads(request.body)
+        conver = Conversation.objects.get(room_name=json_data.get('room_name'))
+        messages = Message.objects.exclude(
+            conversation=conver,
+            sender_name=json_data.get('username'))
+        # print(MessageSerializer(messages, many=True).data)
+        for msg in messages:
+            if (msg.read_msg == False): 
+                msg.read_msg = True
+                msg.save()
+        return JsonResponse({'status' : 'success'})
+    return JsonResponse({'status' : 'error'})
+    
+        
 def delete_conversation(request, username):
-    # try:
     conves = Conversation.objects.all()
     for obj in conves:
         if (username in obj.room_name):
-            obj.delete()
-    # message = Message.objects.filter(sender_name=username).first()
-    # message.conversation.delete()
-    # except 
+            obj.delete() 
     return JsonResponse({'status' : 'success'})
 
 
