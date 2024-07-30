@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
+                console.log(data);
                 let chat_msg = document.querySelector('.chat-friend-name');
                 let ishere =  false;
                 if (data.length !== previousDataSize) {

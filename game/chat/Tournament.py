@@ -2,7 +2,7 @@ import asyncio, json, math, random
 # from chat.game import serialize_pingpong
 from datetime import datetime
 from chat.cons import Match, serialize_Match, User, send_to_group, racket, height, hh, width, ww, score_to_win, serialize_Users
-from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.generic.websocket import AsyncWebsocketConsumer # type: ignore
 from asgiref.sync import sync_to_async
 from . views import endpoint
 import os

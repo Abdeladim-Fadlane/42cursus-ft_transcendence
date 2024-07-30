@@ -75,13 +75,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'chatlive.wsgi.application'
 ASGI_APPLICATION = 'chatlive.asgi.application'
 ALLOWED_HOSTS = ['*']
+
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('redis', 6379)],
+        },
     },
 }
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
 import os
 DATABASES = {
     'default': {
@@ -93,9 +96,6 @@ DATABASES = {
         'PORT': os.environ.get('POSTGRES_PORT'),
     }
 }
-
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
