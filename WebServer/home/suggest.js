@@ -1,4 +1,7 @@
 
+import { fetchSuggestions } from './invite.js';
+import { fetchAndUpdateFriends } from './msgfriend.js';
+import { handlechalleng } from './challenge.js';
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -7,21 +10,22 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 let current = 0;
-function fetchdelette() {
+export function fetchdelette() {
     fetch('/api/friends/')
         .then(response => {
             if (!response.ok) {
-                document.getElementById('list_friend').style.display = 'none';
+                // document.getElementById('list_friend').style.display = 'none';
                 
                 return;
             }
             return response.json();
         })
         .then(data => {
-            if (data.length !== current) {
-                current = data.length;
+            // if (data.length !== current) {
+            //     current = data.length;
                 handleRequestsuggestion();
-            }
+                fetchAndUpdateFriends();
+            // }
         })
         .catch(error => {
             console.error('Error fetching suggestions:', error);
@@ -99,6 +103,11 @@ function handleRequestAction(senderUsername) {
             reward.appendChild(document.createElement('br'));
             addfriend.addEventListener('click', function() {
                 handleRequestAction(data[i].username);
+                fetchSuggestions();
+                fetchAndUpdateFriends();
+                handlechalleng();
+                console.log('lllllll');
+
             });
         }
     })

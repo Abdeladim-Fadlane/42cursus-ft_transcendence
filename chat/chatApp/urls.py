@@ -10,4 +10,5 @@ urlpatterns = [
     path("delete_conversation/<str:username>/", views.delete_conversation),
     path("readMessage/", views.Message_readed),
     path("NotReaded/", views.getAllConversation),
+    path("MessageUsers/", views.getAllConversationMessage),
 ]

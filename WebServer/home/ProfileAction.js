@@ -9,15 +9,17 @@ function to_chat(e)
 {
     let username = e.target.id;
     let text = e.target.textContent;
- 
+    Animation_elemeny(e.target, 70, 20);
+    setTimeout(()=>{
 
-    document.querySelector('.close_profile').click()
-    document.querySelector('.chat-aside').click()
-    e.target.textContent = text;
-    let friends = document.querySelectorAll('.friend-list-room');
-    for (let j = 0; j < friends.length; j++)
-        if (friends[j].id == username)
-            friends[j].click();
+        document.querySelector('.close_profile').click()
+        document.querySelector('.chat-aside').click()
+        e.target.textContent = text;
+        let friends = document.querySelectorAll('.friend-list-room');
+        for (let j = 0; j < friends.length; j++)
+            if (friends[j].id == username)
+                friends[j].click();
+    },3000)
 }
 function CreateDiv(element_name, class_name)
 {
@@ -49,37 +51,40 @@ function Animation_elemeny(element, w, h)
 function func_add_friend(e)
 {
     let text = e.target.textContent;
+    Animation_elemeny(e.target, 70, 18);
 
-    fetch('/api/csrf-token/')
-    .then(response => response.json())
-    .then(data => {
-        let token = data.csrfToken;
-        fetch('/api/send_request/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': token,
-            },
-            body: JSON.stringify({
-                'receiver': e.target.id,
+    setTimeout(()=>{
+        fetch('/api/csrf-token/')
+        .then(response => response.json())
+        .then(data => {
+            let token = data.csrfToken;
+            fetch('/api/send_request/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': token,
+                },
+                body: JSON.stringify({
+                    'receiver': e.target.id,
+                })
+            })
+            .then(response => {return response.json()})
+            .then(data => {
+                if (data.status === true)
+                {
+                    parent.style.display = 'none';
+                    button_unfriend.style.display = 'none';
+                    button_friend.style.display = 'none';
+                    button_chat.style.display = 'none';
+                    button_chat.style.transition = '1s ease-out'
+                    e.target.textContent = text;
+                }
             })
         })
-        .then(response => {return response.json()})
-        .then(data => {
-            if (data.status === true)
-            {
-                parent.style.display = 'none';
-                button_unfriend.style.display = 'none';
-                button_friend.style.display = 'none';
-                button_chat.style.display = 'none';
-                button_chat.style.transition = '1s ease-out'
-                e.target.textContent = text;
-            }
-        })
-    })
-    .catch(error => {
-        console.log('Error sending friend request:', error);
-    });
+        .catch(error => {
+            console.log('Error sending friend request:', error);
+        });
+    }, 3000)
 }
 
 
@@ -87,8 +92,10 @@ function func_add_friend(e)
 function remove_friend(e)
 {
     let text = e.target.textContent;
+    Animation_elemeny(e.target, 65, 20);
     // message.textContent = `${e.target.id} successfully removed.`;
     // message.style.color = 'white';
+    setTimeout(()=>{
     fetch('/api/csrf-token/')
     .then(response => {return response.json()})
     .then(data => {
@@ -121,6 +128,7 @@ function remove_friend(e)
             }
         });
     });
+    }, 3000)
     
 }
 

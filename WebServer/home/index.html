@@ -21,16 +21,16 @@
         <div class="fac_one">
         <div class="navbar-logo">
             <a class="logo" onclick="border_home()" data-target="home"><img src="./resrc/new-logo.png" alt="Logo" ></a>
+            <div class="nav-search">
+                <i id="search-icon" class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="search-input" >
+                <div class="users-search-bar"></div>
+            </div>
         </div>
-        
         </div>
             <div class="navbar-buttons">
                 <ul>
-                    <div class="nav-search">
-                        <input type="text" class="search-input" >
-                        <i id='search-icon'class="fa-solid fa-magnifying-glass"></i>
-                        <div class="users-search-bar"></div>
-                    </div>
+                    
                     <li ><label id="nameprofile"></label> </li>               
                     <li><div onclick="border_pr()" class="profil" id="imageprofile"></div></li>
                 </ul>
@@ -494,8 +494,8 @@
     </div>
     <script src="game.js"></script>
     <script src="script.js"></script>
-    <script src="match.js"></script>
-    <script src="leader.js"></script>
+    <script type="module" src="match.js"></script>
+    <script type="module" src="leader.js"></script>
     <script src="data.js"></script>
     <script src="token.js"></script>
     <script type="module" src="suggest.js"></script>
@@ -504,7 +504,7 @@
     <script type="module" src="notif.js"></script> 
     <script src="setting.js"></script>
     <script src="userInformation.js"></script>
-    <script src="msgfriend.js" type="module"></script>
+    <script type="module" src="msgfriend.js" type="module"></script>
     <script src="chatScript.js" type="module"></script>
     <script type="module" src="track.js"></script>
     <script src="search.js"></script>

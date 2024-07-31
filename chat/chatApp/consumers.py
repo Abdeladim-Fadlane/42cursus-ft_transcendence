@@ -40,6 +40,15 @@ class ChatLive(AsyncWebsocketConsumer):
                 content=message,
             )
             time = str(message_obj.time_added)
+            room_name = f"room_{text_data_json['user_id']}"
+            await self.channel_layer.group_send(
+               room_name,
+               {
+                    "type": "chat_message",
+                    "message": "friend send message",
+
+               }
+            )
         if (conversation_obj.block_conversation == True and task == 'send_message') :
             return 
         await self.channel_layer.group_send(

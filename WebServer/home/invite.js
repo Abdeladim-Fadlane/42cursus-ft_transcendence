@@ -1,28 +1,28 @@
 import { handlenotif } from './notif.js';
-
+import { handlechalleng } from './challenge.js';
 document.addEventListener('DOMContentLoaded', function() {
     fetchSuggestions();
     // setInterval(fetchSuggestions, 30000);
 });
 
-let currentData = 0;
+// let currentData = 0;
 
-function fetchSuggestions() {
+export function fetchSuggestions() {
     fetch('/api/suggest/')
         .then(response => {
             if (!response.ok) {
-                document.getElementById('list_friend').style.display = 'none';
-                // console.log("Failed to fetch suggestions");
+                // document.getElementById('list_friend').style.display = 'none';
+                console.log("Failed to fetch suggestions");
                 return;
             }
             return response.json();
         })
         .then(data => {
-            if (data.length !== currentData) {
-                currentData = data.length;
-                handlenotif();
+            // if (data.length !== currentData) {
+            //     currentData = data.length;
+                // handlenotif();
                 updateSuggestions(data);
-            }
+            // }
         })
         .catch(error => {
             console.error('Error fetching suggestions:', error);
@@ -94,6 +94,7 @@ function handleRequestAction(senderUsername) {
             if (data.status === true) {
                 document.getElementById('list_friend').innerHTML = '';
                 fetchSuggestions();
+                handlechalleng();
             }
         })
         .catch(error => {

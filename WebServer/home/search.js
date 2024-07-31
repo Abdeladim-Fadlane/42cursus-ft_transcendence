@@ -47,7 +47,7 @@ search.addEventListener('focus', function(e) {
 search.addEventListener('keyup', ()=>{
     if (hasNonPrintableChars(search.value) == false)
     {
-        clearInterval(interval_serch);
+        // clearInterval(interval_serch);
       
         fetch('/api/users/')
         .then(response => {
@@ -58,7 +58,7 @@ search.addEventListener('keyup', ()=>{
         })
         .then(data => {
             div_user.textContent = "";
-
+            console.log(data);
             for (let i = 0; i < data.length ;i++)
             {
                 if (data[i].username.includes(search.value))

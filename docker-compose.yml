@@ -86,7 +86,6 @@ services:
       - chatdb
     restart: always
 
-
   webserver:
     build: WebServer
     image: nginx
@@ -100,4 +99,12 @@ services:
       - auth
     restart: always
 
+  redis:
+    image: redis
+    container_name: redis
+    restart: always
+    depends_on:
+      - game
+      - track
+      - chat
       
