@@ -147,9 +147,13 @@ nav ul {
   height: 75px;
   display: flex;
   list-style-type: none;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+  gap: 15px;
   
+}
+nav ul li:first-child{
+  text-align: end;
 }
 
 
@@ -364,17 +368,24 @@ ul {
 
 .game button:hover {
   background-color: #702670b8;
-  box-shadow: #bbb 0px 0px 100px;
+  /* box-shadow: #bbb 0px 0px 100px; */
 }
 
 .challenge,
 .invite {
-  width: 25%;
+  /* width: 25%;
   height: 60%;
   background-color: #18093d;
   margin-left: 10px;
   border-radius: 20px;
-  border: #ffffff9b 2px solid;
+  border: #ffffff9b 2px solid; */
+  width: 25%;
+  height: 60%;
+  /* background-color: #18093d; */
+  background: linear-gradient(119deg, rgba(24, 9, 61, 0.9206276260504201) 52%, rgba(134, 32, 141, 0.7077424719887955) 100%);
+  
+  margin-left: 10px;
+  border-radius: 20px;
 }
 
 .challenge h2,
@@ -448,10 +459,13 @@ h3 {
 .leadrboard,
 .global_data,
 .achievements {
-  background-color: #130039;
-  border: #ffffff9b 2px solid;
-  margin: auto;
-  border-radius: 15px;
+  width: 25%;
+  height: 60%;
+  /* background-color: #18093d; */
+  background: linear-gradient(248deg, rgba(24, 9, 61, 0.9206276260504201) 52%, rgba(134, 32, 141, 0.7077424719887955) 100%);
+    margin-left: 10px;
+  margin-left: 10px;
+  border-radius: 20px;
 }
 .leadrboard,
 .achievements {
@@ -722,7 +736,7 @@ a {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1000;
+  z-index: 100000;
   left: 0;
   top: 0;
   width: 100%;
@@ -759,6 +773,7 @@ a {
   width: 300px;
   text-align: center;
   position: relative;
+
 }
 .modal-content_no
 {
@@ -831,22 +846,17 @@ a {
   background-color: #000000bd;
 } */
 
-.forms
-{
-  display: flex;
-  width: 100%;
-  height: 100%;
 
-}
 .personil-data
 {
+  /* background: linear-gradient(283deg, rgb(118 83 147 / 94%) 52%, rgba(79, 47, 134, 1) 100%); */
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
-  width: 50%;
-  height: 90%;
-  border-right: 1px solid #ffffff9b;
+  width: 350px;
+  height: 100%;
+
 }
 .settings-modal
 {
@@ -862,18 +872,87 @@ a {
   justify-content:center;
   align-items: center;
 }
+.menu
+{
+  background: linear-gradient(293deg, rgb(88 41 127 / 86%) 52%, rgb(24 83 146) 100%);
+  /* clip-path: polygon(0 0, 64% 3%, 100% 100%, 33% 94%); */
+
+  width: 250px;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.menu div
+{
+  
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Soap Opera', sans-serif;
+  font-size: 20px;
+  color: #ffffff9f;
+  cursor: pointer;
+  border-top: 2px solid #666577;
+  overflow: hidden;
+  
+}
+.menu div:hover
+{
+  background-color: #ffffff9b;
+  color: #000000;
+  font-size: 22px;
+}
+#nameprofile
+{
+  text-align: end;
+}
+/* .menu-item1
+{
+  position: relative;
+  top: 0px;
+  right: 75px;
+}
+.menu-item2
+{
+  position: relative;
+  top: 0px;
+  right: 33px;
+}
+.menu-item3
+{
+  position: relative;
+  top: 0px;
+  right: 34px;
+}
+.menu-item4
+{
+  position: relative;
+  width: 120%;
+  top: 0px;
+  right: 90px;
+}
+.menu-item5
+{
+  position: relative;
+  top: 0px;
+  right: 1px;
+} */
+
 .setting-contiener
 {
-  background-color: #764082;
-  border: #ffffff9b 2px solid;
+  
   border-radius: 15px;
-  width: 650px;
+  width: 600px;
   height: 54%;
   text-align: center;
   display: flex;
   justify-content: start;
   align-items: center;
-  flex-direction: column;
+  background: linear-gradient(283deg, rgb(118 83 147 / 94%) 52%, rgba(79, 47, 134, 1) 100%);
 }
 
 .settings-form
@@ -956,7 +1035,7 @@ input[type="text"], input[type="email"]
   flex-direction: column;
   width: 350px;
   height: 50%;
-  background-color: #764082;
+  background: linear-gradient(220deg, rgb(24 9 61 / 83%) 52%, rgb(195 24 207 / 21%) 100%);
   border: #ffffff9b 2px solid;
   border-radius: 15px;
 }
@@ -1647,18 +1726,18 @@ align-items: center;
 }
 .bar_content
 {
-border: #694a8960 solid 2px;
+/* border: #694a8960 solid 2px; */
 /* background-color: #3498db; */
 width: 95%;
 border-radius: 10px;
 height: 58px;
-border: 1px solid;
+/* border: 1px solid; */
 
 }
-.bar_content:hover
+/* .bar_content:hover
 {
 border: #bbb solid 2px;
-}
+} */
 .bar_content button
 {
 background-color: #0603068b;
@@ -1667,11 +1746,11 @@ display: flex;
 justify-content: center;
 align-items: center;
 }
-.bar_content button:hover
+/* .bar_content button:hover
 {
 background-color: #702670b8;
 border: #bbb 2px solid;
-}
+} */
 /* Friends end */
 
 /* history */
@@ -1724,29 +1803,40 @@ font-weight: bold;
 color: #ec0707;
 margin-top: 20px;
 }
-/* history end */
 .profile-settings-img
 {
-width: 60px;
-height: 60px;
-/* border-radius: 10%; */
-margin-top: 10px;
+width: 110px;
+height: 110px;
 cursor: pointer;
 
+}
+.user-name
+{
+font-size: 20px;
+font-weight: bold;
+color: #ffffff;
+background-color: #db2121;
+width: 200px;
+height: 40px;
 }
 
 .delet_account
 {
   color: #131a32;
 }
-.form-container {
-display: flex;
-justify-content: start;
-align-items: center;
-flex-direction: column;
-height: 100%;
-width: 50%;
-
+.form-container-pofile , .form-container-pass {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  
+}
+.form-container-pass
+{
+  height: 60%;
+  width: 350px;
+  
+  display: none;
 }
 /* background-color: #45a049; */
 .close_set
@@ -1771,8 +1861,9 @@ height: 60px;
 
 .h3_setting
 {
-  font-size: 27px;
-  height: 100px;
+  font-size: 24px;
+  height: auto;
+  
 }
 label
 {
@@ -1783,8 +1874,8 @@ margin-bottom: 30px;
 }
 input
 {
-width: 200px;
-height: 30px;
+  width: 261px;
+  height: 45px;
 border-radius: 5px;
 margin-bottom: 10px;
 padding: 5px;
@@ -1795,13 +1886,13 @@ border: #ffffff9b 2px solid;
 .submit
 {
 
-width: 200px;
-height: 40px;
+  width: 267px;
+  height: 50px;
 
 color: #ffffff;
 text-align: center;
 background-color: #261A17;
-border: #ffffff9b 2px solid;
+/* border: #ffffff9b 2px solid; */
 }
 .submit:hover
 {

@@ -18,12 +18,18 @@ from .forms import CustomUserForm
 from .models import CustomUser, all_Match
 from rest_framework.authtoken.models import Token  # type: ignore
 from django.http import JsonResponse
-
 state = secrets.token_urlsafe(16)
 client_id = os.environ.get('client_id')
 redirect_uri = os.environ.get('redirect_uri')
 client_secret = os.environ.get('client_secret')
 
+def notify(id, action):
+    url = 'http://track:8004/notify/'
+    data = {
+        'id': id,
+        'action': action,
+    }
+    requests.get(url=url,params=data)
 
 def login_required(request):
     if request.user.is_authenticated:
@@ -36,6 +42,10 @@ def login_required(request):
         return user
     return None
 
+def sendToAllUsers(id,action):
+    all_id = CustomUser.objects.all().values_list('id', flat=True).exclude(id=id)
+    for i in all_id:
+        notify(i, action)
 
 def SignIn(request):
     if request.user.is_authenticated:
@@ -62,6 +72,7 @@ def SignUp(request):
         user_form = CustomUserForm(request.POST)
         if user_form.is_valid():
             user_form.save()
+            sendToAllUsers(user_form.instance.id,"friend_request_suggest")
             return JsonResponse({'status': True}, status=200)
         else:
             return JsonResponse({"status": False, "error": user_form.errors}, status=200)
@@ -127,6 +138,7 @@ def store_data_in_database(request, access_token):
                         f.write(response.content)
                     user.photo_profile = f'User_profile/{filename}'
                     user.available = True
+                    sendToAllUsers(user.id,"friend_request_suggest")
                     user.save()
                 user.save()
             token, _, = Token.objects.get_or_create(user=user)

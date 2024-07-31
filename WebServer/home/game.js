@@ -39,7 +39,7 @@ async function get_url(socket_url) {
         main_socket = new WebSocket(url);
 
         main_socket.onopen = function(event) {
-            console.log("main WebSocket connection established.");
+            // console.log("main WebSocket connection established.");
         };
 
         main_socket.onmessage = function(event) {
