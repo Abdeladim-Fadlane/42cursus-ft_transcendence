@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Conversation(models.Model):
-    room_name = models.TextField(default="")
+    room_name = models.TextField(default="") #room_number_number
     created_at = models.DateTimeField(auto_now=True)
     block_conversation = models.BooleanField(default=False)
     user_bloking = models.TextField(default="")

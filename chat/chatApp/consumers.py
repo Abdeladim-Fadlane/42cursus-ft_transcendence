@@ -37,7 +37,18 @@ class ChatLive(AsyncWebsocketConsumer):
                 sender_name=sender,
                 content=message,
             )
+            """ this is the way to send message to the friend """
             time = str(message_obj.time_added)
+            room_name = "room_1"
+            await self.channel_layer.group_send(
+               room_name,
+               {
+                    "type": "chat_message",
+                    "message": "friend send message",
+
+               }
+            )
+
         if (conversation_obj.block_conversation == True and task == 'send_message') :
             return 
         await self.channel_layer.group_send(
