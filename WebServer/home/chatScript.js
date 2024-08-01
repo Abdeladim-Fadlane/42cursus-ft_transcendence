@@ -1,3 +1,4 @@
+import { view_profile } from './userInformation.js';
 
 function ParceDate(date){
     let _date = date.substr(0, date.indexOf('T'));
@@ -77,9 +78,10 @@ function fetchConversation(userid, username)
             return response.json();
         })
         .then(data=>{
-            console.log('**************************')
             console.log(data);
-            console.log('**************************')
+            // if (data.status == 'success' && data.not_read != 0)
+            //     document.querySelector('.chat-aside-numberMessage').textContent = data.not_read;
+            
         })
     })
 }
@@ -493,16 +495,6 @@ function create_chatRoom(map)
                             'action' : data.action,
                             'user_id' : '',
                         }));
-                        // if (data.status == 'success' && data.action == 'unblock')
-                        // {
-                        //     map_action[username2] = 'block';
-                        //     console.log('11111111111111111user blocking you')
-                        // }
-                        // else if (data.status == 'success' && data.action == 'block')
-                        // {
-                        //     console.log('2222222222222222user blocking you')
-                        //     map_action[username2] = 'unblock';
-                        // }
                     })
                     .catch(error => {
                         console.error('Error when fetch csrf token :', error);

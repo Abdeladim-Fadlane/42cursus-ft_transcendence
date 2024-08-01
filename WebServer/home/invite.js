@@ -1,5 +1,6 @@
 import { handlenotif } from './notif.js';
 import { handlechalleng } from './challenge.js';
+import { view_profile } from './userInformation.js';
 document.addEventListener('DOMContentLoaded', function() {
     fetchSuggestions();
     // setInterval(fetchSuggestions, 30000);
@@ -94,7 +95,7 @@ function handleRequestAction(senderUsername) {
             if (data.status === true) {
                 document.getElementById('list_friend').innerHTML = '';
                 fetchSuggestions();
-                handlechalleng();
+                // handlechalleng();
             }
         })
         .catch(error => {

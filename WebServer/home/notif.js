@@ -3,6 +3,7 @@ import { fetchdelette } from './suggest.js';
 import { fetchSuggestions } from './invite.js';
 // import { fetchAndUpdateFriends } from './msgfriend.js';
 import { handlechalleng } from './challenge.js';
+import { view_profile } from './userInformation.js';
 
 
 
@@ -58,10 +59,9 @@ function handleRequestAction(action, senderUsername, requestId) {
             .then(response => response.json())
             .then(data => {
                 if (data.status === true) {
-                    // removeRequestFromUI(requestId);
-                    // handlechalleng();
                     handlenotif();
                     fetchdelette();
+                    handlechalleng();
                 } else {
                     console.error('Failed to handle request:', data.message);
                 }
@@ -126,8 +126,8 @@ function updateRequests(data) {
         // Event listener for 'Accept' button
         accept.addEventListener('click', function() {
             handleRequestAction('accept', item.sender_username, item.id);
-            fetchdelette();
-            handlechalleng();
+            // fetchdelette();
+            // handlechalleng();
             
             console.log('accept----------');
         });

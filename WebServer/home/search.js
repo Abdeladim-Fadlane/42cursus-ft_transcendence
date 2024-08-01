@@ -1,3 +1,4 @@
+import { view_profile } from './userInformation.js';
 let search = document.querySelector('.search-input')
 function hasNonPrintableChars(inputString) {
     if (inputString.length == 0)

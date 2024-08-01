@@ -1,10 +1,11 @@
+import {func_add_friend , to_chat ,remove_friend} from './ProfileAction.js';
 function ParceDate(date){
     let _date = date.substr(0, date.indexOf('T'));
     let _time = date.substr(date.indexOf('T') + 1 ,  date.indexOf('.') - (date.indexOf('T') + 1));
     return `${_date + ' ' + _time}`;
 }
 let  interval;
-import {func_add_friend , to_chat ,remove_friend} from './ProfileAction.js'
+// import {func_add_friend , to_chat ,remove_friend} from './ProfileAction.js'
 function drawCircle(lose, win)
 {
     let circle = document.querySelector('.circle');
@@ -70,7 +71,7 @@ function drawCircle(lose, win)
 let closeInter;
 let action = ''
 
-function button_profile(username){
+function button_profile(username, Profileid){
 
     let parent_button = document.querySelector('.profile-user-action');
     let add_friend = document.querySelector('.profile-user-action-add_friend')
@@ -95,7 +96,6 @@ function button_profile(username){
                 isdone = true;
                 if (add_friend.style.display != 'none')
                     return;
-                // console.log('1111111111111111******')  
                 add_friend.style.display = 'flex';
                 add_friend.id = username;
                 delete_friend.style.display = 'none';
@@ -117,26 +117,21 @@ function button_profile(username){
                     if (data[i].username == username)
                     {
                         isdone = true;
-                        // console.log('2222222222222222******')  
-
                         if (delete_friend.style.display != 'none')
                             return ;
-                        // delete_friend.style.backgroundColor = 'red';
                         delete_friend.style.display = 'flex';
                         chat_button.style.display = 'flex';
                         parent_button.style.display = 'flex';
-                        button_friend.style.display = 'none';
                         delete_friend.id = username;
-                        // isdone = true;
-                        chat_button.id = username;
+                        chat_button.id = Profileid;
+                        console.log(Profileid)
                         return ;
                     }
                     
                 }
                 if (!isdone)
                 {
-                    // console.log('3333333333333333333****')
-                    parent.style.display = 'none';
+                    parent_button.style.display = 'none';
                 }
             })
            
@@ -146,10 +141,53 @@ function button_profile(username){
     })
     .catch(error=>{console.log(error);return ;})
 }
-
-let action_profile;
-function view_profile(e)
+let status = document.querySelector('.profile-user-status-string');
+let status_color = document.querySelector('.profile-user-status-color');
+function ProfileStutus(username)
 {
+    fetch('/api/csrf-token/')
+    .then(response =>{
+        if (response.ok == false){
+            console.log('error when fetching data');
+        }
+        return response.json();
+    })
+    .then(data =>{
+        fetch('/api/friend/', {
+            method: 'POST',
+            headers : {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': data.csrfToken,
+            },
+            body :JSON.stringify({
+                'username' : username,
+            })
+        })
+        .then(response =>{
+            if (response.ok != true)
+                console.log('error when fetching data of user by `/api/friend/`');
+            return response.json();
+        })
+        .then(data=>{
+            if (String(data.available) == 'true'){
+                status.textContent = 'online';
+                status_color.style.backgroundColor = 'green'
+            }
+            else
+            {
+                status.textContent = 'offline';
+                status_color.style.backgroundColor = 'red'
+
+            }
+        })
+    })
+}
+let ProfileUsername = '';
+let ProfileUser_id ;
+export {ProfileUsername, ProfileUser_id , button_profile, ProfileStutus}
+export function view_profile(e)
+{
+    ProfileUsername = e.target.id;
     let button_friend = document.querySelector('.profile-user-action-add_friend');
     let delete_friend = document.querySelector('.profile-user-action-unfriend');
     let button_chat = document.querySelector('.profile-user-action-go_to_chat');
@@ -166,8 +204,7 @@ function view_profile(e)
     let firstname = document.querySelector('.profile-user-firstname');
     let lastname = document.querySelector('.profile-user-lastname');
     let email = document.querySelector('.profile-user-email');
-    let status = document.querySelector('.profile-user-status-string');
-    let status_color = document.querySelector('.profile-user-status-color');
+    
     let statistique = document.querySelector('.no-statistique');
     let win = document.querySelector('.win-statistique');
     let lose = document.querySelector('.lose-statistique');
@@ -199,6 +236,8 @@ function view_profile(e)
             return response.json();
         })
         .then(data=>{
+            ProfileUser_id = data.id;
+            button_profile(e.target.id, ProfileUser_id);
             usernameFriend = data.username
             username.textContent = data.username;
             score.textContent = data.score;
@@ -229,67 +268,30 @@ function view_profile(e)
             }
         })
     })
-    closeInter = setInterval(()=>{
-        fetch('/api/csrf-token/')
-        .then(response =>{
-            if (response.ok == false){
-                console.log('error when fetching data');
-            }
-            return response.json();
-        })
-        .then(data =>{
-            fetch('/api/friend/', {
-                method: 'POST',
-                headers : {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': data.csrfToken,
-                },
-                body :JSON.stringify({
-                    'username' : e.target.id,
-                })
-            })
-            .then(response =>{
-                if (response.ok != true)
-                    console.log('error when fetching data of user by `/api/friend/`');
-                return response.json();
-            })
-            .then(data=>{
-                // console.log(data.available);
-                if (String(data.available) == 'true'){
-                    status.textContent = 'online';
-                    status_color.style.backgroundColor = 'green'
-                }
-                else
-                {
-                    status.textContent = 'offline';
-                    status_color.style.backgroundColor = 'red'
-
-                }
-           })
-        })
-    }, 2000);
-    button_profile(e.target.id)
-    action_profile = setInterval(()=>{button_profile(e.target.id)}, 2000);
+   
+    ProfileStutus(e.target.id);
     modal.style.display = 'flex';
 }
-function close_user_profile()
-{
-    const modal = document.getElementById('content-user');
-    modal.style.display = 'none';
-    document.querySelector('.profile-user-action').style.display = 'none';
-    document.querySelector('.profile-user-action-add_friend').style.display = 'none';
-    document.querySelector('.profile-user-action-go_to_chat').style.display = 'none';
-    document.querySelector('.profile-user-action-unfriend').style.display = 'none';
-    clearInterval(closeInter);
-    clearInterval(interval);
-    clearInterval(action_profile);
 
-}
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all elements with the class 'close_profile'
+    const closeButtons = document.querySelectorAll('.close_profile');
+    
+    // Add a click event listener to each button
+    closeButtons.forEach(function(button) {
+        button.addEventListener('click', close_user);
+    });
+});
+
 document.getElementById('content-user').addEventListener('click', function(event) {
+
+   
+    
     if (event.target === this) {
-        close_user_profile();
+        console.log('close_user');
+        close_user(); // Close modal only if clicking on #content-user directly
     }
-  });
+});
 function view_friends()
 {
     console.log("view_friends");
@@ -308,4 +310,16 @@ function view_matchs()
     document.getElementById('profile-user-match').style.borderBottom = '2px solid #ffffff';
     document.getElementById('profile-user-friend').style.borderBottom = '0px solid #ffffff';
     
+}
+
+function close_user() {
+
+    const modal = document.getElementById('content-user');
+    modal.style.display = 'none';
+
+    // // Hide all profile user actions
+    document.querySelector('.profile-user-action').style.display = 'none';
+    document.querySelector('.profile-user-action-add_friend').style.display = 'none';
+    document.querySelector('.profile-user-action-go_to_chat').style.display = 'none';
+    document.querySelector('.profile-user-action-unfriend').style.display = 'none';
 }

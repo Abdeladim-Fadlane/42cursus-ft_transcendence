@@ -6,8 +6,12 @@ import { handlechalleng } from './challenge.js';
 import { leaderboard_requests } from './leader.js';
 import { fetchAndUpdateFriends } from './msgfriend.js';
 import { fetchConversation, fetchAllMessage} from './chatScript.js';
+
+
+import { ProfileUsername , ProfileUser_id, button_profile, ProfileStutus} from './userInformation.js';
 let user_id = document.querySelector('#login');
 let user_name = document.querySelector('#login');
+let Profile_module = window.getComputedStyle(document.querySelector('#content-user'))
 fetch('/api/token/')
     .then(response => response.json())
     .then(data => {
@@ -30,39 +34,43 @@ fetch('/api/token/')
             // console.log('------------');
             // console.log(data.message);
             // console.log('------------');
+            // console.log('user_name -------> ' + ProfileUsername)
             if (data.message === "friend send message"){
-                console.log('-----------------------')
+                
                 fetchConversation(user_id.className, user_name.textContent)
-                // console.log('user id=============> ' )
-                // console.log()
-                console.log('-----------------------')
-                // fetchAllMessage(user_id, user_name)
+                fetchAllMessage(user_id.className, user_name.textContent)
                 
             }
             else if (data.message === 'friend_request_send') {
                 handlenotif();
-                
+                if (Profile_module.display == 'flex')
+                    button_profile(ProfileUsername, ProfileUser_id);
             }
             else if (data.message === 'friend_request_reject') {
                 fetchSuggestions();
+                if (Profile_module.display == 'flex')
+                    button_profile(ProfileUsername, ProfileUser_id);
+
             }
             else if (data.message === 'friend_request_accept') {
                 fetchdelette();
                 fetchAndUpdateFriends();
                 handlechalleng();
-                
+                if (Profile_module.display == 'flex')
+                    button_profile(ProfileUsername, ProfileUser_id);
             }
             else if (data.message === 'friend_request_suggest') {
 
                 fetchSuggestions();
                 leaderboard_requests();
+                if (Profile_module.display == 'flex')
+                    button_profile(ProfileUsername, ProfileUser_id);
             }
-            else if (data.message === 'friend is online' || data.message === 'friend is offline') { // console.log("************************");
-                // console.log(data)
-                // console.log("************************");
+            else if (data.message === 'friend is online' || data.message === 'friend is offline') {
                 handlechalleng();
-                
-                console.log('online friends====>');
+                console.log('online friends====>' );
+                if (Profile_module.display == 'flex')
+                    ProfileStutus(ProfileUsername);
             }
             else if (data.message === 'profile_change') {
                 handlenotif();
@@ -72,6 +80,7 @@ fetch('/api/token/')
                 fetchHistory();
                 fetchdelette();
                 fetchAndUpdateFriends();
+                // data();
                 
             }
             else if (data.message === 'update_leaderboard') {
@@ -82,10 +91,12 @@ fetch('/api/token/')
                 fetchHistory();
             }
             else if (data.message === 'friend_delete') {
-                    fetchdelette();
-                    fetchSuggestions();
-                    fetchAndUpdateFriends();
-                    handlechalleng();
+                fetchdelette();
+                fetchSuggestions();
+                fetchAndUpdateFriends();
+                handlechalleng();
+                if (Profile_module.display == 'flex')
+                    button_profile(ProfileUsername, ProfileUser_id);
             }
         }
 });

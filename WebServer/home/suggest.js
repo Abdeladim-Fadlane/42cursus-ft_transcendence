@@ -2,6 +2,8 @@
 import { fetchSuggestions } from './invite.js';
 import { fetchAndUpdateFriends } from './msgfriend.js';
 import { handlechalleng } from './challenge.js';
+import { view_profile } from './userInformation.js';
+
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -52,6 +54,9 @@ function handleRequestAction(senderUsername) {
             if (data.status === true) {
                 
                handleRequestsuggestion();
+               fetchSuggestions();
+                fetchAndUpdateFriends();
+                handlechalleng();
             }
         });
     });
@@ -103,10 +108,8 @@ function handleRequestAction(senderUsername) {
             reward.appendChild(document.createElement('br'));
             addfriend.addEventListener('click', function() {
                 handleRequestAction(data[i].username);
-                fetchSuggestions();
-                fetchAndUpdateFriends();
-                handlechalleng();
-                console.log('lllllll');
+                
+                // console.log('lllllll');
 
             });
         }

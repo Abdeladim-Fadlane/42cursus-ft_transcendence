@@ -1,4 +1,4 @@
-// import { handlenotif } from './notif.js';
+import { view_profile } from './userInformation.js';
 
 // Use the imported function
 // handlenotif();
@@ -11,9 +11,9 @@ export function handlechalleng() {
             return response.json();
         })
         .then(data => {
-            // console.log("************************");
-            // console.log(data)
-            // console.log("************************");
+            console.log("************************");
+            console.log(data)
+            console.log("************************");
             document.getElementById('challenge_friend').innerHTML = '';
             var reward = document.getElementById('challenge_friend');
 

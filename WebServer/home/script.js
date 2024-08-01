@@ -176,12 +176,12 @@ function click_chat(pushState = true) {
     fetch('/api/data/')
     .then(response => { return response.json()})
     .then(data =>{
-      // console.log(data);
+      console.log(data);
       document.querySelector('#username').value = data.username;
       document.querySelector('#email').value = data.email;
       document.querySelector('#first_name').value = data.first_name;
       document.querySelector('#last_name').value = data.last_name;
-      if (data.unique_id != '0') {
+      if (data.unigue_id != 0) {
         document.querySelector('#old_password').readOnly = true;
         document.querySelector('#new_password').readOnly = true;
         document.querySelector('#confirm_password').readOnly = true;

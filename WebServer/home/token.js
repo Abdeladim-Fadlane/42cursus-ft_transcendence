@@ -1,3 +1,5 @@
+import { my_data } from './data.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.profile_photo_form').addEventListener('submit', (e)=>{
         e.preventDefault();
@@ -16,9 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(data => {
-                // console.log(data);image-profile-user  image-profile-id
-                // fetchRequests();
-                // document.querySelectorAll()
+            
                 document.querySelector('.profile-settings-img').src = data.photo_profile;
                 document.querySelector('.image-profile-user').src = data.photo_profile;
                 document.querySelector('.image-profile-id').src = data.photo_profile;
@@ -33,7 +33,6 @@ document.querySelector('#image').addEventListener('input', (e)=>{
     if (e.target.value.length != 0 && type_file)
         document.querySelector('#button_profile_click').click();
 });
-
 
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -56,8 +55,11 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             if (data.status === true) {
                 document.getElementById('settings-modal').style.display = 'none';
+                my_data();
+
             } else {
                 var msg = document.getElementById('messages');
                 msg.innerHTML = data.message;
