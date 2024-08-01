@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            // console.log(data)
             const userData = JSON.parse(JSON.stringify(data));
             // Update user information in the DOM
             document.getElementById('login').textContent = userData.username;

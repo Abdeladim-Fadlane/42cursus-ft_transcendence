@@ -21,11 +21,11 @@
         <div class="fac_one">
         <div class="navbar-logo">
             <a class="logo" onclick="border_home()" data-target="home"><img src="./resrc/new-logo.png" alt="Logo" ></a>
-        </div>
-        <div class="nav-search">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" class="search-input" >
-            <div class="users-search-bar"></div>
+            <div class="nav-search">
+                <i id="search-icon" class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="search-input" >
+                <div class="users-search-bar"></div>
+            </div>
         </div>
         </div>
             <div class="navbar-buttons">
@@ -41,8 +41,8 @@
             <div class="aside_content">
                 
                     <ul>
-                        <li ><a  data-target="home"   onclick="border_home()" onclick="disactiv_sections()" class="icons"  ><i id="Home-aside" class="fa-solid fa-house"></i></a></li>
-                         <li  ><a data-target="profile" onclick="border_pr()" onclick="disactiv_sections()" class="icons" ><i id="Pr-aside" class="fa-solid fa-user"></i></a></li>
+                        <li ><a  data-target="home"   onclick="border_home()"  class="icons"  ><i id="Home-aside" class="fa-solid fa-house"></i></a></li>
+                         <li  ><a data-target="profile" onclick="border_pr()"  class="icons" ><i id="Pr-aside" class="fa-solid fa-user"></i></a></li>
                         
                         <li><a class="chat-aside nav-link aside"   onclick="click_chat()"><div  class="icons"  ><i id="chat-aside" class="fa-solid fa-comment"></i></div></a></li>
                         <li><a class="notification aside"  onclick="showNotificationsModal()"><div    class="icons" > <i id="notif-aside" class="fa-solid fa-bell"></i> </div></a></li>
@@ -256,7 +256,7 @@
                     <div class="profile-user">
                         <div class="profile-user-info">
                             <div class="image_user">
-                                <span class="close_profile" onclick="close_user_profile()">&times;</span>
+                                <span class="close_profile" >&times;</span>
                                 <img class="profile-user-photo_profile" src="" alt="">
                                 <span class="profile-user-status">
                                     <p class="profile-user-status-color"></p>
@@ -503,12 +503,12 @@
     <script type="module" src="challenge.js"></script>
     <script type="module" src="notif.js"></script> 
     <script src="setting.js"></script>
-    <script src="userInformation.js"></script>
-    <script type="module" src="msgfriend.js" type="module"></script>
-    <script src="chatScript.js" type="module"></script>
+    <script type="module" src="userInformation.js" defer></script>
+    <script type="module" src="msgfriend.js" ></script>
+    <script type="module" src="chatScript.js" ></script>
     <script type="module" src="track.js"></script>
-    <script src="search.js"></script>
-    <script src="ProfileAction.js"></script>
+    <script type="module" src="search.js"></script>
+    <script type="module" src="ProfileAction.js"></script>
 
 </body>
 </html>

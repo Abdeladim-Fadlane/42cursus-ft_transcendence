@@ -1,3 +1,6 @@
+import { fetchSuggestions } from './invite.js';
+
+export {func_add_friend , to_chat ,remove_friend}
 
 let button_friend = document.querySelector('.profile-user-action-add_friend');
 let button_unfriend = document.querySelector('.profile-user-action-unfriend');
@@ -9,10 +12,10 @@ function to_chat(e)
 {
     let username = e.target.id;
     let text = e.target.textContent;
- 
-
-    document.querySelector('.close_profile').click()
-    document.querySelector('.chat-aside').click()
+    let close_btn = document.querySelector('.close_profile');
+    close_btn.click()
+    let chat_aside = document.querySelector('.chat-aside');
+    chat_aside.click()
     e.target.textContent = text;
     let friends = document.querySelectorAll('.friend-list-room');
     for (let j = 0; j < friends.length; j++)
@@ -74,6 +77,8 @@ function func_add_friend(e)
                 button_chat.style.display = 'none';
                 button_chat.style.transition = '1s ease-out'
                 e.target.textContent = text;
+                fetchSuggestions();
+
             }
         })
     })

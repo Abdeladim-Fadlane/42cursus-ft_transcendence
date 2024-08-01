@@ -20,7 +20,7 @@ export function fetchAndUpdateFriends() {
             let chat_msg = document.querySelector('.chat-friend-name');
             let ishere =  false;
             if (data.length !== previousDataSize) {
-                
+                // console.log(data)
                 previousDataSize = data.length;
                 var reward = document.getElementById('list_friend_chat');
                 reward.innerHTML = ""; 
@@ -39,7 +39,7 @@ export function fetchAndUpdateFriends() {
                     let username = document.createElement('p');
                     username.textContent = data[i].username;
                     username.style.marginLeft = "15px";
-                    container.id = data[i].user_id;
+                    container.id = data[i].id_user;
                     container.style.cssText = `
                         display: flex;
                         align-items: center;

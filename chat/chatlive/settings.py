@@ -77,7 +77,10 @@ ASGI_APPLICATION = 'chatlive.asgi.application'
 ALLOWED_HOSTS = ['*']
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('redis', 6379)],
+        },
     },
 }
 # Database

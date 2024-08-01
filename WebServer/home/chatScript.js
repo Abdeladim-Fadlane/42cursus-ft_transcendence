@@ -1,3 +1,4 @@
+import { view_profile } from './userInformation.js';
 
 function ParceDate(date){
     let _date = date.substr(0, date.indexOf('T'));
@@ -5,6 +6,85 @@ function ParceDate(date){
     return `${_date} ${_time}`;
 }
 
+
+function send_request(room_name, user_sender)
+{
+    fetch('/chatCsrftoken/')
+    .then(response => response.json())
+    .then(data => {
+        // console.log(data);
+        fetch('/readMessage/',{
+            method: 'POST',
+            headers :{
+                'Content-Type': 'application/json',
+                'X-CSRFToken': data.csrfToken,
+            },
+            body : JSON.stringify({ 
+                'username' : user_sender,
+                'room_name' : room_name,
+             })
+        })
+        .then(response =>{
+            return response.json();
+        })
+        .then(data=>{
+            // console.log(data);
+        })
+    })
+}
+
+function fetchAllMessage(userid, username)
+{
+    fetch('/chatCsrftoken/')
+    .then(response => response.json())
+    .then(data => {
+        fetch('/MessageUsers/',{
+            method: 'POST',
+            headers :{
+                'Content-Type': 'application/json',
+                'X-CSRFToken': data.csrfToken,
+            },
+            body : JSON.stringify({ 
+                'id_user' : userid,
+                'username' : username,
+             })
+        })
+        .then(response =>{
+            return response.json();
+        })
+        .then(data=>{
+            console.log(data);
+        })
+    })
+}
+
+function fetchConversation(userid, username)
+{
+    fetch('/chatCsrftoken/')
+    .then(response => response.json())
+    .then(data => {
+        fetch('/NotReaded/',{
+            method: 'POST',
+            headers :{
+                'Content-Type': 'application/json',
+                'X-CSRFToken': data.csrfToken,
+            },
+            body : JSON.stringify({ 
+                'id_user' : userid,
+                'username' : username,
+             })
+        })
+        .then(response =>{
+            return response.json();
+        })
+        .then(data=>{
+            console.log('**************************')
+            console.log(data);
+            console.log('**************************')
+        })
+    })
+}
+export {fetchConversation, fetchAllMessage}
 function generateRoomName(user1, user2)
 {
     let tab = [user1, user2]; 
@@ -22,7 +102,7 @@ function hasNonPrintableChars(inputString) {
     }
     return false;
 }
-
+// fetchConversation(document.querySelector('#login').className, document.querySelector('#login').textContent)
 
 function create_chatRoom(map)
 {
@@ -84,6 +164,7 @@ function create_chatRoom(map)
     let div_bolck_msg = document.createElement('div');
     div_bolck_msg.className = 'div-block-user'
     let last_button;
+    // fetchConversation(document.querySelector('#login').className, document.querySelector('#login').textContent)
     buttons_friends.forEach(button => {
         button.addEventListener('click', (e) =>
         {
@@ -104,8 +185,10 @@ function create_chatRoom(map)
         
             username1 = document.querySelector('#login').textContent;
             let usernameid = document.querySelector('#login').className;
+            
             username2 = button.querySelector('p').textContent;
             room_name = generateRoomName( usernameid ,button.id);
+            // console.log()
             let icon = document.createElement('i');
             icon.style.color = 'white';
             icon.classList.add('fa-solid', 'fa-ellipsis-vertical');
@@ -118,7 +201,6 @@ function create_chatRoom(map)
                 return response.json();
             })
             .then(data => {
-                console.log(data);
                 for (let i = 0; i < data.length; i++)
                 {
                     let div_parent = document.createElement("div");
@@ -157,7 +239,8 @@ function create_chatRoom(map)
                     chat_div.scrollTop = chat_div.scrollHeight - chat_div.clientHeight;
                     
                 }
-             
+                send_request(room_name, username1);
+
             })
             .catch(error =>{ 
                 console.log(error);
@@ -233,6 +316,7 @@ function create_chatRoom(map)
             }
             let div_animate;
             Web_socket.onmessage = (e) =>{
+                send_request(room_name, username1);
                 let data_message = JSON.parse(e.data);
                 if (data_message.task == 'send_message')
                 {   
@@ -319,6 +403,7 @@ function create_chatRoom(map)
                         'message': chat_input.value,
                         'room_name' : room_name,
                         'action' : "",
+                        'user_id' : button.id,
                     }));
                     chat_input.value = "";
                 }
@@ -333,6 +418,7 @@ function create_chatRoom(map)
                         'message': chat_input.value,
                         'room_name' : room_name,
                         'action' : '',
+                        'user_id' : button.id,
                     }));
                     chat_input.value = "";
                 }
@@ -406,6 +492,7 @@ function create_chatRoom(map)
                             'message': "",
                             'room_name' : room_name,
                             'action' : data.action,
+                            'user_id' : button.id,
                         }));
                         // if (data.status == 'success' && data.action == 'unblock')
                         // {

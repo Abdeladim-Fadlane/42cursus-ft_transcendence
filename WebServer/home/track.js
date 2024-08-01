@@ -5,7 +5,9 @@ import { fetchHistory } from './match.js';
 import { handlechalleng } from './challenge.js';
 import { leaderboard_requests } from './leader.js';
 import { fetchAndUpdateFriends } from './msgfriend.js';
-
+import { fetchConversation, fetchAllMessage} from './chatScript.js';
+let user_id = document.querySelector('#login');
+let user_name = document.querySelector('#login');
 fetch('/api/token/')
     .then(response => response.json())
     .then(data => {
@@ -18,7 +20,7 @@ fetch('/api/token/')
         socket.onclose = () => {
             console.log('WebSocket closed');
         };
-
+        
         socket.onerror = (error) => {
             console.error('WebSocket error: ', error);
         };
@@ -28,20 +30,22 @@ fetch('/api/token/')
             console.log('------------');
             console.log(data.message);
             console.log('------------');
-
-            if (data.message === 'friend_request_send') {
+            if (data.message === "friend send message"){
+                fetchConversation(user_id.className, user_name.textContent)
+                fetchAllMessage(user_id.className, user_name.textContent)
+                
+            }
+            else if (data.message === 'friend_request_send') {
                 handlenotif();
                 
             }
             else if (data.message === 'friend_request_reject') {
                 fetchSuggestions();
-                handlechalleng();
-                
-                
             }
             else if (data.message === 'friend_request_accept') {
                 fetchdelette();
                 fetchAndUpdateFriends();
+                handlechalleng();
 
             }
             else if (data.message === 'friend_request_suggest') {

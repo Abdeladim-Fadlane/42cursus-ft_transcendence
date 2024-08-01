@@ -129,7 +129,7 @@ def get_friends(request):
     data = []
     for friend in friends:
         friend_data = {
-            'user_id' : friend.user2.id,
+            'id_user': friend.user2.id,
             'username': friend.user2.username,
             'photo_profile': friend.user2.photo_profile.url
         }

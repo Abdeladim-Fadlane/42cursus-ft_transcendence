@@ -1,4 +1,5 @@
 let currentRequestSize = 0;
+import { view_profile } from './userInformation.js';
 
 document.addEventListener('DOMContentLoaded', function() {
 

@@ -1,9 +1,11 @@
+import {func_add_friend , to_chat ,remove_friend} from './ProfileAction.js';
 function ParceDate(date){
     let _date = date.substr(0, date.indexOf('T'));
     let _time = date.substr(date.indexOf('T') + 1 ,  date.indexOf('.') - (date.indexOf('T') + 1));
     return `${_date + ' ' + _time}`;
 }
 let  interval;
+// import {func_add_friend , to_chat ,remove_friend} from './ProfileAction.js'
 function drawCircle(lose, win)
 {
     let circle = document.querySelector('.circle');
@@ -124,7 +126,7 @@ function button_profile(username){
                         delete_friend.style.display = 'flex';
                         chat_button.style.display = 'flex';
                         parent_button.style.display = 'flex';
-                        button_friend.style.display = 'none';
+                        // button_friend.style.display = 'none';
                         delete_friend.id = username;
                         // isdone = true;
                         chat_button.id = username;
@@ -135,7 +137,7 @@ function button_profile(username){
                 if (!isdone)
                 {
                     // console.log('3333333333333333333****')
-                    parent.style.display = 'none';
+                    parent_button.style.display = 'none';
                 }
             })
            
@@ -147,7 +149,7 @@ function button_profile(username){
 }
 
 let action_profile;
-function view_profile(e)
+export function view_profile(e)
 {
     let button_friend = document.querySelector('.profile-user-action-add_friend');
     let delete_friend = document.querySelector('.profile-user-action-unfriend');
@@ -271,24 +273,26 @@ function view_profile(e)
     action_profile = setInterval(()=>{button_profile(e.target.id)}, 2000);
     modal.style.display = 'flex';
 }
-function close_user_profile()
-{
-    const modal = document.getElementById('content-user');
-    modal.style.display = 'none';
-    document.querySelector('.profile-user-action').style.display = 'none';
-    document.querySelector('.profile-user-action-add_friend').style.display = 'none';
-    document.querySelector('.profile-user-action-go_to_chat').style.display = 'none';
-    document.querySelector('.profile-user-action-unfriend').style.display = 'none';
-    clearInterval(closeInter);
-    clearInterval(interval);
-    clearInterval(action_profile);
 
-}
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all elements with the class 'close_profile'
+    const closeButtons = document.querySelectorAll('.close_profile');
+    
+    // Add a click event listener to each button
+    closeButtons.forEach(function(button) {
+        button.addEventListener('click', close_user);
+    });
+});
+
 document.getElementById('content-user').addEventListener('click', function(event) {
+
+   
+    
     if (event.target === this) {
-        close_user_profile();
+        console.log('close_user');
+        close_user(); // Close modal only if clicking on #content-user directly
     }
-  });
+});
 function view_friends()
 {
     console.log("view_friends");
@@ -307,4 +311,16 @@ function view_matchs()
     document.getElementById('profile-user-match').style.borderBottom = '2px solid #ffffff';
     document.getElementById('profile-user-friend').style.borderBottom = '0px solid #ffffff';
     
+}
+
+function close_user() {
+
+    const modal = document.getElementById('content-user');
+    modal.style.display = 'none';
+
+    // // Hide all profile user actions
+    document.querySelector('.profile-user-action').style.display = 'none';
+    document.querySelector('.profile-user-action-add_friend').style.display = 'none';
+    document.querySelector('.profile-user-action-go_to_chat').style.display = 'none';
+    document.querySelector('.profile-user-action-unfriend').style.display = 'none';
 }

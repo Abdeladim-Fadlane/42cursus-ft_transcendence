@@ -2754,3 +2754,16 @@ label{
   font-weight: bold;
   font-family: sans-serif;
 }
+
+.nav-search input{
+  transition: 0.3s;
+  transform: rotateY(90deg);
+  transform-origin: right top;
+  border-radius: 12px;
+  width: 300px;
+  height: 35px;
+  color: white;
+  padding-left: 20px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
