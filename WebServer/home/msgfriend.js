@@ -20,7 +20,7 @@ export function fetchAndUpdateFriends() {
             let chat_msg = document.querySelector('.chat-friend-name');
             let ishere =  false;
             if (data.length !== previousDataSize) {
-                console.log(data)
+                // console.log(data)
                 previousDataSize = data.length;
                 var reward = document.getElementById('list_friend_chat');
                 reward.innerHTML = ""; 

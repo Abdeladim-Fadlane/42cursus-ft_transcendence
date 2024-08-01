@@ -4,6 +4,7 @@ function ParceDate(date){
     return `${_date + ' ' + _time}`;
 }
 let  interval;
+import {func_add_friend , to_chat ,remove_friend} from './ProfileAction.js'
 function drawCircle(lose, win)
 {
     let circle = document.querySelector('.circle');

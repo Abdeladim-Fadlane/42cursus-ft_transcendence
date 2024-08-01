@@ -6,8 +6,8 @@ import { handlechalleng } from './challenge.js';
 import { leaderboard_requests } from './leader.js';
 import { fetchAndUpdateFriends } from './msgfriend.js';
 import { fetchConversation, fetchAllMessage} from './chatScript.js';
-let user_id = document.querySelector('#login').className;
-let user_name = document.querySelector('#login').textContent;
+let user_id = document.querySelector('#login');
+let user_name = document.querySelector('#login');
 fetch('/api/token/')
     .then(response => response.json())
     .then(data => {
@@ -27,12 +27,16 @@ fetch('/api/token/')
         socket.onmessage = (event) => {
             
             const data = JSON.parse(event.data);
-            console.log('------------');
-            console.log(data.message);
-            console.log('------------');
+            // console.log('------------');
+            // console.log(data.message);
+            // console.log('------------');
             if (data.message === "friend send message"){
-                fetchConversation(user_id, user_name)
-                fetchAllMessage(user_id, user_name)
+                console.log('-----------------------')
+                fetchConversation(user_id.className, user_name.textContent)
+                // console.log('user id=============> ' )
+                // console.log()
+                console.log('-----------------------')
+                // fetchAllMessage(user_id, user_name)
                 
             }
             else if (data.message === 'friend_request_send') {
@@ -46,14 +50,16 @@ fetch('/api/token/')
                 fetchdelette();
                 fetchAndUpdateFriends();
                 handlechalleng();
-
+                
             }
             else if (data.message === 'friend_request_suggest') {
 
                 fetchSuggestions();
                 leaderboard_requests();
             }
-            else if (data.message === 'friend is online' || data.message === 'friend is offline') {
+            else if (data.message === 'friend is online' || data.message === 'friend is offline') { // console.log("************************");
+                // console.log(data)
+                // console.log("************************");
                 handlechalleng();
                 
                 console.log('online friends====>');

@@ -132,3 +132,4 @@ function remove_friend(e)
     
 }
 
+export {func_add_friend , to_chat ,remove_friend}

@@ -491,7 +491,7 @@ function create_chatRoom(map)
                             'message': "",
                             'room_name' : room_name,
                             'action' : data.action,
-                            'user_id' : button.id,
+                            'user_id' : '',
                         }));
                         // if (data.status == 'success' && data.action == 'unblock')
                         // {
