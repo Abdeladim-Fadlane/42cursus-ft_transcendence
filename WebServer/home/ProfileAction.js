@@ -134,4 +134,27 @@ function remove_friend(e)
     });
     
 }
-
+let statis_div = document.querySelector('.profile-user-statistique');
+let match_div = document.querySelector('.profile-user-history-match');
+let button_statis = document.querySelector('.statistique-header');
+let button_match = document.querySelector('.history-header');
+button_match.addEventListener('click', (e)=>{
+    let div_style = window.getComputedStyle(match_div)
+    if (div_style.display == 'none')
+    {
+        e.currentTarget.style.borderBottom = '2px solid white';
+        button_statis.style.border = 'none';
+        match_div.style.display = 'flex';
+        statis_div.style.display = 'none';
+    }
+})
+button_statis.addEventListener('click', (e)=>{
+    let div_style = window.getComputedStyle(statis_div)
+    if (div_style.display == 'none')
+    {
+        e.currentTarget.style.borderBottom = '2px solid white';
+        button_match.style.border = 'none';
+        statis_div.style.display = 'flex';
+        match_div.style.display = 'none';
+    }
+})

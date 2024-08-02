@@ -111,7 +111,6 @@ icon_search.addEventListener('click', () =>{
 
 document.addEventListener('click', function(event) {
     let div_search =  document.querySelector('.nav-search');
-    // icon_search.style.display = 'inline';
     if (!div_search.contains(event.target))
     {
         isdone = false;

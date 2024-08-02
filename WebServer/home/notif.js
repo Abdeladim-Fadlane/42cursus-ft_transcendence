@@ -38,6 +38,11 @@ function fetchRequests() {
                     countNotify.textContent = currentRequests;
                     document.getElementById('count-noti').style.display = 'flex';
                 }
+                else 
+                {
+                    countNotify.textContent = '';
+                    document.getElementById('count-noti').style.display = 'none';
+                }
                 
                     
                 
