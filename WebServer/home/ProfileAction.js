@@ -1,4 +1,7 @@
 import { fetchSuggestions } from './invite.js';
+import { fetchdelette } from './suggest.js';
+import { fetchAndUpdateFriends } from './msgfriend.js';
+import { handlechalleng } from './challenge.js';
 
 export {func_add_friend , to_chat ,remove_friend}
 
@@ -118,11 +121,14 @@ function remove_friend(e)
                 button_unfriend.style.display = 'none';
                 button_chat.style.display = 'none';
                 message.style.display = 'flex';
-                // await (setTimeout(()=>{}, 5000));
-                // message.style.display = 'none';
+                
                 button_friend.style.display = 'flex';
                 button_friend.id = e.target.id;
                 e.target.textContent = text; 
+                fetchdelette();
+                fetchSuggestions();
+                fetchAndUpdateFriends();
+                handlechalleng();
             }
         });
     });

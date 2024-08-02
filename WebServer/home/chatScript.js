@@ -165,6 +165,7 @@ function create_chatRoom(map)
     let div_bolck_msg = document.createElement('div');
     div_bolck_msg.className = 'div-block-user'
     let last_button;
+    let index = 0;
     // fetchConversation(document.querySelector('#login').className, document.querySelector('#login').textContent)
     buttons_friends.forEach(button => {
         button.addEventListener('click', (e) =>
@@ -179,7 +180,7 @@ function create_chatRoom(map)
                 check = true;
                 chat_container.removeChild(div_menu);
             }
-            let index = 0;
+            index = 0;
             last_button = button;
             let header_username = document.querySelector("#chat-friend-name");
             chat_div.innerHTML = "";

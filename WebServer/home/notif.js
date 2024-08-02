@@ -4,6 +4,7 @@ import { fetchSuggestions } from './invite.js';
 // import { fetchAndUpdateFriends } from './msgfriend.js';
 import { handlechalleng } from './challenge.js';
 import { view_profile } from './userInformation.js';
+let count = 0;
 
 
 
@@ -29,8 +30,20 @@ function fetchRequests() {
         })
         .then(data => {
             if (data.length !== currentRequests) {
+                let countNotify = document.getElementById('count-noti'); 
+                
                 currentRequests = data.length;
+                if (currentRequests > 0)
+                {
+                    countNotify.textContent = currentRequests;
+                    document.getElementById('count-noti').style.display = 'flex';
+                }
+                
+                    
+                
                 updateRequests(data);
+                
+
             }
         })
         .catch(error => {
@@ -62,6 +75,7 @@ function handleRequestAction(action, senderUsername, requestId) {
                     handlenotif();
                     fetchdelette();
                     handlechalleng();
+                   
                 } else {
                     console.error('Failed to handle request:', data.message);
                 }
@@ -75,23 +89,19 @@ function handleRequestAction(action, senderUsername, requestId) {
         });
 }
 
-// Remove request from UI
-// function removeRequestFromUI(requestId) {
-//     const requestElement = document.getElementById(`request-${requestId}`);
-//     if (requestElement) {
-//         requestElement.remove();
-//     }
-// }
 
-// Update friend requests in the UI
+
 function updateRequests(data) {
     const requests = document.getElementById('content_notify');
     requests.innerHTML = ''; // Clear previous requests
     data.forEach(item => {
         let container = document.createElement('div');
         container.classList.add('bar_content');
-        container.style.display = 'flex';
-        container.style.alignItems = 'center';
+        
+        
+        
+        
+       
         container.classList.add('bar_notify');
         container.id = `request-${item.id}`; // Set unique ID for the request
 
@@ -126,8 +136,7 @@ function updateRequests(data) {
         // Event listener for 'Accept' button
         accept.addEventListener('click', function() {
             handleRequestAction('accept', item.sender_username, item.id);
-            // fetchdelette();
-            // handlechalleng();
+            count--;
             
             console.log('accept----------');
         });
@@ -136,6 +145,7 @@ function updateRequests(data) {
         reject.addEventListener('click', function() {
             handleRequestAction('reject', item.sender_username, item.id);
             fetchSuggestions();
+            count--;
         });
     });
 }

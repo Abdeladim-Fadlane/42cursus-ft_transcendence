@@ -20,8 +20,8 @@ export function handlechalleng() {
             for (let i = 0; i < data.length; i++) {
                 let container = document.createElement('div');
                 container.classList.add('bar_content');
-                container.style.display = 'flex';
-                container.style.alignItems = 'center';
+                // container.style.display = 'flex';
+                // container.style.alignItems = 'center';
 
                 let img = document.createElement('img');
                 img.addEventListener('click', view_profile);

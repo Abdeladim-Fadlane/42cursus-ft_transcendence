@@ -13,27 +13,30 @@
 
     
 </head>
-<body>
+<body class="body">
     <div class="brull"></div>
     <div class="ball"></div>
     <div class="ball2"></div>
     <nav class="navbar">
         <div class="fac_one">
         <div class="navbar-logo">
-            <a class="logo" onclick="border_home()" data-target="home"><img src="./resrc/new-logo.png" alt="Logo" ></a>
-            <div class="nav-search">
-                <i id="search-icon" class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" class="search-input" >
-                <div class="users-search-bar"></div>
-            </div>
+            <a class="logo" onclick="border_home()" data-target="home"><img src="./resrc/freecss-logo.png" alt="Logo" ></a>
+           
         </div>
         </div>
             <div class="navbar-buttons">
                 <ul>
-                    
+                    <div class="nav-search">
+                        <i id="search-icon" class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" class="search-input" >
+                        <div class="users-search-bar"></div>
+                    </div>
                     <li ><label id="nameprofile"></label> </li>               
                     <li><div onclick="border_pr()" class="profil" id="imageprofile"></div></li>
+                    
                 </ul>
+                <li  class="mode dark" onclick="dark()"><i class="fa-solid fa-moon"></i></li>
+                <li  class="mode light" onclick="light()"><i class="fa-regular fa-moon"></i></li>
             </div>
     </nav>
     <div class="container">
@@ -50,7 +53,7 @@
                             <div  class="icons"  ><i id="chat-aside" class="fa-solid fa-comment"></i></div>
                             </a>
                         </li>
-                        <li><a class="notification aside"  onclick="showNotificationsModal()"><div    class="icons" > <i id="notif-aside" class="fa-solid fa-bell"></i> </div></a></li>
+                        <li><a class="notification aside"  onclick="showNotificationsModal()"><div    class="icons" > <i id="notif-aside" class="fa-solid fa-bell"></i> </div><div class="count-noti" id="count-noti"></div></a></li>
                         
                 
                         <li><a class="settings-button" onclick="showSettingsModal()"><div class="icons" ><i id="setting-aside" class="fa-solid fa-gear"></i></div></a></li>

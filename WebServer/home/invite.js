@@ -38,8 +38,8 @@ function updateSuggestions(data) {
         // console.log(item);
         let container = document.createElement('div');
         container.classList.add('bar_content');
-        container.style.display = 'flex';
-        container.style.alignItems = 'center';
+        // container.style.display = 'flex';
+        // container.style.alignItems = 'center';
 
         let img = document.createElement('img');
         img.addEventListener('click', view_profile);

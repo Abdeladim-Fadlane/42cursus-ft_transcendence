@@ -102,15 +102,4 @@ fetch('/api/token/')
 });
 
 
-function delete_account() {
-    fetch('/api/delete_account/')
-    .then(response => response.json())
-    .then(data => {
-        window.location.href = '/';
-        // console.log('Account deleted');
-    })
-    .catch(error => {
-        console.error('Error deleting account:', error);
-    });
-};
-        
+       
