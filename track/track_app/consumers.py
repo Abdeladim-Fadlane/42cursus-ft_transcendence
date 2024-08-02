@@ -4,8 +4,6 @@ from cryptography.fernet import Fernet
 import os
 import json
 from channels.layers import get_channel_layer # type: ignore
-from django.http import JsonResponse
-from .views import notification
 
 def add_padding(data):
     """Ensure correct padding for base64 encoded string."""
@@ -30,7 +28,7 @@ def patch_data(scope,status):
 async def notification(scope,status):
     query_string = scope['query_string'].decode().split('&')
     user_id = query_string[1].split('=')[1]
-    url2 = 'http://auth:8000/notify/'
+    url2 = 'http://auth:8000/notify_friend/'
     data2 = {
         'id': user_id,
     }

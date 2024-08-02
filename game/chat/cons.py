@@ -4,6 +4,7 @@ from . views import endpoint
 from channels.generic.websocket import AsyncWebsocketConsumer # type: ignore
 from asgiref.sync import sync_to_async
 # from auth_app.models import User
+from channels.layers import get_channel_layer # type: ignore
 import requests
 width = 600
 height = 300
@@ -156,7 +157,21 @@ def serialize_Users(o):
         'players':[p.user.serialize_User() for p in o.players],
     }
 
-def save_Match(group_name, idx):
+async def notify(id, action):
+    channel_layer = get_channel_layer()
+    room_name = f"room_{id}"
+    try:
+        await channel_layer.group_send(
+            room_name,
+            {
+                "type": "chat_message",
+                "message": action
+            }
+        )
+    except Exception as e:
+        print(f"Failed to send message: {e}")
+
+async def save_Match(group_name, idx):
     query_parameters = rooms[group_name].players[abs(idx-1)].scope['query_string'].decode().split('&')
     losee_token = query_parameters[0].split('=')[1]
     # losee_token = rooms[group_name].players[abs(idx-1)].scope['query_string'].decode().split('=')[1]
@@ -193,36 +208,23 @@ def save_Match(group_name, idx):
         'score2': rooms[group_name].team1_score if rooms[group_name].team1_score < rooms[group_name].team2_score else rooms[group_name].team2_score,}
     url = f'http://auth:8000/api/match/'
     requests.post(url=url, headers=headers, data=data)
-
-    url = 'http://track:8004/notify/'
-    data = {
-        'id': idwinner,
-        'action': "update_match_history",
-    }
-    requests.get(url=url,params=data)
-
-    url = 'http://track:8004/notify/'
-    data = {
-        'id': idloser,
-        'action': "update_match_history",
-    }
-    requests.get(url=url,params=data)
-
-    """ ///////////////////////////////// """
+    """ notify  losers and winners """
+    await notify(idloser, 'update_match_history')
+    await notify(idwinner, 'update_match_history')
+    """ update leaderboard """
     url2 = 'http://auth:8000/Allusers/'
     res = requests.get(url=url2)
     usersid_dic = res.json()
     ids = usersid_dic.get('usersid',[])
     for i in ids:
-        requests.get(url=url,params={'id':i,'action':'update_leaderboard'})
-
+        await notify(i, 'update_leaderboard')
 
 async def start_game(group_name):
     await asyncio.sleep(3)
-    print("---------------game start-------------")
+    # print("---------------game start-------------")
     winner = await rooms[group_name].run_game()
     if group_name in rooms:
-        print("---------------game end succefly-------------")
+        # print("---------------game end succefly-------------")
         result = ['Winner', 'Winner']
         idx = 0
         if winner == 1:
@@ -232,11 +234,11 @@ async def start_game(group_name):
             result[1] = 'Loser'
         for i in range(2):
             if rooms[group_name].players[i].avaible:
-                print("---------------", rooms[group_name].players[i].user.username, "-------------")
+                # print("---------------", rooms[group_name].players[i].user.username, "-------------")
                 await rooms[group_name].players[i].send(json.dumps({'type':'game.end', 'result':result[i % 2]}))
                 rooms[group_name].players[i].avaible = False
                 await rooms[group_name].players[i].close()
-        save_Match(group_name, idx)
+        await save_Match(group_name, idx)
         del rooms[group_name]
 
 def serialize_Match(o):
@@ -266,7 +268,7 @@ from . main_socket import connects
 
 class RacetCunsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        print("----------------connect----------------")
+        # print("----------------connect----------------")
         global group_name
         await self.accept()
         self.avaible = True
@@ -321,7 +323,7 @@ class RacetCunsumer(AsyncWebsocketConsumer):
             await self.send(event['data'])
 
     async def disconnect(self, code):
-        print("----------disconnect-----------", self.user.username, "with code::", code)
+        # print("----------disconnect-----------", self.user.username, "with code::", code)
         self.avaible = False
         if self.group_name in rooms:
             self.avaible = False
@@ -331,7 +333,7 @@ class RacetCunsumer(AsyncWebsocketConsumer):
                     rooms[self.group_name].team1_score = score_to_win
                 else:
                     rooms[self.group_name].team2_score = score_to_win
-                save_Match(self.group_name, abs(self.i - 1))
+                await save_Match(self.group_name, abs(self.i - 1))
             else:
                 if rooms[self.group_name].players[abs(self.i - 1)] and rooms[self.group_name].players[abs(self.i - 1)].user.username in connects:
                     await connects[rooms[self.group_name].players[abs(self.i - 1)].user.username].send(json.dumps({'type':'game.refuse', 'vs': self.user.serialize_User()}))

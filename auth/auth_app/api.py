@@ -7,16 +7,16 @@ from django.http import HttpResponseForbidden
 from .serializers import TaskSerializer
 from django.contrib.auth import logout
 
-def reponceNotify(request):
+def getAllfriend(request):
     if request.method == 'GET':
         id = request.GET.get('id')
         all_id = list(CustomUser.objects.all().values_list('id', flat=True).exclude(id=id))
         friends = []
         for i in all_id:
             if Friends.objects.filter(user1=id, user2=i):
-                friends.append(i)
+                if CustomUser.objects.get(id=i).available:
+                    friends.append(i)
         return JsonResponse({'usersid': friends}, status=200)
-    
     return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 def send_friend_request(request):
