@@ -73,7 +73,7 @@ def SignUp(request):
         if user_form.is_valid():
             user_form.save()
             sendToAllUsers(user_form.instance.id,"friend_request_suggest")
-            return JsonResponse({'status': True}, status=200)
+            return JsonResponse({'status': True}, status=201)
         else:
             return JsonResponse({"status": False, "error": user_form.errors}, status=200)
     return JsonResponse({'status': False}, status=200)
