@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    function fetchHistory(check) {
-        fetch('/api/history/')
+    function fetchHistory() {
+        // username = document.getElementById('username').textContent;
+        fetch('/api/history/' )
             .then(response => {
                 if (!response.ok) {
                     console.error('Error:', response);
