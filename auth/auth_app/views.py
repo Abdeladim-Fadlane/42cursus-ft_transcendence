@@ -34,6 +34,7 @@ def notify(id, action):
 def login_required(request):
     if request.user.is_authenticated:
         return request.user
+    
     if 'token' in request.session and 'user_id' in request.session:
         try:
             user = CustomUser.objects.get(id=request.session['user_id'])

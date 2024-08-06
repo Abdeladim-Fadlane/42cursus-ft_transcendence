@@ -20,14 +20,14 @@ document.addEventListener('DOMContentLoaded', function() {
     //             console.error('Error fetching friend requests:', error);
     //         });
     // }
-
+    
     
     fetchHistory();
     // setInterval(fetchRequests, 4000);
 });
 
 export function fetchHistory() {
-    fetch('/api/history/')
+    fetch(`/api/history/`)
         .then(response => {
             if (!response.ok) {
                 console.error('Error:', response);

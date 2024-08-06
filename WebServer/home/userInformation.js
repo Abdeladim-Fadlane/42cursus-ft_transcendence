@@ -6,6 +6,86 @@ function ParceDate(date){
 }
 let  interval;
 // import {func_add_friend , to_chat ,remove_friend} from './ProfileAction.js'
+function drawHistory(username)
+{
+    fetch(`/api/history/?username=${username}`)
+        .then(response => {
+            if (!response.ok) {
+                console.error('Error:', response);
+                return;
+            }
+            return response.json();
+        })
+        .then(data => {
+            var historyContainer = document.querySelector('.history-player');
+            // console.log(data);
+            if (data.length == 0){
+                document.querySelector('.no-history').style.display = 'flex';
+                historyContainer.style.display = 'none'
+
+            }
+            else{
+                document.querySelector('.no-history').style.display = 'none';
+                historyContainer.style.display = 'flex';
+
+                if (historyContainer) {
+                    historyContainer.innerHTML = ''; // Clear previous content
+                    data.forEach(item => {
+                        let container = document.createElement('div');
+
+                        let content = document.createElement('div');
+                        content.classList.add('content');
+
+                        let date = document.createElement('p');
+                        date.textContent = item.date.split('T')[0] + ' ' + item.date.split('T')[1].split('.')[0];
+                        date.classList.add('date');
+                        date.style.textAlign = 'center';
+                        date.style.fontSize = '10px';
+                        date.style.fontWeight = 'bold';
+                        date.style.color = 'white';
+
+                        let div1 = document.createElement('div');
+                        div1.classList.add('player1');
+                        let img = document.createElement('img');
+                        let winner = document.createElement('p');
+                        div1.appendChild(img);
+                        div1.appendChild(winner);
+
+                        let div2 = document.createElement('div');
+                        div2.classList.add('player2');
+                        let img2 = document.createElement('img');
+                        let loser = document.createElement('p');
+                        div2.appendChild(img2);
+                        div2.appendChild(loser);
+
+                        let div3 = document.createElement('div');
+                        div3.classList.add('result');
+                        let text = document.createElement('p');
+                        div3.appendChild(text);
+
+                        content.appendChild(div1);
+                        content.appendChild(div3);
+                        content.appendChild(div2);
+
+                        winner.textContent = item.winner.username;
+                        loser.textContent = item.loser.username;
+
+                        text.innerHTML = item.score1 + ' - ' + item.score2;
+                        img.src = item.winner.photo_profile;
+                        img2.src = item.loser.photo_profile;
+
+                        container.appendChild(content);
+                        container.appendChild(date);
+                        historyContainer.appendChild(container);
+                    });
+
+                } 
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching history:', error);
+        });
+}
 function drawCircle(lose, win)
 {
     let circle = document.querySelector('.circle');
@@ -64,7 +144,7 @@ function drawCircle(lose, win)
         }
         if (Number(i) + Number(j) == 100)
             clearInterval(interval);
-        console.log()
+        // console.log()
     },  80)
     circle.style.display = 'flex';
 }
@@ -124,7 +204,7 @@ function button_profile(username, Profileid){
                         parent_button.style.display = 'flex';
                         delete_friend.id = username;
                         chat_button.id = Profileid;
-                        console.log(Profileid)
+                        // console.log(Profileid)
                         return ;
                     }
                     
@@ -187,6 +267,10 @@ let ProfileUser_id ;
 export {ProfileUsername, ProfileUser_id , button_profile, ProfileStutus}
 export function view_profile(e)
 {
+    document.querySelector('.history-player').style.border = 'none';
+    document.querySelector('.history-header').style.border = 'none';
+    document.querySelector('.profile-user-history-match').style.display = 'none';
+    document.querySelector('.profile-user-statistique').style.display = 'flex';
     ProfileUsername = e.target.id;
     let button_friend = document.querySelector('.profile-user-action-add_friend');
     let delete_friend = document.querySelector('.profile-user-action-unfriend');
@@ -257,20 +341,23 @@ export function view_profile(e)
                 status_color.style.backgroundColor = 'red';
             }
             if (data.win == '0' && data.lose == '0'){
-                lose.textContent = '0 %';
-                win.textContent = '0 %';
                 _circle.style.display = 'none';
+                document.querySelector('.number-statistique').style.display = 'none'
                 statistique.style.display = 'flex';
             }
             else{
+                 
                 drawCircle(Number(data.lose), Number(data.win))
+                document.querySelector('.number-statistique').style.display = 'flex';
                 statistique.style.display = 'none';
             }
+            drawHistory(data.username);
+            document.querySelector('.statistique-header').style.borderBottom = '2px solid white'
         })
     })
-   
     ProfileStutus(e.target.id);
     modal.style.display = 'flex';
+        
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -288,13 +375,13 @@ document.getElementById('content-user').addEventListener('click', function(event
    
     
     if (event.target === this) {
-        console.log('close_user');
+        // console.log('close_user');
         close_user(); // Close modal only if clicking on #content-user directly
     }
 });
 function view_friends()
 {
-    console.log("view_friends");
+    // console.log("view_friends");
     const modal = document.getElementById('view-friends');
     modal.style.display = 'flex';
     document.getElementById('view-matchs').style.display = 'none';
@@ -303,7 +390,7 @@ function view_friends()
 }
 function view_matchs()
 {
-    console.log("view_matchs");
+    // console.log("view_matchs");
     const modal = document.getElementById('view-matchs');
     modal.style.display = 'flex';
     document.getElementById('view-friends').style.display = 'none';

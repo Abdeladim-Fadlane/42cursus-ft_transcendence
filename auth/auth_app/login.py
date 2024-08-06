@@ -16,9 +16,12 @@ def get_match_history(request):
     user = login_required(request)
     if not user:
         return HttpResponseForbidden("Forbidden", status=403)
+    username = user.username
     if request.method == 'GET':
+        if request.GET.get('username'):
+            username = request.GET.get('username')
         try:
-            user = CustomUser.objects.get(id=request.session.get('user_id'))
+            user = CustomUser.objects.get(username=username)
         except CustomUser.DoesNotExist:
             return JsonResponse({'status': False, 'message': 'User not found'}, status=404)
         match_history = all_Match.objects.filter(winner=user)

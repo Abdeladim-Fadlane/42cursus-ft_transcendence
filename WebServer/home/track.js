@@ -4,7 +4,7 @@ import { fetchSuggestions } from './invite.js';
 import { fetchHistory } from './match.js';
 import { handlechalleng } from './challenge.js';
 import { leaderboard_requests } from './leader.js';
-import { fetchAndUpdateFriends } from './msgfriend.js';
+import { fetchAndUpdateFriends , fetchOnlineFriendInChat} from './msgfriend.js';
 import { fetchConversation, fetchAllMessage} from './chatScript.js';
 
 
@@ -12,6 +12,7 @@ import { ProfileUsername , ProfileUser_id, button_profile, ProfileStutus} from '
 let user_id = document.querySelector('#login');
 let user_name = document.querySelector('#login');
 let Profile_module = window.getComputedStyle(document.querySelector('#content-user'))
+
 fetch('/api/token/')
     .then(response => response.json())
     .then(data => {
@@ -28,17 +29,13 @@ fetch('/api/token/')
         socket.onerror = (error) => {
             console.error('WebSocket error: ', error);
         };
-        socket.onmessage = (event) => {
+        socket.onmessage =  (event) => {
             
             const data = JSON.parse(event.data);
-            // console.log('------------');
-            // console.log(data.message);
-            // console.log('------------');
-            // console.log('user_name -------> ' + ProfileUsername)
             if (data.message === "friend send message"){
-                
+                console.log('====> socket track message')
                 fetchConversation(user_id.className, user_name.textContent)
-                fetchAllMessage(user_id.className, user_name.textContent)
+                fetchAllMessage(user_id.className, user_name.textContent);
                 
             }
             else if (data.message === 'friend_request_send') {
@@ -67,8 +64,9 @@ fetch('/api/token/')
                     button_profile(ProfileUsername, ProfileUser_id);
             }
             else if (data.message === 'friend is online' || data.message === 'friend is offline') {
-                handlechalleng();
                 console.log('online friends====>' );
+                fetchOnlineFriendInChat();
+                handlechalleng();
                 if (Profile_module.display == 'flex')
                     ProfileStutus(ProfileUsername);
             }
@@ -91,6 +89,7 @@ fetch('/api/token/')
                 fetchHistory();
             }
             else if (data.message === 'friend_delete') {
+                fetchConversation(user_id.className, user_name.textContent)
                 fetchdelette();
                 fetchSuggestions();
                 fetchAndUpdateFriends();

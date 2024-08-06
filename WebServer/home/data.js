@@ -1,3 +1,4 @@
+import { fetchConversation, fetchAllMessage} from './chatScript.js';
 function my_data()
 {
     fetch('/api/data/')
@@ -9,11 +10,15 @@ function my_data()
         return response.json();
     })
     .then(data => {
+        // console.log(data);
         const userData = JSON.parse(JSON.stringify(data));
         // Update user information in the DOM
         document.getElementById('login').textContent = userData.username;
         document.getElementById('login').classList.add(userData.id);
         document.getElementById('content_scor').textContent = userData.score;
+        // console.log(data.id);
+    
+        fetchConversation(data.id, data.username)
         if (userData.username ) {
             document.getElementById('nameprofile').textContent = userData.username;
         }

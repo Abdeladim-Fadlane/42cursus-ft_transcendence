@@ -108,7 +108,7 @@ function border_pr(pushState = true) {
 }
 
 function click_chat(pushState = true) {
-  console.log("chat");
+  // console.log("chat");
   if (pushState) {
     window.history.pushState({page: 'chat'}, 'Chat', '?page=chat');
   }
@@ -189,7 +189,7 @@ function click_chat(pushState = true) {
     fetch('/api/data/')
     .then(response => { return response.json()})
     .then(data =>{
-      console.log(data);
+      // console.log(data);
       document.querySelector('#username').value = data.username;
       document.querySelector('#email').value = data.email;
       document.querySelector('#first_name').value = data.first_name;
@@ -260,7 +260,7 @@ document.getElementById('notifi').addEventListener('click', function(event) {
   }
 });
 function dark() {
-  console.log('dark');
+  // console.log('dark');
   let darkElements = document.querySelectorAll('.dark');
   let lightElements = document.querySelectorAll('.light');
   let body = document.querySelector('.brull'); // Use querySelector for a single element
@@ -271,7 +271,7 @@ function dark() {
 }
 
 function light() {
-  console.log('light'); 
+  // console.log('light'); 
   let darkElements = document.querySelectorAll('.dark');
   let lightElements = document.querySelectorAll('.light');
   let body = document.querySelector('.brull'); // Use querySelector for a single element

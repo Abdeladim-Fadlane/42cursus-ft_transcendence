@@ -1,10 +1,12 @@
 import json 
 from asgiref.sync import sync_to_async
-from channels.generic.websocket import AsyncWebsocketConsumer # type: ignore
+from channels.generic.websocket import AsyncWebsocketConsumer 
 from django.shortcuts import get_object_or_404
 from .models import Conversation, Message
+import time
 # def readMessage(username):
 
+    
 class ChatLive(AsyncWebsocketConsumer):
     async def connect(self):
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
@@ -40,15 +42,8 @@ class ChatLive(AsyncWebsocketConsumer):
                 content=message,
             )
             time = str(message_obj.time_added)
-            room_name = f"room_{text_data_json['user_id']}"
-            await self.channel_layer.group_send(
-               room_name,
-               {
-                    "type": "chat_message",
-                    "message": "friend send message",
-
-               }
-            )
+            
+            
         if (conversation_obj.block_conversation == True and task == 'send_message') :
             return 
         await self.channel_layer.group_send(
@@ -65,6 +60,18 @@ class ChatLive(AsyncWebsocketConsumer):
                 'task' : text_data_json['task']
             }
         )
+        
+        if ((conversation_obj.block_conversation != True) and (task == 'send_message')):
+            room_name = f"room_{text_data_json['user_id']}"
+            await self.channel_layer.group_send(
+                room_name,
+                {
+                        "type": "chat_message",
+                        "message": "friend send message",
+
+                }
+            )
+           
     async def chat_message(self, event):
         await self.send(text_data=json.dumps({
             'status' : 'success',

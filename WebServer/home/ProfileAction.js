@@ -14,7 +14,7 @@ let message = document.querySelector('.profile-user-action-message');
 function to_chat(e)
 {
     let username = e.target.id;
-    console.log('**********---->' + e.target.id)
+    // console.log('**********---->' + e.target.id)
     let text = e.target.textContent;
     let close_btn = document.querySelector('.close_profile');
     close_btn.click()
@@ -142,8 +142,8 @@ button_match.addEventListener('click', (e)=>{
     let div_style = window.getComputedStyle(match_div)
     if (div_style.display == 'none')
     {
-        e.currentTarget.style.borderBottom = '2px solid white';
         button_statis.style.border = 'none';
+        e.currentTarget.style.borderBottom = '2px solid white';
         match_div.style.display = 'flex';
         statis_div.style.display = 'none';
     }
@@ -152,8 +152,8 @@ button_statis.addEventListener('click', (e)=>{
     let div_style = window.getComputedStyle(statis_div)
     if (div_style.display == 'none')
     {
-        e.currentTarget.style.borderBottom = '2px solid white';
         button_match.style.border = 'none';
+        e.currentTarget.style.borderBottom = '2px solid white';
         statis_div.style.display = 'flex';
         match_div.style.display = 'none';
     }

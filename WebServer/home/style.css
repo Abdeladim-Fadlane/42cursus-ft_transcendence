@@ -2522,7 +2522,7 @@ font-family: 'games' , sans-serif;
   top: 50%;
   right: 15%;
   display: none;
-  background-color: #2e2727;
+  background-color: #130039;
 
 }
 
@@ -2545,7 +2545,6 @@ font-family: 'games' , sans-serif;
   bottom: 0;
 }
 
-
 .no-statistique, .no-history{
   font-family: sans-serif;
   font-size: large;
@@ -2558,8 +2557,11 @@ font-family: 'games' , sans-serif;
   /* display: none; */
 }
 
+.no-history{
+  right: 16%;
+}
 .div-white{
-  background-color: #2e2727;
+  background-color: #130039;
   width: 160px;
   height: 160px;
   position: absolute;
@@ -2641,6 +2643,8 @@ font-family: 'games' , sans-serif;
   position: absolute;
   bottom: 3%;
   right : 40%;
+  display: flex;
+  flex-direction: column;
   font-weight: bold;
 }
 .nav-search input{
@@ -2846,4 +2850,61 @@ label{
   align-items: center;
   bottom: 52px;
   right: -11px;
+}
+.chat-aside-numberMessage{
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #764081;
+  color: #bbb;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  bottom: -17px;
+  right: -20px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+.history-player {
+  position: absolute;
+  right: 6%;
+  bottom: 2%;
+  width: 405px;
+  height: 368px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  box-shadow: 6px 6px 20px rgb(147, 99, 196);
+  box-shadow: 6px 6px -20px rgb(147, 99, 196);
+}
+.friend-list-room
+{
+  position: relative;
+}
+.friend-list-room .user-count-message
+{
+  position: absolute;
+  right: 20px;
+  width: 35px;
+  padding: 5px;
+  border: 1px green solid;
+  border-radius: 50%;
+  background-color: green;
+  font-family: sans-serif;
+  font-weight: bolder;
+  text-align: center;
+}
+.chat-friend-status{
+  /* background-color: #0056b3 */
+  /* box-shadow: 1px 1px 2px; */
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: relative;
+  top : 10px;
+  left: 40px;
 }

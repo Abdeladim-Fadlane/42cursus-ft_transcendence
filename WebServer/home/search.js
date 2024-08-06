@@ -59,7 +59,7 @@ search.addEventListener('keyup', ()=>{
         })
         .then(data => {
             div_user.textContent = "";
-            console.log(data);
+            // console.log(data);
             for (let i = 0; i < data.length ;i++)
             {
                 if (data[i].username.includes(search.value))
@@ -81,7 +81,7 @@ search.addEventListener('keyup', ()=>{
             }
         })
         .catch(error=>{
-            console.log(error);
+            // console.log(error);
         })
         div_user.style.display = 'inline';
     }

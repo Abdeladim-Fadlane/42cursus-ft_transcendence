@@ -9,6 +9,8 @@ import json
 
 # Create your views here.
 
+
+
 def getAllConversationMessage(request):
     if (request.method == 'POST'):
         json_content = json.loads(request.body)
@@ -91,9 +93,12 @@ def MessageHistory(request, room_name):
         
 
 def retrun_conversation(request, room_name):
-    _conversation = Conversation.objects.get(room_name=room_name)
-    json_message = ConversationSerializer(_conversation, many=False)
-    return JsonResponse(json_message.data, safe=False)
+    if request.method == "GET":
+        _conversation = Conversation.objects.get(room_name=room_name)
+        json_message = ConversationSerializer(_conversation, many=False)
+        return JsonResponse(json_message.data, safe=False)
+    return JsonResponse({'status' : 'error'})
+    
 
 @csrf_exempt
 def csrf_token(request):

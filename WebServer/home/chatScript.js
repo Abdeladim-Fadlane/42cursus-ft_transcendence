@@ -7,7 +7,10 @@ function ParceDate(date){
 }
 
 
-function send_request(room_name, user_sender)
+
+
+
+function send_request(room_name, user_sender, user_id)
 {
     fetch('/chatCsrftoken/')
     .then(response => response.json())
@@ -28,7 +31,9 @@ function send_request(room_name, user_sender)
             return response.json();
         })
         .then(data=>{
-            // console.log(data);
+            // console.log('hohhohhoh')
+            fetchConversation(user_id, user_sender);
+            fetchAllMessage(user_id, user_sender);
         })
     })
 }
@@ -53,7 +58,40 @@ function fetchAllMessage(userid, username)
             return response.json();
         })
         .then(data=>{
-            console.log(data);
+            if (data.status == 'success')
+            {
+                let friend = document.querySelector('#list_friend_chat').querySelectorAll('button'); 
+                // console.log('**************')
+                // console.log(data);
+                // console.log('**************')
+
+                if (data.values.length == 0)
+                    friend.forEach(f =>{
+                        f.querySelector('.user-count-message').textContent = '';
+                        f.querySelector('.user-count-message').style.display = 'none'
+                    })
+                for (let i = 0; i < data.values.length ; i++)
+                {
+                    
+                    for (let j = 0; j < friend.length ; j++)
+                    {
+                        if (friend[j].querySelector('p').textContent ==  data.values[i].sender_name)
+                        {
+                            friend[j].querySelector('.user-count-message').textContent = data.values[i].count_message;
+                            friend[j].querySelector('.user-count-message').style.display = 'flex'
+                            
+                            break ;
+                        }
+                        else if ( j + 1 == friend.length)
+                        {
+                            friend[j].querySelector('.user-count-message').textContent = '';
+                            friend[j].querySelector('.user-count-message').style.display = 'none'
+                            break ;
+                        }
+                    }
+                }
+            }
+            
         })
     })
 }
@@ -70,7 +108,7 @@ function fetchConversation(userid, username)
                 'X-CSRFToken': data.csrfToken,
             },
             body : JSON.stringify({ 
-                'id_user' : userid,
+                'id_user' : String(userid),
                 'username' : username,
              })
         })
@@ -78,14 +116,25 @@ function fetchConversation(userid, username)
             return response.json();
         })
         .then(data=>{
-            console.log(data);
-            // if (data.status == 'success' && data.not_read != 0)
-            //     document.querySelector('.chat-aside-numberMessage').textContent = data.not_read;
-            
+            if (data.status == 'success')
+            {
+
+                let div_notif = document.querySelector('.chat-aside-numberMessage');
+                if (data.not_read == 0)
+                {
+                    div_notif.textContent = '';
+                    div_notif.style.display = 'none'
+                }
+                else{
+
+                    div_notif.style.display = 'flex';
+                    div_notif.textContent = data.not_read;
+                }
+            }
         })
     })
 }
-export {fetchConversation, fetchAllMessage}
+export {fetchConversation, fetchAllMessage, send_request}
 function generateRoomName(user1, user2)
 {
     let tab = [user1, user2]; 
@@ -103,7 +152,21 @@ function hasNonPrintableChars(inputString) {
     }
     return false;
 }
-// fetchConversation(document.querySelector('#login').className, document.querySelector('#login').textContent)
+
+
+// async function ReadAndCheck(user_name, user_id, room_name){
+//     await send_request(room_name, user_name);
+//     await fetchConversation(user_id ,user_name);
+// }
+let last_button = null;
+var Web_socket = null;
+export function setLastButton(){
+    last_button = null;
+    if (Web_socket != null){
+        Web_socket.close();
+        Web_socket = null;
+    }
+}
 
 function create_chatRoom(map)
 {
@@ -111,7 +174,7 @@ function create_chatRoom(map)
     let div_chat_tools = document.querySelector(".chat-input")
     var chat_div = document.querySelector("#chat-messages" );;
     var chat_input = document.querySelector("#message-input");
-    var Web_socket = null;
+   
     var button_chat = document.querySelector('#button-chat');
     var buttons_friends = document.querySelectorAll('.friend-list-room');
     var chat_header = document.querySelector(".chat-header");
@@ -134,10 +197,10 @@ function create_chatRoom(map)
     div_menu_child1.append(
         icon_div,
         button_info);
-    div_menu_child1.style.marginBottom = '4px'
-    let div_menu_child2 = document.createElement('div');
-    icon_div = document.createElement('i')
-    icon_div.classList.add("fa-solid" ,"fa-lock")
+        div_menu_child1.style.marginBottom = '4px'
+        let div_menu_child2 = document.createElement('div');
+        icon_div = document.createElement('i')
+        icon_div.classList.add("fa-solid" ,"fa-lock")
     div_menu_child2.append(
         icon_div,
         button_block
@@ -158,15 +221,14 @@ function create_chatRoom(map)
         document.createElement('hr'),
         div_menu_child3
     );
+    fetchAllMessage(document.querySelector('#login').className, document.querySelector('#login').textContent)
     var check = true;
     let username2;
     let username1;
     let room_name;
     let div_bolck_msg = document.createElement('div');
     div_bolck_msg.className = 'div-block-user'
-    let last_button;
     let index = 0;
-    // fetchConversation(document.querySelector('#login').className, document.querySelector('#login').textContent)
     buttons_friends.forEach(button => {
         button.addEventListener('click', (e) =>
         {
@@ -187,10 +249,9 @@ function create_chatRoom(map)
         
             username1 = document.querySelector('#login').textContent;
             let usernameid = document.querySelector('#login').className;
-            
             username2 = button.querySelector('p').textContent;
+            
             room_name = generateRoomName( usernameid ,button.id);
-            // console.log()
             let icon = document.createElement('i');
             icon.style.color = 'white';
             icon.classList.add('fa-solid', 'fa-ellipsis-vertical');
@@ -241,7 +302,6 @@ function create_chatRoom(map)
                     chat_div.scrollTop = chat_div.scrollHeight - chat_div.clientHeight;
                     
                 }
-                send_request(room_name, username1);
 
             })
             .catch(error =>{ 
@@ -269,10 +329,12 @@ function create_chatRoom(map)
                 console.log('the web socket has been closed');
             }
             if (Web_socket == null)
-                Web_socket = new WebSocket(`wss://ping-pong.com/wss/chat/${room_name}/`);
+                Web_socket = new WebSocket(`wss://${window.location.host}/wss/chat/${room_name}/`);
             
-            Web_socket.onopen = () =>{
+             Web_socket.onopen = () =>{
+                send_request(room_name, username1, usernameid);
                 console.log(`WebSocket server is running on wss://${window.location.host}/${room_name}/`);
+                
                 url = `/Converstaion/${room_name}/`;
                 fetch(url)
                 .then(response => {
@@ -315,10 +377,11 @@ function create_chatRoom(map)
                 .catch(error =>{
                     console.log(error);
                 })
+                
             }
             let div_animate;
-            Web_socket.onmessage = (e) =>{
-                send_request(room_name, username1);
+            Web_socket.onmessage =  (e) =>{
+                send_request(room_name, username1, usernameid);
                 let data_message = JSON.parse(e.data);
                 if (data_message.task == 'send_message')
                 {   
@@ -393,7 +456,6 @@ function create_chatRoom(map)
                     }
                 }
                 chat_div.scrollTop = chat_div.scrollHeight - chat_div.clientHeight;
-
             }
             
             button_chat.addEventListener('click', () => {
@@ -509,4 +571,4 @@ function create_chatRoom(map)
 }
 
 
-export { create_chatRoom };
+export { create_chatRoom , last_button};
