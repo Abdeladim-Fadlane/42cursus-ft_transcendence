@@ -18,7 +18,8 @@ function my_data()
         document.getElementById('content_scor').textContent = userData.score;
         // console.log(data.id);
     
-        fetchConversation(data.id, data.username)
+        fetchConversation(data.id, data.username);
+        fetchAllMessage(data.id, data.username);
         if (userData.username ) {
             document.getElementById('nameprofile').textContent = userData.username;
         }

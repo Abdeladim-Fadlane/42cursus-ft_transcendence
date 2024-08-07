@@ -31,7 +31,7 @@ function send_request(room_name, user_sender, user_id)
             return response.json();
         })
         .then(data=>{
-            // console.log('hohhohhoh')
+            // console.log(data)
             fetchConversation(user_id, user_sender);
             fetchAllMessage(user_id, user_sender);
         })
@@ -61,7 +61,7 @@ function fetchAllMessage(userid, username)
             if (data.status == 'success')
             {
                 let friend = document.querySelector('#list_friend_chat').querySelectorAll('button'); 
-                // console.log('**************')
+                // console.log('******Message********')
                 // console.log(data);
                 // console.log('**************')
 
@@ -70,24 +70,27 @@ function fetchAllMessage(userid, username)
                         f.querySelector('.user-count-message').textContent = '';
                         f.querySelector('.user-count-message').style.display = 'none'
                     })
-                for (let i = 0; i < data.values.length ; i++)
+                
+                // console.log('===>' + data.values.find(v => v.sender_name == 'oettaqui' ))
+                for (let j = 0; j < friend.length ; j++)
                 {
-                    
-                    for (let j = 0; j < friend.length ; j++)
-                    {
-                        if (friend[j].querySelector('p').textContent ==  data.values[i].sender_name)
+                    let check = true;
+                    for (let i = 0; i < data.values.length ; i++)
+                    {  
+                        if (data.values[i].sender_name == friend[j].querySelector('p').textContent)
                         {
                             friend[j].querySelector('.user-count-message').textContent = data.values[i].count_message;
                             friend[j].querySelector('.user-count-message').style.display = 'flex'
-                            
+                            check = false;
                             break ;
                         }
-                        else if ( j + 1 == friend.length)
-                        {
-                            friend[j].querySelector('.user-count-message').textContent = '';
-                            friend[j].querySelector('.user-count-message').style.display = 'none'
-                            break ;
-                        }
+                        
+                    }
+                    if (check)
+                    {
+                        friend[j].querySelector('.user-count-message').textContent = '';
+                        friend[j].querySelector('.user-count-message').style.display = 'none'
+                        break ;
                     }
                 }
             }
@@ -118,7 +121,6 @@ function fetchConversation(userid, username)
         .then(data=>{
             if (data.status == 'success')
             {
-
                 let div_notif = document.querySelector('.chat-aside-numberMessage');
                 if (data.not_read == 0)
                 {
@@ -221,7 +223,6 @@ function create_chatRoom(map)
         document.createElement('hr'),
         div_menu_child3
     );
-    fetchAllMessage(document.querySelector('#login').className, document.querySelector('#login').textContent)
     var check = true;
     let username2;
     let username1;
@@ -232,8 +233,11 @@ function create_chatRoom(map)
     buttons_friends.forEach(button => {
         button.addEventListener('click', (e) =>
         {
+        
             if (button == last_button)
                 return ;
+            // else if (last_button != button)
+            button.style.backgroundColor = 'gray'
             chat_input.value = '';
             chat_div.style.display = 'flex';
             div_chat_tools.style.display = 'flex';
@@ -488,6 +492,8 @@ function create_chatRoom(map)
                 }
             })
             Web_socket.onclose = () =>{
+                button.style.backgroundColor = '#ffffff00'
+                
                 console.log('the connection has been closed')
             }
             // console.log(map);

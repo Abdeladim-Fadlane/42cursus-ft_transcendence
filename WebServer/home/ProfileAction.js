@@ -14,7 +14,13 @@ let message = document.querySelector('.profile-user-action-message');
 function to_chat(e)
 {
     let username = e.target.id;
-    // console.log('**********---->' + e.target.id)
+    
+    if (username.length == 0)
+    {
+        username = e.currentTarget.id;
+        document.querySelector('.carte-message').style.display = 'none';
+    }
+    console.log('**********---->' + e.target.id)
     let text = e.target.textContent;
     let close_btn = document.querySelector('.close_profile');
     close_btn.click()
