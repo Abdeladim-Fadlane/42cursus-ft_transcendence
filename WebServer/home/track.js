@@ -1,59 +1,106 @@
+import { handlenotif } from './notif.js';
+import { fetchdelette } from './suggest.js';
+import { fetchSuggestions } from './invite.js';
+import { fetchHistory } from './match.js';
+import { handlechalleng } from './challenge.js';
+import { leaderboard_requests } from './leader.js';
+import { fetchAndUpdateFriends , fetchOnlineFriendInChat} from './msgfriend.js';
+import { fetchConversation, fetchAllMessage} from './chatScript.js';
+
+
+import { ProfileUsername , ProfileUser_id, button_profile, ProfileStutus} from './userInformation.js';
+let user_id = document.querySelector('#login');
+let user_name = document.querySelector('#login');
+let Profile_module = window.getComputedStyle(document.querySelector('#content-user'))
 
 fetch('/api/token/')
     .then(response => response.json())
     .then(data => {
-        token = data.token;
-        id = data.id;
+       let token = data.token;
+        let id = data.id;
         const socket = new WebSocket(`wss://${window.location.host}/wss/track/?token=${token}&id=${id}`);
         socket.onopen = () => {
-            // console.log('WebSocket connected');
+            console.log('WebSocket connected');
         };
         socket.onclose = () => {
             console.log('WebSocket closed');
         };
-
+        
         socket.onerror = (error) => {
             console.error('WebSocket error: ', error);
         };
-        socket.onmessage = (event) => {
-            /* here use switch case or of army of if conditions */
+        socket.onmessage =  (event) => {
+            
             const data = JSON.parse(event.data);
-            console.log(data);
-            if (data.message === 'friend_request_send') {
+            console.log('====> socket track')
+            console.log(data.message)
+            if (data.message === "friend send message"){
+                console.log('====> socket track message')
+                fetchConversation(user_id.className, user_name.textContent)
+                fetchAllMessage(user_id.className, user_name.textContent);
                 
+            }
+            else if (data.message === 'friend_request_send') {
+                handlenotif();
+                if (Profile_module.display == 'flex')
+                    button_profile(ProfileUsername, ProfileUser_id);
             }
             else if (data.message === 'friend_request_reject') {
-                
+                fetchSuggestions();
+                if (Profile_module.display == 'flex')
+                    button_profile(ProfileUsername, ProfileUser_id);
+
             }
             else if (data.message === 'friend_request_accept') {
-                 
+                fetchdelette();
+                fetchAndUpdateFriends();
+                handlechalleng();
+                if (Profile_module.display == 'flex')
+                    button_profile(ProfileUsername, ProfileUser_id);
             }
             else if (data.message === 'friend_request_suggest') {
-                
+
+                fetchSuggestions();
+                leaderboard_requests();
+                if (Profile_module.display == 'flex')
+                    button_profile(ProfileUsername, ProfileUser_id);
             }
-            else if (data.message === 'friend is online' || data.message === 'friend is offline') {   
-                             
+            else if (data.message === 'friend is online' || data.message === 'friend is offline') {
+                // console.log('online friends====>' );
+                fetchOnlineFriendInChat();
+                handlechalleng();
+                if (Profile_module.display == 'flex')
+                    ProfileStutus(ProfileUsername);
             }
-            else if (data.message === 'profile_change') {
+            else if (data.message === 'profile_change' || data.message === 'user_deleted') {
+                handlenotif();
+                fetchSuggestions();
+                leaderboard_requests();
+                handlechalleng();
+                fetchHistory();
+                fetchdelette();
+                fetchAndUpdateFriends();
+                // data();
                 
             }
             else if (data.message === 'update_leaderboard') {
+                leaderboard_requests();
+
             }
             else if (data.message === 'update_match_history') {
+                fetchHistory();
+            }
+            else if (data.message === 'friend_delete') {
+                fetchConversation(user_id.className, user_name.textContent)
+                fetchdelette();
+                fetchSuggestions();
+                fetchAndUpdateFriends();
+                handlechalleng();
+                if (Profile_module.display == 'flex')
+                    button_profile(ProfileUsername, ProfileUser_id);
             }
         }
 });
 
 
-function delete_account() {
-    fetch('/api/delete_account/')
-    .then(response => response.json())
-    .then(data => {
-        window.location.href = '/';
-        // console.log('Account deleted');
-    })
-    .catch(error => {
-        console.error('Error deleting account:', error);
-    });
-};
-        
+       

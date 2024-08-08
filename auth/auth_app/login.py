@@ -16,9 +16,12 @@ def get_match_history(request):
     user = login_required(request)
     if not user:
         return HttpResponseForbidden("Forbidden", status=403)
+    username = user.username
     if request.method == 'GET':
+        if request.GET.get('username'):
+            username = request.GET.get('username')
         try:
-            user = CustomUser.objects.get(username=request.GET.get('username'))
+            user = CustomUser.objects.get(username=username)
         except CustomUser.DoesNotExist:
             return JsonResponse({'status': False, 'message': 'User not found'}, status=404)
         match_history = all_Match.objects.filter(winner=user)
@@ -115,7 +118,7 @@ def update_profile(request):
         user.first_name = first_name
         user.last_name = last_name
         user.email = email
-        sendToAllUsers(user.id, 'profile_change')
+        sendToAllUsers('profile_change')
         user.save()
         return JsonResponse({'status': True}, status=200)
     else:
@@ -131,7 +134,7 @@ def change_profile(request):
         if not photo_profile:
             return JsonResponse({'status': False, 'message': 'Image is required'}, status=200)
         user.photo_profile = photo_profile
-        sendToAllUsers(user.id, 'profile_change')
+        sendToAllUsers('profile_change')
         user.save()
         data = TaskSerializer(CustomUser.objects.get(username=user.username)).data['photo_profile']
         return JsonResponse({'status': True, 'photo_profile' : data}, status=200)

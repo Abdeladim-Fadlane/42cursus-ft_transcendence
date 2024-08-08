@@ -1,39 +1,50 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User  # type: ignore
 from rest_framework.authtoken.models import Token  # type: ignore
-from django.shortcuts import redirect
-from django.http import HttpResponseBadRequest
+from django.shortcuts import redirect  # # type: ignore
+from django.http import HttpResponseBadRequest  ## type: ignore
 from urllib.parse import urlencode
 from rest_framework import generics, permissions  # type: ignore
 from .serializers import TaskSerializer, MatchSerializer
 import requests
 import secrets
 import os
-from django.conf import settings
+from django.conf import settings # type: ignore
 
-from django.shortcuts import redirect
-from django.contrib.auth import authenticate, login
+from django.shortcuts import redirect # type: ignore
+from django.contrib.auth import authenticate, login # type: ignore
 from .forms import CustomUserForm
 from .models import *
 from .forms import CustomUserForm
 from .models import CustomUser, all_Match
 from rest_framework.authtoken.models import Token  # type: ignore
-from django.http import JsonResponse
+from django.http import JsonResponse # type: ignore
 state = secrets.token_urlsafe(16)
 client_id = os.environ.get('client_id')
 redirect_uri = os.environ.get('redirect_uri')
 client_secret = os.environ.get('client_secret')
+""" import channels.layers """
+from asgiref.sync import async_to_sync # type: ignore
+from channels.layers import get_channel_layer # type: ignore
 
 def notify(id, action):
-    url = 'http://track:8004/notify/'
-    data = {
-        'id': id,
-        'action': action,
-    }
-    requests.get(url=url,params=data)
+    room_name = f'room_{id}'
+    channel_layer = get_channel_layer()
+    try :
+        async_to_sync(channel_layer.group_send)(
+            room_name,
+            {
+                'type': 'chat_message',
+                'message': action
+            }
+        )
+    except Exception as e:
+        print(e)
+    
 
 def login_required(request):
     if request.user.is_authenticated:
         return request.user
+    
     if 'token' in request.session and 'user_id' in request.session:
         try:
             user = CustomUser.objects.get(id=request.session['user_id'])
@@ -42,10 +53,19 @@ def login_required(request):
         return user
     return None
 
-def sendToAllUsers(id,action):
-    all_id = CustomUser.objects.all().values_list('id', flat=True).exclude(id=id)
-    for i in all_id:
-        notify(i, action)
+def sendToAllUsers(action):
+    group_name = 'broadcast'
+    channel_layer = get_channel_layer()
+    try :
+        async_to_sync(channel_layer.group_send)(
+            group_name,
+            {
+                'type': 'chat_message',
+                'message': action,
+            }
+        )
+    except Exception as e:
+        print(e)
 
 def SignIn(request):
     if request.user.is_authenticated:
@@ -72,8 +92,8 @@ def SignUp(request):
         user_form = CustomUserForm(request.POST)
         if user_form.is_valid():
             user_form.save()
-            sendToAllUsers(user_form.instance.id,"friend_request_suggest")
-            return JsonResponse({'status': True}, status=201)
+            sendToAllUsers("friend_request_suggest")
+            return JsonResponse({'status': True}, status=200)
         else:
             return JsonResponse({"status": False, "error": user_form.errors}, status=200)
     return JsonResponse({'status': False}, status=200)
@@ -138,7 +158,7 @@ def store_data_in_database(request, access_token):
                         f.write(response.content)
                     user.photo_profile = f'User_profile/{filename}'
                     user.available = True
-                    sendToAllUsers(user.id,"friend_request_suggest")
+                    sendToAllUsers("friend_request_suggest")
                     user.save()
                 user.save()
             token, _, = Token.objects.get_or_create(user=user)

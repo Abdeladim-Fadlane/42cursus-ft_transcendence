@@ -1,28 +1,29 @@
 import { handlenotif } from './notif.js';
-
+import { handlechalleng } from './challenge.js';
+import { view_profile } from './userInformation.js';
 document.addEventListener('DOMContentLoaded', function() {
     fetchSuggestions();
     // setInterval(fetchSuggestions, 30000);
 });
 
-let currentData = 0;
+// let currentData = 0;
 
-function fetchSuggestions() {
+export function fetchSuggestions() {
     fetch('/api/suggest/')
         .then(response => {
             if (!response.ok) {
-                document.getElementById('list_friend').style.display = 'none';
-                // console.log("Failed to fetch suggestions");
+                // document.getElementById('list_friend').style.display = 'none';
+                console.log("Failed to fetch suggestions");
                 return;
             }
             return response.json();
         })
         .then(data => {
-            if (data.length !== currentData) {
-                currentData = data.length;
-                handlenotif();
+            // if (data.length !== currentData) {
+            //     currentData = data.length;
+                // handlenotif();
                 updateSuggestions(data);
-            }
+            // }
         })
         .catch(error => {
             console.error('Error fetching suggestions:', error);
@@ -37,8 +38,8 @@ function updateSuggestions(data) {
         // console.log(item);
         let container = document.createElement('div');
         container.classList.add('bar_content');
-        container.style.display = 'flex';
-        container.style.alignItems = 'center';
+        // container.style.display = 'flex';
+        // container.style.alignItems = 'center';
 
         let img = document.createElement('img');
         img.addEventListener('click', view_profile);
@@ -94,6 +95,7 @@ function handleRequestAction(senderUsername) {
             if (data.status === true) {
                 document.getElementById('list_friend').innerHTML = '';
                 fetchSuggestions();
+                // handlechalleng();
             }
         })
         .catch(error => {

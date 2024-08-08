@@ -1,13 +1,12 @@
 from .models import Friends, CustomUser, FriendRequest
-from django.http import JsonResponse
-import json
-from .views import login_required ,notify
-from .login import logout as log
-from django.http import HttpResponseForbidden
+from django.http import JsonResponse   # type: ignore
+from .views import login_required ,notify ,sendToAllUsers # type: ignore
+from django.http import HttpResponseForbidden   # type: ignore
 from .serializers import TaskSerializer
-from django.contrib.auth import logout
+from django.contrib.auth import logout  # type: ignore
+import json
 
-def getAllfriend(request):
+def oline_friends(request):
     if request.method == 'GET':
         id = request.GET.get('id')
         all_id = list(CustomUser.objects.all().values_list('id', flat=True).exclude(id=id))
@@ -204,6 +203,7 @@ def delete_account(request):
     if hasattr(user, 'photo_profile'):
         if user.photo_profile != "User_profile/avatar.svg":
             user.photo_profile.delete(save=False)
+    sendToAllUsers('user_deleted')
     logout(request)
     user.delete()
     return JsonResponse({'status': True}, status=200)

@@ -1,4 +1,4 @@
-// import { handlenotif } from './notif.js';
+import { view_profile } from './userInformation.js';
 
 // Use the imported function
 // handlenotif();
@@ -11,13 +11,17 @@ export function handlechalleng() {
             return response.json();
         })
         .then(data => {
+            // console.log("************************");
+            // console.log(data)
+            // console.log("************************");
             document.getElementById('challenge_friend').innerHTML = '';
             var reward = document.getElementById('challenge_friend');
+
             for (let i = 0; i < data.length; i++) {
                 let container = document.createElement('div');
                 container.classList.add('bar_content');
-                container.style.display = 'flex';
-                container.style.alignItems = 'center';
+                // container.style.display = 'flex';
+                // container.style.alignItems = 'center';
 
                 let img = document.createElement('img');
                 img.addEventListener('click', view_profile);
@@ -55,25 +59,25 @@ export function handlechalleng() {
         });
 }
 
-let currentRequestSize = 0;
-function fetchRequests() {
-    fetch("/api/online/")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch friend requests');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.length !== currentRequestSize) {
-                currentRequestSize = data.length;
-                handlechalleng();
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching friend requests:', error);
-        });
-}
+// let currentRequestSize = 0;
+// function fetchRequests() {
+//     fetch("/api/online/")
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error('Failed to fetch friend requests');
+//             }
+//             return response.json();
+//         })
+//         .then(data => {
+//             if (data.length !== currentRequestSize) {
+//                 currentRequestSize = data.length;
+//                 handlechalleng();
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error fetching friend requests:', error);
+//         });
+// }
 
 document.addEventListener('DOMContentLoaded', function() {
     handlechalleng(); // Initial call on page load

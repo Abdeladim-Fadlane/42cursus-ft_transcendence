@@ -1,3 +1,16 @@
+function delete_account() {
+  fetch('/api/delete_account/')
+  .then(response => response.json())
+  .then(data => {
+      window.location.href = '/';
+      // console.log('Account deleted');
+  })
+  .catch(error => {
+      console.error('Error deleting account:', error);
+  });
+};
+
+
 function initializePageState() {
   const urlParams = new URLSearchParams(window.location.search);
   const page = urlParams.get('page');
@@ -95,7 +108,7 @@ function border_pr(pushState = true) {
 }
 
 function click_chat(pushState = true) {
-  console.log("chat");
+  // console.log("chat");
   if (pushState) {
     window.history.pushState({page: 'chat'}, 'Chat', '?page=chat');
   }
@@ -181,7 +194,7 @@ function click_chat(pushState = true) {
       document.querySelector('#email').value = data.email;
       document.querySelector('#first_name').value = data.first_name;
       document.querySelector('#last_name').value = data.last_name;
-      if (data.unique_id != '0') {
+      if (data.unigue_id != 0) {
         document.querySelector('#old_password').readOnly = true;
         document.querySelector('#new_password').readOnly = true;
         document.querySelector('#confirm_password').readOnly = true;
@@ -246,3 +259,24 @@ document.getElementById('notifi').addEventListener('click', function(event) {
       closeNotificationsModal();
   }
 });
+function dark() {
+  // console.log('dark');
+  let darkElements = document.querySelectorAll('.dark');
+  let lightElements = document.querySelectorAll('.light');
+  let body = document.querySelector('.brull'); // Use querySelector for a single element
+
+  darkElements.forEach(element => element.style.display = 'none');
+  lightElements.forEach(element => element.style.display = 'flex');
+  body.style.backgroundColor = '#000000c7';
+}
+
+function light() {
+  // console.log('light'); 
+  let darkElements = document.querySelectorAll('.dark');
+  let lightElements = document.querySelectorAll('.light');
+  let body = document.querySelector('.brull'); // Use querySelector for a single element
+
+  lightElements.forEach(element => element.style.display = 'none');
+  darkElements.forEach(element => element.style.display = 'flex');
+  body.style.backgroundColor = '#00000000';
+}

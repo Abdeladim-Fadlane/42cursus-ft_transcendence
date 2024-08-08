@@ -1,7 +1,6 @@
 from .views import TaskListCreateAPIView, TaskRetrieveUpdateDestroyAPIView
 from .views import MatchListCreateAPIView
-from django.urls import path
-from django.urls import path
+from django.urls import path # type: ignore
 from . import views , login ,api
 
 
@@ -36,6 +35,6 @@ urlpatterns = [
     path('change_password/', login.change_password, name='change_password'),
     path('change_profile/', login.change_profile, name='change_profile'),
     path('display_name/', login.set_display_name, name='display_name'),
-    path('notify_friend/', api.getAllfriend, name='getAllfriend'),
+    path('notify/', api.oline_friends, name='reponceNotify'),
     path('Allusers/', api.getAllUserTrack, name='get_notify'),
 ]

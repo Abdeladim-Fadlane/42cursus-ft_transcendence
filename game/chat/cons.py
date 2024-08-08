@@ -157,9 +157,8 @@ def serialize_Users(o):
         'players':[p.user.serialize_User() for p in o.players],
     }
 
-async def notify(id, action):
+async def notify(room_name, action):
     channel_layer = get_channel_layer()
-    room_name = f"room_{id}"
     try:
         await channel_layer.group_send(
             room_name,
@@ -208,16 +207,10 @@ async def save_Match(group_name, idx):
         'score2': rooms[group_name].team1_score if rooms[group_name].team1_score < rooms[group_name].team2_score else rooms[group_name].team2_score,}
     url = f'http://auth:8000/api/match/'
     requests.post(url=url, headers=headers, data=data)
-    """ notify  losers and winners """
-    await notify(idloser, 'update_match_history')
-    await notify(idwinner, 'update_match_history')
-    """ update leaderboard """
-    url2 = 'http://auth:8000/Allusers/'
-    res = requests.get(url=url2)
-    usersid_dic = res.json()
-    ids = usersid_dic.get('usersid',[])
-    for i in ids:
-        await notify(i, 'update_leaderboard')
+    """ notify  loser and winner to update their history"""
+    await notify(f"room_{idloser}", 'update_match_history')
+    await notify(f'room_{idwinner}', 'update_match_history')
+    await notify('broadcast', 'update_leaderboard')
 
 async def start_game(group_name):
     await asyncio.sleep(3)

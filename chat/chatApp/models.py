@@ -2,11 +2,13 @@ from django.db import models
 
 # Create your models here.
 
+
 class Conversation(models.Model):
-    room_name = models.TextField(default="") #room_number_number
+    room_name = models.TextField(default="")
     created_at = models.DateTimeField(auto_now=True)
     block_conversation = models.BooleanField(default=False)
     user_bloking = models.TextField(default="")
+
     def __str__(self):
         return self.room_name
 
@@ -15,6 +17,7 @@ class Message(models.Model):
     content = models.TextField(max_length=200,null=True, blank=True,default="")
     sender_name = models.TextField(max_length=200,null=True, blank=True,default="")
     time_added = models.DateTimeField(auto_now_add=True)
+    read_msg = models.BooleanField(default=False)
     class Meta:
         ordering = ['time_added']
     def __str__(self):

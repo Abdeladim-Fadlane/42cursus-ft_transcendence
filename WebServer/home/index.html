@@ -8,29 +8,33 @@
     <link rel="icon" href="icon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.cdnfonts.com/css/games" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/soap-opera" rel="stylesheet">
     
 </head>
-<body>
+<body class="body">
     <div class="brull"></div>
     <div class="ball"></div>
     <div class="ball2"></div>
     <nav class="navbar">
         <div class="fac_one">
         <div class="navbar-logo">
-            <a class="logo" onclick="border_home()" data-target="home"><img src="./resrc/new-logo.png" alt="Logo" ></a>
-        </div>
-        <div class="nav-search">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" class="search-input" >
-            <div class="users-search-bar"></div>
+            <a class="logo" onclick="border_home()" data-target="home"><img src="./resrc/freecss-logo.png" alt="Logo" ></a>
+           
         </div>
         </div>
             <div class="navbar-buttons">
                 <ul>
-                    
-                    <li><label id="nameprofile"></label> </li>               
+                    <div class="nav-search">
+                        <i id="search-icon" class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" class="search-input" >
+                        <div class="users-search-bar"></div>
+                    </div>
+                    <li ><label id="nameprofile"></label> </li>               
                     <li><div onclick="border_pr()" class="profil" id="imageprofile"></div></li>
+                    
                 </ul>
+                <li  class="mode dark" onclick="dark()"><i class="fa-solid fa-moon"></i></li>
+                <li  class="mode light" onclick="light()"><i class="fa-regular fa-moon"></i></li>
             </div>
     </nav>
     <div class="container">
@@ -38,11 +42,16 @@
             <div class="aside_content">
                 
                     <ul>
-                        <li ><a  data-target="home"   onclick="border_home()" onclick="disactiv_sections()" class="icons"  ><i id="Home-aside" class="fa-solid fa-house"></i></a></li>
-                         <li  ><a data-target="profile" onclick="border_pr()" onclick="disactiv_sections()" class="icons" ><i id="Pr-aside" class="fa-solid fa-user"></i></a></li>
+                        <li ><a  data-target="home"   onclick="border_home()"  class="icons"  ><i id="Home-aside" class="fa-solid fa-house"></i></a></li>
+                         <li  ><a data-target="profile" onclick="border_pr()"  class="icons" ><i id="Pr-aside" class="fa-solid fa-user"></i></a></li>
                         
-                        <li><a class="chat-aside nav-link aside"   onclick="click_chat()"><div  class="icons"  ><i id="chat-aside" class="fa-solid fa-comment"></i></div></a></li>
-                        <li><a class="notification aside"  onclick="showNotificationsModal()"><div    class="icons" > <i id="notif-aside" class="fa-solid fa-bell"></i> </div></a></li>
+                        <li>
+                            <div class="chat-aside-numberMessage"></div>
+                            <a class="chat-aside nav-link aside"   onclick="click_chat()">
+                            <div  class="icons"  ><i id="chat-aside" class="fa-solid fa-comment"></i></div>
+                            </a>
+                        </li>
+                        <li><a class="notification aside"  onclick="showNotificationsModal()"><div    class="icons" > <i id="notif-aside" class="fa-solid fa-bell"></i> </div><div class="count-noti" id="count-noti"></div></a></li>
                         
                 
                         <li><a class="settings-button" onclick="showSettingsModal()"><div class="icons" ><i id="setting-aside" class="fa-solid fa-gear"></i></div></a></li>
@@ -190,12 +199,16 @@
                 
                 <div id="settings-modal" class="settings-modal">
                     <div class="setting-contiener">
-                        <span class="close_set" onclick="closeSettingsModal()">&times;</span>
+                        <!-- <span class="close_set" onclick="closeSettingsModal()">&times;</span> -->
+                            <div class="menu">
+                                <div class="menu-item1" onclick="openTab(event, 'profile-data')">Profile data</div>
+                                <div class="menu-item2" onclick="openTab(event, 'profile-password')">Profile password</div>
+                                <div class="menu-item3" onclick="delete_funcyion()">dellet account</div>
+                                <div class="menu-item4" onclick="showLogoutModal()">Quit</div>
+                                <div class="menu-item5" onclick="closeSettingsModal()">close window</div>
+                            </div>
                             
-                            <div class="forms">
                                 <div class="personil-data">
-                                    <h3 class="h3_setting">Change profile data</h3>
-                                    
                                     <form class="profile_photo_form" method="post" enctype="multipart/form-data">
                                         <input type="hidden" name="csrfmiddlewaretoken" id="crcf_profileuser">
                                         <div class="profil setting_profile" id="profil">
@@ -204,8 +217,8 @@
                                         <input type="file" id="image" name="image" accept="image/*" style="display: none;">
                                         <button type="submit" id="button_profile_click" style="display: none;"></button>
                                     </form>
-                                    <label id="nameprofile" for="username"></label>
-                                    <form id="avatarForm" class="form-container" method="post" enctype="multipart/form-data">
+                                    <!-- <label id="nameprofile" class="user-name" for="username"></label> -->
+                                    <form id="avatarForm" class="form-container-pofile" method="post" enctype="multipart/form-data">
                                         
                                                 <input type="hidden" name="csrfmiddlewaretoken" id="crcf">
                                                 <input type="text" id="username" name="username" placeholder="New UserName"  maxlength="7"  required>
@@ -217,21 +230,21 @@
                                         <button class="submit" type="submit">SAVE</button>
                                     </form>
                                 </div>
-                                    <form id="passwordForm" class="form-container" method="post" enctype="multipart/form-data" action="/change_password/">
+                                    <form id="passwordForm" class="form-container-pass" method="post" enctype="multipart/form-data" action="/change_password/">
                                         <div class="center-h3">
-                                            <h3 class="h3_setting">Change profile password</h3>
+                                            <h3 class="h3_setting">You can change your password if you have password.</h3>
                                         </div>
                                         <input type="hidden" name="csrfmiddlewaretoken" id="crcf2">
                                         <input type="password" id="old_password" name="old_password" placeholder="Old password" minlength="12" required >
                                         <input type="password" id="new_password" name="new_password" placeholder="New password"  minlength="12" required>
                                         <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password">
                                         <div id="messages1"></div> 
-                                        <br>
+                                        
                                         <button class="submit isintra" type="submit">SAVE</button>
-                                        <br>
-                                        <a class="delet_account" onclick="delete_funcyion()">Delete Acount</a>
+                                        
+                                        <!-- <a class="delet_account" onclick="delete_funcyion()">Delete Acount</a> -->
                                     </form>
-                            </div>
+                            
                     </div>
                         
                 </div>
@@ -248,7 +261,7 @@
                     <div class="profile-user">
                         <div class="profile-user-info">
                             <div class="image_user">
-                                <span class="close_profile" onclick="close_user_profile()">&times;</span>
+                                <span class="close_profile" >&times;</span>
                                 <img class="profile-user-photo_profile" src="" alt="">
                                 <span class="profile-user-status">
                                     <p class="profile-user-status-color"></p>
@@ -269,9 +282,9 @@
                             </div>
                         </div>
                         <div class="profile-user-action">
-                            <button class="profile-user-action-add_friend">Add friend</button>
-                            <button class="profile-user-action-unfriend">Unfriend</button>
-                            <button class="profile-user-action-go_to_chat">Go to chat</button>
+                            <button class="profile-user-action-add_friend btn btn-outline-success">Add friend</button>
+                            <button class="profile-user-action-unfriend btn btn-outline-danger">Unfriend</button>
+                            <button class="profile-user-action-go_to_chat btn btn-outline-primary">Go to chat</button>
                             <div class="profile-user-action-message"></div>
                         </div>
                         <div class="profile-user-body">
@@ -290,26 +303,41 @@
                                 <div class="profile-user-dateCreationAccount"></div>
                                 <hr>
                             </div>
-                            <div class="profile-user-statistique">
-                                <span class="statistique-header">
-                                    <i class="fa-solid fa-chart-pie"></i>
-                                    <span>User statistiques</span>
-                                </span>
-                                <div class="no-statistique">
-                                    This player has no statistiques yet
+                            <div>
+                                <div class="select-option-profile">
+`                                   <span class="statistique-header">
+                                        <i class="fa-solid fa-chart-pie"></i>
+                                        <span>statistiques</span>
+                                    </span>
+                                    <span class="history-header">
+                                        <i class="fa-solid fa-clock-rotate-left"></i>
+                                        <span >history Match</span>
+                                    </span>
                                 </div>
-                                <div class="number-win"></div>
-                                <div class="number-lose"></div>
-                                <div class="circle"></div>
-                                <div class="number-statistique">
-                                    <div class="win-statistique-div">Win
-                                        <span class="win-statistique">
-                                        </span>
+                                <div class="profile-user-statistique">
+                                    
+                                    <div class="no-statistique">
+                                        This player has no statistiques yet
                                     </div>
-                                    <div class="lose-statistique-div">Lose
-                                        <span class="lose-statistique">
-                                        </span>
+                                    <div class="number-win"></div>
+                                    <div class="number-lose"></div>
+                                    <div class="circle"></div>
+                                    <div class="number-statistique">
+                                        <div class="win-statistique-div">Win
+                                            <span class="win-statistique">
+                                            </span>
+                                        </div>
+                                        <div class="lose-statistique-div">Lose
+                                            <span class="lose-statistique">
+                                            </span>
+                                        </div>
                                     </div>
+                                </div>
+                                <div class="profile-user-history-match">
+                                    <div class="no-history">
+                                        this Player has no history yet
+                                    </div>
+                                    <div class="history-player"></div>
                                 </div>
                             </div>
                         </div>
@@ -449,6 +477,7 @@
                     </div>
                 </section>
                 <section id="tournament_list">
+                    
                     <div class="conteudo">
                         <div id="tournament_content" class="caixa">
                         </div>
@@ -485,21 +514,21 @@
     </div>
     <script src="game.js"></script>
     <script src="script.js"></script>
-    <script src="match.js"></script>
-    <script src="leader.js"></script>
-    <script src="data.js"></script>
-    <script src="token.js"></script>
+    <script type="module" src="match.js"></script>
+    <script type="module" src="leader.js"></script>
+    <script type="module" src="data.js"></script>
+    <script  type="module" src="token.js"></script>
     <script type="module" src="suggest.js"></script>
     <script  type="module" src="invite.js"></script>
     <script type="module" src="challenge.js"></script>
     <script type="module" src="notif.js"></script> 
     <script src="setting.js"></script>
-    <script src="userInformation.js"></script>
-    <script src="msgfriend.js" type="module"></script>
-    <script src="chatScript.js" type="module"></script>
-    <script src="track.js"></script>
-    <script src="search.js"></script>
-    <script src="ProfileAction.js"></script>
+    <script type="module" src="userInformation.js" defer></script>
+    <script type="module" src="msgfriend.js" ></script>
+    <script type="module" src="chatScript.js" ></script>
+    <script type="module" src="track.js"></script>
+    <script type="module" src="search.js"></script>
+    <script type="module" src="ProfileAction.js"></script>
 
 </body>
 </html>

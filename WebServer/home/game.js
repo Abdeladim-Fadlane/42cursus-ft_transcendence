@@ -290,16 +290,15 @@ async function run(section_id, socket_url, canvas_id, type)
             {
                 if (first_time)
                 {
-                    first_time = false;
                     active_section(section_id)
-                    var countdown = 3;
-                    const interval = setInterval(() => {
-                        ctx.clearRect(0, 0, width, height);
-                        put_score(countdown, width / 2, height / 2);
-                        if (countdown == 1)
-                            clearInterval(interval);
-                        countdown -= 1;
-                    }, 1000);
+                    // var countdown = 3;
+                    // const interval = setInterval(() => {
+                    //     ctx.clearRect(0, 0, width, height);
+                    //     put_score(countdown, width / 2, height / 2);
+                    //     if (countdown == 1)
+                    //         clearInterval(interval);
+                    //     countdown -= 1;
+                    // }, 1000);
                 }
                 draw(data);
             }

@@ -15,3 +15,17 @@ document.getElementById('modal_delete').addEventListener('click', function(event
         closedelete();
     }
   });
+function openTab(event, tabName) {
+    if (tabName === 'profile-data') {
+        document.querySelector('.personil-data').style.display = 'flex';
+        document.querySelector('.form-container-pass').style.display = 'none';
+        document.querySelector('.menu-item1').style = 'background-color: #ffffff9b; color: #000000; font-size: 22px;';
+        document.querySelector('.menu-item2').style = 'font-size: 20px; color: ##66657700;';
+    }
+    else if (tabName === 'profile-password') {
+        document.querySelector('.personil-data').style.display = 'none';
+        document.querySelector('.form-container-pass').style.display = 'flex';
+        document.querySelector('.menu-item2').style = 'background-color: #ffffff9b; color: #000000; font-size: 22px;';
+        document.querySelector('.menu-item1').style = 'font-size: 20px; color: ##66657700;';
+    }
+}
