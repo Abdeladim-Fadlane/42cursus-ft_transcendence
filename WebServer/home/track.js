@@ -6,13 +6,54 @@ import { handlechalleng } from './challenge.js';
 import { leaderboard_requests } from './leader.js';
 import { fetchAndUpdateFriends , fetchOnlineFriendInChat} from './msgfriend.js';
 import { fetchConversation, fetchAllMessage} from './chatScript.js';
-
+import { to_chat } from './ProfileAction.js';
 
 import { ProfileUsername , ProfileUser_id, button_profile, ProfileStutus} from './userInformation.js';
 let user_id = document.querySelector('#login');
 let user_name = document.querySelector('#login');
 let Profile_module = window.getComputedStyle(document.querySelector('#content-user'))
 
+let area = document.querySelector('.carte-message');
+area.addEventListener('click', to_chat);
+function show_message(content, username){
+    // console.log(username);
+    
+    const now = new Date();
+    fetch('/api/csrf-token/')
+    .then(response =>{
+        return response.json();
+    })
+    .then(data =>{
+        fetch('/api/friend/', {
+            method: 'POST',
+            headers : {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': data.csrfToken,
+            },
+            body :JSON.stringify({
+                'username' : username,
+            })
+        })
+        .then(response =>{
+            return response.json();
+        })
+        .then(data=>{
+            console.log(data);
+            area.id = data.id;
+            area.querySelector('.carte-user-profile').querySelector('img').src = data.photo_profile;
+        })
+    })
+    area.querySelector('.carte-sender-name').textContent = username;
+    if (content.length >= 130)
+        area.querySelector('.carte-message-content').textContent = content.substring(0, 145) + ' ...';
+    else
+        area.querySelector('.carte-message-content').textContent = content;
+    document.querySelector('.carte-date').textContent = `${now.toLocaleTimeString()}`;
+    area.style.display = 'flex';
+    setTimeout(()=>{area.style.display = 'none';}, 5000)
+
+
+}
 fetch('/api/token/')
     .then(response => response.json())
     .then(data => {
@@ -32,13 +73,14 @@ fetch('/api/token/')
         socket.onmessage =  (event) => {
             
             const data = JSON.parse(event.data);
-            console.log('====> socket track')
-            console.log(data.message)
-            if (data.message === "friend send message"){
+            if (typeof(data) == 'object' && data.message.message === "friend send message"){
                 console.log('====> socket track message')
                 fetchConversation(user_id.className, user_name.textContent)
                 fetchAllMessage(user_id.className, user_name.textContent);
-                
+                console.log(data.message.message_content);
+                console.log(data.message.sender_name);
+                if (window.getComputedStyle(document.getElementById("chat")).display == 'none')
+                    show_message(data.message.message_content, data.message.sender_name)
             }
             else if (data.message === 'friend_request_send') {
                 handlenotif();
@@ -66,7 +108,7 @@ fetch('/api/token/')
                     button_profile(ProfileUsername, ProfileUser_id);
             }
             else if (data.message === 'friend is online' || data.message === 'friend is offline') {
-                // console.log('online friends====>' );
+                console.log('online friends====>' );
                 fetchOnlineFriendInChat();
                 handlechalleng();
                 if (Profile_module.display == 'flex')

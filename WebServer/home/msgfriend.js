@@ -20,6 +20,7 @@ function cleaning_chat(){
     document.querySelector('#chat-friend-name').innerHTML = '<span class="span">Select</span> a friend to <span class="span">chat</span>';
     document.querySelector('#chat-friend-name').style.fontSize = '25px'
     document.querySelector('.chat-header').style.border = 'none';
+    // document.getElementById("chat").style.display = 'none';
 }
 export {cleaning_chat}
 let buttons = document.querySelector('.aside_content')
@@ -53,6 +54,8 @@ export function fetchOnlineFriendInChat(){
     })
 }
 export function fetchAndUpdateFriends() {
+    let log = [];
+    console.log(typeof(log))
     fetch('/api/friends/')
         .then(response => {
             if (!response.ok) {

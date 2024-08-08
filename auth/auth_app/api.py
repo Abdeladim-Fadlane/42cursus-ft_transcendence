@@ -6,6 +6,8 @@ from .serializers import TaskSerializer
 from django.contrib.auth import logout  # type: ignore
 import json
 
+import requests
+
 def oline_friends(request):
     if request.method == 'GET':
         id = request.GET.get('id')
@@ -204,6 +206,7 @@ def delete_account(request):
         if user.photo_profile != "User_profile/avatar.svg":
             user.photo_profile.delete(save=False)
     sendToAllUsers('user_deleted')
+    requests.get(f'http://chat:8003/delete_conversation/{user.id}')
     logout(request)
     user.delete()
     return JsonResponse({'status': True}, status=200)

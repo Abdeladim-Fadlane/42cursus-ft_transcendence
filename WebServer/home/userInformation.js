@@ -295,6 +295,7 @@ export function view_profile(e)
     let usernameFriend ;
     if (e.target.id.length == 0)
         e.target.id = e.currentTarget.id
+    console.log(e.target.id);
     fetch('/api/csrf-token/')
     .then(response =>{
         if (response.ok == false)

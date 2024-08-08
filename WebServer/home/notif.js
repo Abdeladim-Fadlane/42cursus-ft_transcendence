@@ -112,7 +112,7 @@ function updateRequests(data) {
 
         let img = document.createElement('img');
         img.addEventListener('click', view_profile);
-        img.id = item.username;
+        img.id = item.sender_username;
         img.src = item.photo_profile;
         img.style.width = "40px";
         img.style.height = "40px";
