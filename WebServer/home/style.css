@@ -533,7 +533,7 @@ a {
 
 .friend-list
 {
-  width: 260px;
+  width: 350px;
   height: 100%;
   /* background-color: #18093d; */
   display: flex;
@@ -2888,14 +2888,18 @@ label{
 {
   position: absolute;
   right: 20px;
-  width: 35px;
+  width: 30px;
+  height: 30px;
   padding: 5px;
-  border: 1px green solid;
+  border: 1px rgb(201, 120, 204) solid;
   border-radius: 50%;
-  background-color: green;
+  background-color: rgb(201, 120, 204);
   font-family: sans-serif;
-  font-weight: bolder;
-  text-align: center;
+  font-weight: bold;
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .chat-friend-status{
   /* background-color: #0056b3 */
