@@ -7,8 +7,10 @@ function cleaning_chat(){
     document.querySelector('.image-chat').textContent = ''
     document.querySelector('.chat-messages').style.display = 'none';
     document.querySelector('.chat-input').style.display = 'none';
+    if (document.querySelector('.header-chat-status') != null)
+        document.querySelector('.header-chat-status').remove();
     if (document.querySelector('.chat-option-user') != null)
-        document.querySelector('.chat-header').removeChild(document.querySelector('.chat-option-user'))
+        document.querySelector('.chat-option-user').remove();
     if (document.querySelector('.header-chat-photouser') != null)
         document.querySelector('.header-chat-photouser').style.display = 'none'
     if (document.querySelector('.user-info-menu') != null)
@@ -20,7 +22,6 @@ function cleaning_chat(){
     document.querySelector('#chat-friend-name').innerHTML = '<span class="span">Select</span> a friend to <span class="span">chat</span>';
     document.querySelector('#chat-friend-name').style.fontSize = '25px'
     document.querySelector('.chat-header').style.border = 'none';
-    // document.getElementById("chat").style.display = 'none';
 }
 export {cleaning_chat}
 let buttons = document.querySelector('.aside_content')
@@ -33,7 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     fetchAndUpdateFriends();
 });
+let userFind = document.querySelector('.image-chat')
+let name = document.querySelector('#chat-friend-name')
 export function fetchOnlineFriendInChat(){
+    console.log('fetch online is donee')
     fetch('/api/online/')
     .then(response=>{
         return response.json()
@@ -43,10 +47,22 @@ export function fetchOnlineFriendInChat(){
         friends.forEach(element=>{
             if (data.find(d => d.username == element.querySelector('.chat-friend-username').textContent) == undefined)
             {
+                // console.log(userFind.innerHTML);
+                if (userFind.innerHTML.length != 0 && element.querySelector('.chat-friend-username').textContent == name.textContent)
+                {
+                    console.log(name.textContent +  'is offline');
+                    document.querySelector('.header-chat-status').textContent = 'offline';
+                }
                 element.querySelector('.chat-friend-status').style.backgroundColor = 'red'
             }
             else
             {
+                if (userFind.innerHTML.length != 0 && element.querySelector('.chat-friend-username').textContent == name.textContent)
+                {
+                    console.log(name.textContent + ' is online');
+                    document.querySelector('.header-chat-status').textContent = 'online';
+
+                }
                 element.querySelector('.chat-friend-status').style.backgroundColor = 'green'
             }
         })
@@ -105,12 +121,12 @@ export function fetchAndUpdateFriends() {
                     container.classList.add("friend-list-room");
                     reward.appendChild(container);
                     map.set(data[i].username, "block");
-                    fetchOnlineFriendInChat()
-
+                    
                 }
                 if (!ishere)
-                cleaning_chat();
+                    cleaning_chat();
                 create_chatRoom(map);
+                fetchOnlineFriendInChat()
             }
         })
         .catch(error => {

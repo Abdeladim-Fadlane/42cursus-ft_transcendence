@@ -4,7 +4,6 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from django.shortcuts import get_object_or_404
 from .models import Conversation, Message
 import time
-# def readMessage(username):
 
     
 class ChatLive(AsyncWebsocketConsumer):

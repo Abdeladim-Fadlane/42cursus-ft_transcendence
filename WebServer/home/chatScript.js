@@ -61,17 +61,12 @@ function fetchAllMessage(userid, username)
             if (data.status == 'success')
             {
                 let friend = document.querySelector('#list_friend_chat').querySelectorAll('button'); 
-                // console.log('******Message********')
-                // console.log(data);
-                // console.log('**************')
 
                 if (data.values.length == 0)
                     friend.forEach(f =>{
                         f.querySelector('.user-count-message').textContent = '';
                         f.querySelector('.user-count-message').style.display = 'none'
                     })
-                
-                // console.log('===>' + data.values.find(v => v.sender_name == 'oettaqui' ))
                 for (let j = 0; j < friend.length ; j++)
                 {
                     let check = true;
@@ -176,10 +171,12 @@ function create_chatRoom(map)
     let div_chat_tools = document.querySelector(".chat-input")
     var chat_div = document.querySelector("#chat-messages" );;
     var chat_input = document.querySelector("#message-input");
-   
+  
+
     var button_chat = document.querySelector('#button-chat');
     var buttons_friends = document.querySelectorAll('.friend-list-room');
     var chat_header = document.querySelector(".chat-header");
+  
     var chat_container = document.querySelector('.chat-container')
     let user_image = document.createElement('img');
     let div_info = document.createElement('div');
@@ -230,13 +227,16 @@ function create_chatRoom(map)
     let div_bolck_msg = document.createElement('div');
     div_bolck_msg.className = 'div-block-user'
     let index = 0;
+    var user_status = document.createElement('p');
+    user_status.classList.add('header-chat-status');
+    
     buttons_friends.forEach(button => {
         button.addEventListener('click', (e) =>
         {
-        
             if (button == last_button)
                 return ;
-            // else if (last_button != button)
+            chat_header.append(user_status)
+            user_status.textContent = '';
             button.style.backgroundColor = 'gray'
             chat_input.value = '';
             chat_div.style.display = 'flex';
@@ -282,6 +282,8 @@ function create_chatRoom(map)
                             color : white;
                             right : 0;
                             top : ${index}px;
+                            border-radius: 10px 10px 0px 10px;
+
                         `
                         div_time.style.cssText = `right : 10px;`
                     }
@@ -290,6 +292,7 @@ function create_chatRoom(map)
                             background-color : #C1C5DB;
                             left : 0;
                             top : ${index}px;
+                            border-radius: 10px 10px 10px 0px;
                         `
                         div_time.style.cssText = `left : 10px;`
                     }
@@ -314,6 +317,11 @@ function create_chatRoom(map)
             let div_image = document.getElementById('image-chat');
             div_image.append(user_image);
             header_username.innerHTML = button.querySelector('p').textContent;
+            if (button.querySelector('.chat-friend-status').style.backgroundColor == 'green')
+               user_status.textContent = 'online';
+            else
+                user_status.textContent = 'offline';
+
             div_info.textContent = '';
             div_info.append(icon);
             div_info.className = 'chat-option-user';
@@ -405,6 +413,7 @@ function create_chatRoom(map)
                                 color : white;
                                 right : 0;
                                 top : ${index}px;
+                                border-radius: 10px 10px 0px 10px;
                             `
                             div_time.style.cssText = `right : 10px;`
                         }
@@ -414,6 +423,8 @@ function create_chatRoom(map)
                                 background-color : #C1C5DB;
                                 left : 0;
                                 top : ${index}px;
+                                border-radius: 10px 10px 10px 0px;
+
                             `
                             div_time.style.cssText = `left : 10px;`
                         }

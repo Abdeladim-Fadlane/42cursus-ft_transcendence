@@ -19,6 +19,7 @@ function show_message(content, username){
     // console.log(username);
     
     const now = new Date();
+    console.log('=======> ' + username);
     fetch('/api/csrf-token/')
     .then(response =>{
         return response.json();
@@ -38,13 +39,14 @@ function show_message(content, username){
             return response.json();
         })
         .then(data=>{
-            console.log(data);
+            // console.log(data);
             area.id = data.id;
             area.querySelector('.carte-user-profile').querySelector('img').src = data.photo_profile;
         })
     })
+    console.log(area);
     area.querySelector('.carte-sender-name').textContent = username;
-    if (content.length >= 130)
+    if (content.length >= 145)
         area.querySelector('.carte-message-content').textContent = content.substring(0, 145) + ' ...';
     else
         area.querySelector('.carte-message-content').textContent = content;
