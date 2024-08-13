@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
 let userFind = document.querySelector('.image-chat')
 let name = document.querySelector('#chat-friend-name')
 export function fetchOnlineFriendInChat(){
-    console.log('fetch online is donee')
+    // console.log('fetch online is donee')
     fetch('/api/online/')
     .then(response=>{
         return response.json()
@@ -71,7 +71,7 @@ export function fetchOnlineFriendInChat(){
 }
 export function fetchAndUpdateFriends() {
     let log = [];
-    console.log(typeof(log))
+    // console.log(typeof(log))
     fetch('/api/friends/')
         .then(response => {
             if (!response.ok) {

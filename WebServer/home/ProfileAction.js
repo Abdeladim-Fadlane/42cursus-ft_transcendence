@@ -14,19 +14,14 @@ let message = document.querySelector('.profile-user-action-message');
 function to_chat(e)
 {
     let username = e.target.id;
-    
-    if (username.length == 0)
-    {
-        username = e.currentTarget.id;
-        document.querySelector('.carte-message').style.display = 'none';
-    }
     // console.log('**********---->' + e.target.id)
-    let text = e.target.textContent;
+    // console.log('**************************')
+    // console.log(text);
+    // console.log('**************************')
     let close_btn = document.querySelector('.close_profile');
     close_btn.click()
     let chat_aside = document.querySelector('.chat-aside');
     chat_aside.click()
-    e.target.textContent = text;
     let friends = document.querySelectorAll('.friend-list-room');
     for (let j = 0; j < friends.length; j++)
         if (friends[j].id == username)

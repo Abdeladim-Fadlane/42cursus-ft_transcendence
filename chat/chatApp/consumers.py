@@ -28,6 +28,16 @@ class ChatLive(AsyncWebsocketConsumer):
         )
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
+        if (text_data_json['task'] == 'is_typing'):
+            await self.channel_layer.group_send(
+                self.room_group_name,
+                {
+                    'action' : text_data_json['action'],
+                    'type': 'chat_message',
+                    'task' : text_data_json['task'],
+                    'sender' : text_data_json['sender'],
+            })
+            return
         message = text_data_json['message']
         sender = text_data_json['sender']
         room = text_data_json['room_name']
@@ -70,13 +80,20 @@ class ChatLive(AsyncWebsocketConsumer):
             await self.channel_layer.group_send(
                 room_name,
                 {
-                        "type": "chat_message",
-                        "message": data,
-
+                    "type": "chat_message",
+                    "message": data,
                 }
             )
            
     async def chat_message(self, event):
+        if (event['task'] == 'is_typing'):
+            await self.send(text_data=json.dumps({
+                'status': 'success',
+                'task' : event['task'],
+                'action' : event['action'],
+                'sender' : event['sender'],
+            }))
+            return 
         await self.send(text_data=json.dumps({
             'status' : 'success',
             'message': event['message'],

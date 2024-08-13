@@ -14,12 +14,11 @@ let user_name = document.querySelector('#login');
 let Profile_module = window.getComputedStyle(document.querySelector('#content-user'))
 
 let area = document.querySelector('.carte-message');
-area.addEventListener('click', to_chat);
+
 function show_message(content, username){
-    // console.log(username);
     
     const now = new Date();
-    console.log('=======> ' + username);
+    // console.log('=======> ' + username);
     fetch('/api/csrf-token/')
     .then(response =>{
         return response.json();
@@ -44,17 +43,24 @@ function show_message(content, username){
             area.querySelector('.carte-user-profile').querySelector('img').src = data.photo_profile;
         })
     })
-    console.log(area);
+    // console.log(area);
     area.querySelector('.carte-sender-name').textContent = username;
     if (content.length >= 145)
         area.querySelector('.carte-message-content').textContent = content.substring(0, 145) + ' ...';
     else
         area.querySelector('.carte-message-content').textContent = content;
     document.querySelector('.carte-date').textContent = `${now.toLocaleTimeString()}`;
+    area.addEventListener('click', (e) =>{
+        area.style.display = 'none';
+        let chat_aside = document.querySelector('.chat-aside');
+        chat_aside.click();
+        let friends = document.querySelectorAll('.friend-list-room');
+        for (let j = 0; j < friends.length; j++)
+            if (friends[j].id == area.id)
+                friends[j].click();
+    });
     area.style.display = 'flex';
     setTimeout(()=>{area.style.display = 'none';}, 5000)
-
-
 }
 fetch('/api/token/')
     .then(response => response.json())
@@ -79,8 +85,8 @@ fetch('/api/token/')
                 console.log('====> socket track message')
                 fetchConversation(user_id.className, user_name.textContent)
                 fetchAllMessage(user_id.className, user_name.textContent);
-                console.log(data.message.message_content);
-                console.log(data.message.sender_name);
+                // console.log(data.message.message_content);
+                // console.log(data.message.sender_name);
                 if (window.getComputedStyle(document.getElementById("chat")).display == 'none')
                     show_message(data.message.message_content, data.message.sender_name)
             }

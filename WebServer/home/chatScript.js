@@ -151,16 +151,13 @@ function hasNonPrintableChars(inputString) {
 }
 
 
-// async function ReadAndCheck(user_name, user_id, room_name){
-//     await send_request(room_name, user_name);
-//     await fetchConversation(user_id ,user_name);
-// }
 let last_button = null;
 var Web_socket = null;
 export function setLastButton(){
     last_button = null;
-    if (Web_socket != null){
-        Web_socket.close();
+    if (Web_socket !== null){
+        if (Web_socket.readyState === WebSocket.OPEN)
+            Web_socket.close();
         Web_socket = null;
     }
 }
@@ -334,9 +331,10 @@ function create_chatRoom(map)
             `
             chat_header.style.cssText = `border: 2px solid #bbbbbb7b;
             border-radius: 10px;`;
-            if (Web_socket != null)
+            if (Web_socket !== null)
             {
-                Web_socket.close();
+                if (Web_socket.readyState === WebSocket.OPEN)
+                    Web_socket.close();
                 Web_socket = null;
                 console.log('the web socket has been closed');
             }
@@ -395,6 +393,7 @@ function create_chatRoom(map)
             Web_socket.onmessage =  (e) =>{
                 send_request(room_name, username1, usernameid);
                 let data_message = JSON.parse(e.data);
+
                 if (data_message.task == 'send_message')
                 {   
                     let div_time = document.createElement('div')
@@ -441,7 +440,6 @@ function create_chatRoom(map)
                 }
                 else if (data_message.task == 'send_block')
                 {
-                    // console.log(data_message.action);
                     if (data_message.action == 'unblock')
                     {
                         map_action[username2] = 'block';
@@ -470,6 +468,17 @@ function create_chatRoom(map)
                         button_block.textContent = `${map_action[username2]} ${username2}`;
                     }
                 }
+                else if (data_message.task == 'is_typing' && data_message.sender != username1){
+                    if (data_message.action == 'up'){
+                        user_status.textContent = `${username2} is typing ...`;
+                    }
+                    else if (data_message.action == 'down'){
+                        if (button.querySelector('.chat-friend-status').style.backgroundColor == 'green')
+                            user_status.textContent = 'online';
+                        else
+                            user_status.textContent = 'offline';
+                    }
+                }
                 chat_div.scrollTop = chat_div.scrollHeight - chat_div.clientHeight;
             }
             
@@ -487,7 +496,20 @@ function create_chatRoom(map)
                     chat_input.value = "";
                 }
             })
-         
+            chat_input.addEventListener('focus', ()=>{
+                Web_socket.send(JSON.stringify({
+                    'task' : 'is_typing',
+                    'action' : 'up',
+                    'sender' : username1,
+                }))
+            })
+            chat_input.addEventListener('blur', ()=>{
+                Web_socket.send(JSON.stringify({
+                    'task' : 'is_typing',
+                    'action' : 'down',
+                    'sender' : username1
+                }))
+            })
             chat_input.addEventListener('keyup', (e) => {
                 if (String(chat_input.value).length && e.key == 'Enter' && hasNonPrintableChars(chat_input.value) == true)
                 {   
@@ -500,6 +522,7 @@ function create_chatRoom(map)
                         'user_id' : button.id,
                     }));
                     chat_input.value = "";
+                    chat_input.blur();
                 }
             })
             Web_socket.onclose = () =>{
