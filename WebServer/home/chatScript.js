@@ -522,7 +522,7 @@ function create_chatRoom(map)
                         'user_id' : button.id,
                     }));
                     chat_input.value = "";
-                    chat_input.blur();
+                    // chat_input.blur();
                 }
             })
             Web_socket.onclose = () =>{

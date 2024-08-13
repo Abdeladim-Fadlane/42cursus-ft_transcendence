@@ -1,23 +1,23 @@
 from .models import Friends, CustomUser, FriendRequest
-from django.http import JsonResponse
-import json
-from .views import login_required ,notify
-from .login import logout as log
-from django.http import HttpResponseForbidden
+from django.http import JsonResponse   # type: ignore
+from .views import login_required ,notify ,sendToAllUsers # type: ignore
+from django.http import HttpResponseForbidden   # type: ignore
 from .serializers import TaskSerializer
-from django.contrib.auth import logout
+from django.contrib.auth import logout  # type: ignore
+import json
+
 import requests
 
-def reponceNotify(request):
+def oline_friends(request):
     if request.method == 'GET':
         id = request.GET.get('id')
         all_id = list(CustomUser.objects.all().values_list('id', flat=True).exclude(id=id))
         friends = []
         for i in all_id:
             if Friends.objects.filter(user1=id, user2=i):
-                friends.append(i)
+                if CustomUser.objects.get(id=i).available:
+                    friends.append(i)
         return JsonResponse({'usersid': friends}, status=200)
-    
     return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 def send_friend_request(request):
@@ -205,7 +205,8 @@ def delete_account(request):
     if hasattr(user, 'photo_profile'):
         if user.photo_profile != "User_profile/avatar.svg":
             user.photo_profile.delete(save=False)
-    response = requests.get(f'http://chat:8003/delete_conversation/{user.id}')
+    sendToAllUsers('user_deleted')
+    requests.get(f'http://chat:8003/delete_conversation/{user.id}')
     logout(request)
     user.delete()
     return JsonResponse({'status': True}, status=200)

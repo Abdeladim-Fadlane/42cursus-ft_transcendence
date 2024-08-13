@@ -118,7 +118,7 @@ def update_profile(request):
         user.first_name = first_name
         user.last_name = last_name
         user.email = email
-        sendToAllUsers(user.id, 'profile_change')
+        sendToAllUsers('profile_change')
         user.save()
         return JsonResponse({'status': True}, status=200)
     else:
@@ -134,7 +134,7 @@ def change_profile(request):
         if not photo_profile:
             return JsonResponse({'status': False, 'message': 'Image is required'}, status=200)
         user.photo_profile = photo_profile
-        sendToAllUsers(user.id, 'profile_change')
+        sendToAllUsers('profile_change')
         user.save()
         data = TaskSerializer(CustomUser.objects.get(username=user.username)).data['photo_profile']
         return JsonResponse({'status': True, 'photo_profile' : data}, status=200)

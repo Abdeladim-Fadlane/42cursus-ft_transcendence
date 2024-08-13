@@ -49,7 +49,7 @@ search.addEventListener('keyup', ()=>{
     if (hasNonPrintableChars(search.value) == false)
     {
         // clearInterval(interval_serch);
-      
+        console.log('akakakakkakka')
         fetch('/api/users/')
         .then(response => {
             if (!response.ok) {
@@ -60,6 +60,7 @@ search.addEventListener('keyup', ()=>{
         .then(data => {
             div_user.textContent = "";
             // console.log(data);
+           
             for (let i = 0; i < data.length ;i++)
             {
                 if (data[i].username.includes(search.value))
@@ -79,6 +80,21 @@ search.addEventListener('keyup', ()=>{
                     div_user.append(div);
                 }
             }
+            if (div_user.textContent == '')
+            {
+                let d = document.createElement('div');
+                d.style.fontFamily = 'sans-serif';
+                d.style.fontWeight = 'bold';
+                d.style.color = '#764081';
+                d.style.display = 'flex';
+                d.style.alignItems = 'center';
+                d.style.justifyContent = 'center';
+                d.style.padding = '6px 0px 6px 0px'
+                // d.classList.add('div-search-user');
+                d.textContent = 'No results found.';
+                div_user.append(d);
+                return ;
+            }
         })
         .catch(error=>{
             // console.log(error);
@@ -97,13 +113,10 @@ let isdone = false;
 icon_search.addEventListener('click', () =>{
     if (!isdone)
     {
-        // icon_search.style.display = 'none';
-        // console.log(icon_search.style.display);
         search.style.transform = 'rotateY(0deg)';
         isdone = true;
     }
     else if (isdone){
-        // icon_search.style.display = 'inline';
         search.style.transform = 'rotateY(90deg)';
         isdone = false;
     }

@@ -2680,12 +2680,24 @@ font-family: 'games' , sans-serif;
 }
 .search-username
 {
-  font-family: sans-serif;
-  font-weight: bold;
-  display: inline;
-  position: absolute;
-  top: 6px;
-  left: 40px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    display: inline;
+    position: absolute;
+    top: 6px;
+    left: 36px;
+    color: #764081;
+}
+#search-icon{
+  /* border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.452);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+  cursor: pointer;
 }
 .div-search-user{
   height: 30px;
@@ -2695,7 +2707,7 @@ font-family: 'games' , sans-serif;
   transition: 0.3 ease;
 }
 .div-search-user:hover{
-  background-color: #764082;
+  background-color: #6b3e7560;
 }
 .search-photo_profile
 {

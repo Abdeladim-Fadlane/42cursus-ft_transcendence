@@ -1,11 +1,10 @@
 from channels.generic.websocket import AsyncWebsocketConsumer # type: ignore
-import requests
 from cryptography.fernet import Fernet
-import os
-import json
 from channels.layers import get_channel_layer # type: ignore
-from django.http import JsonResponse
 from .views import notification
+import requests
+import json
+import os
 
 def add_padding(data):
     """Ensure correct padding for base64 encoded string."""
@@ -46,13 +45,21 @@ class TrackConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         query_string = self.scope['query_string'].decode().split('&')
         user_id = query_string[1].split('=')[1]
+
         self.room_name = f'room_{user_id}'
-        
         await self.channel_layer.group_add(
             self.room_name,
             self.channel_name
         )
+
+        self.group_name = 'broadcast'
+        await self.channel_layer.group_add(
+            self.group_name,
+            self.channel_name
+        )
+
         await self.accept()
+    
         patch_data(self.scope,True)
         await notification(self.scope,True)
 

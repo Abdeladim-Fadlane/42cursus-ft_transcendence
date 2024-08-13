@@ -109,18 +109,15 @@ ASGI_APPLICATION = 'auth_project.asgi.application'
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 
-""" add the following code to the end of the file """
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': "channels.layers.InMemoryChannelLayer",
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('redis', 6379)],
+        },
     },
 }
 
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': "channels.layers.InMemoryChannelLayer",
-    },
-}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

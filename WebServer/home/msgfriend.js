@@ -28,6 +28,7 @@ let buttons = document.querySelector('.aside_content')
 buttons = buttons.querySelector('ul').querySelectorAll('li');
 buttons.forEach(element => {
     // console.log(element);
+    
     element.querySelector('a').addEventListener('click' , cleaning_chat);
 });
 document.addEventListener('DOMContentLoaded', function() {
