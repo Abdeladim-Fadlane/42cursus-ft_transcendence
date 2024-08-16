@@ -97,21 +97,26 @@ function handleRequestAction(action, senderUsername, requestId) {
 
 
 function updateRequests(data) {
-    const requests = document.getElementById('content_notify');
+    let requests = document.getElementById('content_notify');
     requests.innerHTML = ''; // Clear previous requests
+    if (data.length === 0) {
+        let container = document.createElement('div');
+        container.classList.add('not-found');
+        let p = document.createElement('h2');
+        p.textContent = "No friend request";
+        container.appendChild(p);
+        requests.appendChild(container);
+        return;
+    }
     data.forEach(item => {
         let container = document.createElement('div');
         container.classList.add('bar_content');
-        
-        
-        
-        
-       
         container.classList.add('bar_notify');
-        container.id = `request-${item.id}`; // Set unique ID for the request
+        container.id = `request-${item.id}`;
 
         let img = document.createElement('img');
         img.addEventListener('click', view_profile);
+        img.style.objectFit = "cover";
         img.id = item.sender_username;
         img.src = item.photo_profile;
         img.style.width = "40px";

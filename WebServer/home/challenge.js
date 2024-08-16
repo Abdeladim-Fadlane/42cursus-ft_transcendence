@@ -16,6 +16,18 @@ export function handlechalleng() {
             // console.log("************************");
             document.getElementById('challenge_friend').innerHTML = '';
             var reward = document.getElementById('challenge_friend');
+            if (data.length === 0) {
+                let container = document.createElement('div');
+                container.classList.add('not-found');
+                // let im = document.createElement('img');
+                // im.src = "./resrc/online.png";
+                let p = document.createElement('h2');
+                p.textContent = "No friend online";
+                // container.appendChild(im);
+                container.appendChild(p);
+                reward.appendChild(container);
+                return;
+            }
 
             for (let i = 0; i < data.length; i++) {
                 let container = document.createElement('div');
@@ -24,6 +36,8 @@ export function handlechalleng() {
                 // container.style.alignItems = 'center';
 
                 let img = document.createElement('img');
+                img.style.objectFit = "cover";
+
                 img.addEventListener('click', view_profile);
                 img.id = data[i].username;
                 img.src = data[i].photo_profile;
@@ -59,25 +73,7 @@ export function handlechalleng() {
         });
 }
 
-// let currentRequestSize = 0;
-// function fetchRequests() {
-//     fetch("/api/online/")
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error('Failed to fetch friend requests');
-//             }
-//             return response.json();
-//         })
-//         .then(data => {
-//             if (data.length !== currentRequestSize) {
-//                 currentRequestSize = data.length;
-//                 handlechalleng();
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Error fetching friend requests:', error);
-//         });
-// }
+
 
 document.addEventListener('DOMContentLoaded', function() {
     handlechalleng(); // Initial call on page load

@@ -35,11 +35,25 @@ export function fetchHistory() {
             }
             return response.json();
         })
+        
         .then(data => {
             // console.log(data);
             var historyContainer = document.getElementById('data_history');
             if (historyContainer) {
                 historyContainer.innerHTML = ''; // Clear previous content
+
+                if (data.length === 0) {
+                    let container = document.createElement('div');
+                    container.classList.add('not-found');
+                    // let im = document.createElement('img');
+                    // im.src = "./resrc/history.png";
+                    let p = document.createElement('h2');
+                    p.textContent = "you don't have any history";
+                    // container.appendChild(im);
+                    container.appendChild(p);
+                    historyContainer.appendChild(container);
+                    return;
+                }
                 data.forEach(item => {
                     let container = document.createElement('div');
 

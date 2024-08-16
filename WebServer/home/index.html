@@ -44,6 +44,8 @@
                     <ul>
                         <li ><a  data-target="home"   onclick="border_home()"  class="icons"  ><i id="Home-aside" class="fa-solid fa-house"></i></a></li>
                          <li  ><a data-target="profile" onclick="border_pr()"  class="icons" ><i id="Pr-aside" class="fa-solid fa-user"></i></a></li>
+                        <li><a class="rank-bottun aside_button" onclick="rank()"><div class="icons"><i id="rank-aside" class="fa-solid fa-ranking-star"></i></div></a></li>
+
                         
                         <li>
                             <div class="chat-aside-numberMessage"></div>
@@ -56,6 +58,8 @@
                 
                         <li><a class="settings-button" onclick="showSettingsModal()"><div class="icons" ><i id="setting-aside" class="fa-solid fa-gear"></i></div></a></li>
                         <li><a class="logout-button og_out_icon aside_button" onclick="showLogoutModal()"><div class="icons"><i id="logout-aside" class="fa-solid fa-right-from-bracket"></i></div></a></li>
+
+                        
                     </ul>
                 
             </div>
@@ -85,12 +89,14 @@
                     <div class="center">
                         <h2>online  friends</h2>
                     </div>
+                    <div class="img-online"></div>
                     <div class="list_friend" id="challenge_friend"></div>
                 </div>
                 <div class="invite">
                     <div class="center">
                         <h2>invite to friends</h2>
                     </div>
+                    <div class="img-invit"></div>
                     <div class="invet_friend" id="list_friend"></div>
                 </div>
             </div>
@@ -111,17 +117,21 @@
                 <div class="data">
                     <div class="leadrboard" id="leadrboard">
                         <div class="data_titel"><h2>leadrboard</h2></div>
+                        <div class="img-leadr"></div>
                         <div class="leadrboard_container"  id="leadrboard_container">
-                            <div class="crown"><i class="fa-solid fa-crown"></i></div>
+                            
                         </div>
                     </div>
                     
                     <div class="global_data" id="history">
+                        <div class="img-history"></div>
                         <div class="data_titel" ><h2>match history</h2></div>
                         <div class="data_history" id="data_history"></div>
                     </div>
                     
                     <div class="achievements" id="achievements">
+                        <div class="img-friends"></div>
+
                         <div class="data_titel"><h2>Friends</h2></div>
                         <div class="Friends"  id="Friends"></div>
 
@@ -129,6 +139,26 @@
                     
                 </div>
             </div>
+            <div id="rank" class="content-section rank"> 
+                <h1 class="title-leader">Leaderboard</h1>
+                <div class="rank_container"> 
+                    <div class="king" >
+                        <div class="crown" id="crown"><i class="fa-solid fa-crown"></i></div>
+                        <div class="number-one" id="number-one"></div>
+                    </div>
+                    <div class="second-two" id="second-two">
+                        <div class="number-two" id="number-two"></div>
+                        <div class="number-tree" id="number-tree"></div>
+                    </div>
+                </div>
+                <div class="rank_list" id="rank_list">
+                        
+                </div>
+                    
+
+            </div>
+
+                
             <div id="chat" class="content-section aside-co">
                 
                 <div>
@@ -138,11 +168,15 @@
 
                 </div>
                 <div class="container-chat">
+                    
                     <div class="friend-list">
+                        <div class="img-chat"></div>
                         <h2>Friends</h2>
+                        
                         <ul id="friends">
+                            
                             <div class="list_friend" id="list_friend_chat">
-                                <!-- <button class="friend-list-room">adddd</button> -->
+                                
                             </div>
                         </ul>
                     </div>
@@ -184,6 +218,7 @@
                                 <span onclick="closeNotificationsModal()" >&times;</span>
                             </div>
                             <h1>Notifications</h1>
+                            <div class="img-notif"></div>
                             
                     </div>
                         <div class="content_notify" id="content_notify">

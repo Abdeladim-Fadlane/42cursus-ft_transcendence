@@ -19,7 +19,7 @@ function initializePageState() {
     redirectTo404();
     return;
   }
-
+  
   switch (page) {
     case 'home':
       border_home();
@@ -30,6 +30,9 @@ function initializePageState() {
     case 'chat':
       click_chat();
       break;
+    case 'rank':
+      rank();
+      break;
     default:
       border_home();
   }
@@ -37,7 +40,7 @@ function initializePageState() {
 
 function isValidPage(page) {
   // console.log(page);
-  const validPages = ['home', 'profile', 'chat',null];
+  const validPages = ['home', 'profile', 'chat','rank',null];
   return validPages.includes(page);
 }
 
@@ -51,6 +54,7 @@ window.onload = function() {
 
 window.onpopstate = function(event) {
   if (event.state) {
+    // console.log(event.state.page);
     switch (event.state.page) {
       case 'home':
         border_home(false);
@@ -61,11 +65,32 @@ window.onpopstate = function(event) {
       case 'chat':
         click_chat(false);
         break;
+      case 'rank':
+        rank(false);
+        break;
       default:
         border_home(false); 
     }
   }
 };
+
+function rank(pushState = true) {
+  if (pushState) {
+    window.history.pushState({page: 'rank'}, 'Rank', '?page=rank');
+  }
+  document.getElementById("home").style.display = "none";
+  document.getElementById("profile").style.display = "none";
+  document.getElementById("chat").style.display = "none";
+  document.getElementById("rank").style.display = "flex";
+
+  document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+  document.getElementById('rank-aside').style.cssText = 'font-size: 40px; color: #ff44e4; ';
+  document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+  document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+  document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+  document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+  document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+}
 
 function border_home(pushState = true) {
   // console.log("home");
@@ -76,12 +101,14 @@ function border_home(pushState = true) {
   document.getElementById("home").style.display = "flex";
   document.getElementById("profile").style.display = "none";
   document.getElementById("chat").style.display = "none";
+  document.getElementById("rank").style.display = "none";
+  document.getElementById('rank-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
   document.getElementById('Home-aside').style.cssText = 'font-size: 40px; color: #ff44e4; ';
-  document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-  document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-  document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-  document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-  document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+  document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
+  document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
+  document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
+  document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
 
 }
 
@@ -95,13 +122,15 @@ function border_pr(pushState = true) {
   document.getElementById("home").style.display = "none";
   document.getElementById("profile").style.display = "flex";
   document.getElementById("chat").style.display = "none";
-  document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById("rank").style.display = "none";
+  document.getElementById('rank-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+  document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
   document.getElementById('Pr-aside').style.cssText = 'font-size: 40px; color: #ff44e4; ';
-  document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
 
-  document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-  document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-  document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+  document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+  document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
   
 
 
@@ -116,12 +145,14 @@ function click_chat(pushState = true) {
   document.getElementById("home").style.display = "none";
   document.getElementById("profile").style.display = "none";
   document.getElementById("chat").style.display = "flex";
-  document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-  document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById("rank").style.display = "none";
+  document.getElementById('rank-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+  document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
+  document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
   document.getElementById('chat-aside').style.cssText = 'font-size: 40px; color: #ff44e4; ';
-  document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-  document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-  document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+  document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+  document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+  document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
 
 }
   let currentFriend = null;

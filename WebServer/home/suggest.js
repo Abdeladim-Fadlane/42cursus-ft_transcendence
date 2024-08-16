@@ -74,13 +74,23 @@ function handleRequestAction(senderUsername) {
     .then(data => {
         document.getElementById('Friends').innerHTML = "";
         var reward = document.getElementById('Friends');
+        if (data.length === 0) {
+            let container = document.createElement('div');
+            container.classList.add('not-found');
+            // let im = document.createElement('img');
+            // im.src = "./resrc/no_fr.png";
+            let p = document.createElement('h2');
+            p.textContent = "you don't have any friend";
+            // container.appendChild(im);
+            container.appendChild(p);
+            reward.appendChild(container);
+            return;
+        }
         for (let i = 0; i < data.length; i++) {
 
             let container = document.createElement('div');
             container.classList.add('bar_content');
-            // container.style.display = 'flex';
-            // container.style.alignItems = 'center';
-            // container.style.backgroundColor = "white";
+            
 
             let img = document.createElement('img');
             img.addEventListener('click', view_profile);

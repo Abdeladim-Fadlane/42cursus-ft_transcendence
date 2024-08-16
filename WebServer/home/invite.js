@@ -34,6 +34,25 @@ function updateSuggestions(data) {
     var reward = document.getElementById('list_friend');
     reward.innerHTML = ''; // Clear previous suggestions
     // console.log(data);
+   
+    
+    if (data.length === 0) {
+        
+        let container = document.createElement('div');
+        container.classList.add('not-found');
+        // let im = document.createElement('img');
+        // im.src = "./resrc/not_friend_to_invit.png";
+        let p = document.createElement('h2');
+        p.textContent = "No friend suggestions";
+        // container.appendChild(im);
+        container.appendChild(p);
+        reward.appendChild(container);
+        return;
+    }
+    // else {
+    //     container.di
+        
+    // }
     data.forEach(item => {
         // console.log(item);
         let container = document.createElement('div');
@@ -45,8 +64,8 @@ function updateSuggestions(data) {
         img.addEventListener('click', view_profile);
         img.id = item.username;
         img.src = item.photo_profile;
-        img.style.width = "40px";
-        img.style.height = "40px";
+        img.style.width = "60px";
+        img.style.height = "60px";
         img.style.borderRadius = "50%";
         img.style.border = "2px solid black";
 

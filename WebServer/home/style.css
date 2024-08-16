@@ -20,6 +20,7 @@ body {
     background-repeat: no-repeat;
     width: 100%;
     height: 100vh;
+    opacity: 2.5;
     
 }
 .brull
@@ -301,6 +302,7 @@ article {
 img {
   width: 60px;
   height:60px;
+  object-fit: cover;
 }
 
 
@@ -394,11 +396,7 @@ ul {
   margin: 5px;
   color: #ffffff;
 }
-.list_friend {
-  width: 100%;
-  height: 90%;
-  
-}
+
 .center {
   display: flex;
   justify-content: center;
@@ -467,7 +465,65 @@ h3 {
     margin-left: 10px;
   margin-left: 10px;
   border-radius: 20px;
+  /* background-color: #00000080; */
 }
+.img-friends
+{
+  position: absolute;
+  width: 100%;
+  height: 83%;
+  top: 90px;
+  left: 0;
+
+  background-image: url("./resrc/no_fr.png");
+  background-size: cover;
+  background-position: center; 
+  opacity: 0.5;
+  overflow: hidden;
+  z-index: -1;
+  border-radius: 22px;
+}
+.img-history
+{
+  position: absolute;
+  width: 100%;
+  height: 83%;
+  top: 90px;
+  left: 0;
+
+  background-image: url("./resrc/history.png");
+  background-size: cover;
+  background-position: center; 
+  opacity: 0.5;
+  overflow: hidden;
+  z-index: -1;
+  border-radius: 22px;
+}
+.img-online , .img-invit
+{
+  position: absolute;
+  width: 100%;
+  height: 80%;
+  top: 90px;
+  left: 0;
+
+  /* background-image: url("./resrc/history.png"); */
+  background-size: cover;
+  background-position: center; 
+  opacity: 0.5;
+  overflow: hidden;
+  z-index: -1;
+  border-radius: 22px;
+}
+.img-online
+{
+  background-image: url("./resrc/online.png");
+}
+.img-invit
+{
+  background-image: url("./resrc/not_friend_to_invit.png");
+}
+
 .leadrboard,
 .achievements {
   width: 30%;
@@ -569,7 +625,8 @@ a {
 #friends
 {
   width: 100%;
-  height: 100%;
+  height: 87%;
+  /* background-color: #0056b3; */
   
   
   display: flex;
@@ -578,6 +635,7 @@ a {
   
   
   overflow-y: auto;
+  /* background-color: #00000082; */
 }
 #friends li {
   /* margin: 15px; */
@@ -1017,6 +1075,7 @@ input[type="text"], input[type="email"]
   flex-direction: column;
   width: 100%;
   height: 12%;
+  /* position: relative; */
   
   /* background-color: #777777; */
 }
@@ -1038,6 +1097,7 @@ input[type="text"], input[type="email"]
   background: linear-gradient(220deg, rgb(24 9 61 / 83%) 52%, rgb(195 24 207 / 21%) 100%);
   border: #ffffff9b 2px solid;
   border-radius: 15px;
+  position: relative;
 }
 
 .content_notify
@@ -1050,8 +1110,6 @@ input[type="text"], input[type="email"]
   height: 92%;
 
   overflow-y: auto;
-  
-  
 }
 .bar_notify
 {
@@ -1666,8 +1724,27 @@ flex-direction: column;
 margin-top: 10px;
 width: 100%;
 height: 83%;
-/* background-color: #3498db; */
 overflow-y: auto;
+/* background-image: url("./resrc/leader.png");
+background-size: cover;
+  background-position: center; */
+  background-color: #00000080;
+}
+.img-leadr
+{
+  position: absolute;
+  width: 100%;
+  height: 83%;
+  top: 80px;
+  left: 0;
+
+  background-image: url("./resrc/leader.png");
+  background-size: cover;
+  background-position: center; 
+  opacity: 0.5;
+  overflow: hidden;
+  z-index: -1;
+  
 }
 .leadrboard_container div p
 {
@@ -1700,10 +1777,12 @@ display: flex;
 justify-content: start;
 align-items: center;
 flex-direction: column;
-margin-top: 22px;
+/* margin-top: 22px; */
 width: 100%;
-height: 100%;
+height: 85%;
 overflow-y: auto;
+background-color: #00000042;
+
 
 }
 
@@ -1733,6 +1812,10 @@ border-radius: 3px;
 height: 58px;
 border: 1px solid #bbb;
 margin-bottom: 10px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+
 
 }
 /* .bar_content:hover
@@ -1759,8 +1842,9 @@ border: #bbb 2px solid;
 {
 
   width: 100%;
-  height: 83%;
+  height: 85%;
   overflow-y: auto;
+  background-color: #00000080;
 }
 
 .content
@@ -1809,6 +1893,10 @@ margin-top: 20px;
 width: 110px;
 height: 110px;
 cursor: pointer;
+/* object-fit: cover; */
+
+
+
 
 }
 .user-name
@@ -2409,6 +2497,7 @@ font-family: 'games' , sans-serif;
 .list_friend {
   /* overflow-y: auto; */
   transition: height 0.3s;
+  height: 100%;
 }
 
 
@@ -2481,8 +2570,9 @@ font-family: 'games' , sans-serif;
 {
   overflow: auto;
   /* background-color: #218838; */
-  height: 83%;
-  margin-top: 22px;
+  height: 89%;
+  /* margin-top: 22px; */
+  border-radius: 22px;
 }
 .invet_friend div
 {
@@ -2502,13 +2592,7 @@ font-family: 'games' , sans-serif;
   color: #bbb;
   font-size: 5px;
 }
-.crown i
-{
-  position: relative;
-  top: 13px;
-    left: 53px;
-  color: #ebbf5c;
-}
+
 
 .circle{
   width: 230px;
@@ -3003,4 +3087,203 @@ label{
   font-family: sans-serif;
   font-weight: bold;
   font-size: 20;
+}
+.not-found
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  
+  
+}
+
+.not-found h2
+{
+  position: absolute;
+  top: 300px;
+  /* left: 30px; */
+  /* color: #de1616; */
+  width: 100%;
+  height: auto;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 28px;
+  color: #ffffff;
+  text-align: center;
+}
+#challenge_friend
+{
+  width: 100%;
+  height: 89%;
+ 
+   overflow-y: auto;
+   border-radius: 20px;
+}
+
+.img-chat
+{
+  position: absolute;
+  width: 100%;
+    height: 100%;
+    top: 4px;
+    left: 0;
+
+  background-image: url("./resrc/chat_friends.png");
+  background-size: cover;
+  background-position: center; 
+  opacity: 0.5;
+  overflow: hidden;
+  z-index: -1;
+  border-radius: 22px;
+}
+.friend-list
+{
+  position: relative;
+}
+
+.img-notif
+{
+  position: absolute;
+  width: 100%;
+    height: 100%;
+    top: 4px;
+    left: 0;
+
+  background-image: url("./resrc/notif.png");
+  background-size: cover;
+  background-position: center; 
+  opacity: 1.5;
+  overflow: hidden;
+  z-index: -1;
+  border-radius: 22px;
+}
+.rank
+{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 90%;
+  
+  /* background-color: #00000080; */
+}
+.rank_container
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 350px;
+  
+  /* background-color: #00000080; */
+}
+
+.title-leader
+{
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  /* color: #ffffff; */
+  
+}
+.number-one
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  height: 150px;
+  /* margin-top: 100px; */
+  /* background-color: #5410ba80; */
+  position: relative;
+}
+.crown
+{
+  position: relative
+ 
+}
+.crown i
+{
+  position: absolute;
+  top: -46px;
+  left: -62px;
+  width: 100px;
+  height: 100px;
+  color: #ebbf5c;
+  rotate: -44deg;
+  z-index: 1;
+}
+ 
+
+.second-two
+{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  
+  width: 100%;
+  height: 150px;
+  /* background-color: #ba101080; */
+}
+.one , .two , .three
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100px;
+  height: 150px;
+  /* background-color: #00000080; */
+}
+.one img, .two img , .three img
+{
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  
+
+}
+.one p, .two p , .three p
+{
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+}
+.rank_list
+{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 370px;
+  margin-top: 30px;
+  overflow-y: auto;
+}
+.bar-content
+{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 60%;
+  height: 100px;
+  background-color: #00000080;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background-color: antiquewhite;
+
+}
+.nameuser
+{
+  font-size: 20px;
+  font-weight: bold;
+  color: #000000;
+  width: 200px;
 }

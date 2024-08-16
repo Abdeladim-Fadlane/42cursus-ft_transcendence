@@ -83,10 +83,20 @@ export function fetchAndUpdateFriends() {
         .then(data => {
             let chat_msg = document.querySelector('.chat-friend-name');
             let ishere =  false;
-            if (data.length !== previousDataSize) {
+            // if (data.length !== previousDataSize) {
                 previousDataSize = data.length;
                 var reward = document.getElementById('list_friend_chat');
                 reward.innerHTML = ""; 
+
+                if (data.length === 0) {
+                    let container = document.createElement('div');
+                    container.classList.add('not-found');
+                    let p = document.createElement('h2');
+                    p.textContent = "No friend to chat";
+                    container.appendChild(p);
+                    reward.appendChild(container);
+                    return;
+                }
 
                 for (let i = 0; i < data.length; i++) {
                     if (chat_msg != undefined && chat_msg == data[i].username)
@@ -123,7 +133,7 @@ export function fetchAndUpdateFriends() {
                     reward.appendChild(container);
                     map.set(data[i].username, "block");
                     
-                }
+                // }
                 if (!ishere)
                     cleaning_chat();
                 create_chatRoom(map);
