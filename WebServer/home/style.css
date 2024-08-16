@@ -3331,3 +3331,15 @@ label{
   color: #D8636F;
   left: 10%;
 }
+.has-noStatistique{
+  display: none;
+  color: white;
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 28px;
+  position: absolute;
+  top: 50%;
+  width: 325px;
+  text-align: center;
+  z-index: 10000;
+}

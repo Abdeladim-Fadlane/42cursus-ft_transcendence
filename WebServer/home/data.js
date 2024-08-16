@@ -41,7 +41,7 @@ function draw_statistique(lose , win)
     });
     div_win.style.background = `conic-gradient(#5cb85c ${value_win * 360 / totale}deg, #D8636F 0deg)`
     div_lose.style.background = `conic-gradient(#D8636F ${value_lose * 360 / totale}deg, #5cb85c 0deg)`
-    interval = setInterval(()=>{
+    let interval = setInterval(()=>{
         if (i < _win)
         {
             i++;
@@ -78,10 +78,15 @@ function my_data()
 
         const userData = JSON.parse(JSON.stringify(data));
         if (userData.lose != 0  &&  userData.win != 0)
+        {
             draw_statistique(userData.lose, userData.win)
-        else{
-            document.querySelector('.leadrboard_container').textContent = 'no statistique'
+            // document.querySelector('.leadrboard_container').style.display = 'flex'
         }
+        else{
+            document.querySelector('.has-noStatistique').style.display = 'flex'
+
+        }
+    
         // Update user information in the DOM
         document.getElementById('login').textContent = userData.username;
         document.getElementById('login').classList.add(userData.id);
