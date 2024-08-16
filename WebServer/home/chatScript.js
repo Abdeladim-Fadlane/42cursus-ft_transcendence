@@ -15,7 +15,6 @@ function send_request(room_name, user_sender, user_id)
     fetch('/chatCsrftoken/')
     .then(response => response.json())
     .then(data => {
-        // console.log(data);
         fetch('/readMessage/',{
             method: 'POST',
             headers :{

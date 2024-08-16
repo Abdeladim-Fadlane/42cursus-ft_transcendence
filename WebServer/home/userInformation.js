@@ -92,7 +92,7 @@ function drawCircle(lose, win)
 
     let value_win = win;
     let value_lose = lose;
-    let totale = value_win +value_lose;
+    let totale = value_win + value_lose;
     let _win = value_win * 100 / totale;
     let _lose = value_lose * 100 / totale;
     let  div_white = document.createElement('div')
