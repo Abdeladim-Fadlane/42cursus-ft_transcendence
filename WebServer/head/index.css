@@ -1,4 +1,6 @@
-html {
+
+
+/* html {
     box-sizing: border-box;
 }
 
@@ -15,9 +17,9 @@ body {
       position: relative;
       background-repeat: no-repeat;
       overflow: hidden;
-      /* backdrop-filter: blur(300px); */
+     
   }
-
+ */
 
 
 .container_nav
@@ -138,7 +140,7 @@ p
     }
   }
   
-  .ball {
+  /* .ball {
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -172,8 +174,8 @@ p
     100% {
       top: 10%;
       left: 10%;
-    }
-  }
+    } */
+  /* } */
 .Join_now 
 {
     height: 80px;
@@ -236,7 +238,7 @@ p
 
 
 }
-.blur
+/* .blur
 {
     position: absolute;
   top: 0;
@@ -245,7 +247,7 @@ p
   height: 100%;
   background-color: #000000ad;
   z-index: -10;
-}
+} */
 p{
     font-weight: 900;
 }
@@ -442,7 +444,7 @@ button {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
-}
+} 
 
 button:hover {
     background-color: #77777787;

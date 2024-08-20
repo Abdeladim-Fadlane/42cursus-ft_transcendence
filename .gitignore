@@ -2,3 +2,4 @@ auth/data/db
 game/data/db
 track/data/db
 chat/data/db
+.env
