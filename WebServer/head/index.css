@@ -1,25 +1,5 @@
 
 
-/* html {
-    box-sizing: border-box;
-}
-
-*, *::after, *::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
-}
-
-body {
-      background-color: #764082;
-      background-image: url("./resrc/featured-scaled.jpg");
-      background-size: cover;
-      position: relative;
-      background-repeat: no-repeat;
-      overflow: hidden;
-     
-  }
- */
 
 
 .container_nav
@@ -27,7 +7,7 @@ body {
     display: flex; 
     justify-content: center;
     align-items: center;
-    margin-top: 23px;
+    /* margin-top: 23px; */
 }
 .navbar {
     
@@ -43,7 +23,8 @@ body {
 }
 
 .navbar-logo img {
-    height: 40px; 
+    height: 100px;
+    width: 100px; 
 }
 
 .navbar-buttons {

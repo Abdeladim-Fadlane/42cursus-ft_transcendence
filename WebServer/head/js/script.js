@@ -19,35 +19,35 @@ function loadHomeContent() {
                 
         })
         .then(() => {
-            const script = loadScript('./script2.js');
+            const script = loadScript('./js/script2.js');
                 document.head.appendChild(script);
-                const invite = loadScriptnotmodul('./invite.js');
+                const invite = loadScriptnotmodul('./js/invite.js');
                 document.head.appendChild(invite);
-                const leadr = loadScriptnotmodul('./leader.js');
+                const leadr = loadScriptnotmodul('./js/leader.js');
                 document.head.appendChild(leadr);
-                const data = loadScriptnotmodul('./data.js');
+                const data = loadScriptnotmodul('./js/data.js');
                 document.head.appendChild(data);
-                const match = loadScriptnotmodul('./match.js');
+                const match = loadScriptnotmodul('./js/match.js');
                 document.head.appendChild(match);
-                const notifi = loadScriptnotmodul('./notif.js');
+                const notifi = loadScriptnotmodul('./js/notif.js');
                 document.head.appendChild(notifi);
-                const suggest = loadScriptnotmodul('./suggest.js');
+                const suggest = loadScriptnotmodul('./js/suggest.js');
                 document.head.appendChild(suggest);
-                const msgfriend = loadScriptnotmodul('./msgfriend.js');
+                const msgfriend = loadScriptnotmodul('./js/msgfriend.js');
                 document.head.appendChild(msgfriend);
-                const track = loadScriptnotmodul('./track.js');
+                const track = loadScriptnotmodul('./js/track.js');
                 document.head.appendChild(track);
-                const chatScript = loadScriptnotmodul('./chatScript.js');
+                const chatScript = loadScriptnotmodul('./js/chatScript.js');
                 document.head.appendChild(chatScript);
-                const setting = loadScript('./setting.js');
+                const setting = loadScript('./js/setting.js');
                 document.head.appendChild(setting);
-                const game = loadScript('./game.js');
+                const game = loadScript('./js/game.js');
                 document.head.appendChild(game);
-                const search = loadScriptnotmodul('./search.js');
+                const search = loadScriptnotmodul('./js/search.js');
                 document.head.appendChild(search);
-                const userInformation = loadScriptnotmodul('./userInformation.js');
+                const userInformation = loadScriptnotmodul('./js/userInformation.js');
                 document.head.appendChild(userInformation);
-                const ProfileAction = loadScriptnotmodul('./ProfileAction.js');
+                const ProfileAction = loadScriptnotmodul('./js/ProfileAction.js');
                 document.head.appendChild(ProfileAction);
                 
         })

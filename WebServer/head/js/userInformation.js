@@ -407,14 +407,4 @@ function view_matchs()
     
 }
 
-function close_user() {
 
-    const modal = document.getElementById('content-user');
-    modal.style.display = 'none';
-
-    // // Hide all profile user actions
-    document.querySelector('.profile-user-action').style.display = 'none';
-    document.querySelector('.profile-user-action-add_friend').style.display = 'none';
-    document.querySelector('.profile-user-action-go_to_chat').style.display = 'none';
-    document.querySelector('.profile-user-action-unfriend').style.display = 'none';
-}

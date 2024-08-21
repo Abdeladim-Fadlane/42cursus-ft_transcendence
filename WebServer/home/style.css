@@ -123,7 +123,7 @@ body {
   /* margin-bottom: 15px; */
   /* margin: auto; */
     /* margin-top: auto; */
-  margin-top: 10px;
+  /* margin-top: 10px; */
   border-radius: 3px;
   border-bottom: #eeeeeeab 1px solid;
 }
@@ -430,6 +430,63 @@ ul {
   /* background-color: #ffffff; */
 }
 
+/* Animation Keyframes */
+@keyframes slideDown {
+  from {
+      transform: translateY(-100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  from {
+      transform: scale(0.5);
+      opacity: 0;
+  }
+  to {
+      transform: scale(1);
+      opacity: 1;
+  }
+}
+
+/* Apply Animations */
+#rank {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.title-leader {
+  animation: slideDown 0.7s ease-out;
+}
+
+.rank_container {
+  display: flex;
+  justify-content: space-around;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.king, .second-two {
+  animation: bounceIn 1s ease-out;
+}
+
+.rank_list {
+  animation: slideDown 1.5s ease-in-out;
+}
+
+
+
 .rank i{
   /* background-image: url("./resrc/media/icon/rank.png"); */
  font-size: 50px;
@@ -669,6 +726,61 @@ a {
 
 
 }
+/* Animation Keyframes */
+@keyframes slideIn {
+  from {
+      transform: translateX(-100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  from {
+      transform: scale(0.5);
+      opacity: 0;
+  }
+  to {
+      transform: scale(1);
+      opacity: 1;
+  }
+}
+
+/* Apply Animations */
+#chat {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.container-chat {
+  display: flex;
+  animation: slideIn 0.7s ease-out;
+}
+
+.friend-list, .chat-container {
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.friend-list h2, .chat-header h2 {
+  animation: bounceIn 0.8s ease-out;
+}
+
+#chat-messages {
+  animation: fadeIn 2s ease-in-out;
+}
+
+
 .chat-messages
 {
   background-image: url("./resrc/chatbackground.jpg");
@@ -3165,7 +3277,7 @@ label{
   width: 100%;
   height: 90%;
   
-  /* background-color: #00000080; */
+  background-color: #00000080;
 }
 .rank_container
 {

@@ -181,7 +181,7 @@ def callback(request):
     access_token = exchange_code_for_token(code)
     if access_token:
         store_data_in_database(request, access_token)
-        return redirect('/home/')
+        return redirect('/')
     else:
         return HttpResponseBadRequest("Failed to authenticate", status=400)
 

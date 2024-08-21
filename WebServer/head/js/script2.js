@@ -607,10 +607,14 @@ function dark() {
   let darkElements = document.querySelectorAll('.dark');
   let lightElements = document.querySelectorAll('.light');
   let body = document.querySelector('.brull'); // Use querySelector for a single element
-
-  darkElements.forEach(element => element.style.display = 'none');
-  lightElements.forEach(element => element.style.display = 'flex');
-  body.style.backgroundColor = '#000000c7';
+  // let rank = document.querySelectorAll('.rank');
+  if (body ) {
+    console.log('dark');
+    darkElements.forEach(element => element.style.display = 'none');
+    lightElements.forEach(element => element.style.display = 'flex');
+    body.style.backgroundColor = '#00000000';
+    // rank.style.backgroundColor = '#000000c7';
+  }
 }
 
 function light() {
@@ -618,8 +622,24 @@ function light() {
   let darkElements = document.querySelectorAll('.dark');
   let lightElements = document.querySelectorAll('.light');
   let body = document.querySelector('.brull'); // Use querySelector for a single element
+  
+  if (body ) {
+    console.log('light');
+    darkElements.forEach(element => element.style.display = 'flex');
+    lightElements.forEach(element => element.style.display = 'none');
+    body.style.backgroundColor = '#000000c7';
+    // rank.style.backgroundColor = '#000000';
+  }
+}
 
-  lightElements.forEach(element => element.style.display = 'none');
-  darkElements.forEach(element => element.style.display = 'flex');
-  body.style.backgroundColor = '#00000000';
+function close_user() {
+
+  const modal = document.getElementById('content-user');
+  modal.style.display = 'none';
+
+  // // Hide all profile user actions
+  document.querySelector('.profile-user-action').style.display = 'none';
+  document.querySelector('.profile-user-action-add_friend').style.display = 'none';
+  document.querySelector('.profile-user-action-go_to_chat').style.display = 'none';
+  document.querySelector('.profile-user-action-unfriend').style.display = 'none';
 }
