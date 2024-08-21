@@ -111,8 +111,16 @@
                             <div class="has-noStatistique">you have no statistique yet</div>
                         </div>
                     </div>
-                    <div class="lederboard-win-statistique"></div>
-                    <div class="lederboard-lose-statistique"></div>
+                    <ul class="leader-stats">
+                        <li class="win-stats-leader">
+                            <div class="lederboard-win-statistique"></div>
+                        </li>
+                        <li class="lose-stats-leader">
+                            <div class="lederboard-lose-statistique"></div>
+                        </li>
+                    </ul>
+                    <!-- <div class="lederboard-win-statistique"></div>
+                    <div class="lederboard-lose-statistique"></div> -->
                 </div>
             </div>
             
@@ -339,11 +347,11 @@
                         <div class="select-option-profile">
 `                                   <span class="statistique-header">
                                 <i class="fa-solid fa-chart-pie"></i>
-                                <span>statistiques</span>
+                                statistiques
                             </span>
                             <span class="history-header">
                                 <i class="fa-solid fa-clock-rotate-left"></i>
-                                <span >history Match</span>
+                                history Match
                             </span>
                         </div>
                         <div class="profile-user-statistique">
@@ -355,14 +363,16 @@
                             <div class="number-lose"></div>
                             <div class="circle"></div>
                             <div class="number-statistique">
-                                <div class="win-statistique-div">Win
-                                    <span class="win-statistique">
-                                    </span>
-                                </div>
-                                <div class="lose-statistique-div">Lose
-                                    <span class="lose-statistique">
-                                    </span>
-                                </div>
+                                <ul>
+                                    <li class="lose-stats">
+                                        <div class="lose-statistique-div">lose</div>
+                                        <div class="lose-statistique"></div>
+                                    </li>
+                                    <li class="win-stats">
+                                        <div class="win-statistique-div">win</div>
+                                        <div class="win-statistique"></div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <div class="profile-user-history-match">

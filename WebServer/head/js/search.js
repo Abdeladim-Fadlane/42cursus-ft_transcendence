@@ -123,14 +123,12 @@ icon_search.addEventListener('click', () =>{
     }
 })
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.addEventListener('click', function(event) {
-        let div_search = document.querySelector('.nav-search');
-        if (div_search && !div_search.contains(event.target)) {
-            isdone = false;
-            search.value = '';
-            search.style.transform = 'rotateY(90deg)'; 
-            div_user.textContent = '';
-        }
-    });
+document.addEventListener('click', function(event) {
+    let div_search = document.querySelector('.nav-search');
+    if (div_search && !div_search.contains(event.target)) {
+        isdone = false;
+        search.value = '';
+        search.style.transform = 'rotateY(90deg)'; 
+        div_user.textContent = '';
+    }
 });

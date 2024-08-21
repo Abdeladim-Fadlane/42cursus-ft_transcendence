@@ -106,8 +106,8 @@ function drawCircle(lose, win)
     let div_win =  document.createElement('div');
     let text_win  = document.querySelector('.win-statistique');
     div_win.classList.add('child');
-    text_win.textContent = '0 %'
-    text_lose.textContent = '0 %'
+    text_win.textContent = '0%'
+    text_lose.textContent = '0%'
     circle.append(div_lose, div_win, div_white);
     div_white.classList.add('div-white')
     let i = 0;
@@ -133,18 +133,17 @@ function drawCircle(lose, win)
             i++;
             if (i > _win)
                 i = _win.toFixed(2);
-            text_win.textContent = `${i} %`
+            text_win.textContent = `${i}%`
         }
         if (j < _lose)
         {
             j++;
             if (j > _lose)
                 j = _lose.toFixed(2);
-            text_lose.textContent = `${j} %`
+            text_lose.textContent = `${j}%`
         }
         if (Number(i) + Number(j) == 100)
             clearInterval(interval);
-        // console.log()
     },  80)
     circle.style.display = 'flex';
 }

@@ -6,36 +6,18 @@ import { handlechalleng } from './challenge.js';
 import { leaderboard_requests } from './leader.js';
 import { fetchAndUpdateFriends , fetchOnlineFriendInChat} from './msgfriend.js';
 import { fetchConversation, fetchAllMessage} from './chatScript.js';
-import { to_chat } from './ProfileAction.js';
+
 
 import { ProfileUsername , ProfileUser_id, button_profile, ProfileStutus} from './userInformation.js';
 let user_id = document.querySelector('#login');
 let user_name = document.querySelector('#login');
-let contentUserElement = document.querySelector('#content-user');
-
-if (contentUserElement) {
-    let Profile_module = window.getComputedStyle(contentUserElement);
-    // Now you can work with Profile_module
-}
+let Profile_module = window.getComputedStyle(document.querySelector('#content-user'))
 
 let area = document.querySelector('.carte-message');
-
-// window.onload = fetchSuggestions;
-// window.onload = handlenotif;
-// window.onload = fetchdelette;
-// window.onload = fetchHistory;
-// window.onload = handlechalleng;
-// window.onload = leaderboard_requests;
-
-
-
-
-
 
 function show_message(content, username){
     
     const now = new Date();
-    // console.log('=======> ' + username);
     fetch('/api/csrf-token/')
     .then(response =>{
         return response.json();
@@ -55,29 +37,33 @@ function show_message(content, username){
             return response.json();
         })
         .then(data=>{
-            // console.log(data);
             area.id = data.id;
             area.querySelector('.carte-user-profile').querySelector('img').src = data.photo_profile;
         })
     })
-    // console.log(area);
     area.querySelector('.carte-sender-name').textContent = username;
     if (content.length >= 145)
         area.querySelector('.carte-message-content').textContent = content.substring(0, 145) + ' ...';
     else
         area.querySelector('.carte-message-content').textContent = content;
     document.querySelector('.carte-date').textContent = `${now.toLocaleTimeString()}`;
-    area.addEventListener('click', (e) =>{
+    area.addEventListener('click', function click_area(e){
         area.style.display = 'none';
         let chat_aside = document.querySelector('.chat-aside');
         chat_aside.click();
         let friends = document.querySelectorAll('.friend-list-room');
         for (let j = 0; j < friends.length; j++)
             if (friends[j].id == area.id)
+            {
                 friends[j].click();
+                area.removeEventListener('click', click_area);
+                break ;
+            }
     });
     area.style.display = 'flex';
-    setTimeout(()=>{area.style.display = 'none';}, 5000)
+    setTimeout(()=>{
+        area.style.display = 'none';
+    }, 5000)
 }
 fetch('/api/token/')
     .then(response => response.json())
@@ -98,15 +84,13 @@ fetch('/api/token/')
         socket.onmessage =  (event) => {
             
             const data = JSON.parse(event.data);
-            console.log(data.message);
             if (typeof(data) == 'object' && data.message.message === "friend send message"){
-                console.log('====> socket track message')
+                // console.log('====> socket track message')
                 fetchConversation(user_id.className, user_name.textContent)
                 fetchAllMessage(user_id.className, user_name.textContent);
-                // console.log(data.message.message_content);
-                // console.log(data.message.sender_name);
+            
                 if (window.getComputedStyle(document.getElementById("chat")).display == 'none')
-                    show_message(data.message.message_content, data.message.sender_name)
+                    show_message(data.message.message_content, data.message.sender_name);
             }
             else if (data.message === 'friend_request_send') {
                 handlenotif();

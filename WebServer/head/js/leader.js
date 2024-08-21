@@ -88,7 +88,7 @@ function leaderboard(data) {
 
         let space = document.createElement('div');
         space.style.width = "10px";
-        rk.textContent = i;
+        rk.textContent = i + 1;
         rk.style.width = "100px";
 
         container.appendChild(space);
