@@ -53,6 +53,8 @@ function loadHomeContent() {
                 document.head.appendChild(notifi);
                 const suggest = loadScriptnotmodul('./js/suggest.js');
                 document.head.appendChild(suggest);
+                const token = loadScriptnotmodul('./js/token.js');
+                document.head.appendChild(token);
                 const msgfriend = loadScriptnotmodul('./js/msgfriend.js');
                 document.head.appendChild(msgfriend);
                 const track = loadScriptnotmodul('./js/track.js');
@@ -95,7 +97,7 @@ function already_logged() {
             }
         })
         .then(data => {
-            console.log(data);
+            // console.log(data);
             
             if (data.status === true){
                  loadHomeContent();

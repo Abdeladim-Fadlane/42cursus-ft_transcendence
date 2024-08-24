@@ -22,6 +22,8 @@ function loadHomeContent() {
                 document.head.appendChild(invite);
                 const leadr = loadScriptnotmodul('./js/leader.js');
                 document.head.appendChild(leadr);
+                const token = loadScriptnotmodul('./js/token.js');
+                document.head.appendChild(token);
                 const data = loadScriptnotmodul('./js/data.js');
                 document.head.appendChild(data);
                 const match = loadScriptnotmodul('./js/match.js');

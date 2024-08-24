@@ -1,4 +1,4 @@
-console.log('Script 2 loaded');
+// console.log('Script 2 loaded');
 
 
 function delete_account() {
@@ -26,7 +26,7 @@ function initializePageState() {
     return;
   }
 
-  console.log(page);
+  // console.log(page);
   
   switch (page) {
     case 'home':
@@ -488,7 +488,7 @@ function logout() {
   // });
 
   
-  console.log("Remaining scripts in head:", document.querySelectorAll('script'));
+  // console.log("Remaining scripts in head:", document.querySelectorAll('script'));
 
   // Optionally, redirect to the login page
   window.location.href = '/logout/';
@@ -609,7 +609,7 @@ function dark() {
   let body = document.querySelector('.brull'); // Use querySelector for a single element
   // let rank = document.querySelectorAll('.rank');
   if (body ) {
-    console.log('dark');
+    // console.log('dark');
     darkElements.forEach(element => element.style.display = 'none');
     lightElements.forEach(element => element.style.display = 'flex');
     body.style.backgroundColor = '#00000000';
@@ -624,7 +624,7 @@ function light() {
   let body = document.querySelector('.brull'); // Use querySelector for a single element
   
   if (body ) {
-    console.log('light');
+    // console.log('light');
     darkElements.forEach(element => element.style.display = 'flex');
     lightElements.forEach(element => element.style.display = 'none');
     body.style.backgroundColor = '#000000c7';

@@ -15,7 +15,7 @@ function cleaning_chat(){
         document.querySelector('.header-chat-photouser').style.display = 'none'
     if (document.querySelector('.user-info-menu') != null)
     {
-        console.log(document.querySelector('.chat-container'))
+        // console.log(document.querySelector('.chat-container'))
         document.querySelector('.chat-container').removeChild(document.querySelector('.user-info-menu'),
         document.querySelector('.chat-option-user'))
     }
@@ -32,7 +32,9 @@ if (buttons) {
         let items = listItems.querySelectorAll('li');
         items.forEach(element => {
             let link = element.querySelector('a');
-            if (link) {
+            let dataTarget = link.getAttribute('data-target');
+            // console.log(dataTarget)
+            if (link && (dataTarget == 'home' || dataTarget == 'profile' || dataTarget == 'rank' )) {
                 link.addEventListener('click', cleaning_chat);
             }
         });
@@ -60,7 +62,7 @@ export function fetchOnlineFriendInChat(){
                 // console.log(userFind.innerHTML);
                 if (userFind.innerHTML.length != 0 && element.querySelector('.chat-friend-username').textContent == name.textContent)
                 {
-                    console.log(name.textContent +  'is offline');
+                    // console.log(name.textContent +  'is offline');
                     document.querySelector('.header-chat-status').textContent = 'offline';
                 }
                 element.querySelector('.chat-friend-status').style.backgroundColor = 'red'
@@ -69,7 +71,7 @@ export function fetchOnlineFriendInChat(){
             {
                 if (userFind.innerHTML.length != 0 && element.querySelector('.chat-friend-username').textContent == name.textContent)
                 {
-                    console.log(name.textContent + ' is online');
+                    // console.log(name.textContent + ' is online');
                     document.querySelector('.header-chat-status').textContent = 'online';
 
                 }

@@ -2,7 +2,7 @@
 // import { handlechalleng } from './challenge.js';
 import { view_profile } from './userInformation.js';
 
-console.log('invite.js loaded');
+// console.log('invite.js loaded');
 // document.addEventListener('DOMContentLoaded', function() {
 //     fetchSuggestions();
 //     // setInterval(fetchSuggestions, 30000);
@@ -27,7 +27,7 @@ export function fetchSuggestions() {
                 if (data.length === 0)
                     console.log('No friend suggestions');
                 else
-                console.log('friend suggestions');
+                // console.log('friend suggestions');
                 updateSuggestions(data);
             // }
         })
