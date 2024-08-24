@@ -330,7 +330,7 @@ p{
 }
 .image-login
 {
-    background-image: url("./resrc/log-in.jpg");
+    background-image: url("../resrc/log-in.jpg");
     background-size: cover;
     background-position: center;
     width: 60%;
@@ -340,7 +340,7 @@ p{
 
 .image-sign 
 {
-    background-image: url("./resrc/sign-in.jpeg");
+    background-image: url("../resrc/sign-in.jpeg");
     background-size: cover;
     background-position: center;
     width: 60%;
@@ -350,7 +350,7 @@ p{
 form {
     
     /* padding: 20px 30px;     */
-    background-color: #3333339f;
+    background-color: #000000c7;
     width: 300px;
     height: 100%;
     display: flex;
@@ -358,6 +358,15 @@ form {
     justify-content: center;
     align-items: center;
     border-radius: 15px ;
+}
+.form-content
+{
+    width: 300px;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 .image-sign , .image-login
 {
