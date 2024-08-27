@@ -19,7 +19,8 @@ function cleaning_chat(){
         document.querySelector('.chat-container').removeChild(document.querySelector('.user-info-menu'),
         document.querySelector('.chat-option-user'))
     }
-    document.querySelector('#chat-friend-name').innerHTML = '<span class="span">Select</span> a friend to <span class="span">chat</span>';
+    document.querySelector('.empty-chat-body').style.display = 'flex';
+    document.querySelector('#chat-friend-name').textContent = '';
     document.querySelector('#chat-friend-name').style.fontSize = '25px'
     document.querySelector('.chat-header').style.border = 'none';
 }
@@ -139,12 +140,11 @@ export function fetchAndUpdateFriends() {
                     reward.appendChild(container);
                     map.set(data[i].username, "block");
                     
-                // }
+                }
                 if (!ishere)
                     cleaning_chat();
                 create_chatRoom(map);
                 fetchOnlineFriendInChat()
-            }
         })
         .catch(error => {
             console.error('Error fetching friends:', error);

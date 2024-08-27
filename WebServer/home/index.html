@@ -188,7 +188,8 @@
                 <div class="image-chat" id="image-chat">
                     
                 </div>
-                <h2 id="chat-friend-name"><span class="span">Select</span> a friend to <span class="span">chat</span></h2>
+                <h2 id="chat-friend-name"></h2>
+                <h2 class="empty-chat-body"><span class="span">Select</span> a friend to <span class="span">chat</span></h2>
                 
             </div>
             
@@ -250,22 +251,19 @@
                     </div>
                     
                         <div class="personil-data">
+                            <input type="hidden" name="csrfmiddlewaretoken" id="crcf_profileuser">
+                            <div class="profil setting_profile" id="profil" >
+                                <img class="edit" src="./resrc/edit.png" alt="Edit Profile">
+                            </div>
                             <form class="profile_photo_form" method="post" enctype="multipart/form-data">
-                                <input type="hidden" name="csrfmiddlewaretoken" id="crcf_profileuser" value="{{ csrf_token }}">
-                                <div class="profil setting_profile" id="profil" >
-                                    <img class="edit" src="./resrc/edit.png" alt="Edit Profile">
-                                </div>
                                 <input type="file" id="image" name="image" accept="image/*" style="display: none;" >
                                 <button type="submit" id="button_profile_click" style="display: none;"></button>
                             </form>
                             <!-- <label id="nameprofile" class="user-name" for="username"></label> -->
-                            <form enctype="multipart/form-data" onsubmit="(e)=>{
-                                e.preventDefault();
-                                console.log('submit akatfi     1111222');
-                            }">
+                            <form id="avatarFrom" enctype="multipart/form-data">
                                 
                                         <input type="hidden" name="csrfmiddlewaretoken" id="crcf">
-                                        <input type="text" id="username" name="username" placeholder="New UserName"  maxlength="7"  required>
+                                        <input type="text" id="username" name="username" placeholder="New UserName"  maxlength="8"  required>
                                         <input type="text" id="first_name" name="first_name" placeholder="New First Name"   required>
                                         <input type="text" id="last_name" name="last_name" placeholder="New Last Name"   required >
                                         <input type="email" id="email" name="email" placeholder="New Email"   required>
@@ -274,14 +272,14 @@
                                 <button class="submit" type="submit">SAVE</button>
                             </form>
                         </div>
-                            <form id="passwordForm" class="form-container-pass" method="post" enctype="multipart/form-data" action="/change_password/">
+                            <form id="passwordForm" class="form-container-pass" method="post" enctype="multipart/form-data">
                                 <div class="center-h3">
                                     <h3 class="h3_setting">You can change your password if you have password.</h3>
                                 </div>
                                 <input type="hidden" name="csrfmiddlewaretoken" id="crcf2">
-                                <input type="password" id="old_password" name="old_password" placeholder="Old password" minlength="12" required >
+                                <input type="password" id="old_password" name="old_password" placeholder="Old password" required >
                                 <input type="password" id="new_password" name="new_password" placeholder="New password"  minlength="12" required>
-                                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password">
+                                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password" minlength="12" >
                                 <div id="messages1"></div> 
                                 
                                 <button class="submit isintra" type="submit">SAVE</button>

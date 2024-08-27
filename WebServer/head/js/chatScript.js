@@ -201,10 +201,6 @@ function create_chatRoom(map)
         button_block
     )
     div_menu_child2.style.marginTop = '4px'
-    div_menu.append(div_menu_child1,
-        document.createElement('hr'),
-        div_menu_child2
-    );
     let div_menu_child3 = document.createElement('div')
     icon_div = document.createElement('i');
     icon_div.classList.add('fa-solid', 'fa-table-tennis-paddle-ball');
@@ -212,9 +208,14 @@ function create_chatRoom(map)
         icon_div,
         button_game
     )
-    div_menu.append(
+    div_menu.append(div_menu_child1,
         document.createElement('hr'),
         div_menu_child3
+    );
+    let hrElement = document.createElement('hr');
+    div_menu.append(
+        hrElement,
+        div_menu_child2
     );
     var check = true;
     let username2;
@@ -227,14 +228,17 @@ function create_chatRoom(map)
     user_status.classList.add('header-chat-status');
     
     buttons_friends.forEach(button => {
-        
-        button.addEventListener('click', (e) =>
+        button.addEventListener('click', async (e) =>
         {
+            // console.log(chat_header)
             if (button == last_button)
                 return ;
+            document.querySelector('.empty-chat-body').style.display  = 'none'
             chat_header.append(user_status)
             user_status.textContent = '';
-            button.style.backgroundColor = 'gray'
+            button.style.backgroundColor = '#764081';
+            button.style.border = '1px #c683d3 solid';
+            button.style.boxShadow = '6px 6px 15px #c683d3';
             chat_input.value = '';
             chat_div.style.display = 'flex';
             div_chat_tools.style.display = 'flex';
@@ -319,10 +323,10 @@ function create_chatRoom(map)
             else
                 user_status.textContent = 'offline';
 
+            
             div_info.textContent = '';
-
-            div_info.append(icon);
             div_info.className = 'chat-option-user';
+            div_info.append(icon);
             chat_header.append(div_info);
             user_image.src = button.querySelector("img").src;
             user_image.alt = "user_photo";
@@ -449,7 +453,7 @@ function create_chatRoom(map)
                         if (div_chat_tools.contains(div_bolck_msg) == true)
                             div_chat_tools.removeChild(div_bolck_msg);
                         if (div_menu.contains(div_menu_child2) == false)
-                            div_menu.append(div_menu_child2);
+                            div_menu.append(hrElement,div_menu_child2);
                         button_block.textContent = `${map_action[username2]} ${username2}`;
                     }
                     else if (data_message.action == 'block')
@@ -460,7 +464,10 @@ function create_chatRoom(map)
                         else {
                             div_bolck_msg.textContent = `${username2} block you`
                             if (div_menu.contains(div_menu_child2) == true)
+                            {
                                 div_menu.removeChild(div_menu_child2);
+                                div_menu.removeChild(hrElement);
+                            }
                         }
                         div_chat_tools.append(div_bolck_msg);
                         chat_input.hidden = true;
@@ -497,7 +504,7 @@ function create_chatRoom(map)
                     chat_input.value = "";
                 }
             })
-            chat_input.addEventListener('focus', ()=>{
+            chat_input.addEventListener('input', ()=>{
                 Web_socket.send(JSON.stringify({
                     'task' : 'is_typing',
                     'action' : 'up',
@@ -528,7 +535,8 @@ function create_chatRoom(map)
             })
             Web_socket.onclose = () =>{
                 button.style.backgroundColor = '#ffffff00'
-                
+                button.style.border = 'none';
+                button.style.boxShadow = 'none';
                 console.log('the connection has been closed')
             }
             // console.log(map);

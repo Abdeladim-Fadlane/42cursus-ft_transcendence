@@ -47,6 +47,8 @@ search.addEventListener('focus', function(e) {
 
 });
 search.addEventListener('keyup', ()=>{
+    
+    let d
     if (hasNonPrintableChars(search.value) == false)
     {
         // clearInterval(interval_serch);
@@ -83,7 +85,7 @@ search.addEventListener('keyup', ()=>{
             }
             if (div_user.textContent == '')
             {
-                let d = document.createElement('div');
+                d = document.createElement('div');
                 d.style.fontFamily = 'sans-serif';
                 d.style.fontWeight = 'bold';
                 d.style.color = '#764081';
@@ -97,14 +99,25 @@ search.addEventListener('keyup', ()=>{
                 return ;
             }
         })
-        .catch(error=>{
-            // console.log(error);
-        })
         div_user.style.display = 'inline';
     }
     else if (search.value.length == 0)
     {
         div_user.textContent = '';
+    }
+    else {
+        div_user.textContent = '';
+        d = document.createElement('div');
+        d.style.fontFamily = 'sans-serif';
+        d.style.fontWeight = 'bold';
+        d.style.color = '#764081';
+        d.style.display = 'flex';
+        d.style.alignItems = 'center';
+        d.style.justifyContent = 'center';
+        d.style.padding = '6px 0px 6px 0px'
+        // d.classList.add('div-search-user');
+        d.textContent = 'No results found.';
+        div_user.append(d);
     }
 })
 

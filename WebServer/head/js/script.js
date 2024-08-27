@@ -51,6 +51,8 @@ function loadHomeContent() {
                 document.head.appendChild(match);
                 const notifi = loadScriptnotmodul('./js/notif.js');
                 document.head.appendChild(notifi);
+                const token = loadScriptnotmodul('./js/token.js');
+                document.head.appendChild(token);
                 const suggest = loadScriptnotmodul('./js/suggest.js');
                 document.head.appendChild(suggest);
                 const msgfriend = loadScriptnotmodul('./js/msgfriend.js');

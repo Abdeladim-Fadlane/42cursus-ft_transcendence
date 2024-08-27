@@ -772,7 +772,7 @@ a {
   animation: fadeIn 1.5s ease-in-out;
 }
 
-.friend-list h2, .chat-header h2 {
+.friend-list h2, .chat-header .empty-chat-body {
   animation: bounceIn 0.8s ease-out;
 }
 
@@ -846,11 +846,10 @@ a {
 .chat-header
 {
   width: 100%;
-  height: auto;
+  height: 75px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  /* position: absolute; */
   /* top: 0; */
   margin-bottom: 20px;
   /* background-color: #7777; */
@@ -859,14 +858,25 @@ a {
   position: relative;
 
 }
-.chat-header h2
+.chat-header .empty-chat-body{
+  color: white;
+  text-align: center;
+  position: absolute;
+}
+.chat-header #chat-friend-name
 {
+ 
+  position: absolute;
+  top : 10px;
+  left: 85px;
   color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   margin: auto;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 23px !important;
 }
 
 
@@ -2425,28 +2435,28 @@ color: black;
 
 .header-chat-photouser
 {
-width: 60px;
-height: 60px;
-border-radius: 50%;
-/* position: absolute;
-top : 10px;
-left:20px; */
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  border-radius: 50%;
 }
 .chat-option-user
 {
-/* position: absolute; */
-/* top :23px; */
+position: absolute;
 font-size: 28px;
 width: 40px;
-/* height: 40px; */
 border-radius: 50%;
-/* background-color: #333; */
-right: 20px;
+right: 10px;
 }
 .chat-option-user i
 {
 margin-left: 42%;
 margin-top: 12%;
+}
+.user-info-menu div{
+  cursor: pointer;
 }
 .user-info-menu
 {
@@ -2455,7 +2465,7 @@ height: auto;
 background-color: #764082;
 position:absolute;
 top: 255px;
-right: 11%;
+right: 27%;
 padding : 8px;
 border-radius: 6px;
 
@@ -3234,10 +3244,11 @@ label{
   color: white;
   font-family: sans-serif;
   font-weight: bold;
+  opacity: 0.5;
   font-size: 15px;
   position: absolute;
-  left: 58px;
-    top: 39px;
+  left: 90px;
+  top: 39px;
 }
 .not-found
 {
@@ -3487,11 +3498,12 @@ label{
   font-weight: bold;
 }
 .leader-stats{
-  display: flex;
+  /* display: flex; */
   flex-direction: row;
   width: 150px;
   position: relative;
   bottom: 10%;
+  display: none;
   /* padding-top: 10px; */
   justify-content: space-around;
 }

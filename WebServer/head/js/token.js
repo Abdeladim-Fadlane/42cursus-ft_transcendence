@@ -1,134 +1,99 @@
-// import { my_data } from './data.js';
-
-// function edit_image(){
-//     document.getElementById('image').click();
-// }
-
-// // document.addEventListener('DOMContentLoaded', function() {
-//     document.querySelector('.profile_photo_form').addEventListener('submit', (e)=>{
-//         console.log('click profile')
-//         e.preventDefault();
-
-        
-//         fetch('/api/csrf-token/')
-//         .then(response => response.json())
-//         .then(data => {
-//             document.querySelector('#crcf_profileuser').value = data.csrfToken;
-//             const form = new FormData(document.querySelector('.profile_photo_form'));
-//             fetch('/change_profile/', {
-//                 method: 'POST',
-//                 body: form,
-//                 headers: {
-//                     'X-CSRFToken': document.querySelector('#crcf_profileuser').value,
-//                 }
-//             })
-//             .then(response => response.json())
-//             .then(data => {
-            
-//                 document.querySelector('.profile-settings-img').src = data.photo_profile;
-//                 document.querySelector('.image-profile-user').src = data.photo_profile;
-//                 document.querySelector('.image-profile-id').src = data.photo_profile;
-//             })
-//         })
-        
-//     })
-// // })
-// // document.querySelector('#image').addEventListener('input', (e)=>{
-// //     e.preventDefault();
-// //     let type_file = e.target.files[0].type.startsWith('image/');
-// //     if (e.target.value.length != 0 && type_file)
-// //         document.querySelector('#button_profile_click').click();
-// // });
-
-// document.addEventListener("DOMContentLoaded", function() {
-//     let imageInput = document.querySelector('#image');
-//     let buttonProfileClick = document.querySelector('#button_profile_click');
-
-//     if (imageInput && buttonProfileClick) {
-//         imageInput.addEventListener('input', (e) => {
-//             e.preventDefault();
-//             let type_file = e.target.files[0]?.type.startsWith('image/');
-//             if (e.target.value.length !== 0 && type_file) {
-//                 buttonProfileClick.click();
-//             }
-//         });
-//     } else {
-//         if (!imageInput) {
-//             console.error("Element with id 'image' not found.");
-//         }
-//         if (!buttonProfileClick) {
-//             console.error("Element with id 'button_profile_click' not found.");
-//         }
-//     }
-// });
-
-
-// // document.addEventListener('DOMContentLoaded', function() {
+import { my_data } from './data.js';
+console.log('989898989')
+const form0 = document.querySelector('.profile_photo_form');
+form0.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const csrfToken = document.querySelector('#crcf_profileuser');
+    const dataForm = new FormData(e.target);
+    await fetch('/api/csrf-token/')
+    .then(response => response.json())
+    .then(data => {
+        csrfToken.value = data.csrfToken;
+    })
+    await fetch('/change_profile/', {
+        method: 'POST',
+        body: dataForm,
+        headers: {
+            'X-CSRFToken': csrfToken.value,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
     
-//     fetch('/api/csrf-token/')
-//       .then(response => response.json())
-//       .then(data => {
-//           document.getElementById('crcf').value = data.csrfToken;
-//         })
-//     // });
-//     // document.addEventListener('DOMContentLoaded', function() {
-//         console.log('click')
-//         document.querySelector('.submit').addEventListener('click', function(event) {
-//             console.log('click')
-//             event.preventDefault();
-//             const formData = new FormData(this);
-//             const csrfToken = document.getElementById('crcf').value;
-//             fetch('/update_profile/', {
-//                 method: 'POST',
-//                 body: formData,
-//                 headers: {
-//                     'X-CSRFToken': csrfToken,
-//                 }
-//             })
-//             .then(response => response.json())
-//             .then(data => {
-//                 if (data.status === true) {
-//                     document.getElementById('settings-modal').style.display = 'none';
-//                     my_data();
-//                 } else {
-//                     var msg = document.getElementById('messages');
-//                     msg.innerHTML = data.message;
-//                 }
-//             })
-//         });
-//     // });
-
-
-// document.addEventListener('DOMContentLoaded', function() {
-//     fetch('/api/csrf-token/')
-//       .then(response => response.json())
-//       .then(data => {
-//           document.getElementById('crcf2').value = data.csrfToken;
-//       })
-//       .catch(error => console.error('Error fetching CSRF token:', error));
-//     });
-
-//     document.addEventListener('DOMContentLoaded', function() {
-//         document.getElementById('passwordForm').addEventListener('submit', function(event) {
-//             event.preventDefault();
-//             const formData = new FormData(this);
-//             const csrfToken = document.getElementById('crcf2').value;
-//             fetch('/change_password/', {
-//                 method: 'POST',
-//                 body: formData,
-//                 headers: {
-//                     'X-CSRFToken': csrfToken,
-//                 }
-//             })
-//             .then(response => response.json())
-//             .then(data => {
-//                 if (data.status === true) {
-//                     document.getElementById('settings-modal').style.display = 'none';
-//                 } else {
-//                     document.getElementById('messages1').innerHTML = data.message;
-//                 }
-//             })
-//         });
-//     });
-
+        document.querySelector('.profile-settings-img').src = data.photo_profile;
+        document.querySelector('.image-profile-user').src = data.photo_profile;
+        document.querySelector('.image-profile-id').src = data.photo_profile;
+    })
     
+});
+const imageSetting = document.querySelector('.edit');
+const imageInput = document.querySelector('#image');
+const buttonInput = document.querySelector('#button_profile_click')
+// imageSetting.addEventListener('click', ()=>{
+//     imageInput.click();
+// })
+console.log(imageInput);
+imageInput.addEventListener('input', (e)=>{
+    e.preventDefault();
+    let type_file = e.target.files[0].type.startsWith('image/');
+    if (e.target.value.length != 0 && type_file)
+        buttonInput.click();
+});
+
+
+const  form1  = document.querySelector('#avatarFrom');
+form1.addEventListener('submit', async (e)=>{
+    const csrfToken1 = document.querySelector('#crcf')
+    const dataFrom = new FormData(e.target);
+    e.preventDefault();
+    await fetch('/api/csrf-token/')
+    .then(response => response.json())
+    .then(data => { 
+        csrfToken1.value = data.csrfToken
+    })
+    await fetch('/update_profile/', {
+        method: "POST",
+        body : dataFrom,
+        headers : {
+            'X-CSRFToken': csrfToken1.value,
+        }
+    })
+    .then(response => response.json())
+    .then(data=>{
+        if (data.status === true) {
+            document.getElementById('settings-modale').style.display = 'none';
+            my_data();
+        } else {
+            var msg = document.getElementById('messages');
+            msg.innerHTML = data.message;
+        }
+    })
+})
+
+const form2 =  document.querySelector('#passwordForm');
+
+form2.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const csrfToken2 = document.querySelector('#crcf2');
+    const  dataForm = new FormData(e.target);
+    await fetch('/api/csrf-token/')
+    .then(response => response.json())
+    .then(data =>{
+        csrfToken2.value = data.csrfToken 
+    })
+    await fetch('/change_password/', {
+        method : 'POST',
+        body : dataForm,
+        headers : {
+            'X-CSRFToken': csrfToken2.value,
+        }
+    })
+    .then(response => response.json())
+    .then(data =>{
+        if (data.status === true) {
+            document.getElementById('settings-modale').style.display = 'none';
+        } else {
+            document.getElementById('messages1').innerHTML = data.message;
+        }
+    })
+})

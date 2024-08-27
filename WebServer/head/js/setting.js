@@ -7,15 +7,6 @@ if (typeof profile === 'undefined') {
         });
     }
 }
-// function edit_image(){
-//     console.log('clickd dddd');
-//     document.getElementById('imagee').click();
-// }
-// document.getElementById('profil').addEventListener('click', function() {
-//     console.log('clickd dddd');
-//     document.getElementById('image').click();
-// });
-
 document.getElementById('image').addEventListener('change', function() {
     console.log('clickd sss');
     document.getElementById('button_profile_click').click();

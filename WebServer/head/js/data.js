@@ -2,7 +2,7 @@ import { fetchConversation, fetchAllMessage} from './chatScript.js';
 function draw_statistique(lose , win)
 {
     let circle = document.querySelector('.leadrboard-circle');
-
+    document.querySelector('.leader-stats').style.display == 'flex';
     let value_win = win;
     let value_lose = lose;
     let totale = value_win + value_lose;
@@ -82,6 +82,7 @@ function my_data()
         }
         else{
             document.querySelector('.has-noStatistique').style.display = 'flex'
+            document.querySelector('.leader-stats').style.display == 'none';
 
         }
     

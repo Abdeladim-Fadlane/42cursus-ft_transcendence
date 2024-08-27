@@ -36,6 +36,7 @@ function loadHomeContent() {
                 document.head.appendChild(data);
                 const token = loadScriptnotmodul('./js/token.js');
                 document.head.appendChild(token);
+                // console.log(document.head)
                 const match = loadScriptnotmodul('./js/match.js');
                 document.head.appendChild(match);
                 const notifi = loadScriptnotmodul('./js/notif.js');
