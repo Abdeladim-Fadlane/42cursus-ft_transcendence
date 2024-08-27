@@ -1,0 +1,119 @@
+#home-page
+{
+    display: none;
+    height: 100vh;
+        width: 100vw;
+}
+#head-page
+{
+    display: block;
+    height: 100vh;
+        width: 100vw;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+body {
+      background-color: #764082;
+      background-image: url("./resrc/featured-scaled.jpg");
+      background-size: cover;
+      position: relative;
+      background-repeat: no-repeat;
+      overflow: hidden;
+        height: 100vh;
+        width: 100vw;
+      /* backdrop-filter: blur(300px); */
+  }
+
+  .ball2 {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 30% 30%,
+      rgba(255, 255, 255, 0.556),
+      rgba(161, 34, 175, 0.313)
+    );
+  
+    position: absolute;
+    z-index: -1;
+    animation: moveBall2 10s infinite ease-in-out;
+  }
+  @keyframes moveBall2 {
+    0% {
+      top: 10%;
+      left: 10%;
+    }
+    25% {
+      top: 105%;
+      left: 20%;
+    }
+    50% {
+      top: 60%;
+      left: 80%;
+    }
+    75% {
+      top: 30%;
+      left: 50%;
+    }
+    100% {
+      top: 10%;
+      left: 10%;
+    }
+  }
+  
+  .ball {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 30% 30%,
+      rgba(255, 255, 255, 0.556),
+      rgba(161, 34, 175, 0.313)
+    );
+    z-index: -1;
+    position: absolute;
+    animation: moveBall 14s infinite ease-in-out;
+  }
+  
+  @keyframes moveBall {
+    0% {
+      top: 10%;
+      left: 10%;
+    }
+    25% {
+      top: 30%;
+      left: 50%;
+    }
+    50% {
+      top: 60%;
+      left: 80%;
+    }
+    75% {
+      top: 80%;
+      left: 20%;
+    }
+    100% {
+      top: 10%;
+      left: 10%;
+    }
+  }
+
+.brull
+{
+    position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000ad;
+  z-index: -10;
+}
