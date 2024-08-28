@@ -29,9 +29,9 @@ form0.addEventListener('submit', async (e)=>{
 const imageSetting = document.querySelector('.edit');
 const imageInput = document.querySelector('#image');
 const buttonInput = document.querySelector('#button_profile_click')
-// imageSetting.addEventListener('click', ()=>{
-//     imageInput.click();
-// })
+imageSetting.addEventListener('click', ()=>{
+    imageInput.click();
+})
 console.log(imageInput);
 imageInput.addEventListener('input', (e)=>{
     e.preventDefault();
@@ -61,7 +61,7 @@ form1.addEventListener('submit', async (e)=>{
     .then(response => response.json())
     .then(data=>{
         if (data.status === true) {
-            document.getElementById('settings-modale').style.display = 'none';
+            
             my_data();
         } else {
             var msg = document.getElementById('messages');

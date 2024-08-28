@@ -93,6 +93,9 @@ function initializePageState() {
     case 'rank':
       rank();
       break;
+    case 'setting':
+      showSettingsModal();
+      break;
     default:
       border_home();
   }
@@ -100,7 +103,7 @@ function initializePageState() {
 
 function isValidPage(page) {
   // console.log(page);
-  const validPages = ['home', 'profile', 'chat','rank','sign-up','login',null];
+  const validPages = ['home', 'profile', 'chat','rank','sign-up','login','setting',null];
   return validPages.includes(page);
 }
 
@@ -135,6 +138,9 @@ window.onpopstate = function(event) {
       case 'login':
         border_home(false);
         break;
+      case 'setting':
+        showSettingsModal(false);
+        break;
       default:
         border_home(false); 
     }
@@ -145,6 +151,8 @@ function rank(pushState = true) {
   if (pushState) {
     window.history.pushState({page: 'rank'}, 'Rank', '?page=rank');
   }
+  document.getElementById('settings-modale').style.display = 'none';
+
   const home = document.getElementById("home");
   const profile = document.getElementById("profile");
   const chat = document.getElementById("chat");
@@ -216,6 +224,8 @@ function border_home(pushState = true) {
   if (pushState) {
     window.history.pushState({page: 'home'}, 'Home', '?page=home');
   }
+  document.getElementById('settings-modale').style.display = 'none';
+
 
   const home = document.getElementById("home");
   const profile = document.getElementById("profile");
@@ -292,6 +302,7 @@ function border_pr(pushState = true) {
     if (pushState) {
       window.history.pushState({page: 'profile'}, 'Profile', '?page=profile');
     }
+  document.getElementById('settings-modale').style.display = 'none';
 
     const home = document.getElementById("home");
   const profile = document.getElementById("profile");
@@ -366,7 +377,7 @@ function click_chat(pushState = true) {
   if (pushState) {
     window.history.pushState({page: 'chat'}, 'Chat', '?page=chat');
   }
-
+  document.getElementById('settings-modale').style.display = 'none';
   const home = document.getElementById("home");
   const profile = document.getElementById("profile");
   const chat = document.getElementById("chat");
@@ -461,12 +472,6 @@ if ( typeof currentFriend === 'undefined') {
 
     function showLogoutModal() {
     const modal = document.getElementById('logout-modal');
-  //   document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-  // document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-  // document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-  // document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-  // document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-  // document.getElementById('logout-aside').style.cssText = 'font-size: 40px; color: #ff44e4 ';
     modal.style.display = 'flex';
   }
   
@@ -507,7 +512,10 @@ function removeCSS(file) {
         linkElement.parentNode.removeChild(linkElement);
     }
 }
-  function showSettingsModal() {
+  function showSettingsModal(pushState = true) {
+    if (pushState) {
+      window.history.pushState({page: 'setting'}, 'setting', '?page=setting');
+    }
     fetch('/api/data/')
     .then(response => { return response.json()})
     .then(data =>{
@@ -591,10 +599,10 @@ function removeCSS(file) {
 
   }
   
-  function closeSettingsModal() {
-    const modal = document.getElementById('settings-modal');
-    modal.style.display = 'none';
-  }
+  // function closeSettingsModal() {
+  //   const modal = document.getElementById('settings-modal');
+  //   modal.style.display = 'none';
+  // }
   
   
   function showNotificationsModal() {
@@ -641,17 +649,17 @@ if (logoutt) {
 } 
 }
 
-if ( typeof settings === 'undefined') {
-const settings = document.getElementById('settings-modal');
-if (settings) {
-  settings.addEventListener('click', function(event) {
-    event.preventDefault();
-    if (event.target === this) {
-      closeSettingsModal();
-    }
-  });
-}
-}
+// if ( typeof settings === 'undefined') {
+// const settings = document.getElementById('settings-modal');
+// if (settings) {
+//   settings.addEventListener('click', function(event) {
+//     event.preventDefault();
+//     if (event.target === this) {
+//       closeSettingsModal();
+//     }
+//   });
+// }
+// }
 
 if ( typeof settings === 'undefined') {
 const notifi = document.getElementById('notifi');

@@ -40,8 +40,8 @@ export function handlechalleng() {
                 img.addEventListener('click', view_profile);
                 img.id = data[i].username;
                 img.src = data[i].photo_profile;
-                img.style.width = "40px";
-                img.style.height = "40px";
+                img.style.width = "60px";
+                img.style.height = "60px";
                 img.style.borderRadius = "50%";
                 img.style.border = "2px solid black";
 

@@ -240,6 +240,7 @@
         </div>
         
         <div id="settings-modale" class="settings-modale">
+            <h1>setting hub</h1>
             <div  class="setting-contiener">
                 <!-- <span class="close_set" onclick="closeSettingsModal()">&times;</span> -->
                     <div class="menu">
@@ -247,10 +248,11 @@
                         <div class="menu-item2" onclick="openTab(event, 'profile-password')">Profile password</div>
                         <div class="menu-item3" onclick="delete_funcyion()">dellet account</div>
                         <div class="menu-item4" onclick="showLogoutModal()">Quit</div>
-                        <div class="menu-item5" onclick="closeSettingsModal()">close window</div>
+                        <div class="menu-item5" >close window</div>
                     </div>
                     
                         <div class="personil-data">
+                            <img class="set-imag" src="./resrc/no_fr.png" alt="">
                             <input type="hidden" name="csrfmiddlewaretoken" id="crcf_profileuser">
                             <div class="profil setting_profile" id="profil" >
                                 <img class="edit" src="./resrc/edit.png" alt="Edit Profile">
@@ -259,7 +261,7 @@
                                 <input type="file" id="image" name="image" accept="image/*" style="display: none;" >
                                 <button type="submit" id="button_profile_click" style="display: none;"></button>
                             </form>
-                            <!-- <label id="nameprofile" class="user-name" for="username"></label> -->
+                            
                             <form id="avatarFrom" enctype="multipart/form-data">
                                 
                                         <input type="hidden" name="csrfmiddlewaretoken" id="crcf">
@@ -272,7 +274,9 @@
                                 <button class="submit" type="submit">SAVE</button>
                             </form>
                         </div>
+                        
                             <form id="passwordForm" class="form-container-pass" method="post" enctype="multipart/form-data">
+                                <img class="set-imag" src="./resrc/no_fr.png" alt="">
                                 <div class="center-h3">
                                     <h3 class="h3_setting">You can change your password if you have password.</h3>
                                 </div>

@@ -114,7 +114,7 @@ body {
 
 .navbar {
   
-  /* width: 80%; */
+  width: 80%;
   height: 80px;
   display: flex;
   justify-content: space-between;
@@ -123,7 +123,7 @@ body {
   /* margin-bottom: 15px; */
   /* margin: auto; */
     /* margin-top: auto; */
-  /* margin-top: 10px; */
+  margin-left: 10%;
   border-radius: 3px;
   border-bottom: #eeeeeeab 1px solid;
 }
@@ -497,6 +497,15 @@ ul {
   /* border-radius: 50%; */
 
   /* background-color: #ffffff; */
+}
+/* .bar
+{
+  width: 50%;
+} */
+.bar h1
+{
+  font-size: 40px;
+  color:#764080;
 }
 h1,
 h3 {
@@ -1032,7 +1041,6 @@ a {
   background-color: #000000bd;
 } */
 
-
 .personil-data
 {
   /* background: linear-gradient(283deg, rgb(118 83 147 / 94%) 52%, rgba(79, 47, 134, 1) 100%); */
@@ -1040,15 +1048,31 @@ a {
   justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
-  width: 350px;
+  width: 400px;
   height: 100%;
+  /* background-image: src="./resrc/no_fr.png"; */
+  position: relative;
+  
+}
+.set-imag
+{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* border-radius: 50%; */
+  background-size: cover;
+  background-position: center;
+  /* background-color: #ffffff; */
+  z-index: -1;
+  opacity: 2.5;
+  overflow: hidden;
 
 }
-.settings-modal
+/* .settings-modal
 {
   display: none;
   position: fixed;
-  z-index: 1000;
+  z-index: 10;
   left: 0;
   top: 0;
   width: 100%;
@@ -1057,18 +1081,19 @@ a {
   background-color: rgba(0, 0, 0, 0.746);
   justify-content:center;
   align-items: center;
-}
+} */
 .menu
 {
   background: linear-gradient(293deg, rgb(88 41 127 / 86%) 52%, rgb(24 83 146) 100%);
   /* clip-path: polygon(0 0, 64% 3%, 100% 100%, 33% 94%); */
 
-  width: 250px;
-  height: 100%;
+  width: 300px;
+  height: 528px;
   text-align: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  border-radius: 10px 0px 0px 10px;
 }
 .menu div
 {
@@ -1133,21 +1158,29 @@ a {
   width: 100%;
   height: 100%;
   display:flex ;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
+  flex-direction: column;
+}
+.settings-modale h1
+{
+  color: #764080;
+  font-size: 70px;
+  
+  margin-bottom: 100px;
 }
 
 .setting-contiener
 {
   
   border-radius: 15px;
-  width: 600px;
-  height: 54%;
+  width: 700px;
+  height: 63%;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(283deg, rgb(118 83 147 / 94%) 52%, rgba(79, 47, 134, 1) 100%);
+  background: linear-gradient(119deg, rgba(24, 9, 61, 0.9206276260504201) 52%, rgba(134, 32, 141, 0.7077424719887955) 100%);
 }
 
 .settings-form
@@ -1948,7 +1981,7 @@ border: #bbb solid 2px;
 .bar_content button
 {
 background-color: #0603068b;
-height: 30px;
+height: 48px;
 display: flex;
 justify-content: space-between;
 align-items: center;
@@ -2041,12 +2074,13 @@ height: 40px;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
+  position: relative;
   
 }
 .form-container-pass
 {
   height: 60%;
-  width: 350px;
+  width: 400px;
   
   display: none;
 }
@@ -3554,4 +3588,72 @@ label{
   font-family: sans-serif;
   font-weight: bold;
   font-size: 17px;
+}
+
+/* Animation Keyframes */
+@keyframes slideIn {
+  0% {
+      opacity: 0;
+      transform: translateY(-50px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.05);
+  }
+  100% {
+      transform: scale(1);
+  }
+}
+
+/* Game Title Animation */
+.game_title {
+  animation: slideIn 1s ease-out;
+}
+
+.game_title .span {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Friend List Animation */
+.friend-list {
+  animation: fadeIn 1s ease-in;
+}
+
+/* Chat Container Animation */
+.chat-container {
+  animation: fadeIn 1.5s ease-in;
+}
+
+/* Chat Header Animation */
+.chat-header {
+  animation: slideIn 1s ease-out;
+}
+
+/* Chat Input Animation */
+.chat-input {
+  animation: fadeIn 1.5s ease-in;
+}
+
+/* Message Input and Button Animation */
+#message-input,
+#button-chat {
+  animation: fadeIn 1.5s ease-in;
 }

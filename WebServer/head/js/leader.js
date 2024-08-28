@@ -15,7 +15,7 @@ function leaderboard(data) {
     one.innerHTML = "";
     two.innerHTML = "";
     three.innerHTML = "";
-    // document.getElementById("crown").style.display = "flex";
+    
    for (let i = 0; i < 3 && i < data.length ; i++) {
         let container = document.createElement('div');
         let img = document.createElement('img');
@@ -100,6 +100,15 @@ function leaderboard(data) {
         mydiv.appendChild(container);
         // mydiv.appendChild(document.createElement('br'));
     }
+    if (data.length <= 3) {
+        let container = document.createElement('div');
+        container.classList.add('bar');
+        let h1 = document.createElement('h1');
+        h1.textContent = "No more users";
+        container.appendChild(h1);
+        mydiv.appendChild(container);
+    }
+        
 }
 
 export function leaderboard_requests() {
