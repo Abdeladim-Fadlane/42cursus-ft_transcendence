@@ -29,20 +29,20 @@
             <ul>
                 <li ><a  data-target="home"   onclick="border_home()"  class="icons"  ><i id="Home-aside" class="fa-solid fa-house"></i></a></li>
                     <li  ><a data-target="profile" onclick="border_pr()"  class="icons" ><i id="Pr-aside" class="fa-solid fa-user"></i></a></li>
-                <li><a class="rank-bottun aside_button" onclick="rank()"><div class="icons"><i id="rank-aside" class="fa-solid fa-ranking-star"></i></div></a></li>
+                <li><a data-target="rank" class="rank-bottun aside_button" onclick="rank()"><div class="icons"><i id="rank-aside" class="fa-solid fa-ranking-star"></i></div></a></li>
 
                 
                 <li>
                     <div class="chat-aside-numberMessage"></div>
-                    <a class="chat-aside nav-link aside"   onclick="click_chat()">
+                    <a  data-target="chat" class="chat-aside nav-link aside"   onclick="click_chat()">
                     <div  class="icons"  ><i id="chat-aside" class="fa-solid fa-comment"></i></div>
                     </a>
                 </li>
-                <li><a class="notification aside"  onclick="showNotificationsModal()"><div    class="icons" > <i id="notif-aside" class="fa-solid fa-bell"></i> </div><div class="count-noti" id="count-noti"></div></a></li>
+                <li><a data-target="notification" class="notification aside"  onclick="showNotificationsModal()"><div    class="icons" > <i id="notif-aside" class="fa-solid fa-bell"></i> </div><div class="count-noti" id="count-noti"></div></a></li>
                 
         
-                <li><a class="settings-button" onclick="showSettingsModal()"><div class="icons" ><i id="setting-aside" class="fa-solid fa-gear"></i></div></a></li>
-                <li><a class="logout-button og_out_icon aside_button" onclick="showLogoutModal()"><div class="icons"><i id="logout-aside" class="fa-solid fa-right-from-bracket"></i></div></a></li>
+                <li><a  data-target="setting" class="settings-button" onclick="showSettingsModal()"><div class="icons" ><i id="setting-aside" class="fa-solid fa-gear"></i></div></a></li>
+                <li><a data-target="logout" class="logout-button og_out_icon aside_button" onclick="showLogoutModal()"><div class="icons"><i id="logout-aside" class="fa-solid fa-right-from-bracket"></i></div></a></li>
 
                 
             </ul>

@@ -2994,7 +2994,7 @@ font-family: 'games' , sans-serif;
   display: none;
 }
 .profile-user-action-add_friend:hover{
-  background-color:  #130039;
+  background-color:  #13003900;
   border : 1px solid #218838;
   color: #218838;
   transition: 300ms ease;
@@ -3009,7 +3009,7 @@ font-family: 'games' , sans-serif;
   display: none;
 }
 .profile-user-action-unfriend:hover{
-  background-color: #130039 ;
+  background-color: #13003900 ;
   border: 1px solid rgba(248, 83, 83, 0.884);
   color: rgba(248, 83, 83, 0.884);
   transition: 300ms ease;
@@ -3023,7 +3023,7 @@ font-family: 'games' , sans-serif;
   display: none;
 }
 .profile-user-action-go_to_chat:hover{
-  background-color: #130039 ;
+  background-color: #13003900 ;
   border: 1px solid rgb(13, 110, 253);
   color: rgb(13, 110, 253);
   transition: 300ms ease;

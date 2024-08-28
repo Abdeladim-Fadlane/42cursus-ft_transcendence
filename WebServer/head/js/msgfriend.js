@@ -33,7 +33,8 @@ if (buttons) {
         let items = listItems.querySelectorAll('li');
         items.forEach(element => {
             let link = element.querySelector('a');
-            if (link) {
+            let dataTarget = link.getAttribute('data-target');
+            if (link && dataTarget !== 'notification' && dataTarget !== 'logout') {
                 link.addEventListener('click', cleaning_chat);
             }
         });
