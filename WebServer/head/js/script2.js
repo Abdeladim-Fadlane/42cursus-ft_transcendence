@@ -227,9 +227,11 @@ function rank(pushState = true) {
   // document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
 }
 
-function border_home(pushState = true) {
+import { disactiv_sections} from "./game.js";
+
+export function border_home(pushState = true) {
   // console.log("home");
-  // disactiv_sections();
+  disactiv_sections();
   if (pushState) {
     window.history.pushState({page: 'home'}, 'Home', '?page=home');
   }

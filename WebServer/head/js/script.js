@@ -39,7 +39,7 @@ function loadHomeContent() {
                 
         })
         .then(() => {
-            const script = loadScript('./js/script2.js');
+            const script = loadScriptnotmodul('./js/script2.js');
                 document.head.appendChild(script);
                 const invite = loadScriptnotmodul('./js/invite.js');
                 document.head.appendChild(invite);
