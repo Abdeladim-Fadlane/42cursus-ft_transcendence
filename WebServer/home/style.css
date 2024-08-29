@@ -1324,12 +1324,11 @@ button {
 }
 
 #loading {
-  display: flex; /* Hidden by default */
+  display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
-  /* background-color: #f0f0f0; */
 }
 
 #loader {
@@ -1348,14 +1347,34 @@ button {
 
 .ping-pong{
   width: 600px;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.time_out_class{
+  margin-top: 30px;
+  height: 5px;
+  background-color: yellow;
+  animation: time_out 4s 1 linear;
+}
+
+@keyframes time_out {
+  from {
+      width: 100%;
+  }
+  to {
+      width: 0%;
+  }
 }
 
 .canvas{
-  border: 3px solid #ffff;
+  border-top: 3px solid #ffff;
+  border-bottom: 3px solid #ffff;
   background-color: black;
   box-shadow: white 1px 1px 20px;
 }
@@ -1365,14 +1384,12 @@ button {
 }
 
 .user1{
-  /* background-color: yellow; */
   display: flex;
   align-items: center;
   margin-right: auto;
 }
 
 .user2{
-  /* background-color: yellow; */
   display: flex;
   align-items: center;
   margin-left: auto;
@@ -1389,47 +1406,113 @@ button {
   border-radius: 25px;
 }
 
-.tournament {
-/* background-color: blue; */
+.Match_icon{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.flex-column{
+  width: 100%;
+  height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  flex-direction: row;
-  width: inherit;
-  min-width: 800px;
-  position: absolute;
-  top: 120px;
-  left: 150px;
+}
+
+.game_nav{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#toggle-btn{
+  background-color: transparent;
+  border: none;
+}
+
+.close_game{
+  color: white;
+  font-size: 40px;
+  margin-right: 40px;
+  cursor: pointer;
+}
+
+#play_tournament{
+  height: 90%;
+}
+
+.tournament {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .round {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  min-width: 200px;
+  justify-content: space-evenly;
   width: 200px;
-  height: 800px;
+  height: 100%;
   margin: 0 40px;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+.round:nth-child(1) {
+  animation-delay: .4s;
+}
+
+.round:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.final_round{
+  height: 60px;
+  display: flex;
+  justify-content: space-evenly;
+  opacity: 0;
+  animation: ftt 5s forwards;
+}
+
+@keyframes ftt {
+  to{
+      opacity: 1;
+  }
+}
+
+.round:nth-child(4) {
+  animation-delay: 1s;
+}
+
+.round:nth-child(5) {
+  animation-delay: .4s;
+}
+
+@keyframes fadeIn {
+  to{
+      opacity: 1;
+  }
 }
 
 .matchup {
-  /* background-color: yellow; */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 140px;
-  margin: 10px 0;
+  height: 120px;
 }
 
 .player {
   border: 1px solid #000;
   background-color: #8c8c8c;
-  padding: 10px;
+  padding: 5px;
   border-radius: 20px;
-  text-align: center;
   height: inherit;
-  align-items: center;
   display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .champion {
@@ -1446,12 +1529,29 @@ button {
   background-color: #f0f0f0;
 }
 
+.localresultModal_border{
+  border: 3px solid #ffffff1d;
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+  padding: 15px;
+  height: 450px;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .result_class{
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-/* border-radius: 10px; */
+  background-color: rgba(128, 128, 128, 0.349);
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #win-tournament-id{
@@ -1467,51 +1567,47 @@ transform: translate(-50%, -50%);
   align-items: center;
 }
 
-.msg_img_t{
-  background-color: white;
-  border: 1px solid white;
-  border-radius: 25px;
-}
-
 .msg_img{
   background-color: #1d1e21;
   border: 1px solid white;
   border-radius: 25px;
 }
 .result_buttuns{
-display: flex;
-justify-content: center;
-gap: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
+
 .Retry_button, .Home_button{
-box-shadow: 1px 1px 10px;
-height: 50px;
-width: 40%;
-font-size: 32px;
-font-weight: 800;
-border: none;
-background-color: white;
-margin-top: 20px;
-background-color: black;
-color: white;
-border-radius: 10px;
-/* border: 1px solid white; */
+  box-shadow: 1px 1px 10px;
+  height: 50px;
+  width: 40%;
+  font-size: 32px;
+  font-weight: 800;
+  border: none;
+  background-color: white;
+  margin-top: 20px;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
 }
+
 .Retry_button:hover, .Home_button:hover{
-background-color: rgb(0, 186, 188);
-color: white;
+  background-color: rgb(0, 186, 188);
+  color: white;
 }
+
 .result_msg{
-height: 80px;
-display: flex;
-align-items: center;
-color: goldenrod;
-justify-content: center;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  color: goldenrod;
+  justify-content: center;
 }
+
 .result_img{
-border-radius: 25px;
-height: 300px;
-width: 300px;
+  height: 400px;
+  width: 400px;
 }
 
 section {
@@ -1528,114 +1624,104 @@ section.active {
   width: 100%;
 }
 
-/* .glo{
-background-color: white;
-} */
-
 .student-list {
-max-width: 220px;
-margin: 20px auto;
-padding: 10px;
-background-color: #fff;
-border: 1px solid #ddd;
-border-radius: 25px;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 220px;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .student {
-display: flex;
-align-items: center;
-padding: 10px;
-border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
 .student:last-child {
-border-bottom: none;
+  border-bottom: none;
 }
 
 .student-icon {
-width: 40px;
-height: 40px;
-border-radius: 50%;
-margin-right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 15px;
 }
 
 .student-name {
-font-family: Arial, sans-serif;
-font-size: 18px;
-color: #333;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  color: #333;
 }
-
-/*iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii*/
 
 #tournament_list
 {
+  height: 90%;
+  display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
-  display: flex;
 }
 
-/*8888888888888888888888888*/
 .tournament-input {
-justify-content: center;
-align-items: center;
-width: 100%;
-height: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  /* position: absolute;
+  top: 50%;
+  left: 50%; */
 }
 
 .tournament-input-form {
-background: black;
-padding: 20px 30px;
-border-radius: 20px;
-box-shadow: 0 4px 8px white;
-display: flex;
-flex-direction: column;
-width: 25%;
+  background: black;
+  padding: 20px 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 25%;
 }
 
-/* Style the input */
-.tournament-input-form .inputt[type="text"] {
-padding: 10px;
-border: 1px solid #ccc;
-border-radius: 5px;
-font-size: 16px;
+.inputt[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 80%;
 }
 
-/* Style the button */
-.tournament-input-form .buttonn {
-padding: 10px;
-border: none;
-border-radius: 5px;
-background-color: #8c8c8c;
-color: white;
-font-size: 16px;
-transition: background-color 0.3s;
+.buttonn {
+  width: 80%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #8c8c8c;
+  color: white;
+  font-size: 16px;
+  transition: background-color 0.3s;
 }
 
-/* Button hover effect */
 .tournament-input-form .buttonn:hover {
-background-color: black;
+  background-color: black;
 }
-
-/*lllllllaaaaaaaaaaaaaaaaaaaaaaastttttttttttttttttttt*/
 
 :root {
   --cor-background: #212123;
   --cor-reflexo: rgba(255, 255, 255, 0.4);
-  --cores-dancantes: rgb(30, 219, 68), rgb(52, 170, 220), rgb(88, 86, 217),
+  /* rgb(52, 170, 220), rgb(88, 86, 217), */
+  --cores-dancantes: rgb(30, 219, 68), 
       rgb(255, 45, 83);
-}
-
-body {
-  background-color: #212123;
 }
 
 .conteudo {
   box-sizing: border-box;
-  position: absolute;
-  background: linear-gradient(to right, var(--cores-dancantes));
+  background: black;
+  background-color: green;
   width: 250px;
   height: auto;
   border-radius: 10px;
@@ -1653,7 +1739,6 @@ body {
 .student {
   align-items: center;
   padding: 10px;
-  border-bottom: 1px solid gray;
 }
 
 .student:last-child {
@@ -1682,7 +1767,8 @@ body {
   color: white;
 }
 
-.game_notification {
+.game_notification
+{
   background-color: black;
   border: 1px solid #ccc;
   border-radius: 35px 35px 0 35px;
@@ -1693,172 +1779,311 @@ body {
   right: 20px;
 }
 
-/* #acceptBtn_play {
-padding: 10px 20px;
-border: none;
-border-radius: 5px;
-font-size: 16px;
-background-color: #31e037;
-color: white;
+.Give_Up_Game_class
+{
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(128, 128, 128, 0.26);
+  z-index: 99;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-#refuseBtn_play {
-padding: 10px 20px;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-font-size: 16px;
-background-color: #f55549;
-color: white;
-} */
-
-/*rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr*/
-#refuse_game_id{
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 300px;
+#already_in_game_id{
+  width: 100vw;
+  height: 100vh;
 }
+
+.already_in_game_class{
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(128, 128, 128, 0.26);
+  z-index: 99;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 .pp{
-padding: 10px;
-background-color: #1d1e21;
-border-radius: 25px;
+  padding: 10px;
+  background-color: #1d1e21;
+  background-color: black;
+  border: 1px solid #ccc;
+  border-radius: 25px 25px 0 25px;
+  text-align: center;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
 }
 
 .game_notification_msg{
-color: brown;
-justify-content: center;
-text-align: center;
-margin-top: 5px;
-margin-bottom: 5px;
-}
-.con{
-margin-top: 5px;
-margin-bottom: 5px;
-display: flex;
-justify-content: center;
-align-items: center;
-}
-#game_notification_icon_id, #game_refuse_icon_id{
-margin-top: 5px;
-margin-bottom: 5px;
-height: 100px;
-width: 100px;
-/* border: 2px solid blue; */
-border-radius: 50%;
+  color: brown;
+  justify-content: center;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
+.con{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#game_notification_icon_id, #game_refuse_icon_id{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
 #game_notification_username_id, #game_refuse_username_id{
-text-align: center;
+  text-align: center;
 }
+
 .buttonss{
-margin-top: 20px;
-display: flex;
-justify-content: center;
-gap: 20px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
+
 .Retry_button, .Home_button{
-box-shadow: 1px 1px 10px;
-height: 50px;
-width: 45%;
-font-size: 16px;
-font-weight: 800;
-border: none;
-background-color: black;
-color: white;
-border-radius: 10px;
+  box-shadow: 1px 1px 10px;
+  height: 50px;
+  width: 45%;
+  font-size: 16px;
+  font-weight: 800;
+  border: none;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
 }
+
 .Retry_button:hover, .Home_button:hover{
-background-color: rgb(0, 186, 188);
-color: white;
+  background-color: rgb(0, 186, 188);
+  color: white;
 }
-/*rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr*/
-#start_fight
-{
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
+
+.time_out_par{
+  display: flex;
+  flex-direction: column;
 }
+
 .fighters{
-display: flex;
+  display: flex;
 }
+
 .fighter1, .fighter2{
-align-items: center;
-justify-content: space-evenly;
-display: flex;
-height: 100px;
-width: 250px;
-border-radius: 40px;
-font-family: sans-serif;
-font-weight: 600;
-box-shadow: 4px 2px 90px;
-gap: 10px;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+  height: 100px;
+  width: 250px;
+  border-radius: 40px;
+  font-family: sans-serif;
+  font-weight: 600;
+  box-shadow: 4px 2px 90px;
+  gap: 10px;
 }
+
 .fighter1{
-/* background-color: red; */
-border: 4px solid blue;
-border-right: none;
-color: blue;
+  border: 4px solid blue;
+  border-right: none;
+  color: blue;
 }
+
 .fighter2{
-color: red;
-/* background-color: blue; */
-border: 4px solid red;
-border-left: none;
+  color: red;
+  border: 4px solid red;
+  border-left: none;
 }
+
 .fighters_bottuns{
-display: flex;
-justify-content: center;
-text-align: center;
-gap: 20px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: 20px;
 }
+
 .Continue, .Give_Up{
-box-shadow: 1px 1px 10px;
-display: flex;
-justify-content: center;
-align-items: center;
-height: 50px;
-width: 40%;
-font-size: 32px;
-font-weight: 800;
-border: none;
-background-color: white;
-margin-top: 20px;
-background-color: black;
-color: white;
-/* border: 1px solid white; */
+  box-shadow: 1px 1px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 45%;
+  font-size: 32px;
+  font-weight: 800;
+  border: none;
+  background-color: white;
+  margin-top: 20px;
+  background-color: black;
+  color: white;
 }
+
 .Continue{
-color: rgb(0, 186, 188);
+  color: rgb(0, 186, 188);
 }
+
 .Give_Up{
-color: rgb(237, 129, 121);
+  color: rgb(237, 129, 121);
 }
+
 .Give_Up:hover{
-background-color: rgb(237, 129, 121);
-color: white;
+  background-color: rgb(237, 129, 121);
+  color: white;
 }
+
 .Continue:hover{
-background-color: rgb(0, 186, 188);
-color: white;
+  background-color: rgb(0, 186, 188);
+  color: white;
 }
 
 .vs{
-display: flex;
-font-size: 64px;
-font-weight: 800;
-align-items: center;
-color: yellow;
+  display: flex;
+  font-size: 64px;
+  font-weight: 800;
+  align-items: center;
+  color: yellow;
 }
 
 .icon{
-height: 50px;
-width: 50px;
-border-radius: 25px;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
 }
 
+flex{
+  display: flex;
+}
+
+align_items_center{
+  align-items: center;
+}
+
+#containerr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.tournament_nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  border: 3px solid #ffffff1d;
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+  color: white;
+  padding: 10px 0;
+}
+
+/* .tournament_nav_button {
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.tournament_nav_button:hover , .tournament_nav_button.clicked {
+  border-bottom: 3px white solid;
+} */
+
+#tournament_nav_id{
+  height: 100%;
+  width: 100%;
+}
+
+.tournament_section{
+  display: none;
+}
+
+.tournament_section.active{
+  display: flex;
+}
+
+#game_aside_id{
+  display: none;
+}
+
+#tournament_aside_id{
+  display: none;
+}
+
+.Give_Up_tournament{
+  font-size: 36px;
+  color: rgb(237, 129, 121);
+}
+
+.Give_Up_tournament:hover{
+  font-size: 40px;
+}
+
+section {
+  display: none;
+}
+
+#tournament_next_match_id{
+  height: 80%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tournament_Match_class{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* #tournament_nav_NMatch_item_id{
+  display: none;
+} */
+
+#local_tournament_winner_icon_id
+{
+  height: 200px;
+  width: 200px;
+}
+
+#local_game_winner_icon_id
+{
+  height: 200px;
+  width: 200px;
+}
+
+.flex-columnn
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
 /*88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888*/
 
 /* data */

@@ -5,7 +5,7 @@ import requests
 
 def endpoint(token, id):
     headers = {'Authorization': f'Token {token}'}
-    url = f'http://auth:8000/tasks/{id}/'
+    url = f'http://auth:8000/tasks/{id}'
     response = requests.get(url, headers=headers)
     data = None
     print(response.status_code, "-----------------response.status_code------------------")

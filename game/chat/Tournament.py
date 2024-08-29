@@ -2,13 +2,13 @@ import asyncio, json, math, random
 # from chat.game import serialize_pingpong
 from datetime import datetime
 from chat.cons import Match, serialize_Match, User, send_to_group, racket, height, hh, width, ww, score_to_win, serialize_Users
-from channels.generic.websocket import AsyncWebsocketConsumer # type: ignore
+from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
 from . views import endpoint
 import os
 from . cons import add_padding
 from cryptography.fernet import Fernet
-N = 4
+N = 8
 waiting = {}
 tournaments = {}
 tournament_name = 'tournament_' + datetime.now().time().strftime("%H_%M_%S_%f")

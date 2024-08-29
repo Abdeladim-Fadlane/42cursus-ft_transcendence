@@ -1,3 +1,5 @@
+// const disactiv_sections = require('./game.js');
+
 function removeJS(file) {
     const scriptElement = document.querySelector(`script[src="${file}"]`);
     if (scriptElement) {
@@ -148,6 +150,7 @@ window.onpopstate = function(event) {
 };
 
 function rank(pushState = true) {
+  // disactiv_sections();
   if (pushState) {
     window.history.pushState({page: 'rank'}, 'Rank', '?page=rank');
   }
@@ -206,6 +209,11 @@ function rank(pushState = true) {
     logout_aside.style.cssText = 'font-size: 36px; color: #ffffffbc; ';
   }
 
+    ///////////////////
+    document.getElementById('tournament-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+    document.getElementById('game-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+    ///////////////////
+
   // document.getElementById("profile").style.display = "none";
   // document.getElementById("chat").style.display = "none";
   // document.getElementById("rank").style.display = "flex";
@@ -221,6 +229,7 @@ function rank(pushState = true) {
 
 function border_home(pushState = true) {
   // console.log("home");
+  // disactiv_sections();
   if (pushState) {
     window.history.pushState({page: 'home'}, 'Home', '?page=home');
   }
@@ -281,6 +290,10 @@ function border_home(pushState = true) {
     logout_aside.style.cssText = 'font-size: 36px; color: #ffffffbc; ';
   }
 
+      ///////////////////
+      document.getElementById('tournament-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+      document.getElementById('game-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+      ///////////////////
 
   // document.getElementById("home").style.display = "flex";
   // document.getElementById("profile").style.display = "none";
@@ -297,8 +310,8 @@ function border_home(pushState = true) {
 }
 
 function border_pr(pushState = true) {
+  // disactiv_sections();
     document.getElementById('Pr-aside').style.borderBottom = '2px solid #bbb';
-
     if (pushState) {
       window.history.pushState({page: 'profile'}, 'Profile', '?page=profile');
     }
@@ -358,6 +371,11 @@ function border_pr(pushState = true) {
     logout_aside.style.cssText = 'font-size: 36px; color: #ffffffbc; ';
   }
 
+      ///////////////////
+      document.getElementById('tournament-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+      document.getElementById('game-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+      ///////////////////
+
     // document.getElementById("home").style.display = "none";
     // document.getElementById("profile").style.display = "flex";
     // document.getElementById("chat").style.display = "none";
@@ -374,6 +392,7 @@ function border_pr(pushState = true) {
 
 function click_chat(pushState = true) {
   // console.log("chat");
+  // disactiv_sections();
   if (pushState) {
     window.history.pushState({page: 'chat'}, 'Chat', '?page=chat');
   }
@@ -431,6 +450,11 @@ function click_chat(pushState = true) {
   if (logout_aside) {
     logout_aside.style.cssText = 'font-size: 36px; color: #ffffffbc; ';
   }
+
+    ///////////////////
+    document.getElementById('tournament-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+    document.getElementById('game-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+    ///////////////////
 
 }
 
@@ -513,6 +537,7 @@ function removeCSS(file) {
     }
 }
   function showSettingsModal(pushState = true) {
+    // disactiv_sections();
     if (pushState) {
       window.history.pushState({page: 'setting'}, 'setting', '?page=setting');
     }

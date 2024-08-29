@@ -21,7 +21,6 @@ function loadHomeContent() {
             loadCSS('../home/style.css');
                 removeCSS('./landing/index.css');
                 removeJS('./js/script3.js');
-                
         })
         .then(() => {
             // const token = loadScript('./js/script2.js');
@@ -95,9 +94,6 @@ function loginUser(e){
     console.log('hello akatfi');
 }
 
-
-console.log("script");  
-
 const loginForm = document.getElementById('login-form-id');
 if (loginForm) {
     loginForm.addEventListener('submit', async function(event) {
@@ -105,8 +101,6 @@ if (loginForm) {
 
     const responsee = await fetch('/api/csrf-token/');
     const dataa = await responsee.json();
-    
-
 
     const formData = new FormData(this);
     const csrfTokenn =dataa.csrfToken;
