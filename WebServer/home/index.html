@@ -65,7 +65,10 @@
             </div>
             <div class="play">
                 <div class="game">
-                    <button id="play_game_id" class="home_button" onclick="local_or_remote_game('game')">Start game</button>
+                    <!-- <button id="play_game_id" class="home_button" onclick="showResult('Loser')">Start game</button> -->
+                    
+                    <button id="play_game_id" class="home_button" onclick="active_section('play')">Start game</button>
+                    <!-- <button id="play_game_id" class="home_button" onclick="local_or_remote_game('game')">Start game</button> -->
                 </div>
                 <div class="game">
                     <button id="play_game_id" class="home_button" onclick="navigate('ping-pong-4')">4 players game</button>
@@ -408,7 +411,7 @@
         <section id="play">
             <div class="flex-column">
                 <div class="game_nav">
-                    <button o id="toggle-btn">
+                    <button id="toggle-btn">
                         <img id="screen_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAGpJREFUSEvtVUEKACAIa/9/tNEhsDCYRUZg59k2dYVy+eDy/SWWQERk5QjAIIbFbhU1EUcEs1p2Tp1U15sOkuBdi9hhenCxQfMoY7GxDqygsEp1ut9tUTqgHztrsH/8B56VZLGxQWNVeXAV8rVwGd7+Wh0AAAAASUVORK5CYII="/>
                     </button>
                     <a class="icons"><i id="start_pause_game_id" class="fa-solid fa-pause" onclick="start_pause_game()"></i></a>
@@ -475,18 +478,6 @@
                 </div>
             </div>
         </section>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <section id="local_tournamet_input_id" class="tournament-input">
             <div id="local_game_input" class="tournament-input-form">
                 <input id="local_tournament_player1_display_name_id" class="inputt" type="text" placeholder="player1 display name" required>
@@ -501,37 +492,12 @@
                 <button class="buttonn" onclick="run_local_tournament()">Start</button>
             </div>
         </section>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <section id="local_or_remote" class="tournament-input">
             <div class="result_buttuns">
                 <button id="local_button_id" class="Retry_button" style="width: 400px;" >Local</button>
                 <button id="remote_button_id" class="Home_button" style="width: 400px;">Remote</button>
             </div>
         </section>
-        
-        
-        
-        
         <section id="resultModal" class="result_class">
             <div class="localresultModal_border">
                 <div class="msg_img">
@@ -572,15 +538,6 @@
                 </div>
             </div>
         </section>
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <section id="local_game_input_id" class="tournament-input">
             <div id="local_game_input" class="tournament-input-form">
                 <input id="local_game_player1_display_name_id" class="inputt" type="text" placeholder="player1 display name" required>
@@ -589,26 +546,15 @@
                 <button class="buttonn" onclick="run_local_game()">Start</button>
             </div>
         </section>
-        
-        
-        
-        
-        <!-- <section id="tournament_input" class="tournament-input">
-            <form method="post" id="display_name-form-id" class="tournament-input-form" action="/account/display_name/" enctype="multipart/form-data">
+        <section id="tournament_input" class="tournament-input">
+            <form id="display_name-form-id" class="tournament-input-form" enctype="multipart/form-data">
                 <h3 style="display: flex; text-align: center; margin-bottom: 10px">Enter your Tournament display name</h3>
                 <input type="hidden" name="csrfmiddlewaretoken" id="display_name_csrfToken">
-                <input type="text" id="display_name" class="inputt" name="display_name" placeholder="Tournament display name" required autofocus><br>
+                <input type="text" id="display_name" class="inputt" name="display_name" placeholder="Tournament display name" required><br>
                 <div id="display_name_err"></div>
                 <button type="submit" class="buttonn">Start</button>
             </form>
-        </section> -->
-        
-        
-        
-        <!-- <h2 style="color: white;">Semi Final</h2> -->
-
-        
-        
+        </section>
         <section id="tournament_nav_id">
             <nav class="tournament_nav">
                 <a class="icons" onclick="tst('tournament_list')"><i id="tournament_nav_list_item_id" class="fa-solid fa-list-ul"></i></a>
@@ -693,14 +639,6 @@
                 </div>
             </section>
         </section>
-        
-        
-        
-        
-        
-        
-        
-        
         <section id="game_notification_id" class="game_notification">
             <img id="game_notification_icon_id" class="icon">
             <h2 id="game_notification_username_id" class="display-name"></h2>

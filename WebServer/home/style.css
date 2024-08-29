@@ -1543,7 +1543,6 @@ button {
 }
 
 .result_class{
-  background-color: rgba(128, 128, 128, 0.349);
   height: 100vh;
   width: 100vw;
   position: fixed;

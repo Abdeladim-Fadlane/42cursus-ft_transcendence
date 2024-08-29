@@ -620,7 +620,10 @@ function removeCSS(file) {
     if (logout_aside) {
       logout_aside.style.cssText = 'font-size: 36px; color: #ffffffbc; ';
     }
-
+    ///////////////////
+    document.getElementById('tournament-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+    document.getElementById('game-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+    ///////////////////
 
   }
   
@@ -641,9 +644,7 @@ function removeCSS(file) {
   // document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
   // document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
   }
-
   
-
   function closeNotificationsModal() {
     document.getElementById('notifi').style.display = 'none';
 }

@@ -63,7 +63,7 @@ function loadHomeContent() {
                 document.head.appendChild(chatScript);
                 const setting = loadScript('./js/setting.js');
                 document.head.appendChild(setting);
-                const game = loadScript('./js/game.js');
+                const game = loadScriptnotmodul('./js/game.js');
                 document.head.appendChild(game);
                 const search = loadScriptnotmodul('./js/search.js');
                 document.head.appendChild(search);
@@ -71,7 +71,6 @@ function loadHomeContent() {
                 document.head.appendChild(userInformation);
                 const ProfileAction = loadScriptnotmodul('./js/ProfileAction.js');
                 document.head.appendChild(ProfileAction);
-                
         })
         .catch(error => console.error('Error loading home content:', error));
 }
@@ -98,14 +97,13 @@ function already_logged() {
         })
         .then(data => {
             console.log(data);
-            
+
             if (data.status === true){
-                 loadHomeContent();
+                loadHomeContent();
             }
             else{
                 loadheadContent();
             }
-            
         })
 }
 
@@ -122,6 +120,5 @@ function loadScriptnotmodul (src){
     script.type = 'module';
     return script;
 };
-
 
 already_logged();

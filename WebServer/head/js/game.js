@@ -16,6 +16,7 @@ var local_game_Interval;
 var local_game_Interval_starting = false;
 var local_tournament_starting = false;
 var four_game_starting = false;
+var match = null;
 //////////////
 var lastone = "undefinded"
 var game_starting = false;
@@ -155,6 +156,7 @@ function disactiv_all_flexsection()
     document.getElementById("chat").style.display = 'none';
     document.getElementById("localtournamentresultModal").style.display = 'none';
     document.getElementById('localresultModal').style.display = 'none';
+    document.getElementById('resultModal').style.display = 'none';
 }
 
 function    active_flexsection(section_id)
@@ -246,11 +248,12 @@ function showResult(result)
         message.textContent = 'Sorry You Lost!';
         message.style.color = 'red';
         document.getElementById('result-gif').src = "/home/resrc/game/lost.png";
-        game_socket.close(1000, 'Normal Closure');
+        if (game_socket && game_socket.readyState)
+            game_socket.close(1000, 'Normal Closure');
     }
     document.getElementById('waiting_id').innerHTML = '';
-    put_section('resultModal');
-    setTimeout(() => {border_home();}, 2500);
+    active_flexsection('resultModal');
+    // setTimeout(() => {disactiv_all_flexsection(); border_home();}, 2500);
 }
 
 function Continue_game(action)
@@ -515,6 +518,7 @@ function navigate(section_id) {
 }
 
 function toggleFullScreen() {
+    console.log('toggleFullScreen calledddddddddddddddddddd');
     if (!document.fullscreenElement)
         document.documentElement.requestFullscreen().catch((err) => {
             alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
@@ -524,6 +528,7 @@ function toggleFullScreen() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+        console.log('w33333333333333333333333333333333333333333333');
         (function get_csrf_token(){
             fetch('/api/csrf-token/')
             .then(response => response.json())
@@ -559,7 +564,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('messages').style.color = 'red';
             });
         });
-        remove_all_event_listener('toggle-btn');
+        // remove_all_event_listener('toggle-btn');
         document.getElementById('toggle-btn').addEventListener('click', toggleFullScreen);
         document.addEventListener('fullscreenchange', (event) => {
             if (document.fullscreenElement) {
@@ -612,6 +617,7 @@ function game_asid(pushState = true) {
     document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
     document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
     document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+    document.getElementById('rank-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
     ///////////////////
     document.getElementById('tournament-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
     document.getElementById("game_aside_id").style.display = 'block';
@@ -635,6 +641,7 @@ function tournament_asid(pushState = true) {
     document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
     document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
     document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+    document.getElementById('rank-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
     ///////////////////
     document.getElementById('game-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
     document.getElementById("tournament_aside_id").style.display = 'block';
@@ -677,7 +684,6 @@ function tournament_asid(pushState = true) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-var match = null;
 
 class racket
 {
@@ -879,7 +885,8 @@ function    close_local_game()
     if (local_game_starting)
     {
         ctx.clearRect(0, 0, width, height);
-        delete match;
+        if (match)
+            delete match;
         local_game_starting = false;
     }
     clearInterval(local_game_Interval);
@@ -1180,9 +1187,7 @@ var TOURNAMENT_LIST = [];
 function    run_local_tournament()
 {
     local_tournament_starting = true;
-    disactiv_sections();
-    tournament_asid();
-
+    var valid = true;
     //////////////////////////////////
     elem = document.getElementById('2-canvas-id');
     ctx = elem.getContext("2d");
@@ -1191,6 +1196,8 @@ function    run_local_tournament()
     //////////////////////////////////
     parent = document.getElementById('tournament_content');
     parent.innerHTML = '';
+    var display_name;
+    let displayNamesSet = new Set();
     for (let i = 0; i < 8; i++)
     {
         var div = document.createElement("div");
@@ -1202,15 +1209,49 @@ function    run_local_tournament()
 
         var span = document.createElement("span");
         span.className = "student-name";
-        span.innerHTML = 'd_name_' + (i + 1).toString();
+        // display_name = document.getElementById("local_tournament_player" + (i + 1).toString() + "_display_name_id").value;
+        display_name = 'd_name_' + (i + 1).toString();
+        if (display_name.length == 0)
+        {
+            document.getElementById("local_tournament_display_names_msg_id").innerHTML = "display name must not be empty";
+            valid = false;
+            break;
+        }
+        if (displayNamesSet.has(display_name))
+        {
+            document.getElementById("local_tournament_display_names_msg_id").innerHTML = "you can't have the same display name";
+            valid = false;
+            break;
+        }
+        displayNamesSet.add(display_name);
+        if (display_name.length > 10)
+            display_name = display_name.slice(0, 10);
+        span.innerHTML = display_name;
 
         div.appendChild(img);
         div.appendChild(span);
         parent.appendChild(div);
-        TOURNAMENT_LIST[i] = {'icon':'home/resrc/game/minion' + (i + 1).toString() + '.png', 'display_name':'d_name_' + (i + 1).toString()};
+        TOURNAMENT_LIST[i] = {'icon':'home/resrc/game/minion' + (i + 1).toString() + '.png', 'display_name':display_name};
     }
-    Matchs = fill_round(ROUND, TOURNAMENT_LIST);
-    fill_Match_fight(Matchs[MATCH_INDEX]);
+    if (valid)
+    {
+        Matchs = fill_round(ROUND, TOURNAMENT_LIST);
+        fill_Match_fight(Matchs[MATCH_INDEX]);
+        active_section('tournament_nav_id');
+        tst('play_tournament');
+    }
     TOURNAMENT_LIST = [];
-    active_section('tournament_nav_id');
+    displayNamesSet.clear();
 }
+
+const handleUnload = function (e) {
+    e.preventDefault();
+    e.returnValue = '';
+    // return 'Are you sure you want to refresh the page? Any unsaved changes may be lost.';
+};
+
+// window.addEventListener('beforeunload', handleUnload);
+
+// window.onbeforeunload = function() {
+//     return "Dude, are you sure you want to leave? Think of the kittens!";
+// }
