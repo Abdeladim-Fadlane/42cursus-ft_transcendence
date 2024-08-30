@@ -30,7 +30,7 @@
                 <li><a data-target="rank" class="rank-bottun aside_button" onclick="rank()"><div class="icons"><i id="rank-aside" class="fa-solid fa-ranking-star"></i></div></a></li>
 
                 <!-- ====================================== -->
-                <a id="game_aside_id" class="icons" onclick="game_asid(false)"><i id="game-aside" class="fa-solid fa-table-tennis-paddle-ball"></i></a>
+                <a id="game_aside_id" class="icons" onclick="game_asid()"><i id="game-aside" class="fa-solid fa-table-tennis-paddle-ball"></i></a>
                 <a id="tournament_aside_id" class="icons" onclick="tournament_asid(false)"><i id="tournament-aside" class="fa-solid fa-trophy"></i></a>
                 <!-- ====================================== -->
 
@@ -63,10 +63,7 @@
             </div>
             <div class="play">
                 <div class="game">
-                    <!-- <button id="play_game_id" class="home_button" onclick="showResult('Loser')">Start game</button> -->
-                    
-                    <button id="play_game_id" class="home_button" onclick="active_section('play')">Start game</button>
-                    <!-- <button id="play_game_id" class="home_button" onclick="local_or_remote_game('game')">Start game</button> -->
+                    <button id="play_game_id" class="home_button" onclick="local_or_remote_game('game')">Start game</button>
                 </div>
                 <div class="game">
                     <button id="play_game_id" class="home_button" onclick="navigate('ping-pong-4')">4 players game</button>

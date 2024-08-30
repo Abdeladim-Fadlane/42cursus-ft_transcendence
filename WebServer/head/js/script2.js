@@ -83,13 +83,16 @@ function initializePageState() {
   }
 
   console.log(page);
-  
+
   switch (page) {
     case 'home':
       border_home();
       break;
     case 'profile':
       border_pr();
+      break;
+    case 'profile':
+      game_asid();
       break;
     case 'chat':
       click_chat();
@@ -107,7 +110,7 @@ function initializePageState() {
 
 function isValidPage(page) {
   // console.log(page);
-  const validPages = ['home', 'profile', 'chat','rank','sign-up','login','setting',null];
+  const validPages = ['home', 'profile', 'chat', 'rank','sign-up','login','setting', 'Game', 'Tournament',null];
   return validPages.includes(page);
 }
 
@@ -122,13 +125,18 @@ initializePageState();
 window.onpopstate = function(event) {
   
   if (event.state) {
-    
     switch (event.state.page) {
       case 'home':
         border_home(false);
         break;
       case 'profile':
         border_pr(false);
+        break;
+      case 'Game':
+        game_asid(false);
+        break;
+      case 'Tournament':
+        tournament_asid(false);
         break;
       case 'chat':
         click_chat(false);
@@ -151,32 +159,26 @@ window.onpopstate = function(event) {
   }
 };
 
-function disactiv_all_flexsection()
+function    disactiv_sectionss()
 {
     document.getElementById('local_tournamet_input_id').style.display = 'none';
     document.getElementById('local_game_input_id').style.display = 'none';
     document.getElementById('local_or_remote').style.display = 'none';
     document.querySelector('.conteudo').style.display = 'none';
-    // document.getElementById('tournament_input').style.display = 'none';
+    document.getElementById('tournament_input').style.display = 'none';
     document.getElementById("home").style.display = 'none';
     document.getElementById("profile").style.display = 'none';
     document.getElementById("chat").style.display = 'none';
     document.getElementById("localtournamentresultModal").style.display = 'none';
     document.getElementById('localresultModal').style.display = 'none';
     document.getElementById('resultModal').style.display = 'none';
-}
-
-
-function    disactiv_sectionss()
-{
-    disactiv_all_flexsection();
     document.querySelectorAll('section').forEach(section => {
         section.classList.remove('active');
     });
 }
 
 function rank(pushState = true) {
-  // disactiv_sections();
+  disactiv_sectionss();
   if (pushState) {
     window.history.pushState({page: 'rank'}, 'Rank', '?page=rank');
   }
@@ -193,7 +195,6 @@ function rank(pushState = true) {
   const notif_aside = document.getElementById('notif-aside');
   const setting_aside = document.getElementById('setting-aside');
   const logout_aside = document.getElementById('logout-aside');
-  disactiv_sectionss();
 
   if (home) {
     home.style.display = "none";
@@ -422,8 +423,6 @@ function border_pr(pushState = true) {
 }
 
 function click_chat(pushState = true) {
-  // console.log("chat");
-  // disactiv_sections();
   disactiv_sectionss();
 
   if (pushState) {
