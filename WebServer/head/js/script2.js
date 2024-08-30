@@ -1,5 +1,7 @@
 // const disactiv_sections = require('./game.js');
 
+
+
 function removeJS(file) {
     const scriptElement = document.querySelector(`script[src="${file}"]`);
     if (scriptElement) {
@@ -149,6 +151,30 @@ window.onpopstate = function(event) {
   }
 };
 
+function disactiv_all_flexsection()
+{
+    document.getElementById('local_tournamet_input_id').style.display = 'none';
+    document.getElementById('local_game_input_id').style.display = 'none';
+    document.getElementById('local_or_remote').style.display = 'none';
+    document.querySelector('.conteudo').style.display = 'none';
+    // document.getElementById('tournament_input').style.display = 'none';
+    document.getElementById("home").style.display = 'none';
+    document.getElementById("profile").style.display = 'none';
+    document.getElementById("chat").style.display = 'none';
+    document.getElementById("localtournamentresultModal").style.display = 'none';
+    document.getElementById('localresultModal').style.display = 'none';
+    document.getElementById('resultModal').style.display = 'none';
+}
+
+
+function    disactiv_sectionss()
+{
+    disactiv_all_flexsection();
+    document.querySelectorAll('section').forEach(section => {
+        section.classList.remove('active');
+    });
+}
+
 function rank(pushState = true) {
   // disactiv_sections();
   if (pushState) {
@@ -167,6 +193,7 @@ function rank(pushState = true) {
   const notif_aside = document.getElementById('notif-aside');
   const setting_aside = document.getElementById('setting-aside');
   const logout_aside = document.getElementById('logout-aside');
+  disactiv_sectionss();
 
   if (home) {
     home.style.display = "none";
@@ -227,11 +254,11 @@ function rank(pushState = true) {
   // document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
 }
 
-import { disactiv_sections} from "./game.js";
-
-export function border_home(pushState = true) {
+// import { disactiv_sections} from "./game.js";
+function border_home(pushState = true) {
   // console.log("home");
-  disactiv_sections();
+  disactiv_sectionss();
+
   if (pushState) {
     window.history.pushState({page: 'home'}, 'Home', '?page=home');
   }
@@ -312,6 +339,8 @@ export function border_home(pushState = true) {
 }
 
 function border_pr(pushState = true) {
+  disactiv_sectionss();
+
   // disactiv_sections();
     document.getElementById('Pr-aside').style.borderBottom = '2px solid #bbb';
     if (pushState) {
@@ -395,6 +424,8 @@ function border_pr(pushState = true) {
 function click_chat(pushState = true) {
   // console.log("chat");
   // disactiv_sections();
+  disactiv_sectionss();
+
   if (pushState) {
     window.history.pushState({page: 'chat'}, 'Chat', '?page=chat');
   }

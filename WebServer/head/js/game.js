@@ -1,5 +1,5 @@
 // var url;
-import { border_home } from './script2.js';
+// import { border_home } from './script2.js';
 var game_socket;
 var main_socket;
 var elem;
@@ -80,6 +80,88 @@ async function get_url(socket_url) {
         throw error;
     }
 }
+
+function border_home(pushState = true) {
+    // console.log("home");
+    // disactiv_sections();
+    if (pushState) {
+      window.history.pushState({page: 'home'}, 'Home', '?page=home');
+    }
+    document.getElementById('settings-modale').style.display = 'none';
+  
+  
+    const home = document.getElementById("home");
+    const profile = document.getElementById("profile");
+    const chat = document.getElementById("chat");
+    const ranking = document.getElementById("rank");
+    const Home_aside = document.getElementById('Home-aside');
+    const rank_aside = document.getElementById('rank-aside');
+    const Pr_aside = document.getElementById('Pr-aside'); 
+    const chat_aside = document.getElementById('chat-aside');
+    const notif_aside = document.getElementById('notif-aside');
+    const setting_aside = document.getElementById('setting-aside');
+    const logout_aside = document.getElementById('logout-aside');
+  
+    if (home) {
+      home.style.display = "flex";
+    }
+  
+    if (profile) {
+      profile.style.display = "none";
+    }
+    if (chat) {
+      chat.style.display = "none";
+    }
+    if (ranking) {
+      ranking.style.display = "none";
+    }
+  
+    if (Home_aside) {
+      Home_aside.style.cssText = 'font-size: 40px; color: #ff44e4; ';
+    }
+    if (rank_aside) {
+      rank_aside.style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+    }
+  
+    if (Pr_aside) {
+      Pr_aside.style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+    }
+  
+    if (chat_aside) {
+      chat_aside.style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+    }
+  
+    if (notif_aside) {
+      notif_aside.style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+    }
+  
+    if (setting_aside) {
+      setting_aside.style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+  
+    }
+  
+    if (logout_aside) {
+      logout_aside.style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+    }
+  
+        ///////////////////
+        document.getElementById('tournament-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+        document.getElementById('game-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+        ///////////////////
+  
+    // document.getElementById("home").style.display = "flex";
+    // document.getElementById("profile").style.display = "none";
+    // document.getElementById("chat").style.display = "none";
+    // document.getElementById("rank").style.display = "none";
+    // document.getElementById('rank-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
+    // document.getElementById('Home-aside').style.cssText = 'font-size: 40px; color: #ff44e4; ';
+    // document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
+    // document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
+    // document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
+    // document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
+    // document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
+  
+  }
 
 (async function createWebSocket() {
     try {
@@ -163,7 +245,7 @@ function    active_flexsection(section_id)
     document.getElementById(section_id).style.display = 'flex';
 }
 
-export function    disactiv_sections()
+function    disactiv_sections()
 {
     disactiv_all_flexsection();
     document.querySelectorAll('section').forEach(section => {
@@ -190,9 +272,9 @@ function    local_or_remote_game(type)
     else
     {
         //////////////////////    3andak tnssa ra hadi hiya alasliya
-        // document.getElementById('local_button_id').addEventListener('click', (e)=>{flex_section('local_tournamet_input_id')});
+        document.getElementById('local_button_id').addEventListener('click', (e)=>{flex_section('local_tournamet_input_id')});
         //////////////////////
-        document.getElementById('local_button_id').addEventListener('click', ()=>{close_AI();run_local_tournament()});
+        // document.getElementById('local_button_id').addEventListener('click', ()=>{close_AI();run_local_tournament()});
         document.getElementById('remote_button_id').addEventListener('click', ()=> {close_AI();navigate('tournament_input')});
     }
     flex_section('local_or_remote');
@@ -1268,8 +1350,8 @@ function    run_local_tournament()
 
         var span = document.createElement("span");
         span.className = "student-name";
-        // display_name = document.getElementById("local_tournament_player" + (i + 1).toString() + "_display_name_id").value;
-        display_name = 'd_name_' + (i + 1).toString();
+        display_name = document.getElementById("local_tournament_player" + (i + 1).toString() + "_display_name_id").value;
+        // display_name = 'd_name_' + (i + 1).toString();
         if (display_name.length == 0)
         {
             document.getElementById("local_tournament_display_names_msg_id").innerHTML = "display name must not be empty";

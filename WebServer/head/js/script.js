@@ -39,7 +39,7 @@ function loadHomeContent() {
                 
         })
         .then(() => {
-            const script = loadScriptnotmodul('./js/script2.js');
+            const script = loadScript('./js/script2.js');
                 document.head.appendChild(script);
                 const invite = loadScriptnotmodul('./js/invite.js');
                 document.head.appendChild(invite);
@@ -63,7 +63,7 @@ function loadHomeContent() {
                 document.head.appendChild(chatScript);
                 const setting = loadScript('./js/setting.js');
                 document.head.appendChild(setting);
-                const game = loadScriptnotmodul('./js/game.js');
+                const game = loadScript('./js/game.js');
                 document.head.appendChild(game);
                 const search = loadScriptnotmodul('./js/search.js');
                 document.head.appendChild(search);
