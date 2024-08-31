@@ -18,7 +18,19 @@ html {
   padding: 0;
   box-sizing: inherit;
 }
+::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
 
+::-webkit-scrollbar-track {
+  background: #d3a0dd; /* Track (progress bar) background */
+}
+
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #764081; /* Scrollbar handle on hover */
+}
 body {
   width: 100vw;
   height: 100vh;
