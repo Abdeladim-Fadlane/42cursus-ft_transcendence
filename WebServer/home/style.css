@@ -2902,7 +2902,7 @@ font-family: 'games' , sans-serif;
 }
 
 /* Styling for challenge and invite sections */
-.challenge, .invite {
+.challenge, .invite , .profile-user{
   opacity: 0;
   transform: translateY(20px);
   animation: slideIn 0.5s forwards;

@@ -539,7 +539,6 @@ function create_chatRoom(map)
                 button.style.boxShadow = 'none';
                 console.log('the connection has been closed')
             }
-            // console.log(map);
 
         })
     });
