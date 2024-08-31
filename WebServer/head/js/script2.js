@@ -745,6 +745,12 @@ function dark() {
     body.style.backgroundColor = '#00000000';
     // rank.style.backgroundColor = '#000000c7';
   }
+  document.querySelectorAll('.dark-mode').forEach((element) => {
+    element.style.backgroundColor = '#000000c7';
+  });
+  document.querySelectorAll('.light-mode').forEach((element) => {
+    element.style.backgroundColor = '#bbb';
+  });
 }
 
 function light() {
@@ -758,8 +764,15 @@ function light() {
     darkElements.forEach(element => element.style.display = 'flex');
     lightElements.forEach(element => element.style.display = 'none');
     body.style.backgroundColor = '#000000c7';
+  
     // rank.style.backgroundColor = '#000000';
   }
+  document.querySelectorAll('.light-mode').forEach((element) => {
+    element.style.backgroundColor = '#000000c7';
+  });
+  document.querySelectorAll('.dark-mode').forEach((element) => {
+    element.style.backgroundColor = '#bbb';
+  });
 }
 
 function close_user() {

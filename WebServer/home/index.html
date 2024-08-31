@@ -16,8 +16,8 @@
             <li ><label id="nameprofile"></label> </li> 
             <li><div onclick="border_pr()" class="profil" id="imageprofile"></div></li>
         </ul>
-        <li  class="mode dark" onclick="dark()"><i class="fa-regular fa-moon"></i></li>
-        <li  class="mode light" onclick="light()"><i class="fa-solid fa-moon"></i></li>
+        <!-- <li  class="mode dark" onclick="dark()"><i class="fa-regular fa-moon"></i></li>
+        <li  class="mode light" onclick="light()"><i class="fa-solid fa-moon"></i></li> -->
     </div>
 </nav>
 <div class="container">
@@ -251,7 +251,19 @@
                         <div class="menu-item2" onclick="openTab(event, 'profile-password')">Profile password</div>
                         <div class="menu-item3" onclick="delete_funcyion()">dellet account</div>
                         <div class="menu-item4" onclick="showLogoutModal()">Quit</div>
-                        <div class="menu-item5" >close window</div>
+                        <div class="menu-item5" >
+                            <div class="centermode">
+                            <div class="dark-mode" onclick="dark()">
+                                
+                                    <li  class="mode dark" ><i class="fa-regular fa-sun"></i></li>
+                                </div>
+                                <div class="light-mode" onclick="light()">
+                                    
+                                    <li  class="mode light" ><i class="fa-solid fa-moon"></i></li>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
                         <div class="personil-data">
@@ -474,6 +486,9 @@
             </div>
         </section>
         <section id="local_tournamet_input_id" class="tournament-input">
+            <h1>
+                <span> Enter </span> names of <span>the players</span>
+            </h1>
             <div id="local_game_input" class="tournament-input-form">
                 <input id="local_tournament_player1_display_name_id" class="inputt" type="text" placeholder="player1 display name" required>
                 <input id="local_tournament_player2_display_name_id" class="inputt" type="text" placeholder="player2 display name" required>
@@ -488,7 +503,11 @@
             </div>
         </section>
         <section id="local_or_remote" class="tournament-input">
+            <h1>
+                <span>Choose </span> your <span>game</span>  mode
+            </h1>
             <div class="result_buttuns">
+
                 <button id="local_button_id" class="Retry_button" style="width: 400px;" >Local</button>
                 <button id="remote_button_id" class="Home_button" style="width: 400px;">Remote</button>
             </div>
@@ -534,6 +553,9 @@
             </div>
         </section>
         <section id="local_game_input_id" class="tournament-input">
+            <h1>
+                <span>Enter </span> your <span>display </span> name
+            </h1>
             <div id="local_game_input" class="tournament-input-form">
                 <input id="local_game_player1_display_name_id" class="inputt" type="text" placeholder="player1 display name" required>
                 <input id="local_game_player2_display_name_id" class="inputt" type="text" placeholder="player2 display name" required>

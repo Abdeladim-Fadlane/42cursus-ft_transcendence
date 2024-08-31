@@ -40,7 +40,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: #000000c7;
-  z-index: -10;
+  z-index: -1;
 }
 .ball2 {
   width: 200px;
@@ -1099,14 +1099,13 @@ a {
   flex-direction: column;
   border-radius: 10px 0px 0px 10px;
 }
-.menu div
+.menu-item1 ,.menu-item2,.menu-item3,.menu-item4
 {
-  
   height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  /* flex-direction: column; */
   font-family: 'Soap Opera', sans-serif;
   font-size: 20px;
   color: #ffffff9f;
@@ -1120,6 +1119,11 @@ a {
   background-color: #ffffff9b;
   color: #000000;
   font-size: 22px;
+}
+.menu .menu-item5:hover
+{
+  background-color: #ffffff00;
+  color: #ffffff;
 }
 #nameprofile
 {
@@ -1149,13 +1153,35 @@ a {
   width: 120%;
   top: 0px;
   right: 90px;
-}
+}*/
+
 .menu-item5
 {
-  position: relative;
-  top: 0px;
-  right: 1px;
-} */
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Soap Opera', sans-serif;
+  font-size: 20px;
+  color: #ffffff9f;
+  cursor: pointer;
+  border-top: 2px solid #666577;
+  overflow: hidden;
+  border-radius: 0px 0px 10px 10px;
+}
+.centermode
+{
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  border-radius: 46px;
+  height: 80%;
+  border: 0px solid #ffffff9b;
+  background-color: #ffffff9b;
+
+} 
 
 .settings-modale
 {
@@ -1583,7 +1609,7 @@ button {
 
 .Retry_button, .Home_button{
   box-shadow: 1px 1px 10px;
-  height: 50px;
+  height: 200px;
   width: 40%;
   font-size: 32px;
   font-weight: 800;
@@ -1670,24 +1696,30 @@ section.active {
 }
 
 .tournament-input {
-  height: 100%;
-  justify-content: center;
+  height: 90%;
+  justify-content: space-around;
   align-items: center;
-  /* position: absolute;
-  top: 50%;
-  left: 50%; */
+  flex-direction: column;
+  
+}
+.tournament-input h1
+{
+  color: #764080;
+  font-size: 70px;
+
+
 }
 
 .tournament-input-form {
-  background: black;
+  background-color: #764080;
   padding: 20px 30px;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px white;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   width: 25%;
+  /* height: 50%; */
 }
 
 .inputt[type="text"] {
@@ -1868,14 +1900,30 @@ section.active {
 
 .Retry_button, .Home_button{
   box-shadow: 1px 1px 10px;
-  height: 50px;
+  height: 300px;
   width: 45%;
-  font-size: 16px;
+  font-size: 80px;
   font-weight: 800;
   border: none;
-  background-color: black;
-  color: white;
+  
+  color: rgb(94, 63, 104);
+  cursor: pointer;
+  font-family: 'Games', sans-serif;;
   border-radius: 10px;
+}
+.Home_button{
+  background-image: url("resrc/ice.webp");
+  background-size: cover;
+  background-position: center;
+
+
+}
+.Retry_button
+{
+
+  background-image: url("resrc/ice2.png");
+  background-size: cover;
+  background-position: center;
 }
 
 .Retry_button:hover, .Home_button:hover{
@@ -2406,9 +2454,7 @@ flex-direction: column;
 height: 95px;
 
 }
-h1, h2 {
-  font-family: 'Games', sans-serif;
-}
+
 p, a, h4, h3
 {
   font-family: 'Doctor Garcia', sans-serif;
@@ -3044,8 +3090,8 @@ font-family: 'games' , sans-serif;
 .nav-search
 {
   position: relative;
-  /* top: 3px;
-  left: -235px; */
+   top: 7px;
+  
   color: white;
  
 }
@@ -3328,27 +3374,40 @@ label{
 {
   height: 50px;
 
-  width: 50px;
-  background-color: #bbb;
-  border-radius: 50%;
+  width: 50%;
+  /* background-color: #bbb; */
+  /* border-radius: 50%; */
   /* display: flex; */
   justify-content: center;
   align-items: center;
   margin: 20px;
 }
+.dark-mode 
+{
+  width: 50%;
+  /* height: 50px; */
+  background-color: #bbb;
+
+
+}
+.light-mode
+{
+   width: 50%;
+
+  background-color: #000000c7;
+}
+
+
 .mode i
 {
   font-size: 20px;
-  color: #000000bb;
-}
-.mode:hover
-{
-  background-color: #ffffff9b;
+  color: #595656bb;
 }
 .light
 {
   display: none;
-}
+
+} 
 .dark
 {
   display: flex;
@@ -3356,7 +3415,7 @@ label{
 .count-noti
 {
   position: relative;
-  width: auto;
+  width: 50%;
   height: 30px;
   border-radius: 50%;
   background-color: #d71f1f;
@@ -3884,4 +3943,7 @@ label{
 #message-input,
 #button-chat {
   animation: fadeIn 1.5s ease-in;
+}
+h1, h2 {
+  font-family: 'Games', sans-serif;
 }
