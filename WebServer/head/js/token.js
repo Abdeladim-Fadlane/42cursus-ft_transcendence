@@ -26,7 +26,7 @@ form0.addEventListener('submit', async (e)=>{
     })
     
 });
-const imageSetting = document.querySelector('.edit');
+const imageSetting = document.querySelector('.setting_profile');
 const imageInput = document.querySelector('#image');
 const buttonInput = document.querySelector('#button_profile_click')
 imageSetting.addEventListener('click', ()=>{
