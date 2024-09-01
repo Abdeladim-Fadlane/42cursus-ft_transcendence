@@ -323,6 +323,7 @@ function showResult(result)
     if (result == 'Winner')
     {
         message.textContent = 'Congration You Won!';
+        message.style.color = 'goldenrod';
         document.getElementById('result-gif').src = '/home/resrc/game/win.gif';
     }
     else if (result == 'Loser')
@@ -342,7 +343,7 @@ function Continue_game(action)
 {
     game_socket.send(JSON.stringify({'type':'action', 'action':action}));
     if (action == "Continue")
-        active_section('loading-section-id');
+        game_asid();
     else
     {
         game_socket.close(1000, 'Normal Closure');

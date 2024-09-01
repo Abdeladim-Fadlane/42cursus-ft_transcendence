@@ -1640,6 +1640,7 @@ button {
 
 .result_msg{
   height: 80px;
+  font-weight: 800;
   display: flex;
   align-items: center;
   color: goldenrod;
