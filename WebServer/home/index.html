@@ -576,7 +576,7 @@
             <nav class="tournament_nav">
                 <a class="icons" onclick="tst('tournament_list')"><i id="tournament_nav_list_item_id" class="fa-solid fa-list-ul"></i></a>
                 <a class="icons" onclick="tst('play_tournament')"><i id="tournament_nav_making_item_id" class="fa-solid fa-ranking-star"></i></a>
-                <a class="icons" onclick="tst('tournament_next_match_id')"><i id="tournament_nav_NMatch_item_id" class="fa-solid fa-ranking-star"></i></a>
+                <a id="move_to_next_match_id" class="icons" onclick="tst('tournament_next_match_id')"><i id="tournament_nav_NMatch_item_id" class="fa-solid fa-ranking-star"></i></a>
                 <a class="Give_Up_tournament" onclick="put_section('Give_Up_Tournament')"><i class="fa-solid fa-xmark"></i></a>
             </nav>
             <section class="tournament_section" id="tournament_list">
@@ -679,7 +679,7 @@
                             <h1 id="fighter_username_1"></h1>
                         </div>
                     </div>
-                    <div class="time_out_class"></div>
+                    <!-- <div class="time_out_class"></div> -->
                 </div>
                 <div class="fighters_bottuns">
                     <button class="Continue" onclick="Continue_game('Continue')">Continue</button>

@@ -586,15 +586,15 @@ function navigate(section_id) {
     }
     else if (section_id == 'ping-pong-4')
     {
-        active_section('loading-section-id');
-        document.getElementById("game_aside_id").style.display = 'block';
-        document.getElementById("tournament_aside_id").style.display = 'none';
-        document.getElementById('Home-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-        document.getElementById('game-aside').style.cssText = 'font-size: 40px; color: #ff44e4; ';
+        document.getElementById("game_aside_id").style.display = 'none';
+        game_asid();
         run('play-4', '/wss/four_players/', '4-canvas-id', {'type':'random', 'vs':'undefined'});
     }
     else if (section_id == 'tournament_input')
+    {
+        document.getElementById('move_to_next_match_id').style.display = 'none';
         tournament_asid();
+    }
     else
         active_section(section_id);
 }
@@ -658,6 +658,11 @@ function toggleFullScreen() {
                 document.querySelector('.game_nav').style.display = 'flex';
                 document.querySelector('#screen_img').src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAGpJREFUSEvtVUEKACAIa/9/tNEhsDCYRUZg59k2dYVy+eDy/SWWQERk5QjAIIbFbhU1EUcEs1p2Tp1U15sOkuBdi9hhenCxQfMoY7GxDqygsEp1ut9tUTqgHztrsH/8B56VZLGxQWNVeXAV8rVwGd7+Wh0AAAAASUVORK5CYII="
             }
+        });
+        document.getElementById('local_game_input').addEventListener('submit', function(event)
+        {
+            event.preventDefault();
+            run_local_game();
         });
 // });
 
@@ -1081,8 +1086,8 @@ function show_local_game_Result(idx){
     //////////////////////
     else
     {
-        document.getElementById('localresultModal').style.display = 'flex';
-        setTimeout(() => {border_home()}, 2000);
+        active_flexsection('localresultModal');
+        setTimeout(() => {border_home()}, 3000);
     }
 }
 
@@ -1274,7 +1279,7 @@ function    fill_Match_fight(match)
     else
         document.getElementById('Match_round_id').innerHTML = 'Final';
 
-    document.getElementById('tournament_nav_NMatch_item_id').style.display = 'block';
+    document.getElementById('move_to_next_match_id').style.display = 'block';
 }
 
 function    start_match()
@@ -1315,7 +1320,7 @@ function    start_match()
     document.getElementById("2-canvas-display_name-id-1").innerHTML = match.players[1].display_name;
     document.getElementById("2-canvas-icon-id-1").src = '/' + match.players[1].icon;
     
-    // document.getElementById('give_up_from_game_id').style.display = 'none';
+    document.getElementById('move_to_next_match_id').style.display = 'none';
     start_local_game();
     document.getElementById('tournament_nav_NMatch_item_id').style.display = 'none';
 }
@@ -1328,6 +1333,7 @@ function    run_local_tournament()
     var valid = true;
     //////////////////////////////////
     document.getElementById('tournament_wait_id').innerHTML = '';
+    clean_rounds();
     elem = document.getElementById('2-canvas-id');
     ctx = elem.getContext("2d");
     width = elem.width
@@ -1374,10 +1380,9 @@ function    run_local_tournament()
     }
     if (valid)
     {
-        Matchs = fill_round(ROUND, TOURNAMENT_LIST);
+        Matchs = fill_round(ROUND, shuffle(TOURNAMENT_LIST));
         fill_Match_fight(Matchs[MATCH_INDEX]);
-        active_section('tournament_nav_id');
-        tst('play_tournament');
+        tournament_asid();
     }
     TOURNAMENT_LIST = [];
     displayNamesSet.clear();
@@ -1389,6 +1394,13 @@ const handleUnload = function (e) {
     // return 'Are you sure you want to refresh the page? Any unsaved changes may be lost.';
 };
 
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
 // window.addEventListener('beforeunload', handleUnload);
 
 // window.onbeforeunload = function() {
