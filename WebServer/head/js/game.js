@@ -156,8 +156,6 @@ function border_home(pushState = true) {
     // document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
     // document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
   }
-import { leaderboard_requests } from './leader.js';
-import { fetchHistory } from './match.js';
 
 (async function createWebSocket() {
     try {
