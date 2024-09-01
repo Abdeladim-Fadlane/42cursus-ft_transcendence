@@ -1,5 +1,4 @@
 import asyncio, json, math, random
-# from chat.game import serialize_pingpong
 from datetime import datetime
 from chat.cons import Match, serialize_Match, User, send_to_group, racket, height, hh, width, ww, score_to_win, serialize_Users
 from channels.generic.websocket import AsyncWebsocketConsumer
@@ -21,7 +20,7 @@ def serialize_Tournament_Users(o):
 
 async def full_tournament(users, tournament_name):
     # await asyncio.sleep(3)
-    # random.shuffle(users)
+    random.shuffle(users)
     tournaments[tournament_name] = {}
     while len(users) > 1:
         group_name = None

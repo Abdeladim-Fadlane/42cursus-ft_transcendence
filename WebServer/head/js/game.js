@@ -263,6 +263,7 @@ function    remove_all_event_listener(id)
 
 function    local_or_remote_game(type)
 {
+    console.log('local_or_remote_game called');
     remove_all_event_listener('local_button_id');
     remove_all_event_listener('remote_button_id');
     if (type == 'game')
@@ -272,7 +273,6 @@ function    local_or_remote_game(type)
     }
     else
     {
-        //////////////////////    3andak tnssa ra hadi hiya alasliya
         document.getElementById('local_button_id').addEventListener('click', (e)=>{flex_section('local_tournamet_input_id')});
         //////////////////////
         // document.getElementById('local_button_id').addEventListener('click', ()=>{close_AI();run_local_tournament()});
@@ -688,9 +688,9 @@ function    tst(section_id)
 }
 
 function game_asid(pushState = true) {
+    console.log('game_asid called');
     disactiv_sections();
 
-    console.log('game_asid called ========>', pushState);
     if (pushState)
         window.history.pushState({page: 'Game'}, 'Game', '?page=Game');
 
