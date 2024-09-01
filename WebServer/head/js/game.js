@@ -1,5 +1,3 @@
-// var url;
-// import { border_home } from './script2.js';
 var game_socket;
 var main_socket;
 var elem;
@@ -18,10 +16,8 @@ var local_tournament_starting = false;
 var four_game_starting = false;
 var match = null;
 //////////////
-var lastone = "undefinded"
 var game_starting = false;
 var tournament_starting = false;
-// var continue_game = false;
 
 function    draw_ball(b)
 {
@@ -159,14 +155,14 @@ function border_home(pushState = true) {
     // document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
     // document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
     // document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
-  
   }
+import { leaderboard_requests } from './leader.js';
+import { fetchHistory } from './match.js';
 
 (async function createWebSocket() {
     try {
         const socket_url = '/wss/main_socket/';
         const url = await get_url(socket_url);
-        // const url = `wss://${window.location.host}${socket_url}`;
         main_socket = new WebSocket(url);
 
         main_socket.onopen = function(event) {
@@ -190,6 +186,10 @@ function border_home(pushState = true) {
                 put_section('refuse_game_id');
                 setTimeout(() => {disactiv_section('refuse_game_id')}, 2500);
             }
+            else if (data.type === 'update_leaderboard') 
+                leaderboard_requests();
+            else if (data.type === 'update_match_history')
+                fetchHistory();
         };
 
         main_socket.onerror = function(event) {
@@ -205,10 +205,10 @@ function border_home(pushState = true) {
     }
 })();
 
-function challenge_lastone()
-{
-    challenge_friend(lastone);
-}
+// function challenge_lastone()
+// {
+//     challenge_friend(lastone);
+// }
 
 function challenge_friend(username)
 {
@@ -336,7 +336,10 @@ function showResult(result)
     }
     document.getElementById('waiting_id').innerHTML = '';
     active_flexsection('resultModal');
-    setTimeout(() => {disactiv_all_flexsection(); border_home();}, 2500);
+    if (tournament_starting)
+        setTimeout(() => {tournament_asid();}, 2500);
+    else
+        setTimeout(() => {border_home();}, 2500);
 }
 
 function Continue_game(action)
@@ -390,6 +393,7 @@ function    tournament_info(players, section_id)
 
         var display_name = document.createElement("h2");
         display_name.textContent = players[i].login;
+        container.innerHTML = '';
         container.appendChild(icon);
         container.appendChild(display_name);
     }

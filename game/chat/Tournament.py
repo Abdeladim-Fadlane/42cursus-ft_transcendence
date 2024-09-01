@@ -1,6 +1,6 @@
 import asyncio, json, math, random
 from datetime import datetime
-from chat.cons import Match, serialize_Match, User, send_to_group, racket, height, hh, width, ww, score_to_win, serialize_Users
+from chat.cons import Match, User, send_to_group, racket, height, hh, width, ww, score_to_win, serialize_Users
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
 from . views import endpoint
@@ -12,10 +12,13 @@ waiting = {}
 tournaments = {}
 tournament_name = 'tournament_' + datetime.now().time().strftime("%H_%M_%S_%f")
 
-def serialize_Tournament_Users(o):
+def serialize_Match(o):
     return{
-        'type': 'game.info',
-        'players':[{'login':p.display_name, 'icon':p.photo_profile,} for p in o.players],
+        'type':'game.state',
+        'players':[{'login':p.user.username, 'icon':p.user.photo_profile, 'racket':p.racket.serialize_racket()} for p in o.players],
+        'ping':o.b.serialize_ball(),
+        'team1_score':o.team1_score,
+        'team2_score':o.team2_score,
     }
 
 async def full_tournament(users, tournament_name):

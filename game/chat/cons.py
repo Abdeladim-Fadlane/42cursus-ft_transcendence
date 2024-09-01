@@ -153,6 +153,7 @@ def serialize_Users(o):
 async def notify(room_name, action):
     channel_layer = get_channel_layer()
     try:
+        print("notify called------------------")
         await channel_layer.group_send(
             room_name,
             {
@@ -204,9 +205,15 @@ async def save_Match(group_name, idx):
     requests.post(url=url, headers=headers, data=data)
     """ notify  loser and winner to update their history"""
     await notify(f"room_{idloser}", 'update_match_history')
-    await notify(f'room_{idwinner}', 'update_match_history')
-    await notify('broadcast', 'update_leaderboard')
+    # await notify(f'room_{idwinner}', 'update_match_history')
+    # await notify('broadcast', 'update_leaderboard')
     print("---------------save match------------- end")
+    # if rooms[group_name].players[0].user.username in connects:
+    #     await connects[rooms[group_name].players[0].user.username].send(json.dumps({'type':'update_match_history'}))
+    # if rooms[group_name].players[1].user.username in connects:
+    #     await connects[rooms[group_name].players[1].user.username].send(json.dumps({'type':'update_match_history'}))
+    # for u in connects:
+    #     await u.send(json.dumps({'type':'update_leaderboard'}))
 
 async def start_game(group_name):
     # await asyncio.sleep(4)

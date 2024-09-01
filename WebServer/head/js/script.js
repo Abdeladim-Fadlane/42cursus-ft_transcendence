@@ -63,7 +63,7 @@ function loadHomeContent() {
                 document.head.appendChild(chatScript);
                 const setting = loadScript('./js/setting.js');
                 document.head.appendChild(setting);
-                const game = loadScript('./js/game.js');
+                const game = loadScriptnotmodul('./js/game.js');
                 document.head.appendChild(game);
                 const search = loadScriptnotmodul('./js/search.js');
                 document.head.appendChild(search);
