@@ -1,5 +1,5 @@
 function loadheadContent() {
-    console.log('hello00');
+    // console.log('hello00');
     document.getElementById('home-page').innerHTML = '';
     document.getElementById('home-page').style.display = 'none';
     document.getElementById('head-page').style.display = 'block';
@@ -96,7 +96,7 @@ function already_logged() {
             }
         })
         .then(data => {
-            console.log(data);
+            // console.log(data);
 
             if (data.status === true){
                 loadHomeContent();

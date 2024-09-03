@@ -164,7 +164,7 @@ function border_home(pushState = true) {
         main_socket = new WebSocket(url);
 
         main_socket.onopen = function(event) {
-            console.log("main WebSocket connection established.");
+            // console.log("main WebSocket connection established.");
         };
 
         main_socket.onmessage = function(event) {
@@ -192,12 +192,12 @@ function border_home(pushState = true) {
         };
 
         main_socket.onerror = function(event) {
-            console.error("WebSocket error observed");
+            // console.error("WebSocket error observed");
             location.reload();
         };
 
         main_socket.onclose = function(event) {
-            console.log("WebSocket connection closed:", event);
+            // console.log("WebSocket connection closed:", event);
         };
     } catch (error) {
         console.error("Error creating WebSocket:", error);
@@ -445,7 +445,7 @@ async function run(section_id, socket_url, canvas_id, type)
         game_socket = new WebSocket(URL);
 
         game_socket.onopen = function(event) {
-            console.log("game WebSocket connection established.");
+            // console.log("game WebSocket connection established.");
         };
 
         game_socket.onmessage = function (e)

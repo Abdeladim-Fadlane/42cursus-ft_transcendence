@@ -72,7 +72,7 @@ function my_data()
         return response.json();
     })
     .then(data => {
-        console.log(data);
+        // console.log(data);
 
         const userData = JSON.parse(JSON.stringify(data));
         if (userData.lose != 0  &&  userData.win != 0)
