@@ -307,7 +307,6 @@ class RacetCunsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, code):
         if self.group_name in rooms:
-            self.avaible = False
             if rooms[self.group_name].starting:
                 if (rooms[self.group_name].players[abs(self.i - 1)].avaible):
                     await rooms[self.group_name].players[abs(self.i - 1)].send(json.dumps({'type':'game.end', 'result':'Winner'}))
