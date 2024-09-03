@@ -10,7 +10,7 @@ from django.http import HttpResponseForbidden
 from .views import login_required
 import os
 from .views import sendToAllUsers
-from cryptography.fernet import Fernet
+
 
 def get_match_history(request):
     user = login_required(request)
@@ -88,12 +88,10 @@ def token(request):
     if not user:
         return HttpResponseForbidden("Forbidden", status=403)
     key =  os.environ.get('encrypt_key')
-    ferneet = Fernet(key)
     id = request.session.get('user_id')
     token = request.session.get('token')
-    encrypted_token = ferneet.encrypt(token.encode())
     context = {
-        'token': encrypted_token.decode(),
+        'token': token,
         'id': id
     }
     return JsonResponse(context, status=200)

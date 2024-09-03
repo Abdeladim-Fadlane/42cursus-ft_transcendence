@@ -38,7 +38,7 @@ def notify(id, action):
             }
         )
     except Exception as e:
-        print(e)
+        pass
     
 
 def login_required(request):
@@ -65,7 +65,7 @@ def sendToAllUsers(action):
             }
         )
     except Exception as e:
-        print(e)
+        pass
 
 def SignIn(request):
     if request.user.is_authenticated:

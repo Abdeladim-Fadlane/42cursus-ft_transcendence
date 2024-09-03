@@ -142,6 +142,7 @@ export function fetchAndUpdateFriends() {
                     map.set(data[i].username, "block");
                     
                 }
+                console.log('is here afadalane')
                 if (!ishere)
                     cleaning_chat();
                 create_chatRoom(map);

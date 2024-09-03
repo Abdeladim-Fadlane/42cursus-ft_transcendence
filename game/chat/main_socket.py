@@ -6,20 +6,15 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from . cons import User, Match
 import requests
 import os
-from . cons import add_padding
-from cryptography.fernet import Fernet
+
 connects = {}    
 
 class main_socket(AsyncWebsocketConsumer):
     async def connect(self):
-        print("----------------Main socket connected----------------")
         await self.accept()
         self.avaible = True
         query_string = self.scope['query_string'].decode().split('&')
         token = query_string[0].split('=')[1]
-        key = os.environ.get('encrypt_key')
-        f = Fernet(key)
-        token = f.decrypt(add_padding(token).encode()).decode()
         id = query_string[1].split('=')[1]
         data = endpoint(token, id)
         self.user = User(data)
@@ -47,12 +42,8 @@ class main_socket(AsyncWebsocketConsumer):
             await self.send(event['data'])
 
     async def disconnect(self, event):
-        print("----------Main socket disconnect-----------")
         query_string = self.scope['query_string'].decode().split('&')
         token = query_string[0].split('=')[1]
-        key = os.environ.get('encrypt_key')
-        f = Fernet(key)
-        token = f.decrypt(add_padding(token).encode()).decode()
         connects[self.user.username] = self
         headers = {'Authorization': f'Token {token}'}
         body = {

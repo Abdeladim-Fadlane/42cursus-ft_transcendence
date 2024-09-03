@@ -42,14 +42,11 @@ def getAllConversation(request):
         json_content = json.loads(request.body)
         user_id = str(json_content.get('id_user'))
         count = 0
-        # print(f"{user_id} ******************* {json_content.get('username')}")
         try:
             convers = Conversation.objects.all()
             for c in convers:
                 if (user_id in c.room_name):
-                    # print(f' --------------------{ConversationSerializer(c).data}--------------------')
                     msg = Message.objects.filter(conversation=c).last()
-                    # print(f"{msg.sender_name}*******{msg.read_msg}")      
                     if (msg is not None and msg.read_msg == False and json_content.get('username') != msg.sender_name):
                         count = count + 1
             return JsonResponse({'status' : 'success','not_read' : count})

@@ -13,10 +13,9 @@ hh = 80
 ww = 5
 racket_speed = 1
 score_to_win = 3
-def add_padding(data):
-    return data + '=' * (-len(data) % 4)
+
 import os
-from cryptography.fernet import Fernet
+
 class racket:
     def __init__(self, x, y, min, max):
         self.x = x
@@ -90,14 +89,10 @@ class   Match:
             self.team1_score += 1
             self.b.x = width / 2
             self.b.y = height / 2
-            # self.b.__init__(width / 2, height / 2)
-            # await asyncio.sleep(1)
         if (self.b.x - self.b.r > width - ww):
             self.team2_score += 1
             self.b.x = width / 2
             self.b.y = height / 2
-            # self.b.__init__(width / 2, height / 2)
-            # await asyncio.sleep(1)
         if (self.b.vx > 0):
             if ((self.b.x + self.b.r) + self.b.vx < (width - ww)):
                 self.b.x += self.b.vx
@@ -155,7 +150,6 @@ def serialize_Users(o):
 async def notify(room_name, action):
     channel_layer = get_channel_layer()
     try:
-        print("notify called------------------")
         await channel_layer.group_send(
             room_name,
             {
@@ -164,17 +158,13 @@ async def notify(room_name, action):
             }
         )
     except Exception as e:
-        print(f"Failed to send message: {e}")
+        pass
 
 async def save_Match(group_name, idx):
-    print("---------------save match------------- start")
     rooms[group_name].save = True
     query_parameters = rooms[group_name].players[abs(idx-1)].scope['query_string'].decode().split('&')
     losee_token = query_parameters[0].split('=')[1]
     # losee_token = rooms[group_name].players[abs(idx-1)].scope['query_string'].decode().split('=')[1]
-    key = os.environ.get('encrypt_key')
-    f = Fernet(key) 
-    losee_token = f.decrypt(add_padding(losee_token).encode()).decode()
     headers = {'Authorization': f'Token {losee_token}'}
     body = {
         'lose': rooms[group_name].players[abs(idx-1)].user.lose + 1,
@@ -187,7 +177,6 @@ async def save_Match(group_name, idx):
     query_parameters = rooms[group_name].players[idx].scope['query_string'].decode().split('&')
     win_token = query_parameters[0].split('=')[1]
     # win_token = rooms[group_name].players[idx].scope['query_string'].decode().split('=')[1]
-    win_token = f.decrypt(add_padding(win_token).encode()).decode()
     headers = {'Authorization': f'Token {win_token}'}
     body = {
         'score': rooms[group_name].players[idx].user.score + 10,
@@ -209,20 +198,10 @@ async def save_Match(group_name, idx):
     await notify(f"room_{idloser}", 'update_match_history')
     await notify(f'room_{idwinner}', 'update_match_history')
     await notify('broadcast', 'update_leaderboard')
-    print("---------------save match------------- end")
-    # if rooms[group_name].players[0].user.username in connects:
-    #     await connects[rooms[group_name].players[0].user.username].send(json.dumps({'type':'update_match_history'}))
-    # if rooms[group_name].players[1].user.username in connects:
-    #     await connects[rooms[group_name].players[1].user.username].send(json.dumps({'type':'update_match_history'}))
-    # for u in connects:
-    #     await u.send(json.dumps({'type':'update_leaderboard'}))
 
 async def start_game(group_name):
-    # await asyncio.sleep(4)
-    print("---------------game start-------------")
     winner = await rooms[group_name].run_game()
     if group_name in rooms:
-        print("---------------game end succefly-------------")
         result = ['Winner', 'Winner']
         idx = 0
         if winner == 1:
@@ -232,7 +211,6 @@ async def start_game(group_name):
             result[1] = 'Loser'
         for i in range(2):
             if rooms[group_name].players[i].avaible:
-                print("---------------", rooms[group_name].players[i].user.username, "-------------")
                 await rooms[group_name].players[i].send(json.dumps({'type':'game.end', 'result':result[i % 2]}))
                 rooms[group_name].players[i].avaible = False
                 await rooms[group_name].players[i].close()
@@ -268,7 +246,6 @@ from . main_socket import connects
 
 class RacetCunsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        print("----------------connect----------------")
         global group_name
         await self.accept()
         self.avaible = True
@@ -278,10 +255,7 @@ class RacetCunsumer(AsyncWebsocketConsumer):
         id = query_parameters[1].split('=')[1]
         game_type = query_parameters[2].split('=')[1]
         room_creater = query_parameters[3].split('=')[1]
-        
-        key = os.environ.get('encrypt_key')
-        f = Fernet(key)
-        token = f.decrypt(add_padding(token).encode()).decode()
+    
 
         data = endpoint(token, id)
         self.user = User(data)
@@ -332,12 +306,11 @@ class RacetCunsumer(AsyncWebsocketConsumer):
             await self.send(event['data'])
 
     async def disconnect(self, code):
-        print("----------disconnect-----------", self.user.username, "with code::", code)
-        self.avaible = False
         if self.group_name in rooms:
             self.avaible = False
             if rooms[self.group_name].starting:
-                await rooms[self.group_name].players[abs(self.i - 1)].send(json.dumps({'type':'game.end', 'result':'Winner'}))
+                if (rooms[self.group_name].players[abs(self.i - 1)].avaible):
+                    await rooms[self.group_name].players[abs(self.i - 1)].send(json.dumps({'type':'game.end', 'result':'Winner'}))
                 if self.i == 0:
                     rooms[self.group_name].team1_score = score_to_win
                 else:
@@ -348,3 +321,4 @@ class RacetCunsumer(AsyncWebsocketConsumer):
                 if rooms[self.group_name].players[abs(self.i - 1)] and rooms[self.group_name].players[abs(self.i - 1)].user.username in connects:
                     await connects[rooms[self.group_name].players[abs(self.i - 1)].user.username].send(json.dumps({'type':'game.refuse', 'vs': self.user.serialize_User()}))
             del rooms[self.group_name]
+        self.avaible = False

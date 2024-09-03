@@ -5,8 +5,7 @@ from asgiref.sync import sync_to_async
 from datetime import datetime
 from . views import endpoint
 import os
-from . cons import add_padding
-from cryptography.fernet import Fernet
+
 rooms = {}
 waiting = {}
 N = 4
@@ -80,7 +79,6 @@ async def four_players_game(users):
         u.racket = racket(int(i / 2) * (width - ww), (i % 2) * int(height / 2) + int(height / 4), (i % 2) * int(height / 2), int(height / 2) + (i % 2) * int(height / 2))
         rooms[group_name].set_player(u, i)
         i += 1
-    print("-------------------------task start-------------------------")
     # await send_to_group(rooms[group_name].players, {'data':json.dumps(rooms[group_name], default=serialize_Users)});
     winners = await rooms[group_name].run_game()
     result = [None] * 2
@@ -97,19 +95,13 @@ async def four_players_game(users):
             await rooms[group_name].players[i].close()
     del rooms[group_name]
 
-# x = 0
 class   four_players(AsyncWebsocketConsumer):
     async def connect(self):
-        # global x
-        print("--------------four_players---------------")
         await self.accept()
         self.avaible = True
         query_parameters = self.scope['query_string'].decode().split('&')
         token = query_parameters[0].split('=')[1]
         id = query_parameters[1].split('=')[1]
-        key = os.environ.get('encrypt_key')
-        f = Fernet(key)
-        token = f.decrypt(add_padding(token).encode()).decode()
         data = endpoint(token, id)
         self.user = User(data)
         if self.user.username in waiting:

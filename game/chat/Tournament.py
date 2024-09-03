@@ -5,8 +5,6 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
 from . views import endpoint
 import os
-from . cons import add_padding
-from cryptography.fernet import Fernet
 N = 8
 waiting = {}
 tournaments = {}
@@ -108,17 +106,12 @@ async def run_game(match):
 x = 1
 class   Tournament(AsyncWebsocketConsumer):
     async def connect(self):
-        # global x
         global tournament_name
-        print("------------Tournament---------------")
         await self.accept()
         self.group_name = "None"
         self.avaible = True
         query_parameters = self.scope['query_string'].decode().split('&')
         token = query_parameters[0].split('=')[1]
-        key = os.environ.get('encrypt_key')
-        f = Fernet(key)
-        token = f.decrypt(add_padding(token).encode()).decode()
         id = query_parameters[1].split('=')[1]
         game_typ = query_parameters[2].split('=')[1]
         data = endpoint(token, id)
@@ -159,7 +152,6 @@ class   Tournament(AsyncWebsocketConsumer):
             await self.send(event['data'])
 
     async def disconnect(self, code):
-        print("---------------disconnect---------------------------", code)
         #################################################################
         if (self.x in waiting):
             del waiting[self.x]

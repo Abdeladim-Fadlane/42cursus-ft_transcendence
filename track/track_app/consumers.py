@@ -1,22 +1,16 @@
 from channels.generic.websocket import AsyncWebsocketConsumer # type: ignore
-from cryptography.fernet import Fernet
 from channels.layers import get_channel_layer # type: ignore
 from .views import notification
 import requests
 import json
 import os
 
-def add_padding(data):
-    """Ensure correct padding for base64 encoded string."""
-    return data + '=' * (-len(data) % 4)
+
 
 def patch_data(scope,status):
     query_string = scope['query_string'].decode().split('&')
     token = query_string[0].split('=')[1]
     user_id = query_string[1].split('=')[1]
-    key = os.environ.get('encrypt_key')
-    f = Fernet(key)
-    token = f.decrypt(add_padding(token).encode()).decode()
     headers = {
         'Authorization': f'Token {token}'
     }

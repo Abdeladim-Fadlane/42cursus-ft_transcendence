@@ -8,7 +8,6 @@ async def notification(id, action):
     channel_layer = get_channel_layer()
     
     room_name = f"room_{id}"
-    print(room_name,"---------------------room----------------------")
     try:
         await channel_layer.group_send(
             room_name,
@@ -18,7 +17,7 @@ async def notification(id, action):
             }
         )
     except Exception as e:
-        print(f"Failed to send message: {e}")
+        pass
 
 async def notify(request):
     if request.method == 'GET':
@@ -35,6 +34,6 @@ async def notify(request):
                 }
             )
         except Exception as e:
-            print(f"Failed to send message: {e}")
+            return JsonResponse({'status': 'internal server error'}, status=500)
         return JsonResponse({'status': 'success'}, status=200)
     return JsonResponse({'status': 'Method not allowed'}, status=405)
