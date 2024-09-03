@@ -59,16 +59,16 @@ function loadHomeContent() {
                 document.head.appendChild(msgfriend);
                 const track = loadScriptnotmodul('./js/track.js');
                 document.head.appendChild(track);
-                const chatScript = loadScriptnotmodul('./js/chatScript.js');
-                document.head.appendChild(chatScript);
+                // const chatScript = loadScriptnotmodul('./js/chatScript.js');
+                // document.head.appendChild(chatScript);
                 const setting = loadScript('./js/setting.js');
                 document.head.appendChild(setting);
                 const game = loadScript('./js/game.js');
                 document.head.appendChild(game);
                 const search = loadScriptnotmodul('./js/search.js');
                 document.head.appendChild(search);
-                const userInformation = loadScriptnotmodul('./js/userInformation.js');
-                document.head.appendChild(userInformation);
+                // const userInformation = loadScriptnotmodul('./js/userInformation.js');
+                // document.head.appendChild(userInformation);
                 const ProfileAction = loadScriptnotmodul('./js/ProfileAction.js');
                 document.head.appendChild(ProfileAction);
         })

@@ -208,7 +208,6 @@ function border_home(pushState = true) {
 // {
 //     challenge_friend(lastone);
 // }
-
 function challenge_friend(username)
 {
     main_socket.send(JSON.stringify({'type':'room.create', 'vs':username}));
@@ -263,7 +262,6 @@ function    remove_all_event_listener(id)
 
 function    local_or_remote_game(type)
 {
-    console.log('local_or_remote_game called');
     remove_all_event_listener('local_button_id');
     remove_all_event_listener('remote_button_id');
     if (type == 'game')
@@ -389,8 +387,8 @@ function    tournament_info(players, section_id)
         var container = document.getElementById(round.toString() + i.toString());
         var icon = document.createElement("img");
         icon.className = "Match_icon";
-        // icon.id = players[i].username;
-        // icon.addEventListener('click', view_profile);
+        icon.id = players[i].username;
+        icon.addEventListener('click', view_profile);
 
         icon.src = '/' + players[i].icon;
 
@@ -416,6 +414,8 @@ function    tournament_list(data)
 
         var img = document.createElement("img");
         img.className = "student-icon"
+        img.id = element.username;
+        img.addEventListener('click', view_profile);
         img.src = '/' + element.icon;
 
         var span = document.createElement("span");
@@ -451,7 +451,6 @@ async function run(section_id, socket_url, canvas_id, type)
         game_socket.onmessage = function (e)
         {
             var data = JSON.parse(e.data)
-            console.log('data', data);
             if (data.type == 'game_wait')
                 document.getElementById('waiting_id').innerHTML = 'waiting for '+ data.waiting + ' others ...';
             else if (data.type == 'discard')
@@ -698,7 +697,6 @@ function    tst(section_id)
 }
 
 function game_asid(pushState = true) {
-    console.log('game_asid called');
     disactiv_sections();
 
     if (pushState)
@@ -1270,36 +1268,6 @@ function    fill_Match_fight(match)
 
 function    start_match()
 {
-    // delete match;
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
-    ////////////////////////////////
     match = Matchs[MATCH_INDEX];
     document.getElementById("2-canvas-display_name-id-0").innerHTML = match.players[0].display_name;
     document.getElementById("2-canvas-icon-id-0").src = '/' + match.players[0].icon;

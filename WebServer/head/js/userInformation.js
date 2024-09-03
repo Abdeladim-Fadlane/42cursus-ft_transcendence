@@ -106,6 +106,8 @@ function drawCircle(lose, win)
     let div_win =  document.createElement('div');
     let text_win  = document.querySelector('.win-statistique');
     div_win.classList.add('child');
+    // text_win.textContent = '';
+    // text_lose.textContent = '';
     text_win.textContent = '0%'
     text_lose.textContent = '0%'
     circle.append(div_lose, div_win, div_white);
@@ -119,6 +121,7 @@ function drawCircle(lose, win)
         number_win.style.display = 'flex';
 
     });
+    
     div_win.addEventListener('mouseleave', ()=>{
         div_win.style.width = '200px';
         div_win.style.height = '200px';

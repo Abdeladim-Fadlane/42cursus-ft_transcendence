@@ -160,7 +160,7 @@ export function setLastButton(){
         Web_socket = null;
     }
 }
-
+import { cleaning_chat } from './msgfriend.js';
 function create_chatRoom(map)
 {
     let map_action = new Map(map)
@@ -394,6 +394,9 @@ function create_chatRoom(map)
                 })
                 
             }
+            Web_socket.onerror = ()=>{
+                location.reload();
+            }
             let div_animate;
             Web_socket.onmessage =  (e) =>{
                 send_request(room_name, username1, usernameid);
@@ -542,7 +545,18 @@ function create_chatRoom(map)
 
         })
     });
-    
+    // document.addEventListener('click', function(event) {
+    //     // let div_search = document.querySelector('.nav-search');
+    //     if (div_menu && !div_menu.contains(event.target) && check == false) {
+    //         // isdone = false;
+    //         check = true
+    //         div_menu.remove();
+    //         // chat_container.removeChild(div_menu)
+    //         // search.value = '';
+    //         // search.style.transform = 'rotateY(90deg)'; 
+    //         // div_user.textContent = '';
+    //     }
+    // });
     chat_container.addEventListener('click', (e) =>{
         if (check == false)
         {
@@ -554,7 +568,8 @@ function create_chatRoom(map)
             if (!(e.clientX >= div.left && e.clientX <= div.right && div.top <= e.clientY && div.bottom >= e.clientY))
             {
                 check = true;
-                chat_container.removeChild(div_menu);
+                // chat_container.removeChild(div_menu);
+                div_menu.remove();
             }
         }
     })
@@ -563,7 +578,10 @@ function create_chatRoom(map)
             button_block.textContent = `${map_action[username2]} ${username2}`;
             button_info.textContent = `${username2}'s profile`;
             button_game.textContent = `play with ${username2}`;
-            // button_game.addEventListener('click',        );
+            button_game.addEventListener('click', ()=>{
+                cleaning_chat();
+                challenge_friend(username2);
+            });
             div_menu_child1.id = username2;
             chat_container.append(div_menu);
             check = false;
