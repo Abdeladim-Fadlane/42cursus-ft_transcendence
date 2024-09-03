@@ -559,11 +559,11 @@ function create_chatRoom(map)
         }
     })
     div_info.addEventListener('click', () =>{
-        
         if (check == true){
             button_block.textContent = `${map_action[username2]} ${username2}`;
             button_info.textContent = `${username2}'s profile`;
             button_game.textContent = `play with ${username2}`;
+            // button_game.addEventListener('click',        );
             div_menu_child1.id = username2;
             chat_container.append(div_menu);
             check = false;

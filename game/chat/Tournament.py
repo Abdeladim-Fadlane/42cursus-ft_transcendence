@@ -15,7 +15,7 @@ tournament_name = 'tournament_' + datetime.now().time().strftime("%H_%M_%S_%f")
 def serialize_Match(o):
     return{
         'type':'game.state',
-        'players':[{'login':p.user.username, 'icon':p.user.photo_profile, 'racket':p.racket.serialize_racket()} for p in o.players],
+        'players':[{'login':p.user.display_name, 'icon':p.user.photo_profile, 'racket':p.racket.serialize_racket()} for p in o.players],
         'ping':o.b.serialize_ball(),
         'team1_score':o.team1_score,
         'team2_score':o.team2_score,

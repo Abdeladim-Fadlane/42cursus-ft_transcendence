@@ -3,6 +3,8 @@ from datetime import datetime
 from . views import endpoint
 from channels.generic.websocket import AsyncWebsocketConsumer # type: ignore
 from asgiref.sync import sync_to_async
+from channels.layers import get_channel_layer # type: ignore
+
 # from auth_app.models import User
 import requests
 width = 600
@@ -205,8 +207,8 @@ async def save_Match(group_name, idx):
     requests.post(url=url, headers=headers, data=data)
     """ notify  loser and winner to update their history"""
     await notify(f"room_{idloser}", 'update_match_history')
-    # await notify(f'room_{idwinner}', 'update_match_history')
-    # await notify('broadcast', 'update_leaderboard')
+    await notify(f'room_{idwinner}', 'update_match_history')
+    await notify('broadcast', 'update_leaderboard')
     print("---------------save match------------- end")
     # if rooms[group_name].players[0].user.username in connects:
     #     await connects[rooms[group_name].players[0].user.username].send(json.dumps({'type':'update_match_history'}))
@@ -236,7 +238,8 @@ async def start_game(group_name):
                 await rooms[group_name].players[i].close()
         if not rooms[group_name].save:
             await save_Match(group_name, idx)
-        del rooms[group_name]
+        if group_name in rooms:
+            del rooms[group_name]
 
 def serialize_Match(o):
     return{

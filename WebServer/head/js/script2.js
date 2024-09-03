@@ -161,6 +161,7 @@ window.onpopstate = function(event) {
 
 function    disactiv_sectionss()
 {
+    document.getElementById('settings-modale').style.display = 'none';
     document.getElementById('local_tournamet_input_id').style.display = 'none';
     document.getElementById('local_game_input_id').style.display = 'none';
     document.getElementById('local_or_remote').style.display = 'none';
@@ -476,7 +477,6 @@ function click_chat(pushState = true) {
 
   if (setting_aside) {
     setting_aside.style.cssText = 'font-size: 36px; color: #ffffffbc; ';
-
   }
 
   if (logout_aside) {
@@ -569,7 +569,7 @@ function removeCSS(file) {
     }
 }
   function showSettingsModal(pushState = true) {
-    // disactiv_sections();
+    disactiv_sectionss();
     if (pushState) {
       window.history.pushState({page: 'setting'}, 'setting', '?page=setting');
     }
