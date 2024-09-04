@@ -75,7 +75,8 @@ function my_data()
         // console.log(data);
 
         const userData = JSON.parse(JSON.stringify(data));
-        if (userData.lose != 0  &&  userData.win != 0)
+        console.log(userData);
+        if (userData.lose != 0  ||  userData.win != 0)
         {
             draw_statistique(userData.lose, userData.win)
             // document.querySelector('.leadrboard_container').style.display = 'flex'
