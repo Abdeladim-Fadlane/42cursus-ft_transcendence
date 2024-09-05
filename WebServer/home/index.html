@@ -581,7 +581,7 @@
             <nav class="tournament_nav">
                 <a class="icons" onclick="tst('tournament_list')"><i id="tournament_nav_list_item_id" class="fa-solid fa-list-ul"></i></a>
                 <a class="icons" onclick="tst('play_tournament')"><i id="tournament_nav_making_item_id" class="fa-solid fa-ranking-star"></i></a>
-                <a id="move_to_next_match_id" class="icons" onclick="tst('tournament_next_match_id')"><i id="tournament_nav_NMatch_item_id" class="fa-solid fa-ranking-star"></i></a>
+                <a id="move_to_next_match_id" class="icons" onclick="tst('tournament_next_match_id')"><i id="tournament_nav_NMatch_item_id" class="fa-solid fa-gamepad"></i></a>
                 <a class="Give_Up_tournament" onclick="put_section('Give_Up_Tournament')"><i class="fa-solid fa-xmark"></i></a>
             </nav>
             <section class="tournament_section" id="tournament_list">
@@ -619,16 +619,13 @@
                         </div>
                     </div>
                     <div class="final_round">
-                        <div class="center_contents">
-                            <div class="king" >
-                                <div class="crown" id="crown"><i class="fa-solid fa-crown"></i></div>
-                                <div class="number-one" id="number-one"></div>
+                        <div style="display: block;">
+                            <div style="height: 100px; width: 100px; background-color: yellow;"></div>
+                            <div class="center_contents" style="background-color: blue;">
+                                <div id="20" class="player" style="height: 60px; width: 150px;"></div>
+                                <img src="/home/resrc/game/championcup.png" style="width: 100px; height: 100px;">
+                                <div id="21" class="player" style="height: 60px; width: 150px;"></div>
                             </div>
-                        </div>
-                        <div class="center_contents">
-                            <div id="20" class="player" style="height: 60px; width: 150px;"></div>
-                            <img src="/home/resrc/game/championcup.png" style="width: 100px; height: 100px;">
-                            <div id="21" class="player" style="height: 60px; width: 150px;"></div>
                         </div>
                     </div>
                     <div class="round">

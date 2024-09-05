@@ -6,10 +6,6 @@ function ParceDate(date){
     return `${_date} ${_time}`;
 }
 
-
-
-
-
 function send_request(room_name, user_sender, user_id)
 {
     fetch('/chatCsrftoken/')
@@ -30,7 +26,6 @@ function send_request(room_name, user_sender, user_id)
             return response.json();
         })
         .then(data=>{
-            // console.log(data)
             fetchConversation(user_id, user_sender);
             fetchAllMessage(user_id, user_sender);
         })
@@ -228,17 +223,15 @@ function create_chatRoom(map)
     user_status.classList.add('header-chat-status');
     
     buttons_friends.forEach(button => {
-        button.addEventListener('click', async (e) =>
+        button.addEventListener('click', (e) =>
         {
-            // console.log(chat_header)
             if (button == last_button)
                 return ;
+            console.log(button)
             document.querySelector('.empty-chat-body').style.display  = 'none'
             chat_header.append(user_status)
             user_status.textContent = '';
-            button.style.backgroundColor = '#764081';
-            button.style.border = '1px #c683d3 solid';
-            button.style.boxShadow = '6px 6px 15px #c683d3';
+            
             chat_input.value = '';
             chat_div.style.display = 'flex';
             div_chat_tools.style.display = 'flex';
@@ -348,6 +341,9 @@ function create_chatRoom(map)
             
              Web_socket.onopen = () =>{
                 send_request(room_name, username1, usernameid);
+                button.style.backgroundColor = '#764081';
+                button.style.border = '1px #c683d3 solid';
+                button.style.boxShadow = '6px 6px 15px #c683d3';
                 console.log(`WebSocket server is running on wss://${window.location.host}/${room_name}/`);
                 
                 url = `/Converstaion/${room_name}/`;

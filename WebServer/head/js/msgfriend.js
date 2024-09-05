@@ -79,8 +79,6 @@ export function fetchOnlineFriendInChat(){
     })
 }
 export function fetchAndUpdateFriends() {
-    let log = [];
-    // console.log(typeof(log))
     fetch('/api/friends/')
         .then(response => {
             if (!response.ok) {
@@ -95,19 +93,21 @@ export function fetchAndUpdateFriends() {
                 previousDataSize = data.length;
                 var reward = document.getElementById('list_friend_chat');
                 reward.innerHTML = ""; 
-
+                console.log(reward);
+                console.log(data);
                 if (data.length === 0) {
+                    console.log('is here when you find 0 friend');
                     let container = document.createElement('div');
                     container.classList.add('not-found');
                     let p = document.createElement('h2');
                     p.textContent = "No friend to chat";
                     container.appendChild(p);
                     reward.appendChild(container);
+                    cleaning_chat();
                     return;
                 }
-
                 for (let i = 0; i < data.length; i++) {
-                    if (chat_msg != undefined && chat_msg == data[i].username)
+                    if (chat_msg && chat_msg != undefined && chat_msg == data[i].username)
                         ishere = true;
                     let container = document.createElement('button');
                     let img = document.createElement('img');

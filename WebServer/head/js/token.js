@@ -31,7 +31,7 @@ const buttonInput = document.querySelector('#button_profile_click')
 imageSetting.addEventListener('click', ()=>{
     imageInput.click();
 })
-console.log(imageInput);
+// console.log(imageInput);
 imageInput.addEventListener('input', (e)=>{
     e.preventDefault();
     let type_file = e.target.files[0].type.startsWith('image/');
@@ -117,13 +117,6 @@ form2.addEventListener('submit', async (e)=>{
     })
     .then(response => response.json())
     .then(data =>{
-        // if (data.status === true) {
-        //     document.getElementById('settings-modale').style.display = 'none';
-        // } 
-        // else {
-        //     document.getElementById('messages1').innerHTML = data.message;
-        // }
-        // console.log(data)
         display_status(data.status, data.message);
     })
 })

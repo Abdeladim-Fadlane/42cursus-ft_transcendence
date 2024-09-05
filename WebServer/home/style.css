@@ -1513,6 +1513,7 @@ button {
 }
 
 .final_round{
+  background-color: white;
   height: 60px;
   display: flex;
   justify-content: space-evenly;
@@ -1925,13 +1926,13 @@ section.active {
   font-family: 'Games', sans-serif;;
   border-radius: 10px;
 }
+
 .Home_button{
   background-image: url("resrc/ice.webp");
   background-size: cover;
   background-position: center;
-
-
 }
+
 .Retry_button
 {
 
@@ -2182,9 +2183,9 @@ display: flex;
 justify-content: start;
 align-items: center;
 flex-direction: column;
-margin-top: 10px;
+/* margin-top: 10px; */
 width: 100%;
-height: 83%;
+height: 85%;
 overflow-y: auto;
 /* background-image: url("./resrc/leader.png");
 background-size: cover;
@@ -3049,7 +3050,7 @@ font-family: 'games' , sans-serif;
   top: 44%;
   right: 15%;
   display: none;
-  background-color: #130039;
+  /* background-color: #130039; */
 
 }
 
@@ -3452,16 +3453,18 @@ label{
 .count-noti
 {
   position: relative;
-  width: 50%;
+  width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: #d71f1f;
+  background-color: #764081;
   color: #bbb;
   display: none;
   justify-content: center;
   align-items: center;
   bottom: 52px;
   right: -11px;
+  font-family: sans-serif;
+  font-weight: bold;
 }
 .chat-aside-numberMessage{
   position: relative;
@@ -3501,13 +3504,15 @@ label{
   position: absolute;
   right: 20px;
   width: 30px;
+  max-width: 30px;
+  max-height: 30px;
   height: 30px;
   padding: 5px;
   border: 1px rgb(201, 120, 204) solid;
   border-radius: 50%;
   background-color: rgb(201, 120, 204);
   font-family: sans-serif;
-  font-weight: bold;
+  font-weight: 10px !important;
   /* text-align: center; */
   display: flex;
   justify-content: center;
@@ -4002,5 +4007,4 @@ h1, h2 {
 
 .setting-msg i{
   margin-right: 15px;
-  /* color: rgba(128, 0, 0, 0.219); */
 }

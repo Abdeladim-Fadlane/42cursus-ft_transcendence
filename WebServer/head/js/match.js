@@ -13,7 +13,7 @@ export function fetchHistory() {
         })
         
         .then(data => {
-            console.log(data);
+            // console.log(data);
             var historyContainer = document.getElementById('data_history');
             historyContainer.innerHTML = '';
             if (historyContainer) {

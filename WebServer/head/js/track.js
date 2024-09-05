@@ -84,8 +84,8 @@ fetch('/api/token/')
         socket.onmessage =  (event) => {
             
             const data = JSON.parse(event.data);
+            console.log(data);
             if (typeof(data) == 'object' && data.message.message === "friend send message"){
-                // console.log('====> socket track message')
                 fetchConversation(user_id.className, user_name.textContent)
                 fetchAllMessage(user_id.className, user_name.textContent);
             
@@ -150,6 +150,10 @@ fetch('/api/token/')
                 handlechalleng();
                 if (Profile_module.display == 'flex')
                     button_profile(ProfileUsername, ProfileUser_id);
+            }
+            else if (data.message == 'user_deleted')
+            {
+                fetchAndUpdateFriends();
             }
         }
 });

@@ -138,23 +138,10 @@ function border_home(pushState = true) {
     if (logout_aside) {
       logout_aside.style.cssText = 'font-size: 36px; color: #ffffffbc; ';
     }
-  
-        ///////////////////
-        document.getElementById('tournament-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-        document.getElementById('game-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-        ///////////////////
-  
-    // document.getElementById("home").style.display = "flex";
-    // document.getElementById("profile").style.display = "none";
-    // document.getElementById("chat").style.display = "none";
-    // document.getElementById("rank").style.display = "none";
-    // document.getElementById('rank-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
-    // document.getElementById('Home-aside').style.cssText = 'font-size: 40px; color: #ff44e4; ';
-    // document.getElementById('Pr-aside').style.cssText = 'font-size: 36px; color: #ffffffbc; ';
-    // document.getElementById('chat-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
-    // document.getElementById('notif-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
-    // document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
-    // document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ffffffbc; ';
+    ///////////////////
+    document.getElementById('tournament-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+    document.getElementById('game-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
+    ///////////////////
   }
 
 (async function createWebSocket() {
@@ -164,7 +151,7 @@ function border_home(pushState = true) {
         main_socket = new WebSocket(url);
 
         main_socket.onopen = function(event) {
-            console.log("main WebSocket connection established.");
+            // console.log("main WebSocket connection established.");
         };
 
         main_socket.onmessage = function(event) {
@@ -192,12 +179,12 @@ function border_home(pushState = true) {
         };
 
         main_socket.onerror = function(event) {
-            console.error("WebSocket error observed");
+            // console.error("WebSocket error observed");
             location.reload();
         };
 
         main_socket.onclose = function(event) {
-            console.log("WebSocket connection closed:", event);
+            // console.log("WebSocket connection closed:", event);
         };
     } catch (error) {
         console.error("Error creating WebSocket:", error);
@@ -271,9 +258,9 @@ function    local_or_remote_game(type)
     }
     else
     {
-        document.getElementById('local_button_id').addEventListener('click', (e)=>{flex_section('local_tournamet_input_id')});
+        // document.getElementById('local_button_id').addEventListener('click', (e)=>{flex_section('local_tournamet_input_id')});
         //////////////////////
-        // document.getElementById('local_button_id').addEventListener('click', ()=>{close_AI();run_local_tournament()});
+        document.getElementById('local_button_id').addEventListener('click', ()=>{close_AI();run_local_tournament()});
         document.getElementById('remote_button_id').addEventListener('click', ()=> {close_AI();navigate('tournament_input')});
     }
     flex_section('local_or_remote');
@@ -336,8 +323,8 @@ function showResult(result)
     active_flexsection('resultModal');
     if (tournament_starting)
         setTimeout(() => {tournament_asid();}, 2500);
-    else
-        setTimeout(() => {border_home();}, 2500);
+    // else
+    //     setTimeout(() => {border_home();}, 2500);
 }
 
 function Continue_game(action)
@@ -449,7 +436,7 @@ async function run(section_id, socket_url, canvas_id, type)
         game_socket = new WebSocket(URL);
 
         game_socket.onopen = function(event) {
-            console.log("game WebSocket connection established.");
+            // console.log("game WebSocket connection established.");
         };
 
         game_socket.onmessage = function (e)
@@ -593,12 +580,14 @@ function new_tournament()
 function navigate(section_id) {
     if (section_id == 'play')
     {
+        document.getElementById('waiting_id').innerHTML = '';
         game_asid();
         document.getElementById("tournament_aside_id").style.display = 'none';
         run('play', '/wss/game/', '2-canvas-id', {'type':'random', 'vs':'undefined'});
     }
     else if (section_id == 'play_tournament')
     {
+        document.getElementById('waiting_id').innerHTML = '';
         tournament_starting = true;
         document.getElementById("tournament_aside_id").style.display = 'block';
         tournament_asid();
@@ -1017,13 +1006,13 @@ function    close_AI()
     if (tournament_starting)
         close_tournament();
     if (game_starting)
-        close_game();
+        close_game(false);
     if (local_tournament_starting)
         close_local_tournament();
     if (local_game_starting)
-        close_local_game();
+        close_local_game(false);
     if (four_game_starting)
-        close_game();
+        close_game(false);
 }
 
 function show_local_game_Result(idx){
@@ -1317,8 +1306,8 @@ function    run_local_tournament()
 
         var span = document.createElement("span");
         span.className = "student-name";
-        display_name = document.getElementById("local_tournament_player" + (i + 1).toString() + "_display_name_id").value;
-        // display_name = 'd_name_' + (i + 1).toString();
+        // display_name = document.getElementById("local_tournament_player" + (i + 1).toString() + "_display_name_id").value;
+        display_name = 'd_name_' + (i + 1).toString();
         if (display_name.length == 0)
         {
             document.getElementById("local_tournament_display_names_msg_id").innerHTML = "display name must not be empty";

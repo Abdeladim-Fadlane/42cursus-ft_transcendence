@@ -8,7 +8,7 @@ fetchSuggestions();
 
 
 export function fetchSuggestions() {
-    console.log('invite.js loaded');
+    // console.log('invite.js loaded');
     fetch('/api/suggest/')
         .then(response => {
             if (!response.ok) {
@@ -22,10 +22,10 @@ export function fetchSuggestions() {
             // if (data.length !== currentData) {
             //     currentData = data.length;
                 // handlenotif();
-                if (data.length === 0)
-                    console.log('No friend suggestions');
-                else
-                console.log('friend suggestions');
+                // if (data.length === 0)
+                //     console.log('No friend suggestions');
+                // else
+                // console.log('friend suggestions');
                 updateSuggestions(data);
             // }
         })

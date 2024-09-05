@@ -14,10 +14,7 @@ let message = document.querySelector('.profile-user-action-message');
 function to_chat(e)
 {
     let username = e.target.id;
-    // console.log('**********---->' + e.target.id)
-    // console.log('**************************')
-    // console.log(text);
-    // console.log('**************************')
+    
     let close_btn = document.querySelector('.close_profile');
     close_btn.click()
     let chat_aside = document.querySelector('.chat-aside');
@@ -34,24 +31,6 @@ function CreateDiv(element_name, class_name)
     return element;
 }
 
-
-
-function Animation_elemeny(element, w, h)
-{
-
-    let text = element.textContent;
-    element.textContent = '';
-
-    let parent = CreateDiv('div', 'animation')
-    parent.style.width = `${w}px`
-    parent.style.height=  `${h}px`
-    parent.append(
-        CreateDiv('div', 'one'),
-        CreateDiv('div', 'two'),
-        CreateDiv('div', 'three')
-    )
-    element.append(parent);
-}
 
 
 function func_add_friend(e)

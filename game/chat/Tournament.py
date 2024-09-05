@@ -94,7 +94,7 @@ async def run_game(match):
             )
             match.players[0].avaible = False
             await match.players[0].close()
-            
+            # save_Match(group_name, idx)
             return match.players[1]
     if match.players[0].avaible:
         await match.players[0].send(json.dumps({'type':'game.end', 'result':'Winner'}))
@@ -106,6 +106,7 @@ async def run_game(match):
 x = 1
 class   Tournament(AsyncWebsocketConsumer):
     async def connect(self):
+        global x
         global tournament_name
         await self.accept()
         self.group_name = "None"
@@ -113,20 +114,20 @@ class   Tournament(AsyncWebsocketConsumer):
         query_parameters = self.scope['query_string'].decode().split('&')
         token = query_parameters[0].split('=')[1]
         id = query_parameters[1].split('=')[1]
-        game_typ = query_parameters[2].split('=')[1]
+        # game_type = query_parameters[2].split('=')[1]
         data = endpoint(token, id)
         self.user = User(data)
         self.tournament_name = tournament_name
         await self.channel_layer.group_add(self.tournament_name, self.channel_name)
         ########################
         # if self.user.username in waiting:
-        #     await waiting[self.user.username].send(json.dumps({'type':'discard', 'game_type':'four_players_game'}))
+        #     await waiting[self.user.username].send(json.dumps({'type':'discard', 'game_type':'Tournament_game'}))
         #     await waiting[self.user.username].close()
         # waiting[self.user.username] = self
         ########################
         #***********************#
         global x
-        # self.user.x = x
+        self.user.x = x
         waiting[str(x)] = self
         self.x = str(x)
         x += 1
