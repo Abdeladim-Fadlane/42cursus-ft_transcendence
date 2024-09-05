@@ -1,10 +1,8 @@
-import asyncio, json, math, random
+import asyncio, json, random
 from datetime import datetime
-from chat.cons import Match, User, send_to_group, racket, height, hh, width, ww, score_to_win, serialize_Users
+from chat.cons import Match, User, send_to_group, racket, height, hh, width, ww, score_to_win, save_Match
 from channels.generic.websocket import AsyncWebsocketConsumer
-from asgiref.sync import sync_to_async
 from . views import endpoint
-import os
 N = 8
 waiting = {}
 tournaments = {}
@@ -81,6 +79,7 @@ async def run_game(match):
             )
             match.players[1].avaible = False
             await match.players[1].close()
+            # save_Match(group_name, idx)
             return match.players[0]
         elif (match.team1_score == score_to_win):
             await match.players[1].send(json.dumps({'type':'game.end', 'result':'Winner'}))
@@ -95,6 +94,7 @@ async def run_game(match):
             )
             match.players[0].avaible = False
             await match.players[0].close()
+            
             return match.players[1]
     if match.players[0].avaible:
         await match.players[0].send(json.dumps({'type':'game.end', 'result':'Winner'}))
@@ -120,9 +120,9 @@ class   Tournament(AsyncWebsocketConsumer):
         await self.channel_layer.group_add(self.tournament_name, self.channel_name)
         ########################
         # if self.user.username in waiting:
-        #     waiting[self.user.username].send("you are already in another connection biiiiiitch")
-        #     self.close()
-        # waiting[self.user.login] = self
+        #     await waiting[self.user.username].send(json.dumps({'type':'discard', 'game_type':'four_players_game'}))
+        #     await waiting[self.user.username].close()
+        # waiting[self.user.username] = self
         ########################
         #***********************#
         global x
@@ -137,7 +137,7 @@ class   Tournament(AsyncWebsocketConsumer):
             'data':json.dumps({'type':'tournament.list', 'players':[{'login':u.user.display_name, 'icon':u.user.photo_profile} for u in waiting.values()]})
         })
         if len(waiting) == N:
-            # x = 1
+            x = 1
             asyncio.create_task(full_tournament(list(waiting.values()), tournament_name))
             tournament_name = 'tournament_' + datetime.now().time().strftime("%H_%M_%S_%f")
             waiting.clear()

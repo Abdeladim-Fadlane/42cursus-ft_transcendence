@@ -14,8 +14,6 @@ ww = 5
 racket_speed = 1
 score_to_win = 3
 
-import os
-
 class racket:
     def __init__(self, x, y, min, max):
         self.x = x

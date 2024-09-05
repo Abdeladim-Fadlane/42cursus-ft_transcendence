@@ -381,6 +381,7 @@ function    clean_rounds()
 var round = 0;
 function    tournament_info(players, section_id)
 {
+    document.getElementById('waiting_id').innerHTML = '';
     active_section(section_id);
     for (let i = 0; i < players.length; i++)
     {
@@ -388,7 +389,7 @@ function    tournament_info(players, section_id)
         var icon = document.createElement("img");
         icon.className = "Match_icon";
         icon.id = players[i].username;
-        icon.addEventListener('click', view_profile);
+        // icon.addEventListener('click', view_profile);
 
         icon.src = '/' + players[i].icon;
 
@@ -407,6 +408,9 @@ function    tournament_list(data)
     document.getElementById('tournament_input').style.display = 'none';
     parent = document.getElementById('tournament_content');
     parent.innerHTML = '';
+    if (8 - data.players.length == 1)
+        document.getElementById('tournament_wait_id').innerHTML = 'waiting for one other...';
+    else
     document.getElementById('tournament_wait_id').innerHTML = 'waiting for ' + (8 - data.players.length).toString() + ' others...';
     data.players.forEach((element) =>{
         var div = document.createElement("div");
@@ -415,7 +419,7 @@ function    tournament_list(data)
         var img = document.createElement("img");
         img.className = "student-icon"
         img.id = element.username;
-        img.addEventListener('click', view_profile);
+        // img.addEventListener('click', view_profile);
         img.src = '/' + element.icon;
 
         var span = document.createElement("span");
@@ -452,7 +456,12 @@ async function run(section_id, socket_url, canvas_id, type)
         {
             var data = JSON.parse(e.data)
             if (data.type == 'game_wait')
-                document.getElementById('waiting_id').innerHTML = 'waiting for '+ data.waiting + ' others ...';
+            {
+                if (data.waiting == 1)
+                    document.getElementById('waiting_id').innerHTML = 'waiting for one other ...';
+                else
+                    document.getElementById('waiting_id').innerHTML = 'waiting for '+ data.waiting + ' others ...';
+            }
             else if (data.type == 'discard')
             {
                 border_home();
@@ -536,6 +545,7 @@ async function run(section_id, socket_url, canvas_id, type)
 function    close_game(return_to_home = true)
 {
     document.getElementById("game_aside_id").style.display = 'none';
+    document.getElementById('waiting_id').innerHTML = '';
     if (return_to_home)
         border_home();
     if (local_game_starting)
@@ -1014,7 +1024,6 @@ function    close_AI()
         close_local_game();
     if (four_game_starting)
         close_game();
-    document.getElementById('waiting_id').innerHTML = '';
 }
 
 function show_local_game_Result(idx){
