@@ -323,8 +323,8 @@ function showResult(result)
     active_flexsection('resultModal');
     if (tournament_starting)
         setTimeout(() => {tournament_asid();}, 2500);
-    // else
-    //     setTimeout(() => {border_home();}, 2500);
+    else
+        setTimeout(() => {border_home();}, 2500);
 }
 
 function Continue_game(action)

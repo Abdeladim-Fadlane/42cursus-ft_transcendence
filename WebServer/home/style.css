@@ -3728,13 +3728,13 @@ label{
   position: relative
  
 }
-.crown i
+.crown img
 {
   position: absolute;
-  top: -46px;
-  left: -62px;
-  width: 100px;
-  height: 100px;
+  top: -19px;
+  left: -70px;
+  width: 60px;
+  height: 34px;
   color: #ebbf5c;
   rotate: -44deg;
   z-index: 1;

@@ -75,8 +75,7 @@ function handleRequestAction(senderUsername) {
         if (data.length === 0) {
             let container = document.createElement('div');
             container.classList.add('not-found');
-            // let im = document.createElement('img');
-            // im.src = "./resrc/no_fr.png";
+
             let p = document.createElement('h2');
             p.textContent = "you don't have any friend";
             // container.appendChild(im);
