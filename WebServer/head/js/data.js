@@ -40,24 +40,24 @@ function draw_statistique(lose , win)
     });
     div_win.style.background = `conic-gradient(#5cb85c ${value_win * 360 / totale}deg, #D8636F 0deg)`
     div_lose.style.background = `conic-gradient(#D8636F ${value_lose * 360 / totale}deg, #5cb85c 0deg)`
-    let interval = setInterval(()=>{
-        if (i < _win)
-        {
-            i++;
-            if (i > _win)
-                i = _win.toFixed(2);
-            text_win.textContent = `${i}%`
-        }
-        if (j < _lose)
-        {
-            j++;
-            if (j > _lose)
-                j = _lose.toFixed(2);
-            text_lose.textContent = `${j}%`
-        }
-        if (Number(i) + Number(j) == 100)
-            clearInterval(interval);
-    },  80)
+    // let interval = setInterval(()=>{
+    //     if (i < _win)
+    //     {
+    //         i++;
+    //         if (i > _win)
+    //             i = _win.toFixed(2);
+    //         text_win.textContent = `${i}%`
+    //     }
+    //     if (j < _lose)
+    //     {
+    //         j++;
+    //         if (j > _lose)
+    //             j = _lose.toFixed(2);
+    //         text_lose.textContent = `${j}%`
+    //     }
+    //     if (Number(i) + Number(j) == 100)
+    //         clearInterval(interval);
+    // },  80)
     circle.style.display = 'flex';
 }
 
@@ -75,7 +75,7 @@ function my_data()
         // console.log(data);
 
         const userData = JSON.parse(JSON.stringify(data));
-        console.log(userData);
+        // console.log(userData);
         if (userData.lose != 0  ||  userData.win != 0)
         {
             draw_statistique(userData.lose, userData.win)

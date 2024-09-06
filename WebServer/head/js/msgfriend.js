@@ -40,13 +40,10 @@ if (buttons) {
         });
     } 
 } 
-
-
 fetchAndUpdateFriends();
 let userFind = document.querySelector('.image-chat')
 let name = document.querySelector('#chat-friend-name')
 export function fetchOnlineFriendInChat(){
-    // console.log('fetch online is donee')
     fetch('/api/online/')
     .then(response=>{
         return response.json()
@@ -56,22 +53,14 @@ export function fetchOnlineFriendInChat(){
         friends.forEach(element=>{
             if (data.find(d => d.username == element.querySelector('.chat-friend-username').textContent) == undefined)
             {
-                // console.log(userFind.innerHTML);
                 if (userFind.innerHTML.length != 0 && element.querySelector('.chat-friend-username').textContent == name.textContent)
-                {
-                    console.log(name.textContent +  'is offline');
                     document.querySelector('.header-chat-status').textContent = 'offline';
-                }
                 element.querySelector('.chat-friend-status').style.backgroundColor = 'red'
             }
             else
             {
                 if (userFind.innerHTML.length != 0 && element.querySelector('.chat-friend-username').textContent == name.textContent)
-                {
-                    console.log(name.textContent + ' is online');
                     document.querySelector('.header-chat-status').textContent = 'online';
-
-                }
                 element.querySelector('.chat-friend-status').style.backgroundColor = 'green'
             }
         })
@@ -79,6 +68,7 @@ export function fetchOnlineFriendInChat(){
     })
 }
 export function fetchAndUpdateFriends() {
+    console.log('is here Frined list')
     fetch('/api/friends/')
         .then(response => {
             if (!response.ok) {
@@ -93,8 +83,6 @@ export function fetchAndUpdateFriends() {
                 previousDataSize = data.length;
                 var reward = document.getElementById('list_friend_chat');
                 reward.innerHTML = ""; 
-                console.log(reward);
-                console.log(data);
                 if (data.length === 0) {
                     console.log('is here when you find 0 friend');
                     let container = document.createElement('div');
@@ -142,7 +130,7 @@ export function fetchAndUpdateFriends() {
                     map.set(data[i].username, "block");
                     
                 }
-                console.log('is here afadalane')
+                // console.log('is here afadalane')
                 if (!ishere)
                     cleaning_chat();
                 create_chatRoom(map);
@@ -151,4 +139,5 @@ export function fetchAndUpdateFriends() {
         .catch(error => {
             console.error('Error fetching friends:', error);
         });
+        console.log('doooone');
 }

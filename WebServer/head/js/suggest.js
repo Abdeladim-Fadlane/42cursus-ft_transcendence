@@ -23,10 +23,8 @@ export function fetchdelette() {
             return response.json();
         })
         .then(data => {
-            // if (data.length !== current) {
-            //     current = data.length;
                 handleRequestsuggestion();
-                fetchAndUpdateFriends();
+                // fetchAndUpdateFriends();
             // }
         })
         .catch(error => {

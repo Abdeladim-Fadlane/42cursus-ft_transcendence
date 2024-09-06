@@ -130,24 +130,13 @@ function drawCircle(lose, win)
     });
     div_win.style.background = `conic-gradient(#5cb85c ${value_win * 360 / totale}deg, #D8636F 0deg)`
     div_lose.style.background = `conic-gradient(#D8636F ${value_lose * 360 / totale}deg, #5cb85c 0deg)`
-    interval = setInterval(()=>{
-        if (i < _win)
-        {
-            i++;
-            if (i > _win)
-                i = _win.toFixed(2);
-            text_win.textContent = `${i}%`
-        }
-        if (j < _lose)
-        {
-            j++;
-            if (j > _lose)
-                j = _lose.toFixed(2);
-            text_lose.textContent = `${j}%`
-        }
-        if (Number(i) + Number(j) == 100)
-            clearInterval(interval);
-    },  80)
+    
+    if (Number.isInteger(_win) == false)
+        _win = _win.toFixed(2);
+    if (Number.isInteger(_lose) == false)
+        _lose = _lose.toFixed(2);
+    text_win.textContent = `${_win}%`
+    text_lose.textContent = `${_lose}%`
     circle.style.display = 'flex';
 }
 let closeInter;

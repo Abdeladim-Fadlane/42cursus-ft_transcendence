@@ -69,7 +69,7 @@ fetch('/api/token/')
     .then(response => response.json())
     .then(data => {
        let token = data.token;
-        let id = data.id;
+        let id = data.id;1
         const socket = new WebSocket(`wss://${window.location.host}/wss/track/?token=${token}&id=${id}`);
         socket.onopen = () => {
             console.log('WebSocket connected');
@@ -84,7 +84,7 @@ fetch('/api/token/')
         socket.onmessage =  (event) => {
             
             const data = JSON.parse(event.data);
-            console.log(data);
+            console.log(data.message);
             if (typeof(data) == 'object' && data.message.message === "friend send message"){
                 fetchConversation(user_id.className, user_name.textContent)
                 fetchAllMessage(user_id.className, user_name.textContent);
@@ -132,7 +132,7 @@ fetch('/api/token/')
                 fetchHistory();
                 fetchdelette();
                 fetchAndUpdateFriends();
-                // data();
+           
                 
             }
             else if (data.message === 'update_leaderboard') {

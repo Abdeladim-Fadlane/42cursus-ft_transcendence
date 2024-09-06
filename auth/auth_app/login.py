@@ -178,3 +178,5 @@ def set_display_name(request):
 def csrf_token(request):
     token = get_token(request)
     return JsonResponse({'csrfToken': token}, status=200)
+
+
