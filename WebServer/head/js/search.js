@@ -48,11 +48,13 @@ search.addEventListener('focus', function(e) {
 });
 search.addEventListener('keyup', ()=>{
     
-    let d
+    // let d
+    
     if (hasNonPrintableChars(search.value) == false)
     {
         // clearInterval(interval_serch);
-        console.log('akakakakkakka')
+        // console.log('akakakakkakka')
+
         fetch('/api/users/')
         .then(response => {
             if (!response.ok) {

@@ -36,7 +36,7 @@ function loadheadContent() {
 
 function removeEliments()
 {
-  removeCSS('../home/style.css');
+  removeCSS('./page-home/style.css');
   // removeCSS('./landing/index.css');
   removeJS('./js/script2.js');
   removeJS('./js/invite.js');

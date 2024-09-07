@@ -6,6 +6,7 @@ import { handlechalleng } from './challenge.js';
 import { leaderboard_requests } from './leader.js';
 import { fetchAndUpdateFriends , fetchOnlineFriendInChat} from './msgfriend.js';
 import { fetchConversation, fetchAllMessage} from './chatScript.js';
+import { my_data } from './data.js';
 
 
 import { ProfileUsername , ProfileUser_id, button_profile, ProfileStutus} from './userInformation.js';
@@ -118,7 +119,7 @@ fetch('/api/token/')
                     button_profile(ProfileUsername, ProfileUser_id);
             }
             else if (data.message === 'friend is online' || data.message === 'friend is offline') {
-                console.log('online friends====>' );
+                // console.log('online friends====>' );
                 fetchOnlineFriendInChat();
                 handlechalleng();
                 if (Profile_module.display == 'flex')
@@ -141,6 +142,7 @@ fetch('/api/token/')
             }
             else if (data.message === 'update_match_history') {
                 fetchHistory();
+                my_data();
             }
             else if (data.message === 'friend_delete') {
                 fetchConversation(user_id.className, user_name.textContent)

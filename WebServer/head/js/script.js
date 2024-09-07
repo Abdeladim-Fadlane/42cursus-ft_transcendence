@@ -12,7 +12,7 @@ function loadheadContent() {
         })
         .then(() => {
             loadCSS('./landing/index.css');
-            removeCSS('../home/style.css');
+            removeCSS('./page-home/style.css');
         })
         .then(() => {
             const script3 = loadScript('./js/script3.js');
@@ -27,14 +27,14 @@ function loadHomeContent() {
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('head-page').style.display = 'none';
     document.getElementById('head-page').innerHTML = '';
-    fetch("../home/index.html")
+    fetch("./page-home/index.html")
         .then(response => response.text())
         .then(html => {
             // Insert the loaded content into the home container
             document.getElementById("home-page").innerHTML = html;
         })
         .then(() => {
-            loadCSS('../home/style.css');
+            loadCSS('./page-home/style.css');
                 removeCSS('../landing/index.css');
                 
         })

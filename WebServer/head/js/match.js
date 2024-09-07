@@ -1,4 +1,4 @@
-
+import { my_data } from './data.js';
 
 fetchHistory();
 
@@ -79,6 +79,8 @@ export function fetchHistory() {
                     container.appendChild(date);
                     historyContainer.appendChild(container);
                 });
+                my_data();
+
             } else {
                 console.error('Element with ID "data_history" not found.');
             }

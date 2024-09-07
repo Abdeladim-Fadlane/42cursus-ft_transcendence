@@ -176,6 +176,7 @@ function border_home(pushState = true) {
                 leaderboard_requests();
             else if (data.type === 'update_match_history')
                 fetchHistory();
+                // my_data();
         };
 
         main_socket.onerror = function(event) {
@@ -309,13 +310,13 @@ function showResult(result)
     {
         message.textContent = 'Congration You Won!';
         message.style.color = 'goldenrod';
-        document.getElementById('result-gif').src = '/home/resrc/game/win.gif';
+        document.getElementById('result-gif').src = '/page-home/resrc/game/win.gif';
     }
     else if (result == 'Loser')
     {
         message.textContent = 'Sorry You Lost!';
         message.style.color = 'red';
-        document.getElementById('result-gif').src = "/home/resrc/game/lost.png";
+        document.getElementById('result-gif').src = "/page-home/resrc/game/lost.png";
         if (game_socket && game_socket.readyState)
             game_socket.close(1000, 'Normal Closure');
     }
@@ -1150,9 +1151,9 @@ function    run_local_game() {
     else
     {
         document.getElementById("2-canvas-display_name-id-0").innerHTML = player1_display_name;
-        document.getElementById("2-canvas-icon-id-0").src = '/home/resrc/game/ice.png';
+        document.getElementById("2-canvas-icon-id-0").src = '/page-home/resrc/game/ice.png';
         document.getElementById("2-canvas-display_name-id-1").innerHTML = player2_display_name;
-        document.getElementById("2-canvas-icon-id-1").src = '/home/resrc/game/fire.png';
+        document.getElementById("2-canvas-icon-id-1").src = '/page-home/resrc/game/fire.png';
         ////////////////
         elem = document.getElementById('2-canvas-id');
         document.getElementById("local_game_input_id").style.display = 'none';
@@ -1161,8 +1162,8 @@ function    run_local_game() {
         height = elem.height
         ////////////////
         match = new Match();
-        match.set_player(new player(player1_display_name, '/home/resrc/game/ice.png', 0, (height - hh) / 2, 0, height), 0);
-        match.set_player(new player(player2_display_name, '/home/resrc/game/fire.png', width - ww, (height - hh) / 2, 0, height), 1);
+        match.set_player(new player(player1_display_name, '/page-home/resrc/game/ice.png', 0, (height - hh) / 2, 0, height), 0);
+        match.set_player(new player(player2_display_name, '/page-home/resrc/game/fire.png', width - ww, (height - hh) / 2, 0, height), 1);
         start_local_game();
     }
 }
@@ -1302,7 +1303,7 @@ function    run_local_tournament()
 
         var img = document.createElement("img");
         img.className = "student-icon"
-        img.src = '/home/resrc/game/minion' + (i + 1).toString() + '.png';
+        img.src = '/page-home/resrc/game/minion' + (i + 1).toString() + '.png';
 
         var span = document.createElement("span");
         span.className = "student-name";
@@ -1328,7 +1329,7 @@ function    run_local_tournament()
         div.appendChild(img);
         div.appendChild(span);
         parent.appendChild(div);
-        TOURNAMENT_LIST[i] = {'icon':'home/resrc/game/minion' + (i + 1).toString() + '.png', 'display_name':display_name};
+        TOURNAMENT_LIST[i] = {'icon':'./page-home/resrc/game/minion' + (i + 1).toString() + '.png', 'display_name':display_name};
     }
     if (valid)
     {
