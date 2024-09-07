@@ -393,7 +393,6 @@ function    tournament_info(players, section_id)
 
 function    tournament_list(data)
 {
-    clean_rounds();
     document.getElementById('tournament_input').style.display = 'none';
     parent = document.getElementById('tournament_content');
     parent.innerHTML = '';
@@ -856,7 +855,7 @@ class ball
         this.x = x;
         this.y = y;
         this.r = 10;
-        this.angl = 0;
+        this.angl = 25;
         this.speed = 2;
         this.vx = Math.cos(this.angl * Math.PI / 180) * this.speed;
         this.vy = Math.sin(this.angl * Math.PI / 180) * this.speed;
@@ -897,7 +896,7 @@ class   Match
 {
     constructor()
     {
-        this.starting = false;
+        this.movement = false;
         this.players = [2 * null];
         this.b = new ball(width / 2, height / 2);
         this.team1_score = 0;
@@ -916,63 +915,69 @@ class   Match
             this.team1_score += 1;
             this.b.x = width / 2;
             this.b.y = height / 2;
-            // setTimeout(() => {
-            //     console.log('End after 2 seconds');
-            //   }, 1000);
-            //sleep 1 s;
+            this.b.angl += 6;
+            this.movement = false;
+            setTimeout(() => {
+                this.movement = true;
+            }, 2000);
         }
         if (this.b.x - this.b.r > width - ww)
         {
             this.team2_score += 1;
             this.b.x = width / 2;
             this.b.y = height / 2;
-            // setTimeout(() => {
-            //     console.log('End after 2 seconds');
-            //   }, 1000);
+            this.b.angl += 6;
+            this.movement = false;
+            setTimeout(() => {
+                this.movement = true;
+              }, 2000);
         }
-        if (this.b.vx > 0)
+        if (this.movement)
         {
-            if ((this.b.x + this.b.r) + this.b.vx < (width - ww))
-                this.b.x += this.b.vx;
-            else
+            if (this.b.vx > 0)
             {
-                if ((this.b.y) < this.players[1].racket.y  || this.b.y >this.players[1].racket.y + hh)
+                if ((this.b.x + this.b.r) + this.b.vx < (width - ww))
                     this.b.x += this.b.vx;
                 else
                 {
-                    this.b.x += (width - ww) - (this.b.x + this.b.r);
+                    if ((this.b.y) < this.players[1].racket.y  || this.b.y >this.players[1].racket.y + hh)
+                        this.b.x += this.b.vx;
+                    else
+                    {
+                        this.b.x += (width - ww) - (this.b.x + this.b.r);
+                        this.b.vx = -this.b.vx;
+                    }
+                }
+            }
+            else
+            {
+                if (this.b.y < this.players[0].racket.y  || this.b.y >this.players[0].racket.y + hh  || (this.b.x - this.b.r) + this.b.vx > ww)
+                    this.b.x += this.b.vx;
+                else
+                {
+                    this.b.x = ww + this.b.r;
                     this.b.vx = -this.b.vx;
                 }
             }
-        }
-        else
-        {
-            if (this.b.y < this.players[0].racket.y  || this.b.y >this.players[0].racket.y + hh  || (this.b.x - this.b.r) + this.b.vx > ww)
-                this.b.x += this.b.vx;
-            else
+            if (this.b.vy > 0)
             {
-                this.b.x = ww + this.b.r;
-                this.b.vx = -this.b.vx;
+                if (this.b.y + this.b.r + this.b.vy < (height - 0))
+                    this.b.y += this.b.vy;
+                else
+                {
+                    this.b.y = (height - 0) - this.b.r;
+                    this.b.vy = -this.b.vy;
+                }
             }
-        }
-        if (this.b.vy > 0)
-        {
-            if (this.b.y + this.b.r + this.b.vy < (height - 0))
-                this.b.y += this.b.vy;
             else
             {
-                this.b.y = (height - 0) - this.b.r;
-                this.b.vy = -this.b.vy;
-            }
-        }
-        else
-        {
-            if ((this.b.y - this.b.r) + this.b.vy > 0)
-                this.b.y += this.b.vy;
-            else
-            {
-                this.b.y = this.b.r + 0;
-                this.b.vy = -this.b.vy;
+                if ((this.b.y - this.b.r) + this.b.vy > 0)
+                    this.b.y += this.b.vy;
+                else
+                {
+                    this.b.y = this.b.r + 0;
+                    this.b.vy = -this.b.vy;
+                }
             }
         }
         this.players.forEach(function(item) {
@@ -982,7 +987,6 @@ class   Match
 
     run_game()
     {
-        // if (match.starting)
         match.move();
         draw(serialize_Match(match));
         if (match.team1_score == score_to_win)
@@ -999,8 +1003,6 @@ function    close_local_game(return_to_home = true)
     if (local_game_starting)
     {
         ctx.clearRect(0, 0, width, height);
-        // if (match)
-        //     delete match;
         local_game_starting = false;
     }
     clearInterval(local_game_Interval);
@@ -1070,6 +1072,7 @@ function show_local_game_Result(idx){
                 ROUND++;
                 MATCH_INDEX = 0;
                 Matchs = fill_round(ROUND, TOURNAMENT_LIST, false);
+                TOURNAMENT_LIST = [];
             }
             fill_Match_fight(Matchs[MATCH_INDEX]);
             active_flexsection('localresultModal');
@@ -1079,6 +1082,10 @@ function show_local_game_Result(idx){
             document.getElementById("local_tournament_winner_dname_id").innerHTML = winner.display_name;
             document.getElementById("local_tournament_winner_icon_id").src = winner.icon;
             active_flexsection('localtournamentresultModal');
+            const crown_img = document.createElement('img');
+            crown_img.src = '/resrc/kings.png';
+            crown_img.className = 'crown_Tournament';
+            document.getElementById("2" + Math.abs(idx - 1).toString()).appendChild(crown_img);
         }
         setTimeout(() => {tournament_asid()}, 3000);
     }
@@ -1118,9 +1125,9 @@ function    move_down(event)
             match.players[1].racket.change_direction('Up');
         else if (event.key == "ArrowDown")
             match.players[1].racket.change_direction('Down');
-        else if (event.key == "w")
+        else if (event.key == "w" || event.key == "W")
             match.players[0].racket.change_direction('Up');
-        else if (event.key == "s")
+        else if (event.key == "s" || event.key == "S")
             match.players[0].racket.change_direction('Down');
     }
 }
@@ -1131,7 +1138,7 @@ function    move_up(event)
     {
         if (event.key == "ArrowUp" || event.key == "ArrowDown")
             match.players[1].racket.change_direction('Stop');
-        else if (event.key == "w" || event.key == "s")
+        else if (event.key == "w" || event.key == "W" || event.key == "s" || event.key == "S")
             match.players[0].racket.change_direction('Stop');
     }
 }
@@ -1139,10 +1146,10 @@ function    move_up(event)
 function    start_local_game()
 {
     ///////////////
-    document.getElementById("control_game_id").style.display = 'block';
     clearInterval(local_game_Interval);
     local_game_Interval_starting = false;
     local_game_starting = true;
+    document.getElementById("control_game_id").style.display = 'none';
     game_asid();
     var countdown = 3;
     const interval = setInterval(() => {
@@ -1154,8 +1161,10 @@ function    start_local_game()
     }, 1000);
     setTimeout(() => {
         local_game_Interval = setInterval(match.run_game);
+        document.getElementById("control_game_id").style.display = 'block';
         document.getElementById("start_pause_game_id").className = 'fa-solid fa-pause';
-        match.starting = true;
+        // match.starting = true;
+        match.movement = true;
         local_game_Interval_starting = true;
         document.removeEventListener("keydown", move_down);
         document.removeEventListener("keyup", move_up);
@@ -1334,7 +1343,7 @@ function    run_local_tournament()
         var span = document.createElement("span");
         span.className = "student-name";
         // display_name = document.getElementById("local_tournament_player" + (i + 1).toString() + "_display_name_id").value;
-        display_name = 'd_name_' + (i + 1).toString();
+        display_name = 'd_n_' + (i + 1).toString();
         if (display_name.length == 0)
         {
             document.getElementById("local_tournament_display_names_msg_id").innerHTML = "display name must not be empty";

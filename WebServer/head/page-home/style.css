@@ -1210,7 +1210,7 @@ a {
   
   border-radius: 15px;
   width: 700px;
-  height: 63%;
+  height: 61%;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -1548,6 +1548,7 @@ button {
   height: inherit;
   display: flex;
   align-items: center;
+  position: relative;
   justify-content: space-around;
 }
 
@@ -4049,4 +4050,12 @@ h1, h2 {
 .flex-direction-column
 {
   flex-direction: column;
+}
+.crown_Tournament{
+  width: 49px;
+  height: 30px;
+  position: absolute;
+  bottom: 44px;
+  left: -17px;
+  transform: rotateZ(-27deg);
 }

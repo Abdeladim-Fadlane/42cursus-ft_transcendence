@@ -123,7 +123,6 @@ initializePageState();
 
 
 window.onpopstate = function(event) {
-  
   if (event.state) {
     switch (event.state.page) {
       case 'home':
