@@ -176,7 +176,6 @@ function border_home(pushState = true) {
                 leaderboard_requests();
             else if (data.type === 'update_match_history')
                 fetchHistory();
-                // my_data();
         };
 
         main_socket.onerror = function(event) {
@@ -226,6 +225,7 @@ function disactiv_all_flexsection()
     document.getElementById("localtournamentresultModal").style.display = 'none';
     document.getElementById('localresultModal').style.display = 'none';
     document.getElementById('resultModal').style.display = 'none';
+    document.getElementById('win-tournament-id').style.display = 'none';
 }
 
 function    active_flexsection(section_id)
@@ -303,6 +303,7 @@ function    display_ping_pong(data)
 function showResult(result)
 {
     game_starting = false;
+    four_game_starting = false;
     document.getElementById("game_aside_id").style.display = 'none';
     const message = document.getElementById('resultMessage');
 
@@ -317,7 +318,7 @@ function showResult(result)
         message.textContent = 'Sorry You Lost!';
         message.style.color = 'red';
         document.getElementById('result-gif').src = "/page-home/resrc/game/lost.png";
-        if (game_socket && game_socket.readyState)
+        if (game_socket && game_socket.readyState && !tournament_starting)
             game_socket.close(1000, 'Normal Closure');
     }
     document.getElementById('waiting_id').innerHTML = '';
@@ -450,6 +451,18 @@ async function run(section_id, socket_url, canvas_id, type)
                 else
                     document.getElementById('waiting_id').innerHTML = 'waiting for '+ data.waiting + ' others ...';
             }
+            else if (data.type == 'tournament.countdown')
+            {
+                console.log("tournament.countdown");
+                var countdown = data.time;
+                const interval = setInterval(() => {
+                    document.getElementById('wait_for_matchs_time_id').innerHTML = countdown;
+                    if (countdown == 1)
+                        clearInterval(interval);
+                    countdown -= 1;
+                }, 1000);
+                document.getElementById('wait_for_matchs_id').style.display = 'flex';
+            }
             else if (data.type == 'discard')
             {
                 border_home();
@@ -473,13 +486,14 @@ async function run(section_id, socket_url, canvas_id, type)
             {
                 if (first_time)
                 {
+                    document.getElementById('wait_for_matchs_id').style.display = 'none';
                     ctx.clearRect(0, 0, width, height);
-                    console.log('data', data);
                     for (let i = 0; i < data.players.length; i++)
                     {
                         document.getElementById(data.players.length.toString() + "-canvas-display_name-id-" + i.toString()).innerHTML = data.players[i].login;
                         document.getElementById(data.players.length.toString() + "-canvas-icon-id-" + i.toString()).src = '/' + data.players[i].icon;
                     }
+                    document.getElementById("control_game_id").style.display = 'none';
                     first_time = false;
                     if (data.players.length == 2)
                         game_starting = true;
@@ -504,7 +518,8 @@ async function run(section_id, socket_url, canvas_id, type)
                         }
                     });
                 }
-                draw(data);
+                else
+                    draw(data);
             }
             else if (data.type == 'tournament.list')
                 tournament_list(data);
@@ -519,8 +534,8 @@ async function run(section_id, socket_url, canvas_id, type)
                 showResult(data.result);
             else if (data.type == 'tournament.end')
             {
-                document.getElementById("tournament_aside_id").style.display = 'block';
-                active_section('win-tournament-id');
+                active_flexsection('win-tournament-id');
+                setTimeout(() => {tournament_asid();}, 3000);
             }
         }
     }
@@ -544,6 +559,11 @@ function    close_game(return_to_home = true)
     if (game_starting)
     {
         game_starting = false;
+        game_socket.close(1000, 'Normal Closure');
+    }
+    if (four_game_starting)
+    {
+        four_game_starting = false;
         game_socket.close(1000, 'Normal Closure');
     }
 }
@@ -604,6 +624,7 @@ function navigate(section_id) {
     {
         document.getElementById('move_to_next_match_id').style.display = 'none';
         tournament_asid();
+        tst('tournament_list');
     }
     else
         active_section(section_id);
@@ -746,7 +767,7 @@ function tournament_asid(pushState = true) {
     else if (tournament_starting)
     {
         active_section('tournament_nav_id');
-        tst('tournament_list');
+        tst('play_tournament');
     }
     else
         document.getElementById('tournament_input').style.display = 'flex';
@@ -1002,18 +1023,22 @@ function    close_local_tournament()
     ROUND = 0;
 }
 
-function    close_AI()
+function    close_AI(border_home = false)
 {
+    document.getElementById('wait_for_matchs_id').style.display = 'none';
     if (tournament_starting)
         close_tournament();
     if (game_starting)
-        close_game(false);
+        close_game(border_home);
     if (local_tournament_starting)
         close_local_tournament();
     if (local_game_starting)
-        close_local_game(false);
+        close_local_game(border_home);
     if (four_game_starting)
-        close_game(false);
+    {
+        game_socket.close(1000, 'Normal Closure');
+        close_game(border_home);
+    }
 }
 
 function show_local_game_Result(idx){
@@ -1114,6 +1139,7 @@ function    move_up(event)
 function    start_local_game()
 {
     ///////////////
+    document.getElementById("control_game_id").style.display = 'block';
     clearInterval(local_game_Interval);
     local_game_Interval_starting = false;
     local_game_starting = true;
@@ -1329,7 +1355,7 @@ function    run_local_tournament()
         div.appendChild(img);
         div.appendChild(span);
         parent.appendChild(div);
-        TOURNAMENT_LIST[i] = {'icon':'./page-home/resrc/game/minion' + (i + 1).toString() + '.png', 'display_name':display_name};
+        TOURNAMENT_LIST[i] = {'icon':'page-home/resrc/game/minion' + (i + 1).toString() + '.png', 'display_name':display_name};
     }
     if (valid)
     {

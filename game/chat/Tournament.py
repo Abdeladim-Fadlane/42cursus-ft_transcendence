@@ -7,6 +7,7 @@ N = 8
 waiting = {}
 tournaments = {}
 tournament_name = 'tournament_' + datetime.now().time().strftime("%H_%M_%S_%f")
+TIME_TO_START_MATCHS = 30
 
 def serialize_Match(o):
     return{
@@ -18,7 +19,6 @@ def serialize_Match(o):
     }
 
 async def full_tournament(users, tournament_name):
-    # await asyncio.sleep(3)
     random.shuffle(users)
     tournaments[tournament_name] = {}
     while len(users) > 1:
@@ -43,10 +43,12 @@ async def full_tournament(users, tournament_name):
             'data':json.dumps({'type':'tournament.info', 'players':[{'login':u.user.display_name, 'icon':u.user.photo_profile} for u in users]})
         })
         users.clear()
-        await asyncio.sleep(3)
-        # for m in tournaments[tournament_name].values():
-        #     await send_to_group(m.players, {'data':json.dumps(m, default=serialize_Users)})
-        await asyncio.sleep(3)
+        await tournaments[tournament_name][group_name].players[0].channel_layer.group_send(tournament_name,
+        {
+            'type': 'send_data',
+            'data':json.dumps({'type':'tournament.countdown', 'time': TIME_TO_START_MATCHS})
+        })
+        await asyncio.sleep(TIME_TO_START_MATCHS)
         tasks = [asyncio.create_task(run_game(m)) for m in tournaments[tournament_name].values()]
         users = await asyncio.gather(*tasks)
         tasks.clear()
@@ -58,6 +60,14 @@ async def full_tournament(users, tournament_name):
     users.clear()
 
 async def run_game(match):
+    await match.players[0].channel_layer.group_send(match.players[0].group_name, #await
+    {
+        'type': 'send_data',
+        'data':json.dumps(match, default=serialize_Match)
+    })
+    for channel in match.players:
+        await channel.send(json.dumps({'type':'game.countdown', 'time':3}))
+    await asyncio.sleep(4)
     while match.players[0].avaible and match.players[1].avaible:
         match.move()
         await match.players[0].channel_layer.group_send(match.players[0].group_name, #await
@@ -77,8 +87,8 @@ async def run_game(match):
                 match.players[1].tournament_name,
                 match.players[1].channel_name
             )
-            match.players[1].avaible = False
-            await match.players[1].close()
+            # match.players[1].avaible = False
+            # await match.players[1].close()
             # save_Match(group_name, idx)
             return match.players[0]
         elif (match.team1_score == score_to_win):
@@ -92,8 +102,8 @@ async def run_game(match):
                 match.players[0].tournament_name,
                 match.players[0].channel_name
             )
-            match.players[0].avaible = False
-            await match.players[0].close()
+            # match.players[0].avaible = False
+            # await match.players[0].close()
             # save_Match(group_name, idx)
             return match.players[1]
     if match.players[0].avaible:

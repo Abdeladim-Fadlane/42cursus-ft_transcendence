@@ -418,8 +418,8 @@
             </div>
         </div>
         <section id="loading-section-id">
-            <div class="center_contents" style="flex-direction: column;">
-                <h1 id="waiting_id" style="color: #ff9800;"></h1>
+            <div class="center_contents flex-direction-column">
+                <h1 id="waiting_id" class="warn_color"></h1>
                 <div id="loading">
                     <div id="loader"></div>
                 </div>
@@ -431,7 +431,7 @@
                     <button id="toggle-btn">
                         <img id="screen_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAGpJREFUSEvtVUEKACAIa/9/tNEhsDCYRUZg59k2dYVy+eDy/SWWQERk5QjAIIbFbhU1EUcEs1p2Tp1U15sOkuBdi9hhenCxQfMoY7GxDqygsEp1ut9tUTqgHztrsH/8B56VZLGxQWNVeXAV8rVwGd7+Wh0AAAAASUVORK5CYII="/>
                     </button>
-                    <a class="icons"><i id="start_pause_game_id" class="fa-solid fa-pause" onclick="start_pause_game()"></i></a>
+                    <a id="control_game_id" class="icons"><i id="start_pause_game_id" class="fa-solid fa-pause" onclick="start_pause_game()"></i></a>
                     <span id="give_up_from_game_id" onclick="put_section('Give_Up_Game')" class="close_game">&times;</span>
                 </div>
                 <div id="ping-pong-2" class="ping-pong">
@@ -461,6 +461,12 @@
         <section id="discard_game_id">
             <div class="pp">
                 <h1>You are join to the same Game on another device<br>with the same account.<h/1>
+            </div>
+        </section>
+        <section id="wait_for_matchs_id">
+            <div class="pp">
+                <h1 class="warn_color">The Tournament Will Start at:</h1>
+                <h1 id="wait_for_matchs_time_id"></h1>
             </div>
         </section>
         <section id="play-4" >
@@ -508,7 +514,7 @@
                 <input id="local_tournament_player6_display_name_id" class="inputt" type="text" placeholder="player6 display name" required>
                 <input id="local_tournament_player7_display_name_id" class="inputt" type="text" placeholder="player7 display name" required>
                 <input id="local_tournament_player8_display_name_id" class="inputt" type="text" placeholder="player8 display name" required>
-                <h3 id="local_tournament_display_names_msg_id" style="display: flex; text-align: center; margin-bottom: 10px; color: red;"></h3>
+                <h3 id="local_tournament_display_names_msg_id" class="IOXI"></h3>
                 <button class="buttonn" onclick="run_local_tournament()">Start</button>
             </div>
         </section>
@@ -517,8 +523,8 @@
                 <span>Choose </span> your <span>game</span>  mode
             </h1>
             <div class="result_buttuns">
-                <button id="local_button_id" class="Retry_button" style="width: 400px;" >Local</button>
-                <button id="remote_button_id" class="Home_button" style="width: 400px;">Remote</button>
+                <button id="local_button_id" class="Retry_button w400">Local</button>
+                <button id="remote_button_id" class="Home_button w400">Remote</button>
             </div>
         </section>
         <section id="resultModal" class="result_class">
@@ -568,13 +574,13 @@
             <div id="local_game_input" class="tournament-input-form">
                 <input id="local_game_player1_display_name_id" class="inputt" type="text" placeholder="player1 display name" required>
                 <input id="local_game_player2_display_name_id" class="inputt" type="text" placeholder="player2 display name" required>
-                <h3 id="local_display_names_msg_id" style="display: flex; text-align: center; margin-bottom: 10px; color: red;"></h3> 
+                <h3 id="local_display_names_msg_id" class="IOXI"></h3> 
                 <button class="buttonn" onclick="run_local_game()">Start</button>
             </div>
         </section>
         <section id="tournament_input" class="tournament-input">
             <form id="display_name-form-id" class="tournament-input-form" enctype="multipart/form-data">
-                <h3 style="display: flex; text-align: center; margin-bottom: 10px">Enter your Tournament display name</h3>
+                <h3 class="twbh">Enter your Tournament display name</h3>
                 <input type="hidden" name="csrfmiddlewaretoken" id="display_name_csrfToken">
                 <input type="text" id="display_name" class="inputt" name="display_name" placeholder="Tournament display name" required><br>
                 <div id="display_name_err"></div>
@@ -591,7 +597,7 @@
             <section class="tournament_section" id="tournament_list">
                 <div class="flex-colomnn">
                     <div class="center_contents">
-                        <h1 style="color: #ff9800; margin-bottom: 10px;" id="tournament_wait_id"></h1>
+                        <h1 class="wait_class" id="tournament_wait_id"></h1>
                     </div>
                     <div class="conteudo">
                         <div id="tournament_content" class="caixa">
@@ -623,13 +629,10 @@
                         </div>
                     </div>
                     <div class="final_round">
-                        <div style="display: block;">
-                            <div style="height: 100px; width: 100px; background-color: yellow;"></div>
-                            <div class="center_contents" style="background-color: blue;">
-                                <div id="20" class="player" style="height: 60px; width: 150px;"></div>
-                                <img src="/page-home/resrc/game/championcup.png" style="width: 100px; height: 100px;">
-                                <div id="21" class="player" style="height: 60px; width: 150px;"></div>
-                            </div>
+                        <div class="center_contents">
+                            <div id="20" class="player final_player"></div>
+                            <img src="/page-home/resrc/game/championcup.png" class="championcup">
+                            <div id="21" class="player final_player"></div>
                         </div>
                     </div>
                     <div class="round">
@@ -652,7 +655,7 @@
             </section>
             <section id="tournament_next_match_id">
                 <div class="tournament_Match_class">
-                    <h2 id="Match_round_id" style="color: white;"></h2>
+                    <h2 id="Match_round_id" class="color_white"></h2>
                     <div class="fighters">
                         <div class="fighter1">
                             <h1 id="tournament_fighter_username_0"></h1>
@@ -701,8 +704,8 @@
         </section>
         <section id="already_in_game_id">
             <div class="already_in_game_class">
-                <h1 id="already_in_game_wrmsg_id" style="color: #ff9800"></h1>
-                <h3 id="already_in_game_exmsg_id" style="color: red"></h2>
+                <h1 id="already_in_game_wrmsg_id" class="warn_color"></h1>
+                <h3 id="already_in_game_exmsg_id" class="color_red"></h2>
                 <div class="buttonss">
                     <button id="already_in_game_continue_id" class="Continue" >Continue</button>
                     <button id="already_in_game_new_id" class="Continue" onclick="close_AI()">Give Up</button>
@@ -712,9 +715,9 @@
         <section id="Give_Up_Game">
             <div class="Give_Up_Game_class" onclick="disactiv_section('Give_Up_Game')">
                 <div class="already_in_game_class">
-                    <h2 style="color: #ff9800">Are you shure you want to Giv Up from the Game?<h2>
+                    <h2 class="warn_color">Are you shure you want to Giv Up from the Game?<h2>
                     <div class="buttonss">
-                        <button class="Give_Up" onclick="close_AI()">Shure</button>
+                        <button class="Give_Up" onclick="close_AI(true)">Shure</button>
                         <button class="Continue" onclick="disactiv_section('Give_Up_Game')">Stay</button>
                     </div>
                 </div>
@@ -723,7 +726,7 @@
         <section id="Give_Up_Tournament">
             <div class="Give_Up_Game_class" onclick="disactiv_section('Give_Up_Tournament')">
                 <div class="already_in_game_class">
-                    <h2 style="color: #ff9800">Are you shure you want to Giv Up from the Tournament?<h2>
+                    <h2 class="warn_color">Are you shure you want to Giv Up from the Tournament?<h2>
                     <div class="buttonss">
                         <button class="Give_Up" onclick="close_AI()">Shure</button>
                         <button class="Continue" onclick="disactiv_section('Give_Up_Tournament')">Stay</button>

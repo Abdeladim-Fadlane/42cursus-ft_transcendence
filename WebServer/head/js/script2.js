@@ -173,6 +173,7 @@ function    disactiv_sectionss()
     document.getElementById("localtournamentresultModal").style.display = 'none';
     document.getElementById('localresultModal').style.display = 'none';
     document.getElementById('resultModal').style.display = 'none';
+    document.getElementById('win-tournament-id').style.display = 'none';
     document.querySelectorAll('section').forEach(section => {
         section.classList.remove('active');
     });

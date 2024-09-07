@@ -317,5 +317,6 @@ class RacetCunsumer(AsyncWebsocketConsumer):
             else:
                 if rooms[self.group_name].players[abs(self.i - 1)] and rooms[self.group_name].players[abs(self.i - 1)].user.username in connects:
                     await connects[rooms[self.group_name].players[abs(self.i - 1)].user.username].send(json.dumps({'type':'game.refuse', 'vs': self.user.serialize_User()}))
-            del rooms[self.group_name]
+            if self.group_name in rooms:
+                del rooms[self.group_name]
         self.avaible = False

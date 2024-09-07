@@ -102,7 +102,7 @@ async def four_players_game(users):
     result[0] = 'Winner' if winners == 1 else 'Loser'
     result[1] = 'Winner' if winners == 2 else 'Loser'
     for i in range(N):
-        if rooms[group_name].players[i].avaible:
+        if group_name in rooms and rooms[group_name].players[i].avaible:
             await rooms[group_name].players[i].send(json.dumps({'type':'game.end', 'result':result[int(i / 2)]}))
             print("username", rooms[group_name].players[i].user.username, "result---------->", result[int(i / 2)])
             # await rooms[group_name].players[i].channel_layer.group_discard(
@@ -111,7 +111,8 @@ async def four_players_game(users):
             # )
             rooms[group_name].players[i].avaible = False
             await rooms[group_name].players[i].close()
-    del rooms[group_name]
+    if group_name in rooms:
+        del rooms[group_name]
 
 class   four_players(AsyncWebsocketConsumer):
     async def connect(self):
@@ -138,7 +139,7 @@ class   four_players(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         data = json.loads(text_data)
-        if data.get('type') == 'move':
+        if self.avaible and data.get('type') == 'move':
             self.racket.change_direction(data.get('move'))
 
     async def send_data(self, event):
