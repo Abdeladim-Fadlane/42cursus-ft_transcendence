@@ -56,7 +56,8 @@ async def full_tournament(users, tournament_name):
         users = sorted(users, key=lambda item: item.next_index)
         await asyncio.sleep(3)
     if len(users) > 0:
-        await users[0].send(json.dumps({'type':'tournament.end', 'result':'Booyah'}))
+        if users[0].avaible:
+            await users[0].send(json.dumps({'type':'tournament.end', 'result':'Booyah'}))
     users.clear()
 
 async def run_game(match):
@@ -66,7 +67,8 @@ async def run_game(match):
         'data':json.dumps(match, default=serialize_Match)
     })
     for channel in match.players:
-        await channel.send(json.dumps({'type':'game.countdown', 'time':3}))
+        if channel.avaible:
+            await channel.send(json.dumps({'type':'game.countdown', 'time':3}))
     await asyncio.sleep(4)
     while match.players[0].avaible and match.players[1].avaible:
         match.move()
@@ -77,8 +79,10 @@ async def run_game(match):
         })
         await asyncio.sleep(0.001)
         if (match.team2_score == score_to_win):
-            await match.players[0].send(json.dumps({'type':'game.end', 'result':'Winner'}))
-            await match.players[1].send(json.dumps({'type':'game.end', 'result':'Loser'}))
+            if match.players[0].avaible:
+                await match.players[0].send(json.dumps({'type':'game.end', 'result':'Winner'}))
+            if match.players[1].avaible:
+                await match.players[1].send(json.dumps({'type':'game.end', 'result':'Loser'}))
             await match.players[1].channel_layer.group_discard(
                 match.players[1].group_name,
                 match.players[1].channel_name
@@ -89,11 +93,13 @@ async def run_game(match):
             )
             # match.players[1].avaible = False
             # await match.players[1].close()
-            # save_Match(group_name, idx)
+            await save_Match(match, 0)
             return match.players[0]
         elif (match.team1_score == score_to_win):
-            await match.players[1].send(json.dumps({'type':'game.end', 'result':'Winner'}))
-            await match.players[0].send(json.dumps({'type':'game.end', 'result':'Loser'}))
+            if match.players[1].avaible:
+                await match.players[1].send(json.dumps({'type':'game.end', 'result':'Winner'}))
+            if match.players[0].avaible:
+                await match.players[0].send(json.dumps({'type':'game.end', 'result':'Loser'}))
             await match.players[0].channel_layer.group_discard(
                 match.players[0].group_name,
                 match.players[0].channel_name
@@ -104,16 +110,18 @@ async def run_game(match):
             )
             # match.players[0].avaible = False
             # await match.players[0].close()
-            # save_Match(group_name, idx)
+            await save_Match(match, 1)
             return match.players[1]
     if match.players[0].avaible:
-        await match.players[0].send(json.dumps({'type':'game.end', 'result':'Winner'}))
+        if match.players[0].avaible:
+            await match.players[0].send(json.dumps({'type':'game.end', 'result':'Winner'}))
         return (match.players[0])
     elif match.players[1].avaible:
-        await match.players[1].send(json.dumps({'type':'game.end', 'result':'Winner'}))
+        if match.players[0].avaible:
+            await match.players[1].send(json.dumps({'type':'game.end', 'result':'Winner'}))
         return (match.players[1])
 
-x = 1
+# x = 1
 class   Tournament(AsyncWebsocketConsumer):
     async def connect(self):
         global x
@@ -130,17 +138,18 @@ class   Tournament(AsyncWebsocketConsumer):
         self.tournament_name = tournament_name
         await self.channel_layer.group_add(self.tournament_name, self.channel_name)
         ########################
-        # if self.user.username in waiting:
-        #     await waiting[self.user.username].send(json.dumps({'type':'discard', 'game_type':'Tournament_game'}))
-        #     await waiting[self.user.username].close()
-        # waiting[self.user.username] = self
+        if self.user.username in waiting:
+            if waiting[self.user.username].avaible:
+                await waiting[self.user.username].send(json.dumps({'type':'discard', 'game_type':'Tournament_game'}))
+            await waiting[self.user.username].close()
+        waiting[self.user.username] = self
         ########################
         #***********************#
-        global x
-        self.user.x = x
-        waiting[str(x)] = self
-        self.x = str(x)
-        x += 1
+        # global x
+        # self.user.x = x
+        # waiting[str(x)] = self
+        # self.x = str(x)
+        # x += 1
         #***********************#
         await self.channel_layer.group_send(self.tournament_name,
         {
@@ -148,7 +157,7 @@ class   Tournament(AsyncWebsocketConsumer):
             'data':json.dumps({'type':'tournament.list', 'players':[{'login':u.user.display_name, 'icon':u.user.photo_profile} for u in waiting.values()]})
         })
         if len(waiting) == N:
-            x = 1
+            # x = 1
             asyncio.create_task(full_tournament(list(waiting.values()), tournament_name))
             tournament_name = 'tournament_' + datetime.now().time().strftime("%H_%M_%S_%f")
             waiting.clear()
@@ -164,13 +173,13 @@ class   Tournament(AsyncWebsocketConsumer):
 
     async def disconnect(self, code):
         #################################################################
-        if (self.x in waiting):
-            del waiting[self.x]
-            await self.channel_layer.group_send(self.tournament_name,
-            {
-                'type': 'send_data',
-                'data':json.dumps({'type':'tournament.list', 'players':[{'login':u.user.display_name, 'icon':u.user.photo_profile} for u in waiting.values()]})
-            })
+        # if (self.x in waiting):
+        #     del waiting[self.x]
+        #     await self.channel_layer.group_send(self.tournament_name,
+        #     {
+        #         'type': 'send_data',
+        #         'data':json.dumps({'type':'tournament.list', 'players':[{'login':u.user.display_name, 'icon':u.user.photo_profile} for u in waiting.values()]})
+        #     })
         #################################################################
         if self.user.username in waiting:
             del waiting[self.user.login]

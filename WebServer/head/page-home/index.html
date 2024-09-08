@@ -437,12 +437,12 @@
                 <div id="ping-pong-2" class="ping-pong">
                     <div class="users">
                         <div class="user1">
-                            <img id="2-canvas-icon-id-0" class="icon">
-                            <h2 id="2-canvas-display_name-id-0" class="display-name"></h2>
+                            <img id="2-canvas-icon-id-0" class="icon" src="/page-home/resrc/game/ice.png">
+                            <h2 id="2-canvas-display_name-id-0" class="display-name">ice</h2>
                         </div>
                         <div class="user2">
-                            <h2 id="2-canvas-display_name-id-1" class="display-name"></h2>
-                            <img id="2-canvas-icon-id-1" class="icon">
+                            <h2 id="2-canvas-display_name-id-1" class="display-name">fire</h2>
+                            <img id="2-canvas-icon-id-1" class="icon" src="/page-home/resrc/game/fire.png">
                         </div>
                     </div>
                     <canvas id="2-canvas-id" class="canvas" width="600px" height="300px"></canvas>
@@ -631,8 +631,8 @@
                     <div class="final_round">
                         <div class="center_contents">
                             <div id="20" class="player final_player">
-                                <img class="Match_icon" id="moelkama" src="https://cdn.intra.42.fr/users/9c7c59de228285641f8bb4f2406eac94/moelkama.JPG">
-                                <h2>moelkama</h2>
+                                <img class="Match_icon" id="moelkama">
+                                <h2></h2>
                             </div>
                             <img src="/page-home/resrc/game/championcup.png" class="championcup">
                             <div id="21" class="player final_player"></div>
@@ -684,6 +684,9 @@
             </div>
         </section>
         <section id="start_fight">
+            <div class="center_contents">
+                <h1 class="warn_color">Please do not refresh the page until Game end. Refreshing will result in the loss of your Game</h1>
+            </div>
             <div class="already_in_game_class">
                 <div class="time_out_par">
                     <div class="fighters">
@@ -697,7 +700,6 @@
                             <h1 id="fighter_username_1"></h1>
                         </div>
                     </div>
-                    <!-- <div class="time_out_class"></div> -->
                 </div>
                 <div class="fighters_bottuns">
                     <button class="Continue" onclick="Continue_game('Continue')">Continue</button>

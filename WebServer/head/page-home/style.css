@@ -1549,7 +1549,7 @@ button {
   display: flex;
   align-items: center;
   position: relative;
-  justify-content: space-around;
+  gap: 4px;
 }
 
 .champion {
@@ -1627,6 +1627,14 @@ button {
   background-color: black;
   color: white;
   border-radius: 10px;
+}
+
+#local_button_id, #remote_button_id{
+  color: transparent;
+}
+
+#local_button_id:hover, #remote_button_id:hover{
+  color: rgb(0, 186, 188);
 }
 
 .Retry_button:hover, .Home_button:hover{
@@ -1922,15 +1930,14 @@ section.active {
 }
 
 .Home_button{
-  background-image: url("resrc/ice.webp");
+  background-image: url("/resrc/remote.jpg");
   background-size: cover;
   background-position: center;
 }
 
 .Retry_button
 {
-
-  background-image: url("resrc/ice2.png");
+  background-image: url("/resrc/local.jpg");
   background-size: cover;
   background-position: center;
 }

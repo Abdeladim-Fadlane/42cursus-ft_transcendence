@@ -259,9 +259,9 @@ function    local_or_remote_game(type)
     }
     else
     {
-        // document.getElementById('local_button_id').addEventListener('click', (e)=>{flex_section('local_tournamet_input_id')});
+        document.getElementById('local_button_id').addEventListener('click', (e)=>{flex_section('local_tournamet_input_id')});
         //////////////////////
-        document.getElementById('local_button_id').addEventListener('click', ()=>{close_AI();run_local_tournament()});
+        // document.getElementById('local_button_id').addEventListener('click', ()=>{close_AI();run_local_tournament()});
         document.getElementById('remote_button_id').addEventListener('click', ()=> {close_AI();navigate('tournament_input')});
     }
     flex_section('local_or_remote');
@@ -326,7 +326,7 @@ function showResult(result)
     if (tournament_starting)
         setTimeout(() => {tournament_asid();}, 2500);
     else
-        setTimeout(() => {border_home();}, 2500);
+        setTimeout(() => {border_home();}, 3000);
 }
 
 function Continue_game(action)
@@ -464,6 +464,8 @@ async function run(section_id, socket_url, canvas_id, type)
             }
             else if (data.type == 'discard')
             {
+                document.getElementById("game_aside_id").style.display = 'none';
+                document.getElementById("tournament_aside_id").style.display = 'none';
                 border_home();
                 put_section('discard_game_id');
                 setTimeout(() => {disactiv_section('discard_game_id')}, 8000);
@@ -576,9 +578,9 @@ function new_game(){
         navigate('play');
 }
 
-function    close_tournament()
+function    close_tournament(border_home = true)
 {
-    close_game();
+    close_game(border_home);
     if (tournament_starting)
         game_socket.close(1000, 'Normal Closure');
     document.getElementById('tournament_wait_id').innerHTML = '';
@@ -855,7 +857,8 @@ class ball
         this.x = x;
         this.y = y;
         this.r = 10;
-        this.angl = 25;
+        this.angl = 35;
+        this.angl = 0;
         this.speed = 2;
         this.vx = Math.cos(this.angl * Math.PI / 180) * this.speed;
         this.vy = Math.sin(this.angl * Math.PI / 180) * this.speed;
@@ -915,7 +918,6 @@ class   Match
             this.team1_score += 1;
             this.b.x = width / 2;
             this.b.y = height / 2;
-            this.b.angl += 6;
             this.movement = false;
             setTimeout(() => {
                 this.movement = true;
@@ -926,7 +928,6 @@ class   Match
             this.team2_score += 1;
             this.b.x = width / 2;
             this.b.y = height / 2;
-            this.b.angl += 6;
             this.movement = false;
             setTimeout(() => {
                 this.movement = true;
@@ -1012,11 +1013,12 @@ function    close_local_game(return_to_home = true)
     // window.history.back();
 }
 
-function    close_local_tournament()
+function    close_local_tournament(border_home = true)
 {
     document.getElementById("tournament_aside_id").style.display = 'none';
     document.getElementById('tournament_wait_id').innerHTML = '';
-    close_local_game();
+    document.getElementById('wait_for_matchs_id').style.display = 'none';
+    close_local_game(border_home);
     clean_rounds();
     local_tournament_starting = false;
     TOURNAMENT_LIST = [];
@@ -1029,11 +1031,11 @@ function    close_AI(border_home = false)
 {
     document.getElementById('wait_for_matchs_id').style.display = 'none';
     if (tournament_starting)
-        close_tournament();
+        close_tournament(border_home);
     if (game_starting)
         close_game(border_home);
     if (local_tournament_starting)
-        close_local_tournament();
+        close_local_tournament(border_home);
     if (local_game_starting)
         close_local_game(border_home);
     if (four_game_starting)
@@ -1318,7 +1320,7 @@ var TOURNAMENT_LIST = [];
 function    run_local_tournament()
 {
     clean_rounds();
-    close_AI();
+    close_AI(false);
     local_tournament_starting = true;
     var valid = true;
     //////////////////////////////////
@@ -1342,8 +1344,8 @@ function    run_local_tournament()
 
         var span = document.createElement("span");
         span.className = "student-name";
-        // display_name = document.getElementById("local_tournament_player" + (i + 1).toString() + "_display_name_id").value;
-        display_name = 'd_n_' + (i + 1).toString();
+        display_name = document.getElementById("local_tournament_player" + (i + 1).toString() + "_display_name_id").value;
+        // display_name = 'd_n_' + (i + 1).toString();
         if (display_name.length == 0)
         {
             document.getElementById("local_tournament_display_names_msg_id").innerHTML = "display name must not be empty";
@@ -1356,9 +1358,13 @@ function    run_local_tournament()
             valid = false;
             break;
         }
-        displayNamesSet.add(display_name);
         if (display_name.length > 10)
-            display_name = display_name.slice(0, 10);
+        {
+            document.getElementById("local_tournament_display_names_msg_id").innerHTML = "\"" + display_name.substr(0, 9) + "...\"" + " display name Too long";
+            valid = false;
+            break;
+        }
+        displayNamesSet.add(display_name);
         span.innerHTML = display_name;
 
         div.appendChild(img);
@@ -1389,8 +1395,9 @@ function shuffle(array) {
     }
     return array;
 }
-// window.addEventListener('beforeunload', handleUnload);
 
-// window.onbeforeunload = function() {
-//     return "Dude, are you sure you want to leave? Think of the kittens!";
-// }
+window.addEventListener('beforeunload', handleUnload);
+
+window.onbeforeunload = function() {
+    return "Dude, are you sure you want to leave? Think of the kittens!";
+}

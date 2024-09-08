@@ -59,8 +59,8 @@ class ball:
         self.x = x
         self.y = y
         self.r = 10
-        self.angl = 0
-        self.speed = 0.9
+        self.angl = 35
+        self.speed = 0.85
         self.vx = math.cos(self.angl * math.pi / 180) * self.speed
         self.vy = math.sin(self.angl * math.pi / 180) * self.speed
     def serialize_ball(self):
@@ -158,29 +158,29 @@ async def notify(room_name, action):
     except Exception as e:
         pass
 
-async def save_Match(group_name, idx):
-    rooms[group_name].save = True
-    query_parameters = rooms[group_name].players[abs(idx-1)].scope['query_string'].decode().split('&')
+async def save_Match(match, idx):
+    match.save = True
+    query_parameters = match.players[abs(idx-1)].scope['query_string'].decode().split('&')
     losee_token = query_parameters[0].split('=')[1]
-    # losee_token = rooms[group_name].players[abs(idx-1)].scope['query_string'].decode().split('=')[1]
+    # losee_token = match.players[abs(idx-1)].scope['query_string'].decode().split('=')[1]
     headers = {'Authorization': f'Token {losee_token}'}
     body = {
-        'lose': rooms[group_name].players[abs(idx-1)].user.lose + 1,
+        'lose': match.players[abs(idx-1)].user.lose + 1,
     }
-    idloser = rooms[group_name].players[abs(idx-1)].user.id
+    idloser = match.players[abs(idx-1)].user.id
     url = f'http://auth:8000/api/tasks/{idloser}/'
     requests.patch(url=url, headers=headers, data=body)
 
     """ update winner score"""
-    query_parameters = rooms[group_name].players[idx].scope['query_string'].decode().split('&')
+    query_parameters = match.players[idx].scope['query_string'].decode().split('&')
     win_token = query_parameters[0].split('=')[1]
-    # win_token = rooms[group_name].players[idx].scope['query_string'].decode().split('=')[1]
+    # win_token = match.players[idx].scope['query_string'].decode().split('=')[1]
     headers = {'Authorization': f'Token {win_token}'}
     body = {
-        'score': rooms[group_name].players[idx].user.score + 10,
-        'win': rooms[group_name].players[idx].user.win + 1,
+        'score': match.players[idx].user.score + 10,
+        'win': match.players[idx].user.win + 1,
     }
-    idwinner = rooms[group_name].players[idx].user.id
+    idwinner = match.players[idx].user.id
     url = f'http://auth:8000/api/tasks/{idwinner}/'
     requests.patch(url=url, headers=headers, data=body)
 
@@ -188,8 +188,8 @@ async def save_Match(group_name, idx):
     data = {
         'winner': idwinner,
         'loser': idloser,
-        'score1': rooms[group_name].team1_score if rooms[group_name].team1_score > rooms[group_name].team2_score else rooms[group_name].team2_score,
-        'score2': rooms[group_name].team1_score if rooms[group_name].team1_score < rooms[group_name].team2_score else rooms[group_name].team2_score,}
+        'score1': match.team1_score if match.team1_score > match.team2_score else match.team2_score,
+        'score2': match.team1_score if match.team1_score < match.team2_score else match.team2_score,}
     url = f'http://auth:8000/api/match/' 
     requests.post(url=url, headers=headers, data=data)
     """ notify  loser and winner to update their history"""
@@ -213,7 +213,7 @@ async def start_game(group_name):
                 rooms[group_name].players[i].avaible = False
                 await rooms[group_name].players[i].close()
         if not rooms[group_name].save:
-            await save_Match(group_name, idx)
+            await save_Match(rooms[group_name], idx)
         if group_name in rooms:
             del rooms[group_name]
 
@@ -253,7 +253,6 @@ class RacetCunsumer(AsyncWebsocketConsumer):
         id = query_parameters[1].split('=')[1]
         game_type = query_parameters[2].split('=')[1]
         room_creater = query_parameters[3].split('=')[1]
-    
 
         data = endpoint(token, id)
         self.user = User(data)
@@ -263,13 +262,6 @@ class RacetCunsumer(AsyncWebsocketConsumer):
             self.group_name = connects[room_creater].room_name
         await self.channel_layer.group_add(self.group_name, self.channel_name)
         self.i = 1
-        # for room in rooms.values():
-        #     if room.players[0] and room.players[0].user.username == self.user.username:
-        #         await room.players[0].send(json.dumps({'type':'discard', 'game_type':'four_players_game'}))
-        #         room.players[0] = self
-        #     if (self.user.username in waiting):
-        #         await waiting[self.user.username].send(json.dumps({'type':'discard', 'game_type':'four_players_game'}))
-        #         del waiting[self.user.username]
         if self.group_name in rooms:
             if rooms[self.group_name].players[0].user.username != self.user.username:
                 self.racket = racket(width - ww, (height - hh) / 2, 0, height)
@@ -277,8 +269,15 @@ class RacetCunsumer(AsyncWebsocketConsumer):
                 rooms[self.group_name].set_player(self, self.i)
                 await send_to_group(rooms[self.group_name].players, {'data':json.dumps(rooms[self.group_name], default=serialize_Users)})
                 group_name = 'Match_' + datetime.now().time().strftime("%H_%M_%S_%f")
-            # else:
-            #     await rooms.players[0].send(json.dumps({'type':'discard', 'game_type':'four_players_game'}))
+            else:
+                await rooms[self.group_name].players[0].send(json.dumps({'type':'discard', 'game_type':'two_game'}))
+                await rooms[self.group_name].players[0].close()
+                group_name = 'Match_' + datetime.now().time().strftime("%H_%M_%S_%f")
+                self.group_name = group_name
+                rooms[self.group_name] = Match(2)
+                self.i = 0
+                self.racket = racket(0, (height - hh) / 2, 0, height)
+                rooms[self.group_name].set_player(self, self.i)
         else:
             self.racket = racket(0, (height - hh) / 2, 0, height)
             rooms[self.group_name] = Match(2)
@@ -313,7 +312,7 @@ class RacetCunsumer(AsyncWebsocketConsumer):
                 else:
                     rooms[self.group_name].team2_score = score_to_win
                 if not rooms[self.group_name].save:
-                    await save_Match(self.group_name, abs(self.i - 1))
+                    await save_Match(rooms[self.group_name], abs(self.i - 1))
             else:
                 if rooms[self.group_name].players[abs(self.i - 1)] and rooms[self.group_name].players[abs(self.i - 1)].user.username in connects:
                     await connects[rooms[self.group_name].players[abs(self.i - 1)].user.username].send(json.dumps({'type':'game.refuse', 'vs': self.user.serialize_User()}))
