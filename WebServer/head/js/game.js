@@ -4,7 +4,6 @@ var elem;
 var ctx;
 var width;
 var height;
-//////////////
 var hh = 80
 var ww = 5
 var racket_speed = 2
@@ -15,7 +14,6 @@ var local_game_Interval_starting = false;
 var local_tournament_starting = false;
 var four_game_starting = false;
 var match = null;
-//////////////
 var game_starting = false;
 var tournament_starting = false;
 
@@ -79,12 +77,9 @@ async function get_url(socket_url) {
 
 function border_home(pushState = true) {
     disactiv_sections();
-    if (pushState) {
+    if (pushState)
       window.history.pushState({page: 'home'}, 'Home', '?page=home');
-    }
     document.getElementById('settings-modale').style.display = 'none';
-  
-  
     const home = document.getElementById("home");
     const profile = document.getElementById("profile");
     const chat = document.getElementById("chat");
@@ -191,10 +186,6 @@ function border_home(pushState = true) {
     }
 })();
 
-// function challenge_lastone()
-// {
-//     challenge_friend(lastone);
-// }
 function challenge_friend(username)
 {
     main_socket.send(JSON.stringify({'type':'room.create', 'vs':username}));
@@ -440,6 +431,10 @@ async function run(section_id, socket_url, canvas_id, type)
             // console.log("game WebSocket connection established.");
         };
 
+        game_socket.onerror = function(event) {
+            window.alert("GAME WEBSOCKET ERROR!");
+            location.reload();
+        };
         game_socket.onmessage = function (e)
         {
             var data = JSON.parse(e.data)
@@ -640,63 +635,61 @@ function toggleFullScreen() {
         document.exitFullscreen();
 }
 
-// document.addEventListener('DOMContentLoaded', function() {
-        (function get_csrf_token(){
-            fetch('/api/csrf-token/')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('display_name_csrfToken').value = data.csrfToken;
-            })
-        .catch(error => console.error('Error fetching CSRF token:', error));
-        })();
+(function get_csrf_token(){
+    fetch('/api/csrf-token/')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('display_name_csrfToken').value = data.csrfToken;
+    })
+.catch(error => console.error('Error fetching CSRF token:', error));
+})();
 
-        document.getElementById('display_name-form-id').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-            const csrfToken = document.getElementById('display_name_csrfToken').value;
-            fetch('/display_name/', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                'X-CSRFToken': csrfToken,
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === true)
-                navigate('play_tournament');
-            else
-            {
-                document.getElementById('display_name_err').innerHTML = data.message;
-                document.getElementById('display_name_err').style.color = 'red';
-            }
-            })
-            .catch(error => {
-                document.getElementById('messages').innerHTML = error;
-                document.getElementById('messages').style.color = 'red';
-            });
-        });
-        // remove_all_event_listener('toggle-btn');
-        document.getElementById('toggle-btn').addEventListener('click', toggleFullScreen);
-        document.addEventListener('fullscreenchange', (event) => {
-            if (document.fullscreenElement) {
-                document.querySelector('.navbar').style.display = 'none';
-                document.querySelector('.aside_content').style.display = 'none';
-                document.querySelector('.game_nav').style.display = 'none';
-                document.querySelector('#screen_img').src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAItJREFUSEvlVEEOgCAMW3+mL9ef1YRIAigwMJsxcoOMdV23QowPjPOLLwDJTUSWyApAKIAkU6aV9x3AWnYkY6BMJD3grJj0EgFiAq0+rX+3DMwAtBWPxLlPUZgWsxZ9X+RZBi3RfUUeGT/tgvou2qwGw1bRctOa0V1c9HTiskVdu34EYC7yfwFe3eQDRrV9Ga6+/8IAAAAASUVORK5CYII="
-            } else {
-                document.querySelector('.navbar').style.display = 'flex';
-                document.querySelector('.aside_content').style.display = 'flex';
-                document.querySelector('.game_nav').style.display = 'flex';
-                document.querySelector('#screen_img').src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAGpJREFUSEvtVUEKACAIa/9/tNEhsDCYRUZg59k2dYVy+eDy/SWWQERk5QjAIIbFbhU1EUcEs1p2Tp1U15sOkuBdi9hhenCxQfMoY7GxDqygsEp1ut9tUTqgHztrsH/8B56VZLGxQWNVeXAV8rVwGd7+Wh0AAAAASUVORK5CYII="
-            }
-        });
-        document.getElementById('local_game_input').addEventListener('submit', function(event)
+document.getElementById('display_name-form-id').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    const csrfToken = document.getElementById('display_name_csrfToken').value;
+    fetch('/display_name/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+        'X-CSRFToken': csrfToken,
+    }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === true)
+            navigate('play_tournament');
+        else
         {
-            event.preventDefault();
-            run_local_game();
+            document.getElementById('display_name_err').innerHTML = data.message;
+            document.getElementById('display_name_err').style.color = 'red';
+        }
+        })
+        .catch(error => {
+            document.getElementById('messages').innerHTML = error;
+            document.getElementById('messages').style.color = 'red';
         });
-// });
+    });
+    document.getElementById('toggle-btn').addEventListener('click', toggleFullScreen);
+    document.addEventListener('fullscreenchange', () => {
+        if (document.fullscreenElement) {
+            document.querySelector('.navbar').style.display = 'none';
+            document.querySelector('.aside_content').style.display = 'none';
+            document.querySelector('.game_nav').style.display = 'none';
+            document.querySelector('#screen_img').src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAItJREFUSEvlVEEOgCAMW3+mL9ef1YRIAigwMJsxcoOMdV23QowPjPOLLwDJTUSWyApAKIAkU6aV9x3AWnYkY6BMJD3grJj0EgFiAq0+rX+3DMwAtBWPxLlPUZgWsxZ9X+RZBi3RfUUeGT/tgvou2qwGw1bRctOa0V1c9HTiskVdu34EYC7yfwFe3eQDRrV9Ga6+/8IAAAAASUVORK5CYII="
+        } else {
+            document.querySelector('.navbar').style.display = 'flex';
+            document.querySelector('.aside_content').style.display = 'flex';
+            document.querySelector('.game_nav').style.display = 'flex';
+            document.querySelector('#screen_img').src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAGpJREFUSEvtVUEKACAIa/9/tNEhsDCYRUZg59k2dYVy+eDy/SWWQERk5QjAIIbFbhU1EUcEs1p2Tp1U15sOkuBdi9hhenCxQfMoY7GxDqygsEp1ut9tUTqgHztrsH/8B56VZLGxQWNVeXAV8rVwGd7+Wh0AAAAASUVORK5CYII="
+        }
+});
+
+document.getElementById('local_game_input').addEventListener('submit', function(event)
+{
+    event.preventDefault();
+    run_local_game();
+});
 
 function    tst(section_id)
 {
@@ -732,7 +725,6 @@ function game_asid(pushState = true) {
     document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
     document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
     document.getElementById('rank-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-    ///////////////////
     document.getElementById('tournament-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
     document.getElementById("game_aside_id").style.display = 'block';
     if (game_starting || local_game_starting)
@@ -755,7 +747,6 @@ function tournament_asid(pushState = true) {
     document.getElementById('setting-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
     document.getElementById('logout-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
     document.getElementById('rank-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
-    ///////////////////
     document.getElementById('game-aside').style.cssText = 'font-size: 36px; color: ##ffffffbc; ';
     document.getElementById("tournament_aside_id").style.display = 'block';
     if (!game_starting && !local_game_starting)
@@ -773,30 +764,6 @@ function tournament_asid(pushState = true) {
     else
         document.getElementById('tournament_input').style.display = 'flex';
 }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class racket
 {
@@ -858,7 +825,6 @@ class ball
         this.y = y;
         this.r = 10;
         this.angl = 35;
-        this.angl = 0;
         this.speed = 2;
         this.vx = Math.cos(this.angl * Math.PI / 180) * this.speed;
         this.vy = Math.sin(this.angl * Math.PI / 180) * this.speed;
@@ -1010,7 +976,6 @@ function    close_local_game(return_to_home = true)
     local_game_Interval_starting = false;
     if (return_to_home)
         border_home();
-    // window.history.back();
 }
 
 function    close_local_tournament(border_home = true)
@@ -1091,7 +1056,6 @@ function show_local_game_Result(idx){
         }
         setTimeout(() => {tournament_asid()}, 3000);
     }
-    //////////////////////
     else
     {
         close_local_game();
@@ -1147,7 +1111,6 @@ function    move_up(event)
 
 function    start_local_game()
 {
-    ///////////////
     clearInterval(local_game_Interval);
     local_game_Interval_starting = false;
     local_game_starting = true;
@@ -1191,42 +1154,17 @@ function    run_local_game() {
         document.getElementById("2-canvas-icon-id-0").src = '/page-home/resrc/game/ice.png';
         document.getElementById("2-canvas-display_name-id-1").innerHTML = player2_display_name;
         document.getElementById("2-canvas-icon-id-1").src = '/page-home/resrc/game/fire.png';
-        ////////////////
         elem = document.getElementById('2-canvas-id');
         document.getElementById("local_game_input_id").style.display = 'none';
         ctx = elem.getContext("2d");
         width = elem.width
         height = elem.height
-        ////////////////
         match = new Match();
         match.set_player(new player(player1_display_name, '/page-home/resrc/game/ice.png', 0, (height - hh) / 2, 0, height), 0);
         match.set_player(new player(player2_display_name, '/page-home/resrc/game/fire.png', width - ww, (height - hh) / 2, 0, height), 1);
         start_local_game();
     }
 }
-
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
-//########################################################################################
 
 function    aside_hover(aside_id)
 {

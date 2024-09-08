@@ -182,7 +182,7 @@ class   Tournament(AsyncWebsocketConsumer):
         #     })
         #################################################################
         if self.user.username in waiting:
-            del waiting[self.user.login]
+            del waiting[self.user.username]
             await self.channel_layer.group_send(self.tournament_name,
             {
                 'type': 'send_data',
