@@ -2,6 +2,7 @@ import { my_data } from './data.js';
 const form0 = document.querySelector('.profile_photo_form');
 form0.addEventListener('submit', async (e)=>{
     e.preventDefault();
+ 
     const csrfToken = document.querySelector('#crcf_profileuser');
     const dataForm = new FormData(e.target);
     await fetch('/api/csrf-token/')
@@ -18,10 +19,10 @@ form0.addEventListener('submit', async (e)=>{
     })
     .then(response => response.json())
     .then(data => {
-    
-        document.querySelector('.profile-settings-img').src = data.photo_profile;
-        document.querySelector('.image-profile-user').src = data.photo_profile;
-        document.querySelector('.image-profile-id').src = data.photo_profile;
+        if (data.status == true)
+            my_data();
+        display_status(data.status, data.message);
+
     })
     
 });
@@ -31,12 +32,27 @@ const buttonInput = document.querySelector('#button_profile_click')
 imageSetting.addEventListener('click', ()=>{
     imageInput.click();
 })
-// console.log(imageInput);
+
 imageInput.addEventListener('input', (e)=>{
     e.preventDefault();
-    let type_file = e.target.files[0].type.startsWith('image/');
-    if (e.target.value.length != 0 && type_file)
+    // type = ['']
+    if (!e.target.files[0])
+        return ;
+    var type_file = e.target.files[0].type.startsWith('image/');
+    var size_image = e.target.files[0].size;
+    console.log(type_file);
+    console.log(size_image);
+    if (e.target.value.length != 0 && type_file  === true && size_image <= (1048576 * 2))
+    {
+        // console.log('is here when you go')
         buttonInput.click();
+    }
+    else
+    {
+        // console.log('is error when you go to have');
+        display_status(false, 'Error try to chose another image');
+    }
+    // console.log('---------------------------------------')
 });
 
 const Setting_msg = document.querySelector('.setting-msg');
@@ -70,6 +86,7 @@ function display_status(status, error){
 const  form1  = document.querySelector('#avatarFrom');
 form1.addEventListener('submit', async (e)=>{
     const csrfToken1 = document.querySelector('#crcf')
+    
     const dataFrom = new FormData(e.target);
     e.preventDefault();
     await fetch('/api/csrf-token/')
@@ -86,13 +103,10 @@ form1.addEventListener('submit', async (e)=>{
     })
     .then(response => response.json())
     .then(data=>{
+        console.log(data)
         if (data.status === true) {
             my_data();
         }
-        // else {
-        //     var msg = document.getElementById('messages');
-        //     msg.innerHTML = data.message;
-        // }
         display_status(data.status, data.message)
     })
 })
@@ -101,6 +115,8 @@ const form2 =  document.querySelector('#passwordForm');
 
 form2.addEventListener('submit', async (e)=>{
     e.preventDefault();
+    const inputs = document.querySelectorAll('input');
+    console.log(inputs);
     const csrfToken2 = document.querySelector('#crcf2');
     const  dataForm = new FormData(e.target);
     await fetch('/api/csrf-token/')

@@ -68,7 +68,7 @@ export function fetchOnlineFriendInChat(){
     })
 }
 export function fetchAndUpdateFriends() {
-    console.log('is here Frined list')
+    // console.log('is here Frined list')
     fetch('/api/friends/')
         .then(response => {
             if (!response.ok) {
@@ -127,7 +127,7 @@ export function fetchAndUpdateFriends() {
                 
                     container.classList.add("friend-list-room");
                     reward.appendChild(container);
-                    map.set(data[i].username, "block");
+                    map.set(data[i].id, "block");
                     
                 }
                 // console.log('is here afadalane')
@@ -139,5 +139,5 @@ export function fetchAndUpdateFriends() {
         .catch(error => {
             console.error('Error fetching friends:', error);
         });
-        console.log('doooone');
+        // console.log('doooone');
 }
