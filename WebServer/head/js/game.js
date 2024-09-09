@@ -882,8 +882,8 @@ class   Match
         if (this.b.x + this.b.r < ww)
         {
             this.team1_score += 1;
-            this.b.x = width / 2;
-            this.b.y = height / 2;
+            this.b.x = width - ww;
+            this.b.y = this.players[1].racket.y + (this.players[1].h / 2);
             this.movement = false;
             setTimeout(() => {
                 this.movement = true;
@@ -892,8 +892,8 @@ class   Match
         if (this.b.x - this.b.r > width - ww)
         {
             this.team2_score += 1;
-            this.b.x = width / 2;
-            this.b.y = height / 2;
+            this.b.x = ww;
+            this.b.y = this.players[0].racket.y + (this.players[0].h / 2);
             this.movement = false;
             setTimeout(() => {
                 this.movement = true;
