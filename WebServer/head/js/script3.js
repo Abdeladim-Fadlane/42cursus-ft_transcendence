@@ -143,9 +143,16 @@ document.querySelector('#login-form-id2').addEventListener('submit', async(e)=>
     .then(data =>{
         csrfToken.value = data.csrfToken;
     })
-    console.log(csrfToken.value)
-    console.log(e.target)
+    // console.log(csrfToken.value)
+    // console.log(e.target)
     const form = new FormData(e.target);
+    const regix_str = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    if (!regix_str.test(e.target.querySelector('#email').value))
+    {
+        document.getElementById('messageemail').innerHTML = 'The email address you entered is not in a valid format. Please enter a valid email address.';
+        document.getElementById('messageemail').style.color = 'red';
+        return ;
+    }
     await fetch('/registeruser/', {
         method: 'POST',
         headers: {

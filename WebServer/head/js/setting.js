@@ -7,10 +7,7 @@ if (typeof profile === 'undefined') {
         });
     }
 }
-document.getElementById('image').addEventListener('change', function() {
-    console.log('clickd sss');
-    document.getElementById('button_profile_click').click();
-});
+
 function closedelete() {
     document.getElementById('modal_delete').style.display = 'none';
 }

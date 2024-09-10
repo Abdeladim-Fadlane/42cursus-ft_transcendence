@@ -34,6 +34,7 @@ function send_request(room_name, user_sender, user_id)
 
 function fetchAllMessage(userid, username)
 {
+    // console.log('--------> ', username)
     fetch('/chatCsrftoken/')
     .then(response => response.json())
     .then(data => {
@@ -52,6 +53,7 @@ function fetchAllMessage(userid, username)
             return response.json();
         })
         .then(data=>{
+            // console.log(data)
             if (data.status == 'success')
             {
                 let friend = document.querySelector('#list_friend_chat').querySelectorAll('button'); 
@@ -64,9 +66,10 @@ function fetchAllMessage(userid, username)
                 for (let j = 0; j < friend.length ; j++)
                 {
                     let check = true;
+                    // console.log(friend[j].id)
                     for (let i = 0; i < data.values.length ; i++)
                     {  
-                        if (data.values[i].sender_name == friend[j].querySelector('p').textContent)
+                        if (data.values[i].sender_name == friend[j].id)
                         {
                             friend[j].querySelector('.user-count-message').textContent = data.values[i].count_message;
                             friend[j].querySelector('.user-count-message').style.display = 'flex'
@@ -75,7 +78,7 @@ function fetchAllMessage(userid, username)
                         }
                         
                     }
-                    if (check)
+                    if (check && j + 1 == friend.length)
                     {
                         friend[j].querySelector('.user-count-message').textContent = '';
                         friend[j].querySelector('.user-count-message').style.display = 'none'
@@ -90,6 +93,7 @@ function fetchAllMessage(userid, username)
 
 function fetchConversation(userid, username)
 {
+    // console.log(userid)
     fetch('/chatCsrftoken/')
     .then(response => response.json())
     .then(data => {
@@ -101,13 +105,14 @@ function fetchConversation(userid, username)
             },
             body : JSON.stringify({ 
                 'id_user' : String(userid),
-                'username' : username,
+                'username' : userid,
              })
         })
         .then(response =>{
             return response.json();
         })
         .then(data=>{
+            // console.log(data);
             if (data.status == 'success')
             {
                 let div_notif = document.querySelector('.chat-aside-numberMessage');
@@ -221,13 +226,12 @@ function create_chatRoom(map)
     let index = 0;
     var user_status = document.createElement('p');
     user_status.classList.add('header-chat-status');
-    
+    let usernamechat;
     buttons_friends.forEach(button => {
         button.addEventListener('click', (e) =>
         {
             if (button == last_button)
                 return ;
-            console.log(button)
             document.querySelector('.empty-chat-body').style.display  = 'none'
             chat_header.append(user_status)
             user_status.textContent = '';
@@ -245,11 +249,12 @@ function create_chatRoom(map)
             let header_username = document.querySelector("#chat-friend-name");
             chat_div.innerHTML = "";
         
-            username1 = document.querySelector('#login').textContent;
             let usernameid = document.querySelector('#login').className;
-            let usernameid1 = button.id;
-            username2 = button.querySelector('p').textContent;
-            // console.log(usernameid , '======' , usernameid1);
+            username1 = usernameid;
+            // console.log(document.querySelector('#login'));
+            username2 = button.id;
+            usernamechat = button.querySelector('.chat-friend-username').textContent;
+            
             room_name = generateRoomName( usernameid ,button.id);
             let icon = document.createElement('i');
             icon.style.color = 'white';
@@ -361,12 +366,12 @@ function create_chatRoom(map)
                         map_action[username2] ="unblock";
                         if (data.user_bloking == username1)
                         {
-                            div_bolck_msg.textContent = `you are blocked ${username2} try to unblock`;
+                            div_bolck_msg.textContent = `you are blocked ${usernamechat} try to unblock`;
                             if (div_menu.contains(div_menu_child2) == false)
                                 div_menu.append(div_menu_child2);
                         }
                         else {
-                            div_bolck_msg.textContent = `${username2} block you`;
+                            div_bolck_msg.textContent = `${usernamechat} block you`;
                             if (div_menu.contains(div_menu_child2) == true)
                                 div_menu.removeChild(div_menu_child2);
                         }
@@ -383,7 +388,7 @@ function create_chatRoom(map)
                             div_chat_tools.removeChild(div_bolck_msg);
                         if (div_menu.contains(div_menu_child2) == false)
                             div_menu.append(div_menu_child2);
-                        button_block.textContent = `${map_action[username2]} ${username2}`;
+                        button_block.textContent = `${map_action[username2]} ${usernamechat}`;
                     }
                 })
                 .catch(error =>{
@@ -394,13 +399,13 @@ function create_chatRoom(map)
             Web_socket.onerror = ()=>{
                 location.reload();
             }
-            let div_animate;
+            // let div_animate;
             Web_socket.onmessage =  (e) =>{
-                send_request(room_name, username1, usernameid);
                 let data_message = JSON.parse(e.data);
 
                 if (data_message.task == 'send_message')
                 {   
+                    send_request(room_name, username1, usernameid);
                     let div_time = document.createElement('div')
                     div_time.innerHTML = ParceDate(data_message.time);
                     if (data_message.status == "success")
@@ -454,15 +459,15 @@ function create_chatRoom(map)
                             div_chat_tools.removeChild(div_bolck_msg);
                         if (div_menu.contains(div_menu_child2) == false)
                             div_menu.append(hrElement,div_menu_child2);
-                        button_block.textContent = `${map_action[username2]} ${username2}`;
+                        button_block.textContent = `${map_action[username2]} ${usernamechat}`;
                     }
                     else if (data_message.action == 'block')
                     {
                         map_action[username2] = 'unblock';
                         if (data_message.sender == username1)
-                            div_bolck_msg.textContent = `you are blocked ${username2} try to unblock`;
+                            div_bolck_msg.textContent = `you are blocked ${usernamechat} try to unblock`;
                         else {
-                            div_bolck_msg.textContent = `${username2} block you`
+                            div_bolck_msg.textContent = `${usernamechat} block you`
                             if (div_menu.contains(div_menu_child2) == true)
                             {
                                 div_menu.removeChild(div_menu_child2);
@@ -473,12 +478,12 @@ function create_chatRoom(map)
                         chat_input.hidden = true;
                         button_chat.hidden = true;
                         div_chat_tools.style.color = 'white'; 
-                        button_block.textContent = `${map_action[username2]} ${username2}`;
+                        button_block.textContent = `${map_action[username2]} ${usernamechat}`;
                     }
                 }
                 else if (data_message.task == 'is_typing' && data_message.sender != username1){
                     if (data_message.action == 'up'){
-                        user_status.textContent = `${username2} is typing ...`;
+                        user_status.textContent = `${usernamechat} is typing ...`;
                     }
                     else if (data_message.action == 'down'){
                         if (button.querySelector('.chat-friend-status').style.backgroundColor == 'green')
@@ -493,6 +498,7 @@ function create_chatRoom(map)
             button_chat.addEventListener('click', () => {
                 if (String(chat_input.value).length && hasNonPrintableChars(chat_input.value) == true)
                 {
+
                     Web_socket.send(JSON.stringify({
                         'task' : 'send_message',
                         'sender' : username1,
@@ -500,11 +506,12 @@ function create_chatRoom(map)
                         'room_name' : room_name,
                         'action' : "",
                         'user_id' : button.id,
+                        'name' : document.querySelector('#login').textContent,
                     }));
                     chat_input.value = "";
                 }
             })
-            chat_input.addEventListener('input', ()=>{
+            chat_input.addEventListener('focus', ()=>{
                 Web_socket.send(JSON.stringify({
                     'task' : 'is_typing',
                     'action' : 'up',
@@ -528,6 +535,8 @@ function create_chatRoom(map)
                         'room_name' : room_name,
                         'action' : '',
                         'user_id' : button.id,
+                        'name' : document.querySelector('#login').textContent,
+
                     }));
                     chat_input.value = "";
                     // chat_input.blur();
@@ -565,21 +574,20 @@ function create_chatRoom(map)
             if (!(e.clientX >= div.left && e.clientX <= div.right && div.top <= e.clientY && div.bottom >= e.clientY))
             {
                 check = true;
-                // chat_container.removeChild(div_menu);
                 div_menu.remove();
             }
         }
     })
     div_info.addEventListener('click', () =>{
         if (check == true){
-            button_block.textContent = `${map_action[username2]} ${username2}`;
-            button_info.textContent = `${username2}'s profile`;
-            button_game.textContent = `play with ${username2}`;
+            button_block.textContent = `${map_action[username2]} ${usernamechat}`;
+            button_info.textContent = `${usernamechat}'s profile`;
+            button_game.textContent = `play with ${usernamechat}`;
             button_game.addEventListener('click', ()=>{
                 cleaning_chat();
-                challenge_friend(username2);
+                challenge_friend(usernamechat);
             });
-            div_menu_child1.id = username2;
+            div_menu_child1.id = usernamechat;
             chat_container.append(div_menu);
             check = false;
         }

@@ -15,9 +15,7 @@ def getAllConversationMessage(request):
     if (request.method == 'POST'):
         json_content = json.loads(request.body)
         user_id = str(json_content.get('id_user'))
-        username = json_content.get('username')
         tab = []
-     
         convers = Conversation.objects.all()
         
         if (convers is not None):
@@ -27,7 +25,7 @@ def getAllConversationMessage(request):
                     user_sender = ''
                     msgs = Message.objects.filter(conversation=c, read_msg=False)
                     for msg in msgs:
-                        if (username != msg.sender_name):
+                        if (int(json_content.get('id_user')) != int(msg.sender_name)):
                             count = count + 1
                             user_sender = msg.sender_name
                     if (user_sender != '' and count != 0):
@@ -42,13 +40,16 @@ def getAllConversation(request):
         json_content = json.loads(request.body)
         user_id = str(json_content.get('id_user'))
         count = 0
+        # print('=======================> ', user_id)  
         try:
             convers = Conversation.objects.all()
             for c in convers:
                 if (user_id in c.room_name):
                     msg = Message.objects.filter(conversation=c).last()
-                    if (msg is not None and msg.read_msg == False and json_content.get('username') != msg.sender_name):
+                    if (msg is not None and msg.read_msg == False and int(json_content.get('id_user')) != int(msg.sender_name)):
+                        # print('is here enetring ')             
                         count = count + 1
+            # print('=============>' ,  count)   
             return JsonResponse({'status' : 'success','not_read' : count})
         except Exception as e:
             return JsonResponse({'status' : 'success', 'not_read' : 0})
@@ -134,7 +135,7 @@ def block_user(request):
             try:
                 _conversation = Conversation.objects.get(room_name=room_name)
                 _conversation.block_conversation = False
-                _conversation.user_bloking = ""
+                _conversation.user_bloking = -1
                 _conversation.save()
                 return JsonResponse({
                     'status' : 'success',
