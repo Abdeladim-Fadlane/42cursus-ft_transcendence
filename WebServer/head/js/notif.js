@@ -4,6 +4,8 @@ import { fetchSuggestions } from './invite.js';
 // import { fetchAndUpdateFriends } from './msgfriend.js';
 import { handlechalleng } from './challenge.js';
 import { view_profile } from './userInformation.js';
+import { fetchAndUpdateFriends} from './msgfriend.js';
+
 let count = 0;
 
 
@@ -83,6 +85,7 @@ function handleRequestAction(action, senderUsername, requestId) {
                     handlenotif();
                     fetchdelette();
                     handlechalleng();
+                    fetchAndUpdateFriends();
                    
                 } else {
                     console.error('Failed to handle request:', data.message);
