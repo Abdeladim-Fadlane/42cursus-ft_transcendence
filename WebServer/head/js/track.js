@@ -16,10 +16,11 @@ let Profile_module = window.getComputedStyle(document.querySelector('#content-us
 
 let area = document.querySelector('.carte-message');
 
-function show_message(content, username){
+async function show_message(content, username){
     
     const now = new Date();
-    fetch('/api/csrf-token/')
+    // console.log(username)
+    await fetch('/api/csrf-token/')
     .then(response =>{
         return response.json();
     })
@@ -40,6 +41,7 @@ function show_message(content, username){
         .then(data=>{
             area.id = data.id;
             area.querySelector('.carte-user-profile').querySelector('img').src = data.photo_profile;
+            console.log(data)
         })
     })
     area.querySelector('.carte-sender-name').textContent = username;
@@ -89,9 +91,9 @@ fetch('/api/token/')
             if (typeof(data) == 'object' && data.message.message === "friend send message"){
                 fetchConversation(user_id.className, user_name.textContent)
                 fetchAllMessage(user_id.className, user_name.textContent);
-            
+                console.log( data.message.name)
                 if (window.getComputedStyle(document.getElementById("chat")).display == 'none')
-                    show_message(data.message.message_content, data.message.sender_name);
+                    show_message(data.message.message_content, data.message.name);
             }
             else if (data.message === 'friend_request_send') {
                 handlenotif();

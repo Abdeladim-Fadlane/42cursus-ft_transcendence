@@ -3573,21 +3573,21 @@ label{
     color: white;
 }
 .carte-message-content{
-    position: absolute;
-    left:26%;
-    margin-right: 10px;
-    top: 30%;
-    text-align: start;
-    max-width: 268px;
-    display: inline-block;
-    justify-content: center;
-    align-items: center;
-    max-height: 140px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    white-space: pre-wrap;
-
-    color: white;
+  position: absolute;
+  left: 26%;
+  margin-right: 10px;
+  top: 30%;
+  text-align: start;
+  max-width: 268px;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  max-height: 140px;
+  word-break: break-word;
+  overflow-y: auto;
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  color: white;
 }
 @keyframes fadeInOut {
   0% {

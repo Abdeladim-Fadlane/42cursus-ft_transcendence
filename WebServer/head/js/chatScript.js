@@ -506,6 +506,7 @@ function create_chatRoom(map)
                         'room_name' : room_name,
                         'action' : "",
                         'user_id' : button.id,
+                        'name' : document.querySelector('#login').textContent,
                     }));
                     chat_input.value = "";
                 }
@@ -527,7 +528,6 @@ function create_chatRoom(map)
             chat_input.addEventListener('keyup', (e) => {
                 if (String(chat_input.value).length && e.key == 'Enter' && hasNonPrintableChars(chat_input.value) == true)
                 {   
-                    // console.log(username1);
                     Web_socket.send(JSON.stringify({
                         'task' : 'send_message',
                         'sender' : username1,
@@ -535,6 +535,8 @@ function create_chatRoom(map)
                         'room_name' : room_name,
                         'action' : '',
                         'user_id' : button.id,
+                        'name' : document.querySelector('#login').textContent,
+
                     }));
                     chat_input.value = "";
                     // chat_input.blur();
@@ -583,9 +585,9 @@ function create_chatRoom(map)
             button_game.textContent = `play with ${usernamechat}`;
             button_game.addEventListener('click', ()=>{
                 cleaning_chat();
-                challenge_friend(username2);
+                challenge_friend(usernamechat);
             });
-            div_menu_child1.id = username2;
+            div_menu_child1.id = usernamechat;
             chat_container.append(div_menu);
             check = false;
         }
