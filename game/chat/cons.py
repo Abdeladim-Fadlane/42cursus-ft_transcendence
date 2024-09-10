@@ -233,12 +233,6 @@ class   User:
         for key, value in dict.items():
             setattr(self, key, value)
 
-    def serialize_User(self):
-        return{
-            'login':self.username,
-            'icon':self.photo_profile,
-        }
-
 from . main_socket import connects
 
 class RacetCunsumer(AsyncWebsocketConsumer):
