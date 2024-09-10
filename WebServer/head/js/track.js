@@ -41,7 +41,7 @@ async function show_message(content, username){
         .then(data=>{
             area.id = data.id;
             area.querySelector('.carte-user-profile').querySelector('img').src = data.photo_profile;
-            console.log(data)
+            // console.log(data)
         })
     })
     area.querySelector('.carte-sender-name').textContent = username;

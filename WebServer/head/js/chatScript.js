@@ -228,7 +228,7 @@ function create_chatRoom(map)
     user_status.classList.add('header-chat-status');
     let usernamechat;
     buttons_friends.forEach(button => {
-        button.addEventListener('click', async (e) =>
+        button.onclick =  async (e) =>
         {
             if (button == last_button)
                 return ;
@@ -262,7 +262,7 @@ function create_chatRoom(map)
             const data = await response.json();
             const user_response = await fetch('/api/data/');
             const user = await user_response.json();
-            console.log(data.token, user.id)
+            // console.log(data.token, user.id)
             let url = `/DisplayMsg/${room_name}?token=${data.token}&id=${user.id}`
             fetch(url)
             .then(response => {
@@ -272,7 +272,7 @@ function create_chatRoom(map)
                 return response.json();
             })
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 for (let i = 0; i < data.length; i++)
                 {
                     let div_parent = document.createElement("div");
@@ -500,7 +500,7 @@ function create_chatRoom(map)
                 chat_div.scrollTop = chat_div.scrollHeight - chat_div.clientHeight;
             }
             
-            button_chat.addEventListener('click', () => {
+            button_chat.onclick = () => {
                 if (String(chat_input.value).length && hasNonPrintableChars(chat_input.value) == true)
                 {
 
@@ -515,8 +515,18 @@ function create_chatRoom(map)
                     }));
                     chat_input.value = "";
                 }
-            })
-            chat_input.addEventListener('focus', ()=>{
+            }
+            chat_input.addEventListener('input', ()=>{
+                if (chat_input.value == '')
+                {
+                    Web_socket.send(JSON.stringify({
+                        'task' : 'is_typing',
+                        'action' : 'down',
+                        'sender' : username1
+                    }))
+                    return ;
+                }
+
                 Web_socket.send(JSON.stringify({
                     'task' : 'is_typing',
                     'action' : 'up',
@@ -554,21 +564,11 @@ function create_chatRoom(map)
                 console.log('the connection has been closed')
             }
 
-        })
+        }
     });
-    // document.addEventListener('click', function(event) {
-    //     // let div_search = document.querySelector('.nav-search');
-    //     if (div_menu && !div_menu.contains(event.target) && check == false) {
-    //         // isdone = false;
-    //         check = true
-    //         div_menu.remove();
-    //         // chat_container.removeChild(div_menu)
-    //         // search.value = '';
-    //         // search.style.transform = 'rotateY(90deg)'; 
-    //         // div_user.textContent = '';
-    //     }
-    // });
-    chat_container.addEventListener('click', (e) =>{
+  
+    chat_container.onclick  = (e) =>
+    {
         if (check == false)
         {
             let div = div_menu.getBoundingClientRect();
@@ -582,8 +582,9 @@ function create_chatRoom(map)
                 div_menu.remove();
             }
         }
-    })
-    div_info.addEventListener('click', () =>{
+    }
+    div_info.onclick =  () =>
+    {
         if (check == true){
             button_block.textContent = `${map_action[username2]} ${usernamechat}`;
             button_info.textContent = `${usernamechat}'s profile`;
@@ -601,7 +602,7 @@ function create_chatRoom(map)
             if (chat_container.contains(div_menu))
              chat_container.removeChild(div_menu);
         }
-    });
+    }
     function do_action(e)
     {
         fetch('/chatCsrftoken/')
@@ -641,10 +642,11 @@ function create_chatRoom(map)
                     });
             })
             .catch(error =>{ 
+                console.log(error);
                 console.error('Error fetching CSRF token:', error);
             })     
     }
-    div_menu_child2.addEventListener('click', do_action);
+    div_menu_child2.addEventListener('click',do_action);
 }
 
 
