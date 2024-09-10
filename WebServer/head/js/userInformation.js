@@ -195,7 +195,7 @@ function button_profile(username, Profileid){
                         parent_button.style.display = 'flex';
                         delete_friend.id = username;
                         chat_button.id = Profileid;
-                        // console.log(Profileid)
+                 
                         return ;
                     }
                     
@@ -208,7 +208,6 @@ function button_profile(username, Profileid){
            
         }
         
-        // console.log('------------------------')
     })
     .catch(error=>{console.log(error);return ;})
 }
@@ -369,18 +368,10 @@ if (content_user)
             close_user();
         }
     });
-// document.getElementById('content-user').addEventListener('click', function(event) {
 
-   
-    
-//     if (event.target === this) {
-//         // console.log('close_user');
-//         close_user(); // Close modal only if clicking on #content-user directly
-//     }
-// });
 function view_friends()
 {
-    // console.log("view_friends");
+  
     const modal = document.getElementById('view-friends');
     modal.style.display = 'flex';
     document.getElementById('view-matchs').style.display = 'none';
@@ -389,7 +380,7 @@ function view_friends()
 }
 function view_matchs()
 {
-    // console.log("view_matchs");
+  
     const modal = document.getElementById('view-matchs');
     modal.style.display = 'flex';
     document.getElementById('view-friends').style.display = 'none';

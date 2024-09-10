@@ -40,7 +40,7 @@ imageInput.addEventListener('input', (e)=>{
         return ;
     var type_file = e.target.files[0].type.startsWith('image/');
     var size_image = e.target.files[0].size;
-    console.log(type_file);
+    console.log(e.target.files[0].type);
     console.log(size_image);
     if (e.target.value.length != 0 && type_file  === true && size_image <= (1048576 * 2))
     {
@@ -57,6 +57,7 @@ imageInput.addEventListener('input', (e)=>{
 
 const Setting_msg = document.querySelector('.setting-msg');
 function display_status(status, error){
+   
     const icon = Setting_msg.querySelector('i');
     const msg = Setting_msg.querySelector('.setting-msg-text')
     if (status === true){
@@ -89,6 +90,12 @@ form1.addEventListener('submit', async (e)=>{
     
     const dataFrom = new FormData(e.target);
     e.preventDefault();
+    const regix_str = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    if (!regix_str.test(form1.querySelector('#email').value))
+    {
+        display_status(false, 'Email not valid')
+        return ;
+    }
     await fetch('/api/csrf-token/')
     .then(response => response.json())
     .then(data => { 
@@ -103,7 +110,6 @@ form1.addEventListener('submit', async (e)=>{
     })
     .then(response => response.json())
     .then(data=>{
-        console.log(data)
         if (data.status === true) {
             my_data();
         }
