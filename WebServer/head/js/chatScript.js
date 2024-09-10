@@ -251,7 +251,6 @@ function create_chatRoom(map)
         
             let usernameid = document.querySelector('#login').className;
             username1 = usernameid;
-            // console.log(document.querySelector('#login'));
             username2 = button.id;
             usernamechat = button.querySelector('.chat-friend-username').textContent;
             
@@ -263,7 +262,6 @@ function create_chatRoom(map)
             const data = await response.json();
             const user_response = await fetch('/api/data/');
             const user = await user_response.json();
-            // return `wss://${window.location.host}${socket_url}?token=${data.token}&id=${user.id}`;
             console.log(data.token, user.id)
             let url = `/DisplayMsg/${room_name}?token=${data.token}&id=${user.id}`
             fetch(url)
@@ -350,16 +348,16 @@ function create_chatRoom(map)
                 console.log('the web socket has been closed');
             }
             if (Web_socket == null)
-                Web_socket = new WebSocket(`wss://${window.location.host}/wss/chat/${room_name}/`);
+                Web_socket = new WebSocket(`wss://${window.location.host}/wss/chat/${room_name}/${data.token}/${user.id}`);
             
-             Web_socket.onopen = () =>{
+            Web_socket.onopen = () =>{
                 send_request(room_name, username1, usernameid);
                 button.style.backgroundColor = '#764081';
                 button.style.border = '1px #c683d3 solid';
                 button.style.boxShadow = '6px 6px 15px #c683d3';
                 console.log(`WebSocket server is running on wss://${window.location.host}/${room_name}/`);
                 
-                url = `/Converstaion/${room_name}/`;
+                url = `/Converstaion/${room_name}?token=${data.token}&id=${user.id}`;
                 fetch(url)
                 .then(response => {
                     if (!response.ok) {
