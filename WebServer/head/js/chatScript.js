@@ -247,8 +247,9 @@ function create_chatRoom(map)
         
             username1 = document.querySelector('#login').textContent;
             let usernameid = document.querySelector('#login').className;
+            let usernameid1 = button.id;
             username2 = button.querySelector('p').textContent;
-            
+            // console.log(usernameid , '======' , usernameid1);
             room_name = generateRoomName( usernameid ,button.id);
             let icon = document.createElement('i');
             icon.style.color = 'white';
