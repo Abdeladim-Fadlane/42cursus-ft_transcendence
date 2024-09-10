@@ -93,7 +93,7 @@ form1.addEventListener('submit', async (e)=>{
     const regix_str = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     if (!regix_str.test(form1.querySelector('#email').value))
     {
-        display_status(false, 'Email not valid')
+        display_status(false, 'The email is not in a valid format.')
         return ;
     }
     await fetch('/api/csrf-token/')
