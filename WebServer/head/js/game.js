@@ -326,11 +326,7 @@ function Continue_game(action)
     if (action == "Continue")
         game_asid();
     else
-    {
-        game_socket.close(1000, 'Normal Closure');
-        disactiv_sections()
-        document.getElementById("home").style.display = 'flex';
-    }
+        close_game(true);
 }
 
 function    accept_game()
@@ -883,7 +879,7 @@ class   Match
         {
             this.team1_score += 1;
             this.b.x = ww;
-            // console.log("=============>>>", this.players[1].racket.y); + (this.players[1].h / 2)
+            console.log("=============>>>", this.players[1].racket.y); + (this.players[1].h / 2)
             this.b.y = this.players[1].racket.y;
             this.movement = false;
             setTimeout(() => {
