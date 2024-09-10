@@ -78,9 +78,37 @@ def delete_conversation(request, username):
         if (username in obj.room_name):
             obj.delete() 
     return JsonResponse({'status' : 'success'})
+import requests
+def endpoint(token, id):
+    headers = {'Authorization': f'Token {token}'}
+    url = f'http://auth:8000/tasks/{id}'
+    response = requests.get(url, headers=headers)
+    data = None
+    if response.status_code == 200:
+        data = response.json()
+        data['photo_profile'] = data['photo_profile'].replace('http://auth:8000/', '')
+    return data
 
+class   User:
+    def __init__(self, dict):
+        for key, value in dict.items():
+            setattr(self, key, value)
+
+    def serialize_User(self):
+        return{
+            'login':self.username,
+            'icon':self.photo_profile,
+        }
 
 def MessageHistory(request, room_name):
+    user_id = request.GET.get('id')
+    user_token = request.GET.get('token')
+    print(f"token ====> {user_token} id =====> {user_id}")     
+    if (user_id is None or user_token is None):
+        return JsonResponse({'error': 'Forbidden'}, status=403) 
+    user = User(endpoint(user_token, user_id))
+    if (user is None or not (str(user.id) in room_name)):
+        return JsonResponse({'error': 'Forbidden'}, status=403)
     try:
         _conversation = Conversation.objects.get(room_name=room_name)
         message = Message.objects.filter(conversation=_conversation)

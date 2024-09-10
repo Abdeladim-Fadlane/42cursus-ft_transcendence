@@ -228,7 +228,7 @@ function create_chatRoom(map)
     user_status.classList.add('header-chat-status');
     let usernamechat;
     buttons_friends.forEach(button => {
-        button.addEventListener('click', (e) =>
+        button.addEventListener('click', async (e) =>
         {
             if (button == last_button)
                 return ;
@@ -259,7 +259,13 @@ function create_chatRoom(map)
             let icon = document.createElement('i');
             icon.style.color = 'white';
             icon.classList.add('fa-solid', 'fa-ellipsis-vertical');
-            let url = `/DisplayMsg/${room_name}`
+            const response = await fetch('/api/token/');
+            const data = await response.json();
+            const user_response = await fetch('/api/data/');
+            const user = await user_response.json();
+            // return `wss://${window.location.host}${socket_url}?token=${data.token}&id=${user.id}`;
+            console.log(data.token, user.id)
+            let url = `/DisplayMsg/${room_name}?token=${data.token}&id=${user.id}`
             fetch(url)
             .then(response => {
                 if (!response.ok) {
@@ -268,6 +274,7 @@ function create_chatRoom(map)
                 return response.json();
             })
             .then(data => {
+                console.log(data);
                 for (let i = 0; i < data.length; i++)
                 {
                     let div_parent = document.createElement("div");
@@ -583,17 +590,18 @@ function create_chatRoom(map)
             button_block.textContent = `${map_action[username2]} ${usernamechat}`;
             button_info.textContent = `${usernamechat}'s profile`;
             button_game.textContent = `play with ${usernamechat}`;
-            button_game.addEventListener('click', ()=>{
+            button_game.onclick =  ()=>{
                 cleaning_chat();
                 challenge_friend(usernamechat);
-            });
+            }
             div_menu_child1.id = usernamechat;
             chat_container.append(div_menu);
             check = false;
         }
         else{
             check = true;
-            chat_container.removeChild(div_menu);
+            if (chat_container.contains(div_menu))
+             chat_container.removeChild(div_menu);
         }
     });
     function do_action(e)

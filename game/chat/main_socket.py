@@ -7,12 +7,13 @@ from . cons import User, Match
 import requests
 import os
 
-connects = {}    
+connects = {}
 
 class main_socket(AsyncWebsocketConsumer):
     async def connect(self):
         await self.accept()
         self.avaible = True
+        self.room_name = None
         query_string = self.scope['query_string'].decode().split('&')
         token = query_string[0].split('=')[1]
         id = query_string[1].split('=')[1]

@@ -188,6 +188,7 @@ function border_home(pushState = true) {
 
 function challenge_friend(username)
 {
+    console.log("---------->", username);
     main_socket.send(JSON.stringify({'type':'room.create', 'vs':username}));
     close_AI();
     game_asid();

@@ -256,20 +256,19 @@ class RacetCunsumer(AsyncWebsocketConsumer):
         data = endpoint(token, id)
         self.user = User(data)
         if not self.user:
-            self.send(json.dumps({'type':'game.refuse', 'status': 'tocken not valid'}))
+            self.send(json.dumps({'type':'Refuse_to_play', 'status': 'tocken not valid'}))
             self.close()
             return
         if game_type == 'random':
             self.group_name = group_name
         else:
-            if room_creater in connects:
+            if room_creater in connects and connects[room_creater].room_name:
                 self.group_name = connects[room_creater].room_name
             else:
                 self.send(json.dumps({'type':'game.refuse', 'vs': room_creater}))
                 self.close()
                 return
         await self.channel_layer.group_add(self.group_name, self.channel_name)
-        self.i = 1
         if self.group_name in rooms:
             if rooms[self.group_name].players[0].user.username != self.user.username:
                 self.racket = racket(width - ww, (height - hh) / 2, 0, height)
