@@ -11,7 +11,7 @@ height = 300
 hh = 80
 ww = 5
 racket_speed = 1
-score_to_win = 3
+score_to_win = 5
 
 class racket:
     def __init__(self, x, y, min, max):

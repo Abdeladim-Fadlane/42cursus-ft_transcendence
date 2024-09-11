@@ -104,7 +104,6 @@ async def four_players_game(users):
     for i in range(N):
         if group_name in rooms and rooms[group_name].players[i].avaible:
             await rooms[group_name].players[i].send(json.dumps({'type':'game.end', 'result':result[int(i / 2)]}))
-            print("username", rooms[group_name].players[i].user.username, "result---------->", result[int(i / 2)])
             # await rooms[group_name].players[i].channel_layer.group_discard(
             #     group_name, 
             #     rooms[group_name].players[i].channel_name,
@@ -125,7 +124,6 @@ class   four_players(AsyncWebsocketConsumer):
         id = query_parameters[1].split('=')[1]
         data = endpoint(token, id)
         self.user = User(data)
-        print("four_player_connect:::::::::::", self.user.username)
         if self.user.username in waiting:
             await waiting[self.user.username].send(json.dumps({'type':'discard', 'game_type':'four_players_game'}))
             waiting[self.user.username].avaible = False

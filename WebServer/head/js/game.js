@@ -7,7 +7,7 @@ var height;
 var hh = 80
 var ww = 5
 var racket_speed = 2
-var score_to_win = 30
+var score_to_win = 5
 var local_game_starting = false;
 var local_game_Interval;
 var local_game_Interval_starting = false;
