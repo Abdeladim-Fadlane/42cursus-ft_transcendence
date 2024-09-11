@@ -13,7 +13,7 @@ export function fetchSuggestions() {
         .then(response => {
             if (!response.ok) {
                 // document.getElementById('list_friend').style.display = 'none';
-                console.log("Failed to fetch suggestions");
+                // console.log("Failed to fetch suggestions");
                 return;
             }
             return response.json();

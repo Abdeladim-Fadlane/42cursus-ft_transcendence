@@ -145,9 +145,9 @@ function border_home(pushState = true) {
         const url = await get_url(socket_url);
         main_socket = new WebSocket(url);
 
-        main_socket.onopen = function(event) {
-            // console.log("main WebSocket connection established.");
-        };
+        // main_socket.onopen = function(event) {
+        //     // console.log("main WebSocket connection established.");
+        // };
 
         main_socket.onmessage = function(event) {
             var data = JSON.parse(event.data);
@@ -178,9 +178,9 @@ function border_home(pushState = true) {
             location.reload();
         };
 
-        main_socket.onclose = function(event) {
-            // console.log("WebSocket connection closed:", event);
-        };
+        // main_socket.onclose = function(event) {
+        //     // console.log("WebSocket connection closed:", event);
+        // };
     } catch (error) {
         console.error("Error creating WebSocket:", error);
     }
@@ -188,7 +188,6 @@ function border_home(pushState = true) {
 
 function challenge_friend(username)
 {
-    console.log("---------->", username);
     main_socket.send(JSON.stringify({'type':'room.create', 'vs':username}));
     close_AI();
     game_asid();
@@ -425,9 +424,9 @@ async function run(section_id, socket_url, canvas_id, type)
         URL = await get_url(socket_url) + '&type=' + type.type + '&room_creater=' + type.room_creater
         game_socket = new WebSocket(URL);
 
-        game_socket.onopen = function(event) {
-            // console.log("game WebSocket connection established.");
-        };
+        // game_socket.onopen = function(event) {
+        //     // console.log("game WebSocket connection established.");
+        // };
 
         game_socket.onerror = function(event) {
             window.alert("GAME WEBSOCKET ERROR!");
@@ -445,7 +444,6 @@ async function run(section_id, socket_url, canvas_id, type)
             }
             else if (data.type == 'tournament.countdown')
             {
-                console.log("tournament.countdown");
                 var countdown = data.time;
                 const interval = setInterval(() => {
                     document.getElementById('wait_for_matchs_time_id').innerHTML = countdown;

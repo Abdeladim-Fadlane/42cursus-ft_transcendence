@@ -74,12 +74,12 @@ fetch('/api/token/')
        let token = data.token;
         let id = data.id;1
         const socket = new WebSocket(`wss://${window.location.host}/wss/track/?token=${token}&id=${id}`);
-        socket.onopen = () => {
-            console.log('WebSocket connected');
-        };
-        socket.onclose = () => {
-            console.log('WebSocket closed');
-        };
+        // socket.onopen = () => {
+        //     console.log('WebSocket connected');
+        // };
+        // socket.onclose = () => {
+        //     console.log('WebSocket closed');
+        // };
         
         socket.onerror = (error) => {
             console.error('WebSocket error: ', error);
@@ -87,11 +87,11 @@ fetch('/api/token/')
         socket.onmessage =  (event) => {
             
             const data = JSON.parse(event.data);
-            console.log(data.message);
+            // console.log(data.message);
             if (typeof(data) == 'object' && data.message.message === "friend send message"){
                 fetchConversation(user_id.className, user_name.textContent)
                 fetchAllMessage(user_id.className, user_name.textContent);
-                console.log( data.message.name)
+                // console.log( data.message.name)
                 if (window.getComputedStyle(document.getElementById("chat")).display == 'none')
                     show_message(data.message.message_content, data.message.name);
             }

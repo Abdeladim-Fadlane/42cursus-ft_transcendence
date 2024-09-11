@@ -345,7 +345,7 @@ function create_chatRoom(map)
                 if (Web_socket.readyState === WebSocket.OPEN)
                     Web_socket.close();
                 Web_socket = null;
-                console.log('the web socket has been closed');
+                // console.log('the web socket has been closed');
             }
             if (Web_socket == null)
                 Web_socket = new WebSocket(`wss://${window.location.host}/wss/chat/${room_name}/${data.token}/${user.id}`);
@@ -355,7 +355,7 @@ function create_chatRoom(map)
                 button.style.backgroundColor = '#764081';
                 button.style.border = '1px #c683d3 solid';
                 button.style.boxShadow = '6px 6px 15px #c683d3';
-                console.log(`WebSocket server is running on wss://${window.location.host}/${room_name}/`);
+                // console.log(`WebSocket server is running on wss://${window.location.host}/${room_name}/`);
                 
                 url = `/Converstaion/${room_name}?token=${data.token}&id=${user.id}`;
                 fetch(url)
@@ -561,7 +561,7 @@ function create_chatRoom(map)
                 button.style.backgroundColor = '#ffffff00'
                 button.style.border = 'none';
                 button.style.boxShadow = 'none';
-                console.log('the connection has been closed')
+                // console.log('the connection has been closed')
             }
 
         }

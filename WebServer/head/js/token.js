@@ -40,8 +40,8 @@ imageInput.addEventListener('input', (e)=>{
         return ;
     var type_file = e.target.files[0].type.startsWith('image/');
     var size_image = e.target.files[0].size;
-    console.log(e.target.files[0].type);
-    console.log(size_image);
+    // console.log(e.target.files[0].type);
+    // console.log(size_image);
     if (e.target.value.length != 0 && type_file  === true && size_image <= (1048576 * 2))
     {
         // console.log('is here when you go')
@@ -122,7 +122,7 @@ const form2 =  document.querySelector('#passwordForm');
 form2.addEventListener('submit', async (e)=>{
     e.preventDefault();
     const inputs = document.querySelectorAll('input');
-    console.log(inputs);
+    // console.log(inputs);
     const csrfToken2 = document.querySelector('#crcf2');
     const  dataForm = new FormData(e.target);
     await fetch('/api/csrf-token/')

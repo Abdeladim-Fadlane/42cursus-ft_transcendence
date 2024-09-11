@@ -1,6 +1,6 @@
 all : per build 
 	
-git : per add commit push 
+git :per add commit push 
 	
 add : 
 	git add .
@@ -28,7 +28,7 @@ restart:down run
 per :
 	sudo chmod -R 0777 .
 
-clean :
+clean : remove
 	docker compose  down
 	docker compose rm ${docker compose ps -a -q}
 

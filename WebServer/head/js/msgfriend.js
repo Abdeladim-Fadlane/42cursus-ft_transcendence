@@ -84,7 +84,7 @@ export function fetchAndUpdateFriends() {
                 var reward = document.getElementById('list_friend_chat');
                 reward.innerHTML = ""; 
                 if (data.length === 0) {
-                    console.log('is here when you find 0 friend');
+                    // console.log('is here when you find 0 friend');
                     let container = document.createElement('div');
                     container.classList.add('not-found');
                     let p = document.createElement('h2');
