@@ -84,12 +84,16 @@ class   Match:
     def move(self):
         if (self.b.x + self.b.r < ww):
             self.team1_score += 1
-            self.b.x = width / 2
-            self.b.y = height / 2
+            self.b.x = self.players[0].racket.x
+            self.b.y = self.players[0].racket.y + self.players[0].racket.h / 2
+            self.b.vx = -self.b.vx
+            self.b.vy = -self.b.vy
         if (self.b.x - self.b.r > width - ww):
             self.team2_score += 1
-            self.b.x = width / 2
-            self.b.y = height / 2
+            self.b.vx = -self.b.vx
+            self.b.vy = -self.b.vy
+            self.b.x = self.players[1].racket.x
+            self.b.y = self.players[1].racket.y + self.players[1].racket.h / 2
         if (self.b.vx > 0):
             if ((self.b.x + self.b.r) + self.b.vx < (width - ww)):
                 self.b.x += self.b.vx
@@ -232,6 +236,12 @@ class   User:
     def __init__(self, dict):
         for key, value in dict.items():
             setattr(self, key, value)
+    
+    def serialize_User(self):
+        return{
+            'login':self.username,
+            'icon':self.photo_profile,
+        }
 
 from . main_socket import connects
 

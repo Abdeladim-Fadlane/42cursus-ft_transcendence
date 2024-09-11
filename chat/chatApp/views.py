@@ -25,13 +25,6 @@ class   User:
         for key, value in dict.items():
             setattr(self, key, value)
 
-    def serialize_User(self):
-        return{
-            'login':self.username,
-            'icon':self.photo_profile,
-        }
-
-
 def check_User(room_name, user_id, user_token):
     if (user_id is None or user_token is None or room_name is None):
         return False

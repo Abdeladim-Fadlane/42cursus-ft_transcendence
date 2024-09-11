@@ -7,7 +7,7 @@ var height;
 var hh = 80
 var ww = 5
 var racket_speed = 2
-var score_to_win = 3
+var score_to_win = 30
 var local_game_starting = false;
 var local_game_Interval;
 var local_game_Interval_starting = false;
@@ -324,6 +324,7 @@ function showResult(result)
 function Continue_game(action)
 {
     game_socket.send(JSON.stringify({'type':'action', 'action':action}));
+    document.getElementById('waiting_id').innerHTML = '';
     if (action == "Continue")
         game_asid();
     else
@@ -594,7 +595,7 @@ function new_tournament()
 function navigate(section_id) {
     if (section_id == 'play')
     {
-        document.getElementById('waiting_id').innerHTML = '';
+        document.getElementById('waiting_id').innerHTML = 'waiting for onother random player...';
         game_asid();
         document.getElementById("tournament_aside_id").style.display = 'none';
         run('play', '/wss/game/', '2-canvas-id', {'type':'random', 'vs':'undefined'});
@@ -879,9 +880,10 @@ class   Match
         if (this.b.x + this.b.r < ww)
         {
             this.team1_score += 1;
-            this.b.x = ww;
-            console.log("=============>>>", this.players[1].racket.y); + (this.players[1].h / 2)
-            this.b.y = this.players[1].racket.y;
+            this.b.x = (this.players[0].racket.x + this.players[0].racket.w) + this.b.r;
+            this.b.y = this.players[0].racket.y + this.players[0].racket.h / 2;
+            this.b.vx = -this.b.vx;
+            this.b.vy = -this.b.vy;
             this.movement = false;
             setTimeout(() => {
                 this.movement = true;
@@ -890,8 +892,10 @@ class   Match
         if (this.b.x - this.b.r > width - ww)
         {
             this.team2_score += 1;
-            this.b.x = width - ww;
-            this.b.y = this.players[0].racket.y + (this.players[0].h / 2);
+            this.b.x = this.players[1].racket.x - this.b.r;
+            this.b.y = this.players[1].racket.y + this.players[1].racket.h / 2;
+            this.b.vx = -this.b.vx;
+            this.b.vy = -this.b.vy;
             this.movement = false;
             setTimeout(() => {
                 this.movement = true;
@@ -944,6 +948,13 @@ class   Match
                     this.b.vy = -this.b.vy;
                 }
             }
+        }
+        else
+        {
+            if (this.b.x - this.b.r == this.players[0].racket.x + this.players[1].racket.w)
+                this.b.y = this.players[0].racket.y + this.players[0].racket.h / 2;
+            else if (this.b.x + this.b.r == this.players[1].racket.x)
+                this.b.y = this.players[1].racket.y + this.players[1].racket.h / 2;
         }
         this.players.forEach(function(item) {
             item.racket.move();
