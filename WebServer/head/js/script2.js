@@ -429,6 +429,8 @@ function click_chat(pushState = true) {
   if (pushState) {
     window.history.pushState({page: 'chat'}, 'Chat', '?page=chat');
   }
+  let area = document.querySelector('.carte-message');
+  area.style.display = 'none';
   document.getElementById('settings-modale').style.display = 'none';
   const home = document.getElementById("home");
   const profile = document.getElementById("profile");

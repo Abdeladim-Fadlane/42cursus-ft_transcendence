@@ -109,6 +109,7 @@ fetch('/api/token/')
             else if (data.message === 'friend_request_accept') {
                 fetchdelette();
                 fetchAndUpdateFriends();
+                fetchConversation(user_id.className, user_name.textContent)
                 handlechalleng();
                 if (Profile_module.display == 'flex')
                     button_profile(ProfileUsername, ProfileUser_id);

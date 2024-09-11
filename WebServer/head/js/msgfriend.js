@@ -1,4 +1,4 @@
-import { create_chatRoom , setLastButton} from "./chatScript.js";
+import { fetchConversation,fetchAllMessage,create_chatRoom , setLastButton, } from "./chatScript.js";
 
 let map = new Map();
 let previousDataSize = 0;
@@ -43,6 +43,8 @@ if (buttons) {
 fetchAndUpdateFriends();
 let userFind = document.querySelector('.image-chat')
 let name = document.querySelector('#chat-friend-name')
+let user_id = document.querySelector('#login');
+let user_name = document.querySelector('#login');
 export function fetchOnlineFriendInChat(){
     fetch('/api/online/')
     .then(response=>{
@@ -135,6 +137,10 @@ export function fetchAndUpdateFriends() {
                     cleaning_chat();
                 create_chatRoom(map);
                 fetchOnlineFriendInChat()
+                console.log(user_id.className, user_name.textContent)
+                // console.log()
+                fetchConversation(user_id.className, user_name.textContent)
+                fetchAllMessage(user_id.className, user_name.textContent);
         })
         .catch(error => {
             console.error('Error fetching friends:', error);

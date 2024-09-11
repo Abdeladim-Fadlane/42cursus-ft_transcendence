@@ -26,6 +26,7 @@ function send_request(room_name, user_sender, user_id)
             return response.json();
         })
         .then(data=>{
+            console.log(user_id, user_sender)
             fetchConversation(user_id, user_sender);
             fetchAllMessage(user_id, user_sender);
         })
@@ -62,7 +63,9 @@ function fetchAllMessage(userid, username)
                     friend.forEach(f =>{
                         f.querySelector('.user-count-message').textContent = '';
                         f.querySelector('.user-count-message').style.display = 'none'
+                        return ;
                     })
+                
                 for (let j = 0; j < friend.length ; j++)
                 {
                     let check = true;
@@ -71,19 +74,21 @@ function fetchAllMessage(userid, username)
                     {  
                         if (data.values[i].sender_name == friend[j].id)
                         {
+                            if (data.values[i].count_message > 9)
+                                data.values[i].count_message = '9+';
                             friend[j].querySelector('.user-count-message').textContent = data.values[i].count_message;
                             friend[j].querySelector('.user-count-message').style.display = 'flex'
                             check = false;
                             break ;
                         }
-                        
+                        if (check && i + 1 == data.values.length)
+                        {
+                            friend[j].querySelector('.user-count-message').textContent = '';
+                            friend[j].querySelector('.user-count-message').style.display = 'none'
+                            break ;
+                        }
                     }
-                    if (check && j + 1 == friend.length)
-                    {
-                        friend[j].querySelector('.user-count-message').textContent = '';
-                        friend[j].querySelector('.user-count-message').style.display = 'none'
-                        break ;
-                    }
+                   
                 }
             }
             
@@ -228,7 +233,7 @@ function create_chatRoom(map)
     user_status.classList.add('header-chat-status');
     let usernamechat;
     buttons_friends.forEach(button => {
-        button.onclick =  async (e) =>
+        button.onclick =  async (ebtn) =>
         {
             if (button == last_button)
                 return ;
@@ -373,12 +378,18 @@ function create_chatRoom(map)
                         {
                             div_bolck_msg.textContent = `you are blocked ${usernamechat} try to unblock`;
                             if (div_menu.contains(div_menu_child2) == false)
+                            {
                                 div_menu.append(div_menu_child2);
+                                div_menu.append(hrElement);
+                            }
                         }
                         else {
                             div_bolck_msg.textContent = `${usernamechat} block you`;
                             if (div_menu.contains(div_menu_child2) == true)
+                            {
                                 div_menu.removeChild(div_menu_child2);
+                                div_menu.removeChild(hrElement);
+                            }
                         }
                         div_chat_tools.append(div_bolck_msg);
                         chat_input.hidden = true;
@@ -510,7 +521,7 @@ function create_chatRoom(map)
                         'message': chat_input.value,
                         'room_name' : room_name,
                         'action' : "",
-                        'user_id' : button.id,
+                        'user_id' : username2,
                         'name' : document.querySelector('#login').textContent,
                     }));
                     chat_input.value = "";
@@ -533,6 +544,7 @@ function create_chatRoom(map)
                     'sender' : username1,
                 }))
             })
+            chat_input.focus();
             chat_input.addEventListener('blur', ()=>{
                 Web_socket.send(JSON.stringify({
                     'task' : 'is_typing',
@@ -540,8 +552,8 @@ function create_chatRoom(map)
                     'sender' : username1
                 }))
             })
-            chat_input.addEventListener('keyup', (e) => {
-                if (String(chat_input.value).length && e.key == 'Enter' && hasNonPrintableChars(chat_input.value) == true)
+            chat_input.addEventListener('keyup', (event) => {
+                if (String(chat_input.value).length && event.key == 'Enter' && hasNonPrintableChars(chat_input.value) == true)
                 {   
                     Web_socket.send(JSON.stringify({
                         'task' : 'send_message',
@@ -549,7 +561,7 @@ function create_chatRoom(map)
                         'message': chat_input.value,
                         'room_name' : room_name,
                         'action' : '',
-                        'user_id' : button.id,
+                        'user_id' : username2,
                         'name' : document.querySelector('#login').textContent,
 
                     }));
@@ -561,7 +573,6 @@ function create_chatRoom(map)
                 button.style.backgroundColor = '#ffffff00'
                 button.style.border = 'none';
                 button.style.boxShadow = 'none';
-                // console.log('the connection has been closed')
             }
 
         }
