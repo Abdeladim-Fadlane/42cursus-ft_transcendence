@@ -10,15 +10,18 @@ from django.http import HttpResponseForbidden
 from .views import login_required
 import os
 from .views import sendToAllUsers
-from cryptography.fernet import Fernet
+
 
 def get_match_history(request):
     user = login_required(request)
     if not user:
         return HttpResponseForbidden("Forbidden", status=403)
+    username = user.username
     if request.method == 'GET':
+        if request.GET.get('username'):
+            username = request.GET.get('username')
         try:
-            user = CustomUser.objects.get(id=request.session.get('user_id'))
+            user = CustomUser.objects.get(username=username)
         except CustomUser.DoesNotExist:
             return JsonResponse({'status': False, 'message': 'User not found'}, status=404)
         match_history = all_Match.objects.filter(winner=user)
@@ -85,12 +88,10 @@ def token(request):
     if not user:
         return HttpResponseForbidden("Forbidden", status=403)
     key =  os.environ.get('encrypt_key')
-    ferneet = Fernet(key)
     id = request.session.get('user_id')
     token = request.session.get('token')
-    encrypted_token = ferneet.encrypt(token.encode())
     context = {
-        'token': encrypted_token.decode(),
+        'token': token,
         'id': id
     }
     return JsonResponse(context, status=200)
@@ -115,7 +116,7 @@ def update_profile(request):
         user.first_name = first_name
         user.last_name = last_name
         user.email = email
-        sendToAllUsers(user.id, 'profile_change')
+        sendToAllUsers('profile_change')
         user.save()
         return JsonResponse({'status': True}, status=200)
     else:
@@ -131,7 +132,7 @@ def change_profile(request):
         if not photo_profile:
             return JsonResponse({'status': False, 'message': 'Image is required'}, status=200)
         user.photo_profile = photo_profile
-        sendToAllUsers(user.id, 'profile_change')
+        sendToAllUsers('profile_change')
         user.save()
         data = TaskSerializer(CustomUser.objects.get(username=user.username)).data['photo_profile']
         return JsonResponse({'status': True, 'photo_profile' : data}, status=200)
@@ -177,3 +178,5 @@ def set_display_name(request):
 def csrf_token(request):
     token = get_token(request)
     return JsonResponse({'csrfToken': token}, status=200)
+
+

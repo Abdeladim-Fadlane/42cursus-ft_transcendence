@@ -1,0 +1,743 @@
+
+<nav class="navbar">
+<div class="fac_one">
+<div class="navbar-logo">
+    <a class="logo" onclick="border_home()" data-target="home"><img src="./resrc/freecss-logo.png" alt="Logo" ></a>
+    
+</div>
+</div>
+    <div class="navbar-buttons">
+        <ul>
+            <div class="nav-search">
+                <i id="search-icon" class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="search-input" >
+                <div class="users-search-bar"></div>
+            </div>
+            <li ><label id="nameprofile"></label> </li> 
+            <li><div onclick="border_pr()" class="profil" id="imageprofile"></div></li>
+        </ul>
+        <!-- <li  class="mode dark" onclick="dark()"><i class="fa-regular fa-moon"></i></li>
+        <li  class="mode light" onclick="light()"><i class="fa-solid fa-moon"></i></li> -->
+    </div>
+</nav>
+<div class="container">
+<aside>
+    <div class="aside_content">
+        
+            <ul>
+                <li ><a  data-target="home"   onclick="border_home()"  class="icons"  ><i id="Home-aside" class="fa-solid fa-house"></i></a></li>
+                    <li  ><a data-target="profile" onclick="border_pr()"  class="icons" ><i id="Pr-aside" class="fa-solid fa-user"></i></a></li>
+                <li><a data-target="rank" class="rank-bottun aside_button" onclick="rank()"><div class="icons"><i id="rank-aside" class="fa-solid fa-ranking-star"></i></div></a></li>
+
+                <!-- ====================================== -->
+                <a id="game_aside_id" class="icons" onclick="game_asid()"><i id="game-aside" class="fa-solid fa-table-tennis-paddle-ball"></i></a>
+                <a id="tournament_aside_id" class="icons" onclick="tournament_asid(false)"><i id="tournament-aside" class="fa-solid fa-trophy"></i></a>
+                <!-- ====================================== -->
+
+                <li>
+                    <div class="chat-aside-numberMessage"></div>
+                    <a  data-target="chat" class="chat-aside nav-link aside"   onclick="click_chat()">
+                    <div  class="icons"  ><i id="chat-aside" class="fa-solid fa-comment"></i></div>
+                    </a>
+                </li>
+                <li><a data-target="notification" class="notification aside"  onclick="showNotificationsModal()"><div    class="icons" > <i id="notif-aside" class="fa-solid fa-bell"></i> </div><div class="count-noti" id="count-noti"></div></a></li>
+                
+        
+                <li><a  data-target="setting" class="settings-button" onclick="showSettingsModal()"><div class="icons" ><i id="setting-aside" class="fa-solid fa-gear"></i></div></a></li>
+                <li><a data-target="logout" class="logout-button og_out_icon aside_button" onclick="showLogoutModal()"><div class="icons"><i id="logout-aside" class="fa-solid fa-right-from-bracket"></i></div></a></li>
+
+                
+            </ul>
+        
+    </div>
+</aside>
+<article>
+    <div></div>
+    <div id="home" class="content-section home">
+            
+        <div class="images">
+
+            <div class="welcome_home">
+                <h1> <span class="span"> Welcome</span> to <span class="span"> Ping </span> Pong</h1>
+                <h1> Choose <span class="span">a</span> game  <span class="span">mode</span></h1>
+            </div>
+            <div class="play">
+                <div class="game">
+                    <button id="play_game_id" class="home_button" onclick="local_or_remote_game('game')">Start game</button>
+                </div>
+                <div class="game">
+                    <button id="play_game_id" class="home_button" onclick="navigate('ping-pong-4')">4 players game</button>
+                </div>
+                <div class="game">
+                    <button class="home_button" onclick="local_or_remote_game('tournament')">Start Tournament</button>
+                </div>
+            </div>
+    </div>
+        <div class="challenge">
+            <div class="center">
+                <h2>online  friends</h2>
+            </div>
+            <div class="img-online"></div>
+            <div class="list_friend" id="challenge_friend"></div>
+        </div>
+        <div class="invite">
+            <div class="center">
+                <h2>invite to friends</h2>
+            </div>
+            <div class="img-invit"></div>
+            <div class="invet_friend" id="list_friend"></div>
+        </div>
+    </div>
+    <div id="profile" class="content-section profile">
+        <div class="welcome">
+            <div class="prf_to_prf" id="profileid">
+                <h3 id="login"></h3>
+            </div>
+            <div>
+                <div class="rank"><i class="fa-solid fa-ranking-star"></i></div>
+                <h3 id="content_rank"></h3>
+            </div>
+            <div class="scor">
+                <div><h1>Score</h1></div>
+                <div id="content_scor"></div>
+            </div>
+        </div>
+        <div class="data">
+            <div class="leadrboard" id="leadrboard">
+                <div class="data_titel"><h2>Statistique</h2></div>
+                <!-- <div class="img-leadr">you have no statistique yet</div> -->
+                <div class="leadrboard_container"  id="leadrboard_container">
+                    <div class="leadrboard-win"></div>
+                    <div class="leadrboard-lose"></div>
+                    <div class="leadrboard-circle">
+                        <div class="leadrboard-div-white">
+                            <img src="./resrc/leader.png" alt="">
+                            <div class="has-noStatistique">you have no statistique yet</div>
+                        </div>
+                    </div>
+                    <ul class="leader-stats">
+                        <li class="win-stats-leader">
+                            <div class="lederboard-win-statistique"></div>
+                        </li>
+                        <li class="lose-stats-leader">
+                            <div class="lederboard-lose-statistique"></div>
+                        </li>
+                    </ul>
+                    <!-- <div class="lederboard-win-statistique"></div>
+                    <div class="lederboard-lose-statistique"></div> -->
+                </div>
+            </div>
+            
+            <div class="global_data" id="history">
+                <div class="img-history"></div>
+                <div class="data_titel" ><h2>match history</h2></div>
+                <div class="data_history" id="data_history"></div>
+            </div>
+            
+            <div class="achievements" id="achievements">
+                <div class="img-friends"></div>
+
+                <div class="data_titel"><h2>Friends</h2></div>
+                <div class="Friends"  id="Friends"></div>
+
+            </div>
+            
+        </div>
+    </div>
+    <div id="rank" class="content-section rank"> 
+        <h1 class="title-leader">Leaderboard</h1>
+        <div class="rank_container"> 
+            <div class="king" >
+                <div class="crown" id="crown">
+                    <!-- <i class="fa-solid fa-crown"></i>
+                      -->
+                    <img src="./resrc/kings.png" alt="image-crown">
+                </div>
+                <div class="number-one" id="number-one"></div>
+            </div>
+            <div class="second-two" id="second-two">
+                <div class="number-two" id="number-two"></div>
+                <div class="number-tree" id="number-tree"></div>
+            </div>
+        </div>
+        <div class="rank_list" id="rank_list">
+                
+        </div>
+            
+
+    </div>
+
+        
+    <div id="chat" class="content-section aside-co">
+        
+        <div>
+            <h1 class="game_title">
+                <span class="span">Game</span> Chat  <span class="span">Hub</span>
+            </h1>
+
+        </div>
+        <div class="container-chat">
+            
+            <div class="friend-list">
+                <div class="img-chat"></div>
+                <h2>Friends</h2>
+                
+                <ul id="friends">
+                    
+                    <div class="list_friend" id="list_friend_chat">
+                        
+                    </div>
+                </ul>
+            </div>
+        <div class="chat-container">
+            
+            <div id="chat-header" class="chat-header">
+                <div class="image-chat" id="image-chat">
+                    
+                </div>
+                <h2 id="chat-friend-name"></h2>
+                <h2 class="empty-chat-body"><span class="span">Select</span> a friend to <span class="span">chat</span></h2>
+                
+            </div>
+            
+                <div id="chat-messages" class="chat-messages">
+
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="message-input" placeholder="Type a message...">
+                    <button id="button-chat"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+                
+            
+        </div>
+            
+    </div>
+    </div>
+        <div class="carte-message">
+            <div class="carte-user-profile">
+                <img src="" alt="">
+            </div>
+            <div class="carte-sender-name"></div>
+            <div class="carte-date"></div>
+            <div class="carte-message-content"></div>
+        </div>
+        <div id="notifi">
+            <div class="notification-contiener" id="notify">
+                <div class="modal_notificaton">
+                    <div class="close_notificaton">
+                        <span onclick="closeNotificationsModal()" >&times;</span>
+                    </div>
+                    <h1>Notifications</h1>
+                    <div class="img-notif"></div>
+                    
+            </div>
+                <div class="content_notify" id="content_notify">
+
+                </div>
+            </div>
+        </div>
+        <div id="logout-modal" class="modal">
+            <div class="modal-content_set">
+                <span class="close" onclick="closeLogoutModal()">&times;</span>
+                <h2>Confirm Logout</h2>
+                <p>Are you sure you want to logout?</p>
+                <button class="confirm-button" onclick="logout()">Yes</button>
+                <button class="cancel-button" onclick="closeLogoutModal()">No</button>
+            </div>
+        </div>
+        
+        <div id="settings-modale" class="settings-modale">
+            <h1>setting hub</h1>
+            <div class="setting-msg">
+                <i class="fa-solid fa-check"></i>
+                <div class="setting-msg-text">
+                    
+                </div>
+            </div>
+            <div  class="setting-contiener">
+                <!-- <span class="close_set" onclick="closeSettingsModal()">&times;</span> -->
+                    <div class="menu">
+                        <div class="menu-item1" onclick="openTab(event, 'profile-data')">Profile data</div>
+                        <div class="menu-item2" onclick="openTab(event, 'profile-password')">Profile password</div>
+                        <div class="menu-item3" onclick="delete_funcyion()">dellet account</div>
+                        <div class="menu-item4" onclick="showLogoutModal()">Quit</div>
+                        <div class="menu-item5" >
+                            <div class="centermode">
+                            <div class="dark-mode" onclick="dark()">
+                                
+                                    <li  class="mode dark" ><i class="fa-regular fa-sun"></i></li>
+                                </div>
+                                <div class="light-mode" onclick="light()">
+                                    
+                                    <li  class="mode light" ><i class="fa-solid fa-moon"></i></li>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                        <div class="personil-data">
+                            <img class="set-imag" src="./resrc/no_fr.png" alt="">
+                            <input type="hidden" name="csrfmiddlewaretoken" id="crcf_profileuser">
+                            <div class="profil setting_profile" id="profil" >
+                                <img class="edit" src="./resrc/edit.png" alt="Edit Profile">
+                            </div>
+                            <form class="profile_photo_form" method="post" enctype="multipart/form-data">
+                                <input type="file" id="image" name="image" accept="image/*" style="display: none;" >
+                                <button type="submit" id="button_profile_click" style="display: none;"></button>
+                            </form>
+                            
+                            <form id="avatarFrom" enctype="multipart/form-data">
+                                
+                                        <input type="hidden" name="csrfmiddlewaretoken" id="crcf">
+                                        <input type="text" id="username" name="username" placeholder="New UserName"  maxlength="8"  required>
+                                        <input type="text" id="first_name" name="first_name" placeholder="New First Name"   required>
+                                        <input type="text" id="last_name" name="last_name" placeholder="New Last Name"   required >
+                                        <input type="email" id="email" name="email" placeholder="New Email"   required>
+                                        <!-- <div id="messages"></div> -->
+                                        <br>
+                                <button class="submit" type="submit">SAVE</button>
+                            </form>
+                        </div>
+                        
+                            <form id="passwordForm" class="form-container-pass" method="post" enctype="multipart/form-data">
+                                <img class="set-imag" src="./resrc/no_fr.png" alt="">
+                                <div class="center-h3">
+                                    <h3 class="h3_setting">You can change your password if you have password.</h3>
+                                </div>
+                                <input type="hidden" name="csrfmiddlewaretoken" id="crcf2">
+                                <input type="password" id="old_password" name="old_password" placeholder="Old password" required >
+                                <input type="password" id="new_password" name="new_password" placeholder="New password"  minlength="12" required>
+                                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password" minlength="12" >
+                                <!-- <div id="messages1"></div>  -->
+                                
+                                <button class="submit isintra" type="submit">SAVE</button>
+                                
+                                
+                                <!-- <a class="delet_account" onclick="delete_funcyion()">Delete Acount</a> -->
+                            </form>
+                    
+            </div>
+                
+        </div>
+        <div class="modal_delete" id="modal_delete">
+            <div class="modal-content_no">
+                <span class="close" onclick="closedelete()">&times;</span>
+                <h2>Confirm delete</h2>
+                <p>Are you sure ?</p>
+                <button class="confirm-button" onclick="delete_account()" >Yes</button>
+                <button class="cancel-button"  onclick="closedelete()" >No</button>
+            </div>
+        </div>
+        <div class="content-user" id="content-user">
+            <div class="profile-user">
+                <div class="profile-user-info">
+                    <div class="image_user">
+                        <span class="close_profile" onclick="close_user()">&times;</span>
+                        <img class="profile-user-photo_profile" src="" alt="">
+                        <span class="profile-user-status">
+                            <p class="profile-user-status-color"></p>
+                            <p class="profile-user-status-string"></p>
+                        </span>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-user"></i>
+                        <h2 class="profile-user-info-username"></h2>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-star"></i>
+                        <h2 class="profile-user-info-score"></h2>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-ranking-star"></i>
+                        <h2 class="profile-user-info-rank"></h2>
+                    </div>
+                </div>
+                <div class="profile-user-action">
+                    <button class="profile-user-action-add_friend btn btn-outline-success">Add friend</button>
+                    <button class="profile-user-action-unfriend btn btn-outline-danger">Unfriend</button>
+                    <button class="profile-user-action-go_to_chat btn btn-outline-primary">Go to chat</button>
+                    <div class="profile-user-action-message"></div>
+                </div>
+                <div class="profile-user-body">
+                    <div class="profile-user-more_info">
+                        
+                        <span>First name</span>
+                        <div class="profile-user-firstname"></div>
+                        <hr>
+                        <span>Last name</span>
+                        <div class="profile-user-lastname"></div>
+                        <hr>
+                        <span>Email</span>
+                        <div class="profile-user-email"></div>
+                        <hr>
+                        <span>Account creation date</span>
+                        <div class="profile-user-dateCreationAccount"></div>
+                        <hr>
+                    </div>
+                    <div>
+                        <div class="select-option-profile">
+`                                   <span class="statistique-header">
+                                <i class="fa-solid fa-chart-pie"></i>
+                                statistiques
+                            </span>
+                            <span class="history-header">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                                history Match
+                            </span>
+                        </div>
+                        <div class="profile-user-statistique">
+                            
+                            <div class="no-statistique">
+                                This player has no statistiques yet
+                            </div>
+                            <div class="number-win"></div>
+                            <div class="number-lose"></div>
+                            <div class="circle"></div>
+                            <div class="number-statistique">
+                                <ul>
+                                    <li class="lose-stats">
+                                        <div class="lose-statistique-div">lose</div>
+                                        <div class="lose-statistique"></div>
+                                    </li>
+                                    <li class="win-stats">
+                                        <div class="win-statistique-div">win</div>
+                                        <div class="win-statistique"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="profile-user-history-match">
+                            <div class="no-history">
+                                this Player has no history yet
+                            </div>
+                            <div class="history-player"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section id="loading-section-id">
+            <div class="center_contents flex-direction-column">
+                <h1 id="waiting_id" class="warn_color"></h1>
+                <div id="loading">
+                    <div id="loader"></div>
+                </div>
+            </div>
+        </section>
+        <section id="play">
+            <div class="flex-column">
+                <div class="game_nav">
+                    <button id="toggle-btn">
+                        <img id="screen_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAGpJREFUSEvtVUEKACAIa/9/tNEhsDCYRUZg59k2dYVy+eDy/SWWQERk5QjAIIbFbhU1EUcEs1p2Tp1U15sOkuBdi9hhenCxQfMoY7GxDqygsEp1ut9tUTqgHztrsH/8B56VZLGxQWNVeXAV8rVwGd7+Wh0AAAAASUVORK5CYII="/>
+                    </button>
+                    <a id="control_game_id" class="icons"><i id="start_pause_game_id" class="fa-solid fa-pause" onclick="start_pause_game()"></i></a>
+                    <span id="give_up_from_game_id" onclick="put_section('Give_Up_Game')" class="close_game">&times;</span>
+                </div>
+                <div id="ping-pong-2" class="ping-pong">
+                    <div class="users">
+                        <div class="user1">
+                            <img id="2-canvas-icon-id-0" class="icon" src="/page-home/resrc/game/ice.png">
+                            <h2 id="2-canvas-display_name-id-0" class="display-name">ice</h2>
+                        </div>
+                        <div class="user2">
+                            <h2 id="2-canvas-display_name-id-1" class="display-name">fire</h2>
+                            <img id="2-canvas-icon-id-1" class="icon" src="/page-home/resrc/game/fire.png">
+                        </div>
+                    </div>
+                    <canvas id="2-canvas-id" class="canvas" width="600px" height="300px"></canvas>
+                </div>
+            </div>
+        </section>
+        <section id="refuse_game_id">
+            <div class="pp">
+                <h1 class="game_notification_msg">Game Refused by</h1>
+                <div class="con">
+                    <img id="game_refuse_icon_id">
+                </div>
+                <h1 id="game_refuse_username_id"></h1>
+            </div>
+        </section>
+        <section id="discard_game_id">
+            <div class="pp">
+                <h1>You are join to the same Game on another device<br>with the same account.<h/1>
+            </div>
+        </section>
+        <section id="wait_for_matchs_id">
+            <div class="pp">
+                <h1 class="warn_color">The Tournament Will Start at:</h1>
+                <h1 id="wait_for_matchs_time_id"></h1>
+            </div>
+        </section>
+        <section id="play-4" >
+            <div class="game_nav">
+                <button o id="toggle-btn">
+                    <img id="screen_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAGpJREFUSEvtVUEKACAIa/9/tNEhsDCYRUZg59k2dYVy+eDy/SWWQERk5QjAIIbFbhU1EUcEs1p2Tp1U15sOkuBdi9hhenCxQfMoY7GxDqygsEp1ut9tUTqgHztrsH/8B56VZLGxQWNVeXAV8rVwGd7+Wh0AAAAASUVORK5CYII="/>
+                </button>
+                <a class="icons"><i id="start_pause_game_id" class="fa-solid fa-pause" onclick="start_pause_game()"></i></a>
+                <span id="give_up_from_game_id" onclick="put_section('Give_Up_Game')" class="close_game">&times;</span>
+            </div>
+            <div class="ping-pong">
+                <div class="users">
+                    <div class="user1">
+                        <img id="4-canvas-icon-id-0" class="icon">
+                        <h2 id="4-canvas-display_name-id-0" class="display-name"></h2>
+                    </div>
+                    <div class="user2">
+                        <h2 id="4-canvas-display_name-id-2" class="display-name"></h2>
+                        <img id="4-canvas-icon-id-2" class="icon">
+                    </div>
+                </div>
+                <canvas id="4-canvas-id" class="canvas" width="600px" height="300px"></canvas>
+                <div class="users">
+                    <div class="user1">
+                        <img id="4-canvas-icon-id-1" class="icon">
+                        <h2 id="4-canvas-display_name-id-1" class="display-name"></h2>
+                    </div>
+                    <div class="user2">
+                        <h2 id="4-canvas-display_name-id-3" class="display-name"></h2>
+                        <img id="4-canvas-icon-id-3" class="icon">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="local_tournamet_input_id" class="tournament-input">
+            <h1>
+                <span> Enter </span> names of <span>the players</span>
+            </h1>
+            <div id="local_game_input" class="tournament-input-form">
+                <input id="local_tournament_player1_display_name_id" class="inputt" type="text" placeholder="player1 display name" required>
+                <input id="local_tournament_player2_display_name_id" class="inputt" type="text" placeholder="player2 display name" required>
+                <input id="local_tournament_player3_display_name_id" class="inputt" type="text" placeholder="player3 display name" required>
+                <input id="local_tournament_player4_display_name_id" class="inputt" type="text" placeholder="player4 display name" required>
+                <input id="local_tournament_player5_display_name_id" class="inputt" type="text" placeholder="player5 display name" required>
+                <input id="local_tournament_player6_display_name_id" class="inputt" type="text" placeholder="player6 display name" required>
+                <input id="local_tournament_player7_display_name_id" class="inputt" type="text" placeholder="player7 display name" required>
+                <input id="local_tournament_player8_display_name_id" class="inputt" type="text" placeholder="player8 display name" required>
+                <h3 id="local_tournament_display_names_msg_id" class="IOXI"></h3>
+                <button class="buttonn" onclick="run_local_tournament()">Start</button>
+            </div>
+        </section>
+        <section id="local_or_remote" class="tournament-input">
+            <h1>
+                <span>Choose </span> your <span>game</span>  mode
+            </h1>
+            <div class="result_buttuns">
+                <button id="local_button_id" class="Retry_button w400">Local</button>
+                <button id="remote_button_id" class="Home_button w400">Remote</button>
+            </div>
+        </section>
+        <section id="resultModal" class="result_class">
+            <div class="localresultModal_border">
+                <div class="msg_img">
+                    <h1 id="resultMessage" class="result_msg"></h1>
+                    <div class="center_contents">
+                        <img id="result-gif" class="result_img" src="/page-home/resrc/game/win.gif">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="localresultModal" class="result_class">
+            <div class="localresultModal_border">
+                <h1 class="result_msg">Congration You Won</h1>
+                <div class="con">
+                    <img id="local_game_winner_icon_id">
+                </div>
+                <div class="center_contents">
+                    <h1 id="local_game_winner_dname_id"></h1>
+                </div>
+            </div>
+        </section>
+        <section id="win-tournament-id" class="result_class">
+            <div class="localresultModal_border">
+                <h1 class="result_msg">Congration You are The Champion</h1>
+                <div class="center_contents">
+                    <img class="result_img" src="/page-home/resrc/game/champion.gif">
+                </div>
+            </div>
+        </section>
+        <section id="localtournamentresultModal" class="result_class">
+            <div class="localresultModal_border">
+                <h1 class="result_msg">Congration You are The Champion</h1>
+                <div class="con">
+                    <img id="local_tournament_winner_icon_id" src="/page-home/resrc/game/ice.png">
+                </div>
+                <div class="center_contents">
+                    <h1 id="local_tournament_winner_dname_id">moelkama</h1>
+                </div>
+            </div>
+        </section>
+        <section id="local_game_input_id" class="tournament-input">
+            <h1>
+                <span>Enter </span> your <span>display </span> name
+            </h1>
+            <div id="local_game_input" class="tournament-input-form">
+                <input id="local_game_player1_display_name_id" class="inputt" type="text" placeholder="player1 display name" required>
+                <input id="local_game_player2_display_name_id" class="inputt" type="text" placeholder="player2 display name" required>
+                <h3 id="local_display_names_msg_id" class="IOXI"></h3> 
+                <button class="buttonn" onclick="run_local_game()">Start</button>
+            </div>
+        </section>
+        <section id="tournament_input" class="tournament-input">
+            <form id="display_name-form-id" class="tournament-input-form" enctype="multipart/form-data">
+                <h3 class="twbh">Enter your Tournament display name</h3>
+                <input type="hidden" name="csrfmiddlewaretoken" id="display_name_csrfToken">
+                <input type="text" id="display_name" class="inputt" name="display_name" placeholder="Tournament display name" required><br>
+                <div id="display_name_err"></div>
+                <button type="submit" class="buttonn">Start</button>
+            </form>
+        </section>
+        <section id="tournament_nav_id">
+            <nav class="tournament_nav">
+                <a class="icons" onclick="tst('tournament_list')"><i id="tournament_nav_list_item_id" class="fa-solid fa-list-ul"></i></a>
+                <a class="icons" onclick="tst('play_tournament')"><i id="tournament_nav_making_item_id" class="fa-solid fa-ranking-star"></i></a>
+                <a id="move_to_next_match_id" class="icons" onclick="tst('tournament_next_match_id')"><i id="tournament_nav_NMatch_item_id" class="fa-solid fa-gamepad"></i></a>
+                <a class="Give_Up_tournament" onclick="put_section('Give_Up_Tournament')"><i class="fa-solid fa-xmark"></i></a>
+            </nav>
+            <section class="tournament_section" id="tournament_list">
+                <div class="flex-colomnn">
+                    <div class="center_contents">
+                        <h1 class="wait_class" id="tournament_wait_id"></h1>
+                    </div>
+                    <div class="conteudo">
+                        <div id="tournament_content" class="caixa">
+                            <div class="student">
+                                <img class="student-icon">
+                                <span class="student-name"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="tournament_section" id="play_tournament">
+                <div id="tournament-id" class="tournament">
+                    <div class="round">
+                        <div class="matchup">
+                            <div id="00" class="player">
+                            </div>
+                            <div id="01" class="player"></div>
+                        </div>
+                        <div class="matchup">
+                            <div id="02" class="player"></div>
+                            <div id="03" class="player"></div>
+                        </div>
+                    </div>
+                    <div class="round">
+                        <div class="matchup">
+                            <div id="10" class="player"></div>
+                            <div id="11" class="player"></div>
+                        </div>
+                    </div>
+                    <div class="final_round">
+                        <div class="center_contents">
+                            <div id="20" class="player final_player">
+                                <img class="Match_icon" id="moelkama">
+                                <h2></h2>
+                            </div>
+                            <img src="/page-home/resrc/game/championcup.png" class="championcup">
+                            <div id="21" class="player final_player"></div>
+                        </div>
+                    </div>
+                    <div class="round">
+                        <div class="matchup">
+                            <div id="12" class="player"></div>
+                            <div id="13" class="player"></div>
+                        </div>
+                    </div>
+                    <div class="round">
+                        <div class="matchup">
+                            <div id="04" class="player"></div>
+                            <div id="05" class="player"></div>
+                        </div>
+                        <div class="matchup">
+                            <div id="06" class="player"></div>
+                            <div id="07" class="player"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="tournament_next_match_id">
+                <div class="tournament_Match_class">
+                    <h2 id="Match_round_id" class="color_white"></h2>
+                    <div class="fighters">
+                        <div class="fighter1">
+                            <h1 id="tournament_fighter_username_0"></h1>
+                            <img id="tournament_fighter_icon_0" class="icon">
+                        </div>
+                        <div class="vs">vs</div>
+                        <div class="fighter2">
+                            <img id="tournament_fighter_icon_1" class="icon">
+                            <h1 id="tournament_fighter_username_1"></h1>
+                        </div>
+                    </div>
+                    <button class="Continue" onclick="start_match()">Start</button>
+                </div>
+            </section>
+        </section>
+        <section id="game_notification_id" class="game_notification">
+            <img id="game_notification_icon_id" class="icon">
+            <h2 id="game_notification_username_id" class="display-name"></h2>
+            <h1>Do you want to play a game?</h1>
+            <div class="fighters_bottuns">
+                <button class="Continue" id="acceptBtn_play" onclick="accept_game()">Accept</button>
+                <button class="Give_Up" id="refuseBtn_play" onclick="refuse_game()">Refuse</button>
+            </div>
+        </section>
+        <section id="start_fight">
+            <div class="center_contents">
+                <h1 class="warn_color">Please do not refresh the page until Game end. Refreshing will result in the loss of your Game</h1>
+            </div>
+            <div class="already_in_game_class">
+                <div class="time_out_par">
+                    <div class="fighters">
+                        <div class="fighter1" id="fighter1">
+                            <h1 id="fighter_username_0"></h1>
+                            <img id="fighter_icon_0" class="icon">
+                        </div>
+                        <div class="vs">vs</div>
+                        <div class="fighter2">
+                            <img id="fighter_icon_1" class="icon">
+                            <h1 id="fighter_username_1"></h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="fighters_bottuns">
+                    <button class="Continue" onclick="Continue_game('Continue')">Continue</button>
+                    <button class="Give_Up" onclick="Continue_game('Give_Up')">Give Up</button>
+                </div>
+            </div>
+        </section>
+        <section id="already_in_game_id">
+            <div class="already_in_game_class">
+                <h1 id="already_in_game_wrmsg_id" class="warn_color"></h1>
+                <h3 id="already_in_game_exmsg_id" class="color_red"></h2>
+                <div class="buttonss">
+                    <button id="already_in_game_continue_id" class="Continue" >Continue</button>
+                    <button id="already_in_game_new_id" class="Continue" onclick="close_AI()">Give Up</button>
+                </div>
+            </div>
+        </section>
+        <section id="Give_Up_Game">
+            <div class="Give_Up_Game_class" onclick="disactiv_section('Give_Up_Game')">
+                <div class="already_in_game_class">
+                    <h2 class="warn_color">Are you sure you want to Giv Up from the Game?<h2>
+                    <div class="buttonss">
+                        <button class="Give_Up" onclick="close_AI(true)">Sure</button>
+                        <button class="Continue" onclick="disactiv_section('Give_Up_Game')">Stay</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="Give_Up_Tournament">
+            <div class="Give_Up_Game_class" onclick="disactiv_section('Give_Up_Tournament')">
+                <div class="already_in_game_class">
+                    <h2 class="warn_color">Are you sure you want to Giv Up from the Tournament?<h2>
+                    <div class="buttonss">
+                        <button class="Give_Up" onclick="close_AI(true)">Sure</button>
+                        <button class="Continue" onclick="disactiv_section('Give_Up_Tournament')">Stay</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+</article>
+</div>

@@ -1,0 +1,105 @@
+<div class="container_nav">
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img  src="./resrc/freecss-logo.png" alt="Logo">
+        </div>
+        <div class="navbar-buttons">
+            <button class="sign-in" onclick="ft_sign_in()" ><a  >Sign In</a></button>
+            <button class="sign-up" onclick="ft_sign_up()" ><a  >Sign Up</a></button>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    
+    <div class="home">
+        <div class="h_home">
+            <h1>
+                welcome to my <span class="highlight">game</span>!
+            </h1>
+                <p>
+                    Welcome to our online ping pong game! Enjoy realistic physics and stunning graphics as you challenge players worldwide. Join tournaments
+                </p>
+                <div class="Join_now">
+                        <button class="Join" ><a href="/redirect/">login with intra 42</a></button>
+                </div>
+                
+        </div>
+        <div>
+            <img src="../resrc/rachet_no_bar.gif" alt="">
+        </div>
+
+    </div>
+
+    <div class="play">
+        <div>
+            <img src="../resrc/play_EX.gif" alt="">
+        </div>
+        <div class="play_h">  
+            <div> 
+            <h1>
+                HOW to USING THE <span class="highlight">game</span>
+            </h1>
+            <p>Create an account or log in to start playing. Customize your avatar, choose your paddle, and select a match type. Use your keyboard.
+            </p>
+        </div>
+        </div>
+        
+    </div>
+    
+    
+</div>
+
+<div  id="sign-up-form" class="sign-up-form" >
+    <div class="container-sign">
+        <div class="close_container">
+                <span class="close2" onclick="closeLogoutModal()">&times;</span>
+            </div>
+        <div class="image-sign">
+            <h2>Register</h2>
+        </div>
+        
+        <form method="post" id="login-form-id2" action="/registeruser/" enctype="multipart/form-data">
+            <div class="form-content">
+            
+                <input type="hidden" name="csrfmiddlewaretoken" id="csrfToken">
+            
+                <input type="text" id="username" name="username" placeholder="Username" required><br>
+                <div class="errors" id="messageusername"></div>
+                <input type="text" id="first_name" name="first_name" placeholder="First Name"required><br>
+                <input type="text" id="last_name" name="last_name" placeholder="Last Name" required><br>
+                <input type="email" id="email" name="email" placeholder="Email" required><br>
+                <div class="errors" id="messageemail"></div>
+                <input type="password" id="password1" name="password1" placeholder="Password" required><br>
+                <div class="errors" id="messagepassword"></div>
+                <input type="password" id="password2" name="password2" placeholder="Confirm Password" required><br>
+                <div  class="errors" id="messagepassword2"></div>
+                <button type="submit" >Register</button>
+                <a class="a_to_sign_up" onclick="ft_sign_in()">Back to Login</a>
+        </div>
+            
+        </form>
+    </div>
+</div>
+<div id="login-form" class="login-form">
+    <div class="container-login">
+        
+            <span class="close" onclick="closeLogoutModal()">&times;</span>
+        
+        
+            <form id="login-form-id" method="post" action="/loginuser/">
+                    
+                <input type="hidden" name="csrfmiddlewaretoken" id="csrfToken1"/>
+                <input name="username" type="text" placeholder="Username" required/>
+                <input class="pass" name="password" type="password" placeholder="Password" required/>
+                <div class="errors" id="messages"></div>
+                <button class="pass" type="submit">Login</button>
+                <a onclick="ft_sign_up()">Create an account</a><br>
+            </form>
+            
+   
+        <div class="image-login">
+            <h2>Login</h2>
+        </div>
+    </div>
+</div>
