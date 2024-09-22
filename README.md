@@ -12,7 +12,7 @@ The **ft_transcendence 42 Network** project aims to develop a real-time multipla
    Utilize secure methods for user authentication and authorization to protect player data and account access.
 
 3. **Databases (SQL)** 🗄️  
-   Employ SQL databases (PostgreSQL) to manage user data, game scores, and other essential information efficiently.
+   Employ SQL databases (PostgreSQL) to efficiently manage user data, game scores, and other essential information.
 
 4. **Server-side Frameworks** ⚙️  
    Leverage popular server-side frameworks, using Django as the backend framework to streamline development and enhance performance.
@@ -26,8 +26,6 @@ The **ft_transcendence 42 Network** project aims to develop a real-time multipla
 7. **Microservices Architecture** 🧩  
    Adopt a microservices architecture to enhance modularity and facilitate the independent deployment of different components.
 
-8. **Testing & Deployment** 🚢  
-   Implement robust testing protocols and deployment strategies to ensure reliability and continuous integration.
 
 ## Resources for Django Framework
 - [Connect Django with PostgreSQL](https://github.com/docker/awesome-compose/blob/master/official-documentation-samples/django/README.md)
@@ -56,13 +54,10 @@ The **ft_transcendence 42 Network** project aims to develop a real-time multipla
 2. Navigate to the cloned directory:
     ```bash 
     cd 42cursus-ft_transcendence
-3. Build the project:
+3. Build and Run the project:
     ```bash 
     make
-4. Run the server:
-    ```bash
-    make 
-5. Try on browser:
+4. Try on browser:
     ```bash
     https://localhost:443/
 ### Contributors
