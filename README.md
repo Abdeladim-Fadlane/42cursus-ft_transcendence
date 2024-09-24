@@ -45,7 +45,8 @@ The **ft_transcendence 42 Network** project aims to develop a real-time multipla
 - [Docker](https://www.docker.com/)
 
 ### Installation & Usage
-**Note:** Remote authentication is currently not functional due to privacy concerns related to environment variables.
+**Note:** Remote authentication is currently not functional due to privacy concerns related to the environment 
+variables (You need to obtain you client_id and client_secret from intra API)
 
 1. **Clone the repository:**
    ```bash
