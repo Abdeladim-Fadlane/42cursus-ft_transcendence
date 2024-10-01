@@ -25,7 +25,19 @@ SECRET_KEY = 'django-insecure-abfzmusiz2ne1w-r)zpyk9@7$z1i(m1m&3t6ww0z$kl8$j2hyd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+CORS_ALLOW_ALL_ORIGINS = True  # Change to False for security
+CORS_ALLOWED_ORIGINS = [
+    'https://psychic-chainsaw-76q55ppp5573p6g6.github.dev',
+    'https://localhost:443',  # Include this for local requests
+]
+
+# CSRF trusted origins
+CSRF_TRUSTED_ORIGINS = [
+    'https://psychic-chainsaw-76q55ppp5573p6g6.github.dev',
+    'https://localhost:443',  # Add this line if you're testing locally
+]
+
 
 
 # Application definition
