@@ -63,6 +63,6 @@ variables (You need to obtain you client_id and client_secret from intra API)
     https://localhost:443/
 ### Contributors
 - [Abdeladim Fadlane](https://github.com/Abdeladim-Fadlane)
-- [Ayoub Katfi](https://github.com/ayyoubkatfi)
+- [Ayyoub Katfi](https://github.com/ayyoubkatfi)
 - [Yassine Khay](https://github.com/yakhay)
 - [Mohammed Elkammel](https://github.com/moelkama)
